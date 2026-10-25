@@ -1,0 +1,648 @@
+{
+  "source": "болт1_1.pdf",
+  "source_sha256": "76cf60978eaa6d56337eecb68644db9c144862067ad1ba3e0bcc4ea0dfd3bfbe",
+  "source_type": "single raster image, no PDF text or vector paths",
+  "image_size_px": [
+    2779,
+    1965
+  ],
+  "source_pdf_page_mm": [
+    277.90000543416664,
+    196.49999981805553
+  ],
+  "output": "болт1_1.dxf",
+  "output_sha256": "383ab77682c31140ef2ed21dd93a4aead0fab0ed1daf1a0262fe2a6dc901055a",
+  "dxf_version": "AC1021",
+  "units": "mm",
+  "layout": "A3, viewport 1:1",
+  "scale_mm_per_px": 0.1519859401466198,
+  "calibration": "visible 180 mm dimension, measured under-head and end edges",
+  "calibration_px": [
+    485.6104513064133,
+    1669.93052608672
+  ],
+  "modelspace_entities": {
+    "DIMENSION": 15,
+    "TEXT": 35,
+    "LINE": 83,
+    "ARC": 9,
+    "CIRCLE": 2,
+    "LWPOLYLINE": 168,
+    "HATCH": 161
+  },
+  "audit_errors": 0,
+  "audit_fixes": 0,
+  "dimensions": [
+    {
+      "label": "180",
+      "handle": "94",
+      "measurement_mm_or_deg": 180.0,
+      "expected": 180
+    },
+    {
+      "label": "15±0,5",
+      "handle": "A9",
+      "measurement_mm_or_deg": 15.0,
+      "expected": 15
+    },
+    {
+      "label": "6",
+      "handle": "BD",
+      "measurement_mm_or_deg": 6.0,
+      "expected": 6
+    },
+    {
+      "label": "30±1,5",
+      "handle": "D4",
+      "measurement_mm_or_deg": 30.0,
+      "expected": 30
+    },
+    {
+      "label": "4×20°",
+      "handle": "E8",
+      "measurement_mm_or_deg": 4.0,
+      "expected": 4
+    },
+    {
+      "label": "%%c27",
+      "handle": "101",
+      "measurement_mm_or_deg": 27.0,
+      "expected": 27
+    },
+    {
+      "label": "%%c22",
+      "handle": "11B",
+      "measurement_mm_or_deg": 22.0,
+      "expected": 22
+    },
+    {
+      "label": "%%c18",
+      "handle": "130",
+      "measurement_mm_or_deg": 18.0,
+      "expected": 18
+    },
+    {
+      "label": "M20×1,5-6h",
+      "handle": "144",
+      "measurement_mm_or_deg": 20.0,
+      "expected": 20
+    },
+    {
+      "label": "34,6",
+      "handle": "15F",
+      "measurement_mm_or_deg": 34.60000000000002,
+      "expected": 34.6
+    },
+    {
+      "label": "32*",
+      "handle": "17A",
+      "measurement_mm_or_deg": 29.964478970941627,
+      "expected": null
+    },
+    {
+      "label": "30%%d",
+      "handle": "194",
+      "measurement_mm_or_deg": 30.000000000000007,
+      "expected": 30
+    },
+    {
+      "label": "R0,5±0,3",
+      "handle": "1AD",
+      "measurement_mm_or_deg": 0.5,
+      "expected": 0.5
+    },
+    {
+      "label": "R10...15",
+      "handle": "1BD",
+      "measurement_mm_or_deg": 12.499999999999998,
+      "expected": 12.5
+    },
+    {
+      "label": "R10...15",
+      "handle": "1CE",
+      "measurement_mm_or_deg": 12.499999999999995,
+      "expected": 12.5
+    }
+  ],
+  "texts": [
+    {
+      "text": "180",
+      "source_box_px": [
+        1090,
+        675,
+        1200,
+        716
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "15±0,5",
+      "source_box_px": [
+        195,
+        665,
+        365,
+        712
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "6",
+      "source_box_px": [
+        565,
+        625,
+        623,
+        672
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "30±1,5",
+      "source_box_px": [
+        1480,
+        625,
+        1660,
+        675
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "4×20°",
+      "source_box_px": [
+        1730,
+        558,
+        1867,
+        603
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "%%c27",
+      "source_box_px": [
+        220,
+        420,
+        264,
+        553
+      ],
+      "rotation": 90
+    },
+    {
+      "text": "%%c22",
+      "source_box_px": [
+        283,
+        437,
+        328,
+        536
+      ],
+      "rotation": 90
+    },
+    {
+      "text": "%%c18",
+      "source_box_px": [
+        1040,
+        302,
+        1088,
+        400
+      ],
+      "rotation": 90
+    },
+    {
+      "text": "M20×1,5-6h",
+      "source_box_px": [
+        1678,
+        112,
+        1727,
+        407
+      ],
+      "rotation": 90
+    },
+    {
+      "text": "34,6",
+      "source_box_px": [
+        2383,
+        448,
+        2435,
+        561
+      ],
+      "rotation": 90
+    },
+    {
+      "text": "32*",
+      "source_box_px": [
+        2115,
+        638,
+        2215,
+        681
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "30%%d",
+      "source_box_px": [
+        390,
+        208,
+        468,
+        259
+      ],
+      "rotation": -30
+    },
+    {
+      "text": "R0,5±0,3",
+      "source_box_px": [
+        572,
+        180,
+        782,
+        232
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "R10...15",
+      "source_box_px": [
+        635,
+        288,
+        810,
+        332
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "R10...15",
+      "source_box_px": [
+        1133,
+        250,
+        1305,
+        294
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "1. Допускается изготовление из Сталь 40Х ГОСТ 4543–71.",
+      "source_box_px": [
+        1530,
+        768,
+        2650,
+        819
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "2. Группа контроля III по ТУ 108–22–025–79.",
+      "source_box_px": [
+        1530,
+        822,
+        2605,
+        878
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "3. 28..35HRCэ (255..311HB, d10 3,8..3,45)",
+      "source_box_px": [
+        1530,
+        882,
+        2470,
+        938
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "4. Неуказанные предельные отклонения размеров:",
+      "source_box_px": [
+        1530,
+        940,
+        2690,
+        991
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "5.* Размеры для справок.",
+      "source_box_px": [
+        1530,
+        1050,
+        2135,
+        1106
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "оси резьбы не более 0,1мм на %%c30мм.",
+      "source_box_px": [
+        1460,
+        1163,
+        2345,
+        1220
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "7. Покрытие Кд9.Хр с последующим удалением",
+      "source_box_px": [
+        1530,
+        1220,
+        2605,
+        1276
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "водородной хрупкости.",
+      "source_box_px": [
+        1460,
+        1277,
+        2045,
+        1333
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "8. Технические требования по ГОСТ 1759–70.",
+      "source_box_px": [
+        1530,
+        1334,
+        2580,
+        1389
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "9. Резьбу контролировать до покрытия.",
+      "source_box_px": [
+        1530,
+        1390,
+        2510,
+        1446
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Болт",
+      "source_box_px": [
+        2050,
+        1710,
+        2230,
+        1790
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Литер.",
+      "source_box_px": [
+        2410,
+        1668,
+        2495,
+        1695
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Масса",
+      "source_box_px": [
+        2505,
+        1668,
+        2595,
+        1695
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Масшт.",
+      "source_box_px": [
+        2615,
+        1668,
+        2731,
+        1695
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "А",
+      "source_box_px": [
+        2415,
+        1715,
+        2440,
+        1763
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "0,55",
+      "source_box_px": [
+        2510,
+        1715,
+        2605,
+        1770
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "1:1",
+      "source_box_px": [
+        2640,
+        1715,
+        2717,
+        1770
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Лист",
+      "source_box_px": [
+        2410,
+        1800,
+        2496,
+        1825
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Листов 1",
+      "source_box_px": [
+        2552,
+        1800,
+        2690,
+        1825
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Шестигр.",
+      "source_box_px": [
+        1954,
+        1858,
+        2097,
+        1905
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "32–5 ГОСТ8560–78",
+      "source_box_px": [
+        2100,
+        1840,
+        2380,
+        1880
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "45Х ГОСТ1051–88",
+      "source_box_px": [
+        2100,
+        1885,
+        2375,
+        1923
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Копировал:",
+      "source_box_px": [
+        1940,
+        1930,
+        2100,
+        1961
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Формат А3",
+      "source_box_px": [
+        2450,
+        1930,
+        2640,
+        1961
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Изм.",
+      "source_box_px": [
+        1524,
+        1699,
+        1564,
+        1728
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Лист",
+      "source_box_px": [
+        1570,
+        1699,
+        1630,
+        1728
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "№ докум.",
+      "source_box_px": [
+        1640,
+        1699,
+        1776,
+        1728
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Подпись",
+      "source_box_px": [
+        1790,
+        1699,
+        1880,
+        1728
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Дата",
+      "source_box_px": [
+        1887,
+        1699,
+        1946,
+        1728
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Разраб.",
+      "source_box_px": [
+        1524,
+        1733,
+        1630,
+        1760
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Провер.",
+      "source_box_px": [
+        1524,
+        1766,
+        1630,
+        1792
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Рук. гр.",
+      "source_box_px": [
+        1524,
+        1799,
+        1630,
+        1825
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Нач. бюро",
+      "source_box_px": [
+        1524,
+        1832,
+        1630,
+        1859
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Нормок.",
+      "source_box_px": [
+        1524,
+        1865,
+        1630,
+        1892
+      ],
+      "rotation": 0
+    },
+    {
+      "text": "Утв.",
+      "source_box_px": [
+        1524,
+        1898,
+        1630,
+        1925
+      ],
+      "rotation": 0
+    }
+  ],
+  "dimension_edit_test": {
+    "original_mm": 180,
+    "edited_mm": 181,
+    "reopened": true,
+    "delivered_file_modified": false,
+    "performed_with": "ezdxf, not a CAD application"
+  },
+  "limitations": [
+    "Assisted one-off reconstruction; labels and regions were selected visually.",
+    "32* source callout conflicts with about 29.96 mm across flats of the visible end-view hexagon; source label retained.",
+    "Transitions labelled R10...15 reconstructed with radius 12.5 mm, within the given range.",
+    "Small head arcs and unlabelled front inner circle reconstructed approximately from raster.",
+    "Missing source text and blank title-block fields remain missing.",
+    "Arial substitutes the original lettering. Small marginal lettering/surface symbols remain vector outlines.",
+    "The line beginning with валов по h14 is preserved as vector outlines because the final tolerance expression is ambiguous.",
+    "The d10 subscript in the hardness note is represented on the baseline in editable text.",
+    "Native dimensions are non-associative. Their initial display blocks preserve source graphics.",
+    "CAD-application opening was not tested: no installed CAD found, QCAD download permission declined."
+  ]
+}

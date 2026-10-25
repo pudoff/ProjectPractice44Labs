@@ -1,0 +1,700 @@
+{
+  "source": "клапан.png",
+  "source_sha256": "f472f395d86927b41cce3d86aaf7949d61ae9cbd45348a0fc7a627cc9d41a0ad",
+  "output": "клапан_codex_v2.dxf",
+  "output_sha256": "781a9c40a04dad8585d9d7f1c6466953b81353743ed185e80e84c94cfc33ffff",
+  "dxf_version": "AC1021",
+  "units": "mm",
+  "ground_truth_dxf_used": false,
+  "recognition_mode": "human_verified_from_png",
+  "status": "needs_engineering_review",
+  "working_layer_count": 13,
+  "layers": {
+    "PART_MAIN": {
+      "LWPOLYLINE": 1
+    },
+    "SECTION_HATCH": {
+      "HATCH": 3
+    },
+    "PART_EDGES": {
+      "LINE": 2
+    },
+    "THREAD": {
+      "LINE": 4
+    },
+    "AXIS": {
+      "LINE": 2
+    },
+    "DIMENSIONS": {
+      "DIMENSION": 29
+    },
+    "SYMBOLS": {
+      "LEADER": 8,
+      "CIRCLE": 4,
+      "LWPOLYLINE": 12,
+      "SOLID": 1,
+      "LINE": 7
+    },
+    "PART_DETAIL_A": {
+      "LWPOLYLINE": 1
+    },
+    "PART_VARIANT": {
+      "LWPOLYLINE": 1
+    },
+    "PART_VIEW_B": {
+      "LWPOLYLINE": 1
+    },
+    "BREAK_LINES": {
+      "SPLINE": 1
+    },
+    "TEXT": {
+      "TEXT": 61
+    },
+    "FRAME": {
+      "LWPOLYLINE": 2,
+      "LINE": 36
+    }
+  },
+  "entities": [
+    {
+      "id": "main.material_section",
+      "role": "contour",
+      "handle": "9B",
+      "type": "LWPOLYLINE",
+      "layer": "PART_MAIN"
+    },
+    {
+      "id": "main.material_section.hatch",
+      "role": "section",
+      "handle": "9C",
+      "type": "HATCH",
+      "layer": "SECTION_HATCH"
+    },
+    {
+      "id": "main.rear_projection",
+      "role": "visible_edge",
+      "handle": "9D",
+      "type": "LINE",
+      "layer": "PART_EDGES"
+    },
+    {
+      "id": "main.shoulder_projection",
+      "role": "visible_edge",
+      "handle": "9E",
+      "type": "LINE",
+      "layer": "PART_EDGES"
+    },
+    {
+      "id": "diameter160",
+      "role": "dimension",
+      "handle": "A3",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter150",
+      "role": "dimension",
+      "handle": "B2",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter135",
+      "role": "dimension",
+      "handle": "C1",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter42_reference",
+      "role": "dimension",
+      "handle": "D0",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter32",
+      "role": "dimension",
+      "handle": "DF",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter28",
+      "role": "dimension",
+      "handle": "EE",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "diameter22",
+      "role": "dimension",
+      "handle": "FD",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "thread_M12",
+      "role": "dimension",
+      "handle": "10C",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "depth25",
+      "role": "dimension",
+      "handle": "11B",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "depth20",
+      "role": "dimension",
+      "handle": "12A",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "back_shoulder",
+      "role": "dimension",
+      "handle": "139",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "neck10",
+      "role": "dimension",
+      "handle": "148",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "overall_width",
+      "role": "dimension",
+      "handle": "157",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "rim4",
+      "role": "dimension",
+      "handle": "166",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "groove_offset",
+      "role": "dimension",
+      "handle": "177",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "thread_chamfer",
+      "role": "dimension",
+      "handle": "186",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "rim_chamfer",
+      "role": "dimension",
+      "handle": "197",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "wall4",
+      "role": "dimension",
+      "handle": "1A8",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "cone_angle",
+      "role": "dimension",
+      "handle": "1BB",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "nose_R2",
+      "role": "dimension",
+      "handle": "1CB",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "neck_R3",
+      "role": "dimension",
+      "handle": "1D6",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "bowl_R7",
+      "role": "dimension",
+      "handle": "1E1",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "detail_a.material_section",
+      "role": "contour",
+      "handle": "1ED",
+      "type": "LWPOLYLINE",
+      "layer": "PART_DETAIL_A"
+    },
+    {
+      "id": "detail_a.material_section.hatch",
+      "role": "section",
+      "handle": "1EE",
+      "type": "HATCH",
+      "layer": "SECTION_HATCH"
+    },
+    {
+      "id": "detail_a_depth",
+      "role": "dimension",
+      "handle": "1EF",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "detail_a_R2",
+      "role": "dimension",
+      "handle": "1FE",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "variant.material_section",
+      "role": "contour",
+      "handle": "209",
+      "type": "LWPOLYLINE",
+      "layer": "PART_VARIANT"
+    },
+    {
+      "id": "variant.material_section.hatch",
+      "role": "section",
+      "handle": "20A",
+      "type": "HATCH",
+      "layer": "SECTION_HATCH"
+    },
+    {
+      "id": "variant_diameter32",
+      "role": "dimension",
+      "handle": "20D",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "variant_chamfer",
+      "role": "dimension",
+      "handle": "21C",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "variant_R3",
+      "role": "dimension",
+      "handle": "22D",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "view_b.rectangle",
+      "role": "contour",
+      "handle": "238",
+      "type": "LWPOLYLINE",
+      "layer": "PART_VIEW_B"
+    },
+    {
+      "id": "view_b_30",
+      "role": "dimension",
+      "handle": "239",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "view_b_15",
+      "role": "dimension",
+      "handle": "248",
+      "type": "DIMENSION",
+      "layer": "DIMENSIONS"
+    },
+    {
+      "id": "roughness.symbol",
+      "role": "contour",
+      "handle": "281",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.2",
+      "role": "contour",
+      "handle": "283",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.3",
+      "role": "contour",
+      "handle": "285",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.4",
+      "role": "contour",
+      "handle": "287",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.5",
+      "role": "contour",
+      "handle": "289",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.6",
+      "role": "contour",
+      "handle": "28C",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.7",
+      "role": "contour",
+      "handle": "28E",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "roughness.symbol.8",
+      "role": "contour",
+      "handle": "290",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "datum_B.frame",
+      "role": "contour",
+      "handle": "29B",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "source.triangular_symbol",
+      "role": "contour",
+      "handle": "2A8",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "general_surface",
+      "role": "contour",
+      "handle": "2A9",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "general_surface.alt",
+      "role": "contour",
+      "handle": "2AC",
+      "type": "LWPOLYLINE",
+      "layer": "SYMBOLS"
+    },
+    {
+      "id": "sheet.outside",
+      "role": "contour",
+      "handle": "2AE",
+      "type": "LWPOLYLINE",
+      "layer": "FRAME"
+    },
+    {
+      "id": "sheet.border",
+      "role": "contour",
+      "handle": "2AF",
+      "type": "LWPOLYLINE",
+      "layer": "FRAME"
+    }
+  ],
+  "dimensions": {
+    "diameter160": {
+      "handle": "A3",
+      "measurement": 160.0,
+      "expected": 160.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter150": {
+      "handle": "B2",
+      "measurement": 150.0,
+      "expected": 150.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter135": {
+      "handle": "C1",
+      "measurement": 135.0,
+      "expected": 135.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter42_reference": {
+      "handle": "D0",
+      "measurement": 42.0,
+      "expected": 42,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter32": {
+      "handle": "DF",
+      "measurement": 32.0,
+      "expected": 32.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter28": {
+      "handle": "EE",
+      "measurement": 28.0,
+      "expected": 28.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "diameter22": {
+      "handle": "FD",
+      "measurement": 22.0,
+      "expected": 22.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "thread_M12": {
+      "handle": "10C",
+      "measurement": 12.0,
+      "expected": 12.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "depth25": {
+      "handle": "11B",
+      "measurement": 25.000000000000007,
+      "expected": 25.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "depth20": {
+      "handle": "12A",
+      "measurement": 20.0,
+      "expected": 20.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "back_shoulder": {
+      "handle": "139",
+      "measurement": 14.0,
+      "expected": 14.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "neck10": {
+      "handle": "148",
+      "measurement": 10.000000000000007,
+      "expected": 10.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "overall_width": {
+      "handle": "157",
+      "measurement": 46.00000000000001,
+      "expected": 46.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "rim4": {
+      "handle": "166",
+      "measurement": 4.0,
+      "expected": 4.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "groove_offset": {
+      "handle": "177",
+      "measurement": 5.5,
+      "expected": 5.5,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "thread_chamfer": {
+      "handle": "186",
+      "measurement": 1.6000000000000085,
+      "expected": 1.6,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "rim_chamfer": {
+      "handle": "197",
+      "measurement": 1.0,
+      "expected": 1.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "wall4": {
+      "handle": "1A8",
+      "measurement": 4.000000000000001,
+      "expected": 4.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "cone_angle": {
+      "handle": "1BB",
+      "measurement": 60.0,
+      "expected": 60.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "nose_R2": {
+      "handle": "1CB",
+      "measurement": 1.9999999999999942,
+      "expected": 2.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "neck_R3": {
+      "handle": "1D6",
+      "measurement": 2.999999999999996,
+      "expected": 3.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "bowl_R7": {
+      "handle": "1E1",
+      "measurement": 7.00000000000001,
+      "expected": 7.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "detail_a_depth": {
+      "handle": "1EF",
+      "measurement": 1.5,
+      "expected": 1.5,
+      "text": "<>",
+      "view_scale": 5.0
+    },
+    "detail_a_R2": {
+      "handle": "1FE",
+      "measurement": 2.0000000000000018,
+      "expected": 2.0,
+      "text": "<>",
+      "view_scale": 5.0
+    },
+    "variant_diameter32": {
+      "handle": "20D",
+      "measurement": 31.999999999999986,
+      "expected": 32,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "variant_chamfer": {
+      "handle": "21C",
+      "measurement": 1.5,
+      "expected": 1.5,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "variant_R3": {
+      "handle": "22D",
+      "measurement": 3.000000000000002,
+      "expected": 3.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "view_b_30": {
+      "handle": "239",
+      "measurement": 30.0,
+      "expected": 30.0,
+      "text": "<>",
+      "view_scale": 1
+    },
+    "view_b_15": {
+      "handle": "248",
+      "measurement": 14.999999999999996,
+      "expected": 15.0,
+      "text": "<>",
+      "view_scale": 1
+    }
+  },
+  "profiles": [
+    {
+      "handle": "9B",
+      "layer": "PART_MAIN",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 1223.1364654840877
+    },
+    {
+      "handle": "1ED",
+      "layer": "PART_DETAIL_A",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 963.4308967434526
+    },
+    {
+      "handle": "209",
+      "layer": "PART_VARIANT",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 410.3416116571391
+    },
+    {
+      "handle": "238",
+      "layer": "PART_VIEW_B",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 450.0
+    },
+    {
+      "handle": "29B",
+      "layer": "SYMBOLS",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 103.67164002593408
+    },
+    {
+      "handle": "2A8",
+      "layer": "SYMBOLS",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 67.4867318526311
+    },
+    {
+      "handle": "2AE",
+      "layer": "FRAME",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 124740.0
+    },
+    {
+      "handle": "2AF",
+      "layer": "FRAME",
+      "closed": true,
+      "self_intersections": false,
+      "area_mm2": 113365.0
+    }
+  ],
+  "audit_errors": 0,
+  "audit_fixes": 0,
+  "native_dimension_edit_test": "passed: 46 -> 47, checked regenerated text",
+  "semantic_regeneration_test": "passed: width +1 changes contour, overall and shoulder dimensions",
+  "cad_application_test": "not_run",
+  "review": [
+    "Недостающие номиналы bore_minor_radius, drill_tip_x и inner_rim_fillet_radius оценены по растру; требуется проверка конструктором.",
+    "Контрольный размер Ø42 исходного чертежа приходится на переход к конусу; одновременное точное выполнение 60°, Ø135 и осевых координат даёт соседний переход несколько выше. Размер Ø42 сохранён как контроль между опорными точками y=±21, без выдуманной ассоциации с дугой.",
+    "На элементе А пиксельная форма канавки не полностью согласуется с R2 и глубиной 1,5. При реконструкции дуги приоритет отдан этим номиналам.",
+    "Резьбовое обозначение M12×1,5-H7 сохранено как в источнике; корректность H7 как обозначения резьбы требует инженерной проверки.",
+    "Графика обрывов на варианте и виде В условная; это не поверхности изделия.",
+    "DIMENSION имеют вычисляемую подпись и редактируемые определяющие точки, но не содержат DIMASSOC для автоматического следования изменению контура в произвольной CAD. Связи и параметры поддерживаются генератором."
+  ]
+}
