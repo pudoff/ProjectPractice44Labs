@@ -1,0 +1,14 @@
+# Контекст сборки Docker: только код, без данных, окружения и результатов
+.git
+.gitattributes
+.venv
+venv
+**/__pycache__
+**/*.pyc
+**/*.pkl
+dataset
+task
+runs
+docs
+.vscode
+.idea

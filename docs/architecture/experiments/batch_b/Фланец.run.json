@@ -1,0 +1,65 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\Фланец.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b\\Фланец.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.495238095238093,
+    "px_per_mm_y": 23.49158249158249,
+    "origin_px": [
+      24,
+      6999
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 2.6,
+    "ocr": 2.38,
+    "symbols": 0.21,
+    "vectorize": 4.5,
+    "postprocess": 0.08,
+    "hatch": 0.2,
+    "dimensions": 0.96,
+    "snap": 0.01,
+    "cleanup": 0.93,
+    "write": 0.07
+  },
+  "total_s": 11.99,
+  "counts": {
+    "texts": 36,
+    "arrows": 39,
+    "blobs": 0,
+    "lines": 492,
+    "arcs": 135,
+    "axis_or_dashed": 0,
+    "hatches": 4,
+    "dims_linear": 12,
+    "dims_radius": 0,
+    "dims_angular": 2,
+    "leaders": 5
+  },
+  "dims_with_value": 12,
+  "snap": [
+    {
+      "axis": "x",
+      "constraints": 6,
+      "max_shift_mm": 0.0778
+    },
+    {
+      "axis": "y",
+      "constraints": 6,
+      "max_shift_mm": 0.0509
+    }
+  ],
+  "title_fields": {
+    "name": "Фланец",
+    "scale": "1:1",
+    "format": "Формат A3"
+  },
+  "verify": "OK"
+}

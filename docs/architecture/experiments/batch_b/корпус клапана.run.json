@@ -1,0 +1,56 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\корпус клапана.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b\\корпус клапана.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 22.126190476190477,
+    "px_per_mm_y": 22.747474747474747,
+    "origin_px": [
+      487,
+      6889
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 3.55,
+    "ocr": 3.96,
+    "symbols": 0.29,
+    "vectorize": 5.34,
+    "postprocess": 0.17,
+    "hatch": 0.07,
+    "dimensions": 1.15,
+    "snap": 0.01,
+    "cleanup": 2.04,
+    "write": 0.09
+  },
+  "total_s": 16.75,
+  "counts": {
+    "texts": 52,
+    "arrows": 57,
+    "blobs": 0,
+    "lines": 692,
+    "arcs": 241,
+    "axis_or_dashed": 0,
+    "hatches": 10,
+    "dims_linear": 22,
+    "dims_radius": 4,
+    "dims_angular": 0,
+    "leaders": 5
+  },
+  "dims_with_value": 2,
+  "snap": [
+    {
+      "axis": "y",
+      "constraints": 2,
+      "max_shift_mm": 0.0884
+    }
+  ],
+  "title_fields": {},
+  "verify": "OK"
+}

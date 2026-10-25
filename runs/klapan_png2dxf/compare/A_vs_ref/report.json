@@ -1,0 +1,187 @@
+{
+  "ref": "dataset/clear_sum_dataset/vse_dxf/клапан.dxf",
+  "gen": "runs/klapan_png2dxf/out/frozen_blind/klapan_variant_A.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 206,
+    "gen_curves": 204,
+    "ref_texts": 69,
+    "gen_texts": 64,
+    "ref_dims": 28,
+    "gen_dims": 28,
+    "ref_hatches": 3,
+    "gen_hatches": 6
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.9459,
+      "recall": 0.9584,
+      "f1": 0.9521
+    },
+    "tol_0.25": {
+      "precision": 0.9742,
+      "recall": 0.9866,
+      "f1": 0.9803
+    },
+    "tol_0.5": {
+      "precision": 0.9787,
+      "recall": 0.9913,
+      "f1": 0.985
+    },
+    "tol_1.0": {
+      "precision": 0.9805,
+      "recall": 0.9932,
+      "f1": 0.9868
+    }
+  },
+  "primitives": {
+    "recall": 0.9466,
+    "precision": 0.9314,
+    "recall_by_ref_type": {
+      "LINE": "162/170",
+      "ARC": "25/25",
+      "LWPOLYLINE": "1/2",
+      "SPLINE": "3/5",
+      "CIRCLE": "4/4"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.7947,
+    "confusion": {
+      "THIN->THIN": 40,
+      "MAIN->MAIN": 109,
+      "THIN->MAIN": 11,
+      "AXIS->AXIS": 2,
+      "MAIN->DIMS": 7,
+      "THIN->DIMS": 14,
+      "MAIN->THIN": 7
+    }
+  },
+  "dimensions": {
+    "recall": 0.9286,
+    "type_accuracy": 0.8929,
+    "missing": [
+      "М12х1,5-Н7",
+      "4"
+    ],
+    "extra": [
+      "M12x1,5-H7",
+      "4+1^"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.6957,
+    "mean_cer": 0.282,
+    "unmatched_gen": 12,
+    "worst": [
+      {
+        "ref": "Клапан",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "1",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв.N подл.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв. N дубл.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Взам.инв.N",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подпись и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подп. и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Согласов.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Первичная примен.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Справ. N",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "предохранительный",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "+1",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "A",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ]
+  },
+  "hatches": {
+    "ref_area": 2756.7,
+    "gen_area": 2694.9
+  }
+}

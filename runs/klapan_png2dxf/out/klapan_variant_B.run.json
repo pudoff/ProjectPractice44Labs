@@ -1,0 +1,68 @@
+{
+  "input": "../клапан.png",
+  "output": "out/klapan_variant_B.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.495238095238093,
+    "px_per_mm_y": 23.49158249158249,
+    "origin_px": [
+      24,
+      6999
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 3.0,
+    "ocr": 3.5,
+    "symbols": 0.22,
+    "vectorize": 3.37,
+    "postprocess": 0.15,
+    "hatch": 0.3,
+    "dimensions": 1.39,
+    "snap": 0.02,
+    "cleanup": 1.41,
+    "write": 0.08
+  },
+  "total_s": 13.52,
+  "counts": {
+    "texts": 80,
+    "arrows": 62,
+    "blobs": 2,
+    "lines": 593,
+    "arcs": 193,
+    "axis_or_dashed": 1,
+    "hatches": 5,
+    "dims_linear": 21,
+    "dims_radius": 4,
+    "dims_angular": 1,
+    "leaders": 8
+  },
+  "dims_with_value": 18,
+  "snap": [
+    {
+      "axis": "x",
+      "constraints": 9,
+      "max_shift_mm": 0.0338
+    },
+    {
+      "axis": "y",
+      "constraints": 9,
+      "max_shift_mm": 0.027
+    }
+  ],
+  "title_fields": {
+    "name": "Клапан предохранительный",
+    "material": "Ал-9 ГОСТ2685-75",
+    "litera": "A",
+    "mass": "0,385",
+    "scale": "1:1",
+    "format": "Формат A3"
+  },
+  "verify": "OK"
+}

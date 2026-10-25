@@ -1,0 +1,323 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_dxf\\фланец3.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\фланец3.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 164,
+    "gen_curves": 397,
+    "ref_texts": 44,
+    "gen_texts": 62,
+    "ref_dims": 22,
+    "gen_dims": 18,
+    "ref_hatches": 3,
+    "gen_hatches": 4
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.705,
+      "recall": 0.7008,
+      "f1": 0.7029
+    },
+    "tol_0.25": {
+      "precision": 0.9137,
+      "recall": 0.9054,
+      "f1": 0.9095
+    },
+    "tol_0.5": {
+      "precision": 0.9183,
+      "recall": 0.9094,
+      "f1": 0.9138
+    },
+    "tol_1.0": {
+      "precision": 0.9228,
+      "recall": 0.9118,
+      "f1": 0.9173
+    }
+  },
+  "primitives": {
+    "recall": 0.6098,
+    "precision": 0.6222,
+    "recall_by_ref_type": {
+      "LINE": "81/112",
+      "ARC": "7/21",
+      "CIRCLE": "4/18",
+      "LWPOLYLINE": "7/12",
+      "SPLINE": "1/1"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.0891,
+    "confusion": {
+      "THIN->MAIN": 180,
+      "THIN->THIN": 22,
+      "AXIS->MAIN": 21,
+      "TEXT->MAIN": 10,
+      "AXIS->THIN": 10,
+      "TEXT->THIN": 2,
+      "TEXT->DIMS": 2
+    }
+  },
+  "dimensions": {
+    "recall": 0.6364,
+    "recall_by_value": 0.6818,
+    "type_accuracy": 0.6364,
+    "missing": [
+      "2",
+      "1",
+      "45°",
+      "34",
+      "6x170=1020",
+      "4x130=520",
+      "M8-7H",
+      "(1,6x45°)"
+    ],
+    "extra": [
+      "0,97",
+      "(1,6x45)",
+      "20 omb.",
+      "42°"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.1364,
+    "mean_cer": 0.6652,
+    "unmatched_gen": 29,
+    "worst": [
+      {
+        "ref": "Взам.инв. N°",
+        "gen": "Взам.ин6. №Ин8. №дубл.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв. N° дубл.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "xxxxxx",
+        "gen": "xXXXXx",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подп.",
+        "gen": "llogn.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Изм.",
+        "gen": "И3мЛист",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "xxxxxxxx",
+        "gen": "XXXXXxXx",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масштаб",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": "Jucm",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca Macuma6",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Пров.",
+        "gen": "Pa3pa6.xxxxxxx",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "xxxxx",
+        "gen": "XXx",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "xxxxxxx",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "1021.04.01.001",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "( )",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.1364,
+      "mean_cer": 0.6582,
+      "unmatched_gen": 33,
+      "worst": [
+        {
+          "ref": "Взам.инв. N°",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Инв. N° дубл.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "xxxxxx",
+          "gen": "xXXXXx",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Подп.",
+          "gen": "llogn.",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Изм.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "xxxxxxxx",
+          "gen": "XXXXXxXx",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масштаб",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": "Jucm",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Разраб.",
+          "gen": "Pa3pa6.xxxxxxx",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "xxxxx",
+          "gen": "XXx",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "xxxxxxx",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1021.04.01.001",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "( )",
+          "gen": "V",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1. Допускается изготавливать из четырех частей со сваркой встык с разделкой кромок по рис.1 и зачисткой сварных швов заподлицо. 2. Допускается изготавливать из листа 12 мм при условии соблю- дения неплоскостности фланца - см. чертеж 1021.04.01.000 СБ. 2. Размеры в скобках - после сборки 3. H14; h14; ±JT14/2.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "A",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "A",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "20 отв.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "A-A",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "(1:1)",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 979.3,
+    "gen_area": 903.5
+  }
+}

@@ -1,0 +1,17 @@
+left face x0         0.255
+rim face             0.255
+tangent line 95.8    0.255
+thread major         0.340
+drill minor          0.255
+thread end           0.255
+axis dash            0.255
+dim line 46          0.255
+ext line 160         0.000
+frame inner          0.306
+sheet edge           0.272
+titleblock thick     0.358
+title thin row       0.255
+bore 135             0.255
+callout circle       0.306
+detail contour       0.170
+detail break         0.255

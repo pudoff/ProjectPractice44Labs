@@ -1,0 +1,346 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_dxf\\клапан.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness\\scan200_cut.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 206,
+    "gen_curves": 198,
+    "ref_texts": 69,
+    "gen_texts": 80,
+    "ref_dims": 28,
+    "gen_dims": 12,
+    "ref_hatches": 3,
+    "gen_hatches": 443
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.0289,
+      "recall": 0.0053,
+      "f1": 0.009
+    },
+    "tol_0.25": {
+      "precision": 0.0574,
+      "recall": 0.0105,
+      "f1": 0.0177
+    },
+    "tol_0.5": {
+      "precision": 0.2652,
+      "recall": 0.0505,
+      "f1": 0.0848
+    },
+    "tol_1.0": {
+      "precision": 0.4765,
+      "recall": 0.0936,
+      "f1": 0.1565
+    }
+  },
+  "primitives": {
+    "recall": 0.0,
+    "precision": 0.202,
+    "recall_by_ref_type": {
+      "LINE": "0/170",
+      "ARC": "0/25",
+      "LWPOLYLINE": "0/2",
+      "SPLINE": "0/5",
+      "CIRCLE": "0/4"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.525,
+    "confusion": {
+      "THIN->MAIN": 17,
+      "MAIN->MAIN": 4,
+      "THIN->THIN": 17,
+      "MAIN->THIN": 2
+    }
+  },
+  "dimensions": {
+    "recall": 0.0357,
+    "recall_by_value": 0.0714,
+    "type_accuracy": 0.0357,
+    "missing": [
+      "⌀135",
+      "⌀160",
+      "⌀150±0,5",
+      "⌀22",
+      "⌀32",
+      "⌀28",
+      "⌀42",
+      "10",
+      "60°",
+      "5,5",
+      "20",
+      "25",
+      "46",
+      "R7",
+      "14",
+      "М12х1,5-Н7",
+      "1,6x45°",
+      "4",
+      "R3",
+      "R2",
+      "1,5",
+      "R2",
+      "30",
+      "15",
+      "⌀32",
+      "1,5x45°",
+      "R3"
+    ],
+    "extra": [
+      "5,55",
+      ".14",
+      "12,79",
+      "15,46",
+      "21,11",
+      "22,48",
+      "28,9",
+      "29",
+      "43,46",
+      "139,61",
+      "165,5"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.1449,
+    "mean_cer": 0.6916,
+    "unmatched_gen": 44,
+    "worst": [
+      {
+        "ref": "Формат А3",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "А",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Клапан",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Провер.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Нач.бюро",
+        "gen": "Pyk 2p.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Утв.",
+        "gen": "HopMOk",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Нормок.",
+        "gen": "Haч6юpo",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": "yme.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Копировал:",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Изм.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подпись",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Литер.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.1449,
+      "mean_cer": 0.7143,
+      "unmatched_gen": 44,
+      "worst": [
+        {
+          "ref": "Формат А3",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "А",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Разраб.",
+          "gen": "ИзмЛист",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Клапан",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Нач.бюро",
+          "gen": "Pyk 2p.",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Утв.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Нормок.",
+          "gen": "Haч6юpo",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": ".",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": ".",
+          "gen": "yme.",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Копировал:",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Изм.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Подпись",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Литер.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1:1",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Листов",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1",
+          "gen": "Листов 1",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масшт.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 2756.7,
+    "gen_area": 263.4
+  }
+}

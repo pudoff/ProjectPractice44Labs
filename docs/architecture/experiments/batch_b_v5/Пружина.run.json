@@ -1,0 +1,56 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\Пружина.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\Пружина.dxf",
+  "calibration": {
+    "sheet": "A4",
+    "sheet_w": 210,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.435714285714287,
+    "px_per_mm_y": 23.44107744107744,
+    "origin_px": [
+      16.5,
+      6991.5
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 4959,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "stroke_mm": 0.1629990827960962,
+  "format_from_ocr": "A4",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 1.5,
+    "ocr": 2.47,
+    "symbols": 0.65,
+    "vectorize": 1.77,
+    "postprocess": 0.03,
+    "hatch": 0.01,
+    "dimensions": 0.19,
+    "snap": 0.0,
+    "cleanup": 0.24,
+    "write": 0.03
+  },
+  "total_s": 6.92,
+  "counts": {
+    "texts": 34,
+    "arrows": 15,
+    "blobs": 0,
+    "lines": 246,
+    "arcs": 63,
+    "axis_or_dashed": 2,
+    "hatches": 0,
+    "dims_linear": 7,
+    "dims_radius": 0,
+    "dims_angular": 0,
+    "leaders": 1
+  },
+  "dims_with_value": 0,
+  "snap": [],
+  "title_fields": {
+    "name": "Пружина",
+    "material": "Проволока 60С2А-Н-П-1–XН-2,0 ГOCT 14963-78",
+    "scale": "2:1",
+    "format": "Формат A4"
+  },
+  "verify": "OK"
+}

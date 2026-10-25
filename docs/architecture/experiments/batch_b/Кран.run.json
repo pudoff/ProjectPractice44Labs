@@ -1,0 +1,56 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\Кран.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b\\Кран.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 22.12857142857143,
+    "px_per_mm_y": 22.75084175084175,
+    "origin_px": [
+      487,
+      6889
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 2.73,
+    "ocr": 2.45,
+    "symbols": 0.19,
+    "vectorize": 3.99,
+    "postprocess": 0.16,
+    "hatch": 0.07,
+    "dimensions": 0.26,
+    "snap": 0.01,
+    "cleanup": 1.91,
+    "write": 0.07
+  },
+  "total_s": 11.89,
+  "counts": {
+    "texts": 37,
+    "arrows": 33,
+    "blobs": 0,
+    "lines": 701,
+    "arcs": 189,
+    "axis_or_dashed": 4,
+    "hatches": 12,
+    "dims_linear": 13,
+    "dims_radius": 0,
+    "dims_angular": 1,
+    "leaders": 2
+  },
+  "dims_with_value": 1,
+  "snap": [
+    {
+      "axis": "y",
+      "constraints": 1,
+      "max_shift_mm": 0.1848
+    }
+  ],
+  "title_fields": {},
+  "verify": "OK"
+}

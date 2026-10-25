@@ -1,0 +1,321 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_dxf\\корпус клапана.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\корпус клапана.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 188,
+    "gen_curves": 744,
+    "ref_texts": 23,
+    "gen_texts": 27,
+    "ref_dims": 30,
+    "gen_dims": 23,
+    "ref_hatches": 2,
+    "gen_hatches": 10
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.7667,
+      "recall": 0.8533,
+      "f1": 0.8077
+    },
+    "tol_0.25": {
+      "precision": 0.863,
+      "recall": 0.9567,
+      "f1": 0.9074
+    },
+    "tol_0.5": {
+      "precision": 0.8838,
+      "recall": 0.9629,
+      "f1": 0.9217
+    },
+    "tol_1.0": {
+      "precision": 0.906,
+      "recall": 0.9718,
+      "f1": 0.9377
+    }
+  },
+  "primitives": {
+    "recall": 0.9043,
+    "precision": 0.6855,
+    "recall_by_ref_type": {
+      "LINE": "134/150",
+      "ARC": "30/32",
+      "CIRCLE": "6/6"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.5647,
+    "confusion": {
+      "MAIN->MAIN": 272,
+      "THIN->MAIN": 84,
+      "AXIS->MAIN": 39,
+      "THIN->THIN": 16,
+      "AXIS->THIN": 18,
+      "MAIN->THIN": 81
+    }
+  },
+  "dimensions": {
+    "recall": 0.6667,
+    "recall_by_value": 0.7,
+    "type_accuracy": 0.6667,
+    "missing": [
+      "12,5",
+      "⌀11,5",
+      "⌀17,5",
+      "2отв.⌀7",
+      "R10",
+      "R12,5",
+      "∅48",
+      "R2,5",
+      "R1",
+      "R2"
+    ],
+    "extra": [
+      "6,98",
+      "⌀115",
+      "17,5"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.5652,
+    "mean_cer": 0.282,
+    "unmatched_gen": 7,
+    "worst": [
+      {
+        "ref": "Изм.",
+        "gen": "Изм.Лист",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Корпус",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Rz40",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Труб. 1/2\" Кл.В",
+        "gen": "Tpy6. 1/2\"Kπ.B",
+        "cer": 0.5333333333333333,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": "Даma",
+        "cer": 0.5,
+        "exact": false
+      },
+      {
+        "ref": "Лит.",
+        "gen": "Лиm.",
+        "cer": 0.25,
+        "exact": false
+      },
+      {
+        "ref": "Разраб.",
+        "gen": "Разрад.",
+        "cer": 0.14285714285714285,
+        "exact": false
+      },
+      {
+        "ref": "1 Н14, h14, IT14.",
+        "gen": "1 H14, h14, IT14.",
+        "cer": 0.058823529411764705,
+        "exact": false
+      },
+      {
+        "ref": "Формат А3",
+        "gen": "Формат А3",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "Корпус",
+        "gen": "Корпус",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "Пров.",
+        "gen": "Пров.",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "Т.контр.",
+        "gen": "Т.контр.",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "Подп.",
+        "gen": "Подп.",
+        "cer": 0.0,
+        "exact": true
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.5652,
+      "mean_cer": 0.2711,
+      "unmatched_gen": 6,
+      "worst": [
+        {
+          "ref": "Изм.",
+          "gen": "Изм.Лист",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": "Macca",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Корпус",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Rz40",
+          "gen": "R240()",
+          "cer": 0.75,
+          "exact": false
+        },
+        {
+          "ref": "Труб. 1/2\" Кл.В",
+          "gen": "Tpy6. 1/2\"Kπ.B",
+          "cer": 0.5333333333333333,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": "Даma",
+          "cer": 0.5,
+          "exact": false
+        },
+        {
+          "ref": "Лит.",
+          "gen": "Лиm.",
+          "cer": 0.25,
+          "exact": false
+        },
+        {
+          "ref": "Разраб.",
+          "gen": "Разрад.",
+          "cer": 0.14285714285714285,
+          "exact": false
+        },
+        {
+          "ref": "1 Н14, h14, IT14.",
+          "gen": "1 H14, h14, IT14.",
+          "cer": 0.058823529411764705,
+          "exact": false
+        },
+        {
+          "ref": "Формат А3",
+          "gen": "Формат А3",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Корпус",
+          "gen": "Корпус",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Пров.",
+          "gen": "Пров.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Т.контр.",
+          "gen": "Т.контр.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Подп.",
+          "gen": "Подп.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "N докум.",
+          "gen": "N докум.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Утв.",
+          "gen": "Утв.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Н.контр.",
+          "gen": "Н.контр.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "1:1",
+          "gen": "1:1",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Листов 1",
+          "gen": "Листов 1",
+          "cer": 0.0,
+          "exact": true
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 1970.3,
+    "gen_area": 1211.0
+  }
+}

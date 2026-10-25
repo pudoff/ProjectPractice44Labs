@@ -1,0 +1,334 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_dxf\\Вал2.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\Вал2.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 193,
+    "gen_curves": 689,
+    "ref_texts": 68,
+    "gen_texts": 49,
+    "ref_dims": 28,
+    "gen_dims": 23,
+    "ref_hatches": 5,
+    "gen_hatches": 2
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.8343,
+      "recall": 0.8754,
+      "f1": 0.8543
+    },
+    "tol_0.25": {
+      "precision": 0.865,
+      "recall": 0.9082,
+      "f1": 0.8861
+    },
+    "tol_0.5": {
+      "precision": 0.8738,
+      "recall": 0.9156,
+      "f1": 0.8942
+    },
+    "tol_1.0": {
+      "precision": 0.891,
+      "recall": 0.9274,
+      "f1": 0.9088
+    }
+  },
+  "primitives": {
+    "recall": 0.8446,
+    "precision": 0.6633,
+    "recall_by_ref_type": {
+      "LINE": "139/166",
+      "ARC": "19/22",
+      "SPLINE": "4/4",
+      "CIRCLE": "1/1"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.4311,
+    "confusion": {
+      "MAIN->MAIN": 190,
+      "THIN->MAIN": 61,
+      "AXIS->MAIN": 90,
+      "AXIS->THIN": 19,
+      "MAIN->THIN": 26,
+      "TEXT->DIMS": 22,
+      "HIDDEN->MAIN": 11,
+      "THIN->THIN": 4,
+      "HIDDEN->THIN": 2,
+      "TEXT->MAIN": 13,
+      "TEXT->THIN": 4,
+      "DIMS->MAIN": 12,
+      "DIMS->DIMS": 1,
+      "AXIS->AXIS": 2
+    }
+  },
+  "dimensions": {
+    "recall": 0.6071,
+    "recall_by_value": 0.6429,
+    "type_accuracy": 0.6071,
+    "missing": [
+      "44",
+      "10",
+      "R1",
+      "10",
+      "1x45",
+      "28",
+      "26",
+      "58",
+      "R4",
+      "8H9",
+      "8js9"
+    ],
+    "extra": [
+      "0,8",
+      "T9",
+      "1,6",
+      "26,98",
+      "28-0.014",
+      "120°"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.25,
+    "mean_cer": 0.6019,
+    "unmatched_gen": 14,
+    "worst": [
+      {
+        "ref": "Изм.",
+        "gen": "Изм.Лист",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "-0,014",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "0,8",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "0,8",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "1,6",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "6,3",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "В",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "В",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Е",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "A",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "C",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "C",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.25,
+      "mean_cer": 0.6113,
+      "unmatched_gen": 11,
+      "worst": [
+        {
+          "ref": "Изм.",
+          "gen": "Изм.Лист",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": "Macca",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "-0,014",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "0,8",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "0,8",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "В",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "В",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Е",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "A",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "C",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "C",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "A",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1,6",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1,6",
+          "gen": "9l",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1,6",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1,6",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "В-В",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "2 Допуск соосности поверхностей 28 ; 32h; 40k6;",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 2271.3,
+    "gen_area": 1673.1
+  }
+}

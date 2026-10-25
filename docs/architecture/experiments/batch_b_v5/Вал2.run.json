@@ -1,0 +1,68 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\Вал2.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\Вал2.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.49620253164557,
+    "px_per_mm_y": 23.49651567944251,
+    "origin_px": [
+      23.57594936708864,
+      6999.982578397213
+    ],
+    "calibrated_on": "inner frame (GOST 2.301 margins)",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "stroke_mm": 0.19784474087717102,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 3.46,
+    "ocr": 3.34,
+    "symbols": 1.86,
+    "vectorize": 4.03,
+    "postprocess": 0.1,
+    "hatch": 0.02,
+    "dimensions": 1.22,
+    "snap": 0.01,
+    "cleanup": 1.16,
+    "write": 0.07
+  },
+  "total_s": 15.34,
+  "counts": {
+    "texts": 73,
+    "arrows": 72,
+    "blobs": 0,
+    "lines": 540,
+    "arcs": 219,
+    "axis_or_dashed": 2,
+    "hatches": 2,
+    "dims_linear": 20,
+    "dims_radius": 2,
+    "dims_angular": 1,
+    "leaders": 11
+  },
+  "dims_with_value": 15,
+  "snap": [
+    {
+      "axis": "x",
+      "constraints": 10,
+      "max_shift_mm": 0.1474
+    },
+    {
+      "axis": "y",
+      "constraints": 5,
+      "max_shift_mm": 0.0223
+    }
+  ],
+  "title_fields": {
+    "name": "Вал",
+    "material": "Сталь 45Х гОСТ 4543-71",
+    "mass": "2,17",
+    "scale": "1:1",
+    "format": "Формат А3"
+  },
+  "verify": "OK"
+}

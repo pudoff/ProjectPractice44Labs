@@ -1,0 +1,300 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_dxf\\Сфера1.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b\\Сфера1.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 63,
+    "gen_curves": 233,
+    "ref_texts": 18,
+    "gen_texts": 18,
+    "ref_dims": 8,
+    "gen_dims": 7,
+    "ref_hatches": 0,
+    "gen_hatches": 0
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.7188,
+      "recall": 0.6771,
+      "f1": 0.6973
+    },
+    "tol_0.25": {
+      "precision": 0.9661,
+      "recall": 0.9873,
+      "f1": 0.9766
+    },
+    "tol_0.5": {
+      "precision": 0.9678,
+      "recall": 0.9927,
+      "f1": 0.9801
+    },
+    "tol_1.0": {
+      "precision": 0.9725,
+      "recall": 0.9949,
+      "f1": 0.9836
+    }
+  },
+  "primitives": {
+    "recall": 0.9365,
+    "precision": 0.8541,
+    "recall_by_ref_type": {
+      "LINE": "55/59",
+      "CIRCLE": "4/4"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.3668,
+    "confusion": {
+      "THIN->MAIN": 39,
+      "MAIN->MAIN": 71,
+      "HIDDEN->THIN": 5,
+      "AXIS->MAIN": 18,
+      "AXIS->THIN": 3,
+      "HIDDEN->MAIN": 55,
+      "MAIN->THIN": 6,
+      "THIN->THIN": 2
+    }
+  },
+  "dimensions": {
+    "recall": 0.75,
+    "recall_by_value": 0.875,
+    "type_accuracy": 0.75,
+    "missing": [
+      "⌀110",
+      "⌀76"
+    ],
+    "extra": [
+      "110"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.3889,
+    "mean_cer": 0.3774,
+    "unmatched_gen": 1,
+    "worst": [
+      {
+        "ref": "Изм.",
+        "gen": "Изм.Лист",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Утв.",
+        "gen": "H. контр.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Н.контр.",
+        "gen": "Ymb.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масштаб",
+        "gen": "Мacwmab",
+        "cer": 0.8571428571428571,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": "Дама",
+        "cer": 0.25,
+        "exact": false
+      },
+      {
+        "ref": "Лит.",
+        "gen": "Лиm.",
+        "cer": 0.25,
+        "exact": false
+      },
+      {
+        "ref": "Подп.",
+        "gen": "Пoдп.",
+        "cer": 0.2,
+        "exact": false
+      },
+      {
+        "ref": "Т.контр.",
+        "gen": "Т. контр.",
+        "cer": 0.125,
+        "exact": false
+      },
+      {
+        "ref": "Формат А4",
+        "gen": "Формат A4",
+        "cer": 0.1111111111111111,
+        "exact": false
+      },
+      {
+        "ref": "Разраб.",
+        "gen": "Разраб.",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "Пров.",
+        "gen": "Пров.",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "N докум.",
+        "gen": "N докум.",
+        "cer": 0.0,
+        "exact": true
+      },
+      {
+        "ref": "1:2",
+        "gen": "1:2",
+        "cer": 0.0,
+        "exact": true
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.3889,
+      "mean_cer": 0.3218,
+      "unmatched_gen": 1,
+      "worst": [
+        {
+          "ref": "Изм.",
+          "gen": "Изм.Лист",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": "Macca",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масштаб",
+          "gen": "Мacwmab",
+          "cer": 0.8571428571428571,
+          "exact": false
+        },
+        {
+          "ref": "Утв.",
+          "gen": "Ymb.",
+          "cer": 0.75,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": "Дама",
+          "cer": 0.25,
+          "exact": false
+        },
+        {
+          "ref": "Н.контр.",
+          "gen": "H. контр.",
+          "cer": 0.25,
+          "exact": false
+        },
+        {
+          "ref": "Лит.",
+          "gen": "Лиm.",
+          "cer": 0.25,
+          "exact": false
+        },
+        {
+          "ref": "Подп.",
+          "gen": "Пoдп.",
+          "cer": 0.2,
+          "exact": false
+        },
+        {
+          "ref": "Т.контр.",
+          "gen": "Т. контр.",
+          "cer": 0.125,
+          "exact": false
+        },
+        {
+          "ref": "Формат А4",
+          "gen": "Формат A4",
+          "cer": 0.1111111111111111,
+          "exact": false
+        },
+        {
+          "ref": "Разраб.",
+          "gen": "Разраб.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Пров.",
+          "gen": "Пров.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "N докум.",
+          "gen": "N докум.",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "1:2",
+          "gen": "1:2",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Листов 1",
+          "gen": "Листов 1",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Лист",
+          "gen": "Лист",
+          "cer": 0.0,
+          "exact": true
+        },
+        {
+          "ref": "Задание",
+          "gen": "Задание",
+          "cer": 0.0,
+          "exact": true
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 0,
+    "gen_area": 0
+  }
+}

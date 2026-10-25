@@ -1,0 +1,51 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\scan200_cut.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\scan200_cut.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 7.589285714285714,
+    "px_per_mm_y": 7.570707070707071,
+    "origin_px": [
+      50.5,
+      2274.5
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 3269,
+    "img_h": 2300
+  },
+  "skew_deg": -0.701545912345228,
+  "stroke_mm": 0.5033411676743451,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 0.57,
+    "ocr": 3.57,
+    "symbols": 0.28,
+    "vectorize": 0.84,
+    "postprocess": 0.45,
+    "hatch": 0.03,
+    "dimensions": 3.33,
+    "snap": 0.0,
+    "cleanup": 5.4,
+    "write": 0.19
+  },
+  "total_s": 14.8,
+  "counts": {
+    "texts": 84,
+    "arrows": 95,
+    "blobs": 408,
+    "lines": 1167,
+    "arcs": 436,
+    "axis_or_dashed": 0,
+    "hatches": 9,
+    "dims_linear": 3,
+    "dims_radius": 4,
+    "dims_angular": 0,
+    "leaders": 22
+  },
+  "dims_with_value": 0,
+  "snap": [],
+  "title_fields": {},
+  "verify": "OK"
+}

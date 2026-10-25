@@ -1,0 +1,319 @@
+{
+  "ref": "runs/klapan_png2dxf/out/frozen_blind/klapan_variant_A.dxf",
+  "gen": "runs/klapan_png2dxf/out/frozen_blind/klapan_variant_B.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 204,
+    "gen_curves": 724,
+    "ref_texts": 64,
+    "gen_texts": 55,
+    "ref_dims": 28,
+    "gen_dims": 26,
+    "ref_hatches": 6,
+    "gen_hatches": 7
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.7399,
+      "recall": 0.8265,
+      "f1": 0.7808
+    },
+    "tol_0.25": {
+      "precision": 0.8738,
+      "recall": 0.9702,
+      "f1": 0.9195
+    },
+    "tol_0.5": {
+      "precision": 0.886,
+      "recall": 0.9797,
+      "f1": 0.9305
+    },
+    "tol_1.0": {
+      "precision": 0.8997,
+      "recall": 0.9827,
+      "f1": 0.9394
+    }
+  },
+  "primitives": {
+    "recall": 0.9363,
+    "precision": 0.6809,
+    "recall_by_ref_type": {
+      "LINE": "163/175",
+      "ARC": "21/21",
+      "CIRCLE": "4/5",
+      "SPLINE": "3/3"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.568,
+    "confusion": {
+      "THIN->MAIN": 92,
+      "MAIN->MAIN": 266,
+      "DIMS->MAIN": 38,
+      "AXIS->MAIN": 5,
+      "AXIS->THIN": 4,
+      "THIN->THIN": 13,
+      "MAIN->THIN": 57,
+      "THIN->DIMS": 17,
+      "AXIS->AXIS": 1
+    }
+  },
+  "dimensions": {
+    "recall": 0.8214,
+    "type_accuracy": 0.8214,
+    "missing": [
+      "⌀22",
+      "R7",
+      "4+1^",
+      "⌀32",
+      "1,5x45°"
+    ],
+    "extra": [
+      "1,5",
+      "4+1",
+      "32"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.3125,
+    "mean_cer": 0.5209,
+    "unmatched_gen": 13,
+    "worst": [
+      {
+        "ref": "Инв.N подл.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подпись и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Взам.инв.N",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв.N дубл.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подп. и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Справ. N",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Первичная примен.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Согласов.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Изм.",
+        "gen": "Изм. Лист № докум.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "N° докум.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Рук. гр.",
+        "gen": "Pyk 2p.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Утв.",
+        "gen": "HopMok",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca",
+        "cer": 1.0,
+        "exact": false
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.4062,
+      "mean_cer": 0.4129,
+      "unmatched_gen": 5,
+      "worst": [
+        {
+          "ref": "Инв.N подл.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Подпись и дата",
+          "gen": "Инв.N подл. Подпись и дата Взам.инв.N",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Взам.инв.N",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Инв.N дубл.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Подп. и дата",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Изм.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "N° докум.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Рук. гр.",
+          "gen": "Pyk 2p.",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Нормок.",
+          "gen": "HopMok",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": "Macca",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "А",
+          "gen": "A",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "А",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "В",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Б",
+          "gen": "D",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "0,2",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Б",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "А",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "В",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 2694.9,
+    "gen_area": 1188.6
+  }
+}

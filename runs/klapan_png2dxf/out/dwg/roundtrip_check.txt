@@ -1,0 +1,2 @@
+A entities equal: True {'LINE': 157, 'TEXT': 64, 'ARC': 21, 'HATCH': 6, 'DIMENSION': 28, 'LEADER': 5, 'CIRCLE': 5, 'INSERT': 9, 'SPLINE': 3} | TEXT equal: True | DIM text equal: True | ver AC1021 ANSI_1251
+B entities equal: True {'LINE': 531, 'ARC': 192, 'CIRCLE': 1, 'HATCH': 7, 'DIMENSION': 26, 'LEADER': 8, 'TEXT': 55} | TEXT equal: True | DIM text equal: True | ver AC1021 ANSI_1251
