@@ -1,0 +1,66 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\Кран.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\Кран.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.49620253164557,
+    "px_per_mm_y": 23.49651567944251,
+    "origin_px": [
+      23.57594936708864,
+      6999.982578397213
+    ],
+    "calibrated_on": "inner frame (GOST 2.301 margins)",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "stroke_mm": 0.19784474087717102,
+  "format_from_ocr": "A3",
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 2.8,
+    "ocr": 2.5,
+    "symbols": 1.79,
+    "vectorize": 3.98,
+    "postprocess": 0.17,
+    "hatch": 0.12,
+    "dimensions": 0.24,
+    "snap": 0.01,
+    "cleanup": 1.68,
+    "write": 0.07
+  },
+  "total_s": 13.41,
+  "counts": {
+    "texts": 37,
+    "arrows": 33,
+    "blobs": 0,
+    "lines": 658,
+    "arcs": 180,
+    "axis_or_dashed": 5,
+    "hatches": 14,
+    "dims_linear": 13,
+    "dims_radius": 0,
+    "dims_angular": 1,
+    "leaders": 2
+  },
+  "dims_with_value": 13,
+  "snap": [
+    {
+      "axis": "x",
+      "constraints": 6,
+      "max_shift_mm": 0.0413
+    },
+    {
+      "axis": "y",
+      "constraints": 6,
+      "max_shift_mm": 0.0405
+    }
+  ],
+  "title_fields": {
+    "name": "Радота 5",
+    "scale": "1:1",
+    "format": "Формат А3"
+  },
+  "verify": "OK"
+}

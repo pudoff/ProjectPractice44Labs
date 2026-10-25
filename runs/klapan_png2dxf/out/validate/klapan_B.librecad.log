@@ -1,0 +1,4 @@
+RS_DEBUG::setLevel(0)
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-root'
+Printing "/work/klapan_B.dxf" to "/work/klapan_B.pdf" >>>>
+Printing "/work/klapan_B.dxf" to "/work/klapan_B.pdf" DONE

@@ -1,0 +1,304 @@
+{
+  "ref": "D:\\pp\\ProjectPractice44Labs\\dataset\\data\\dxf\\drawing_003.dxf",
+  "gen": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\synthetic_003.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 63,
+    "gen_curves": 335,
+    "ref_texts": 31,
+    "gen_texts": 6,
+    "ref_dims": 0,
+    "gen_dims": 0,
+    "ref_hatches": 0,
+    "gen_hatches": 21
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.0122,
+      "recall": 0.0114,
+      "f1": 0.0118
+    },
+    "tol_0.25": {
+      "precision": 0.0737,
+      "recall": 0.0695,
+      "f1": 0.0715
+    },
+    "tol_0.5": {
+      "precision": 0.176,
+      "recall": 0.1674,
+      "f1": 0.1716
+    },
+    "tol_1.0": {
+      "precision": 0.374,
+      "recall": 0.3627,
+      "f1": 0.3682
+    }
+  },
+  "primitives": {
+    "recall": 0.0635,
+    "precision": 0.1254,
+    "recall_by_ref_type": {
+      "LINE": "4/62",
+      "CIRCLE": "0/1"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.2143,
+    "confusion": {
+      "DIMS->THIN": 9,
+      "DIMS->MAIN": 3,
+      "MAIN->MAIN": 4,
+      "THIN->THIN": 5,
+      "THIN->MAIN": 21
+    }
+  },
+  "dimensions": {
+    "recall": 0.0,
+    "recall_by_value": 0.0,
+    "type_accuracy": 0.0,
+    "missing": [],
+    "extra": []
+  },
+  "text": {
+    "exact_rate": 0.0323,
+    "mean_cer": 0.9267,
+    "unmatched_gen": 0,
+    "worst": [
+      {
+        "ref": "35",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "⌀30",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "35",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "⌀40",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "⌀30",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Изм.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "№ докум.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подп.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лит.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масштаб",
+        "gen": "11",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "8,1",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ],
+    "by_center": {
+      "exact_rate": 0.0323,
+      "mean_cer": 0.9267,
+      "unmatched_gen": 0,
+      "worst": [
+        {
+          "ref": "35",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "⌀30",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "35",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "⌀40",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "⌀30",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Изм.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "№ докум.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Подп.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Дата",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лит.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масса",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Масштаб",
+          "gen": "11",
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Лист",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "8,1",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1:1",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "1",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Разраб.",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        },
+        {
+          "ref": "Иванов",
+          "gen": null,
+          "cer": 1.0,
+          "exact": false
+        }
+      ]
+    }
+  },
+  "hatches": {
+    "ref_area": 0,
+    "gen_area": 16.0
+  }
+}

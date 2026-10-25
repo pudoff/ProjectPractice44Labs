@@ -1,0 +1,2 @@
+8059b09a615d018ece39a257c7660102930c7672e859b63938df392473adfa17 *out/frozen_blind/klapan_variant_A.dxf
+508de635c99b168d74800aebbf2cca4885f4c0af08167826d8dda70e9639f0ce *out/frozen_blind/klapan_variant_B.dxf

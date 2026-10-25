@@ -1,0 +1,21 @@
+{
+  "img_w": 9925,
+  "img_h": 7017,
+  "sheet": "A3",
+  "sheet_w": 420,
+  "sheet_h": 297,
+  "px_per_mm_x": 23.495238095238093,
+  "px_per_mm_y": 23.49158249158249,
+  "origin_px": [
+    24,
+    6999
+  ],
+  "outer_line_px": {
+    "left": 24,
+    "right": 9892,
+    "top": 22,
+    "bottom": 6999
+  },
+  "calibrated_on": "outer sheet line",
+  "skew_deg": 0.0
+}

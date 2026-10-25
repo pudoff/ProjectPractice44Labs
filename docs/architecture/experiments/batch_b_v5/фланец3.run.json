@@ -1,0 +1,66 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\dataset\\clear_sum_dataset\\vse_png\\фланец3.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\batch_b_v5\\фланец3.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 23.49047619047619,
+    "px_per_mm_y": 23.484848484848484,
+    "origin_px": [
+      25.0,
+      6998.0
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 9925,
+    "img_h": 7017
+  },
+  "skew_deg": 0.0,
+  "stroke_mm": 0.11658341846431265,
+  "format_from_ocr": null,
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 2.29,
+    "ocr": 3.89,
+    "symbols": 8.69,
+    "vectorize": 10.44,
+    "postprocess": 0.06,
+    "hatch": 0.02,
+    "dimensions": 0.21,
+    "snap": 0.0,
+    "cleanup": 0.49,
+    "write": 0.06
+  },
+  "total_s": 26.2,
+  "counts": {
+    "texts": 80,
+    "arrows": 40,
+    "blobs": 0,
+    "lines": 347,
+    "arcs": 72,
+    "axis_or_dashed": 0,
+    "hatches": 4,
+    "dims_linear": 16,
+    "dims_radius": 1,
+    "dims_angular": 1,
+    "leaders": 5
+  },
+  "dims_with_value": 1,
+  "snap": [
+    {
+      "axis": "y",
+      "constraints": 1,
+      "max_shift_mm": 0.0135
+    }
+  ],
+  "title_fields": {
+    "designation": "1021.04.01.001",
+    "name": "Фланец",
+    "material": "Cm3 F0CT 380-2005",
+    "mass": "9,9",
+    "scale": "1:5",
+    "developer": "Pa3pa6.xxxxxxx",
+    "checker": "XXx",
+    "format": "формат A3"
+  },
+  "verify": "OK"
+}

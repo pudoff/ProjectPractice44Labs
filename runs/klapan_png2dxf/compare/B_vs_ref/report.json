@@ -1,0 +1,194 @@
+{
+  "ref": "dataset/clear_sum_dataset/vse_dxf/клапан.dxf",
+  "gen": "runs/klapan_png2dxf/out/frozen_blind/klapan_variant_B.dxf",
+  "tol_mm": 0.5,
+  "gen_header": {
+    "version": "AC1021",
+    "insunits": 4,
+    "codepage": "ANSI_1251",
+    "layers": [
+      "0",
+      "Defpoints",
+      "MAIN",
+      "THIN",
+      "AXIS",
+      "DIMS",
+      "TEXT"
+    ]
+  },
+  "counts": {
+    "ref_curves": 206,
+    "gen_curves": 724,
+    "ref_texts": 69,
+    "gen_texts": 55,
+    "ref_dims": 28,
+    "gen_dims": 26,
+    "ref_hatches": 3,
+    "gen_hatches": 7
+  },
+  "geometry_points": {
+    "tol_0.1": {
+      "precision": 0.2952,
+      "recall": 0.3308,
+      "f1": 0.312
+    },
+    "tol_0.25": {
+      "precision": 0.6213,
+      "recall": 0.7069,
+      "f1": 0.6613
+    },
+    "tol_0.5": {
+      "precision": 0.8793,
+      "recall": 0.9846,
+      "f1": 0.929
+    },
+    "tol_1.0": {
+      "precision": 0.8924,
+      "recall": 0.9869,
+      "f1": 0.9372
+    }
+  },
+  "primitives": {
+    "recall": 0.9466,
+    "precision": 0.6961,
+    "recall_by_ref_type": {
+      "LINE": "162/170",
+      "ARC": "24/25",
+      "LWPOLYLINE": "0/2",
+      "SPLINE": "5/5",
+      "CIRCLE": "4/4"
+    }
+  },
+  "layers": {
+    "class_accuracy": 0.5615,
+    "confusion": {
+      "THIN->MAIN": 131,
+      "MAIN->MAIN": 265,
+      "AXIS->MAIN": 6,
+      "AXIS->THIN": 4,
+      "THIN->THIN": 17,
+      "MAIN->THIN": 62,
+      "THIN->DIMS": 18,
+      "AXIS->AXIS": 1
+    }
+  },
+  "dimensions": {
+    "recall": 0.7857,
+    "type_accuracy": 0.75,
+    "missing": [
+      "⌀22",
+      "R7",
+      "М12х1,5-Н7",
+      "4",
+      "⌀32",
+      "1,5x45°"
+    ],
+    "extra": [
+      "1,5",
+      "4+1",
+      "M12x1,5-H7",
+      "32"
+    ]
+  },
+  "text": {
+    "exact_rate": 0.3478,
+    "mean_cer": 0.4797,
+    "unmatched_gen": 5,
+    "worst": [
+      {
+        "ref": "А",
+        "gen": "A",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Нормок.",
+        "gen": "HopMok",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": ".",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Изм.",
+        "gen": "Изм. Лист № докум.",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "N° докум.",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Лист",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "1",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Масса",
+        "gen": "Macca",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв.N подл.",
+        "gen": "Инв.N подл. Подпись и дата Взам.инв.N",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Инв. N дубл.",
+        "gen": "Инв. N дубл Подп. и дата",
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Взам.инв.N",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подпись и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      },
+      {
+        "ref": "Подп. и дата",
+        "gen": null,
+        "cer": 1.0,
+        "exact": false
+      }
+    ]
+  },
+  "hatches": {
+    "ref_area": 2756.7,
+    "gen_area": 1188.6
+  }
+}

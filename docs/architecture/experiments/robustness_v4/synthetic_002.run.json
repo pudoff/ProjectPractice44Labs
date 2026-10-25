@@ -1,0 +1,51 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\synthetic_002.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\synthetic_002.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 7.871428571428571,
+    "px_per_mm_y": 7.872053872053872,
+    "origin_px": [
+      0.0,
+      2338.0
+    ],
+    "calibrated_on": "image size (no trim line found)",
+    "img_w": 3307,
+    "img_h": 2339
+  },
+  "skew_deg": 0.0,
+  "stroke_mm": 0.48529944705443895,
+  "format_from_ocr": null,
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 0.19,
+    "ocr": 1.58,
+    "symbols": 0.1,
+    "vectorize": 0.44,
+    "postprocess": 0.07,
+    "hatch": 0.0,
+    "dimensions": 0.12,
+    "snap": 0.0,
+    "cleanup": 1.18,
+    "write": 0.05
+  },
+  "total_s": 3.77,
+  "counts": {
+    "texts": 2,
+    "arrows": 14,
+    "blobs": 40,
+    "lines": 560,
+    "arcs": 204,
+    "axis_or_dashed": 1,
+    "hatches": 0,
+    "dims_linear": 0,
+    "dims_radius": 0,
+    "dims_angular": 0,
+    "leaders": 3
+  },
+  "dims_with_value": 0,
+  "snap": [],
+  "title_fields": {},
+  "verify": "OK"
+}

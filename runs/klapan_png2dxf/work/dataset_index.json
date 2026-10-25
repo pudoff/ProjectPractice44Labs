@@ -1,0 +1,6954 @@
+{
+ "dataset\\clear_sum_dataset\\vse_dxf\\бобышка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 57,
+   "HATCH": 1,
+   "TEXT": 39,
+   "LWPOLYLINE": 6,
+   "MTEXT": 1,
+   "LEADER": 2,
+   "DIMENSION": 8
+  },
+  "layers": {
+   "Ax": 1,
+   "Hatch": 1,
+   "0": 45,
+   "Slim": 15,
+   "Text": 41,
+   "Dim": 9,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 8
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\болт1.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 120,
+   "TEXT": 57,
+   "ARC": 8,
+   "LWPOLYLINE": 5,
+   "CIRCLE": 2,
+   "DIMENSION": 14,
+   "LEADER": 2,
+   "MTEXT": 2
+  },
+  "layers": {
+   "0": 119,
+   "TOST": 91
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 11,
+   "2": 1,
+   "4": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 61,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "HATCH": 2,
+   "CIRCLE": 1,
+   "SPLINE": 8,
+   "ARC": 7,
+   "INSERT": 3,
+   "DIMENSION": 16
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 58,
+   "Тонкая": 8,
+   "Осевая": 7,
+   "ОСН": 50,
+   "Размер": 16
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 14,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал10.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 63,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 4,
+   "HATCH": 5,
+   "ARC": 2,
+   "SPLINE": 2,
+   "SOLID": 2,
+   "DIMENSION": 17
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "ОСН": 41,
+   "Тонкая": 7,
+   "Осевая": 9,
+   "Размер": 21
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 17
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал11.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 78,
+   "LWPOLYLINE": 24,
+   "TEXT": 25,
+   "CIRCLE": 4,
+   "ARC": 6,
+   "SPLINE": 5,
+   "HATCH": 7,
+   "SOLID": 2,
+   "DIMENSION": 16
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 62,
+   "ОСН": 60,
+   "Осевая": 9,
+   "Тонкая": 12,
+   "Размер": 20
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 14,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 7
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал12.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 68,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "HATCH": 6,
+   "CIRCLE": 3,
+   "ARC": 4,
+   "SPLINE": 4,
+   "DIMENSION": 19,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 71,
+   "ОСН": 47,
+   "Осевая": 9,
+   "Размер": 23
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 6
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал13.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 70,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 2,
+   "HATCH": 5,
+   "ARC": 5,
+   "SPLINE": 2,
+   "SOLID": 2,
+   "DIMENSION": 18
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "ОСН": 48,
+   "Тонкая": 7,
+   "Осевая": 9,
+   "Размер": 23
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 16,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 170,
+   "TEXT": 53,
+   "ARC": 22,
+   "SPLINE": 4,
+   "HATCH": 5,
+   "DIMENSION": 28,
+   "SOLID": 10,
+   "CIRCLE": 1,
+   "MTEXT": 15
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 16,
+   "Техт": 102,
+   "Основная": 104,
+   "Осевая": 14,
+   "Штриховка": 5,
+   "Размер": 57,
+   "Пунктир": 6
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 22,
+   "2": 2,
+   "4": 4
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 78,
+   "LWPOLYLINE": 24,
+   "TEXT": 25,
+   "CIRCLE": 4,
+   "ARC": 6,
+   "SPLINE": 5,
+   "HATCH": 7,
+   "SOLID": 2,
+   "DIMENSION": 16
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 62,
+   "ОСН": 60,
+   "Осевая": 9,
+   "Тонкая": 12,
+   "Размер": 20
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 14,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 7
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 70,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 7,
+   "HATCH": 5,
+   "ARC": 6,
+   "SPLINE": 3,
+   "DIMENSION": 15,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "ОСН": 56,
+   "Тонкая": 8,
+   "Осевая": 8,
+   "Размер": 19
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 72,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 6,
+   "ARC": 6,
+   "SPLINE": 3,
+   "HATCH": 5,
+   "DIMENSION": 16,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "Осевая": 9,
+   "ОСН": 56,
+   "Тонкая": 8,
+   "Размер": 20
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 15,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал6.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 67,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 3,
+   "HATCH": 5,
+   "ARC": 6,
+   "SPLINE": 3,
+   "SOLID": 2,
+   "DIMENSION": 16
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "ОСН": 48,
+   "Тонкая": 8,
+   "Осевая": 9,
+   "Размер": 20
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "3": 1,
+   "0": 15
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал7.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 64,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 2,
+   "ARC": 4,
+   "SPLINE": 1,
+   "HATCH": 4,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 58,
+   "ОСН": 45,
+   "Осевая": 8,
+   "Тонкая": 5,
+   "Размер": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 12,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 4
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал8.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 78,
+   "LWPOLYLINE": 24,
+   "TEXT": 24,
+   "CIRCLE": 3,
+   "HATCH": 6,
+   "ARC": 16,
+   "DIMENSION": 18,
+   "SPLINE": 3,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 61,
+   "ОСН": 69,
+   "Тонкая": 9,
+   "Осевая": 9,
+   "Размер": 22
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 17,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 6
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Вал9.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 72,
+   "LWPOLYLINE": 24,
+   "TEXT": 23,
+   "CIRCLE": 5,
+   "ARC": 3,
+   "HATCH": 6,
+   "SPLINE": 3,
+   "DIMENSION": 17,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 60,
+   "ОСН": 52,
+   "Осевая": 9,
+   "Тонкая": 9,
+   "Размер": 21
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 15,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 6
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Воронка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 33,
+   "LWPOLYLINE": 24,
+   "TEXT": 22,
+   "CIRCLE": 4,
+   "ARC": 20,
+   "DIMENSION": 14,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 60,
+   "ОСН": 30,
+   "Осевая": 10,
+   "Размер": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "4": 7,
+   "3": 2,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка резьбовая.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 110,
+   "TEXT": 60,
+   "ARC": 2,
+   "HATCH": 2,
+   "CIRCLE": 1,
+   "DIMENSION": 9,
+   "SPLINE": 1
+  },
+  "layers": {
+   "TOST": 96,
+   "0": 89
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 8,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 127,
+   "TEXT": 23,
+   "HATCH": 1,
+   "ARC": 11,
+   "CIRCLE": 8,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "0": 36,
+   "Техт": 20,
+   "Размерная": 23,
+   "Основная": 98,
+   "Штриховка": 1,
+   "Осевая": 6
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 115,
+   "TEXT": 64,
+   "CIRCLE": 4,
+   "HATCH": 4,
+   "DIMENSION": 12,
+   "LEADER": 7,
+   "MTEXT": 4,
+   "ELLIPSE": 2,
+   "LWPOLYLINE": 4,
+   "SPLINE": 1,
+   "ARC": 2
+  },
+  "layers": {
+   "0": 95,
+   "TOST": 124
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 1,
+   "0": 10,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 4
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 152,
+   "TEXT": 70,
+   "ARC": 8,
+   "DIMENSION": 25,
+   "LWPOLYLINE": 4,
+   "LEADER": 10,
+   "CIRCLE": 3,
+   "MTEXT": 3,
+   "SPLINE": 1,
+   "HATCH": 6
+  },
+  "layers": {
+   "0": 148,
+   "TOST": 134
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "2": 3,
+   "4": 3,
+   "1": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 6
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 153,
+   "ARC": 10,
+   "DIMENSION": 23,
+   "TEXT": 83,
+   "LWPOLYLINE": 5,
+   "LEADER": 11,
+   "CIRCLE": 1,
+   "MTEXT": 5,
+   "SPLINE": 1,
+   "HATCH": 2
+  },
+  "layers": {
+   "0": 158,
+   "TOST": 136
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 17,
+   "2": 3,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\втулка5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 40,
+   "LINE": 89,
+   "LWPOLYLINE": 6,
+   "HATCH": 2,
+   "DIMENSION": 8,
+   "CIRCLE": 3,
+   "ARC": 4,
+   "ELLIPSE": 2
+  },
+  "layers": {
+   "Text": 37,
+   "0": 83,
+   "Slim": 11,
+   "Wide": 5,
+   "Ax": 8,
+   "Hatch": 2,
+   "Dim": 8
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 8
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка круглая.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 165,
+   "TEXT": 52,
+   "ARC": 6,
+   "CIRCLE": 2,
+   "DIMENSION": 10,
+   "HATCH": 2,
+   "LWPOLYLINE": 4,
+   "SOLID": 1,
+   "LEADER": 2
+  },
+  "layers": {
+   "TOST": 133,
+   "0": 111
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 8,
+   "2": 1,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка круглая2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 201,
+   "TEXT": 63,
+   "ARC": 32,
+   "LWPOLYLINE": 132,
+   "CIRCLE": 2,
+   "DIMENSION": 10,
+   "HATCH": 2,
+   "SOLID": 4
+  },
+  "layers": {
+   "TOST": 262,
+   "0": 184
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Гайка накидная.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 86,
+   "TEXT": 24,
+   "ARC": 8,
+   "LWPOLYLINE": 1,
+   "CIRCLE": 3,
+   "DIMENSION": 11,
+   "HATCH": 1,
+   "SPLINE": 1
+  },
+  "layers": {
+   "0": 36,
+   "Техт": 20,
+   "Основная": 55,
+   "Размерная": 20,
+   "Осевая": 3,
+   "Штриховка": 1
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "3": 1,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка накидная2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 71,
+   "LWPOLYLINE": 11,
+   "MTEXT": 1,
+   "CIRCLE": 2,
+   "ARC": 8,
+   "HATCH": 1,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "Text": 40,
+   "0": 68,
+   "Slim": 14,
+   "Wide": 2,
+   "Ax": 3,
+   "Hatch": 3,
+   "Dim": 15
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 10,
+   "2": 2,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка накидная3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 73,
+   "HATCH": 1,
+   "TEXT": 37,
+   "LWPOLYLINE": 13,
+   "MTEXT": 1,
+   "ARC": 7,
+   "CIRCLE": 2,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "Ax": 3,
+   "Hatch": 3,
+   "Slim": 14,
+   "0": 72,
+   "Text": 40,
+   "Dim": 14,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 10,
+   "3": 2,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка накидная4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 70,
+   "LWPOLYLINE": 12,
+   "MTEXT": 1,
+   "ARC": 7,
+   "CIRCLE": 2,
+   "HATCH": 1,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "Text": 40,
+   "0": 69,
+   "Slim": 14,
+   "Wide": 2,
+   "Ax": 3,
+   "Hatch": 2,
+   "Dim": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 10,
+   "2": 2,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 165,
+   "TEXT": 58,
+   "DIMENSION": 18,
+   "LWPOLYLINE": 8,
+   "LEADER": 2,
+   "ARC": 19,
+   "CIRCLE": 3,
+   "HATCH": 1
+  },
+  "layers": {
+   "TOST": 155,
+   "0": 119
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 2,
+   "0": 13,
+   "4": 2,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 60,
+   "LWPOLYLINE": 5,
+   "HATCH": 1,
+   "DIMENSION": 7
+  },
+  "layers": {
+   "Text": 38,
+   "0": 48,
+   "Slim": 13,
+   "Wide": 2,
+   "Ax": 1,
+   "Hatch": 1,
+   "Dim": 7
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 7
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\гайка3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 80,
+   "HATCH": 1,
+   "ARC": 11,
+   "SPLINE": 1,
+   "TEXT": 41,
+   "LWPOLYLINE": 13,
+   "DIMENSION": 15,
+   "LEADER": 1,
+   "CIRCLE": 3,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Ax": 4,
+   "Hatch": 1,
+   "0": 78,
+   "Hidden": 3,
+   "Slim": 19,
+   "Text": 43,
+   "Dim": 15,
+   "Wide": 4
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 3,
+   "0": 10,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\дно.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 50,
+   "TEXT": 38,
+   "LWPOLYLINE": 6,
+   "MTEXT": 1,
+   "DIMENSION": 6,
+   "CIRCLE": 4,
+   "SPLINE": 2,
+   "LEADER": 1
+  },
+  "layers": {
+   "0": 38,
+   "Text": 44,
+   "Slim": 13,
+   "Dim": 7,
+   "Ax": 4,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5,
+   "3": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\дно2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 52,
+   "LWPOLYLINE": 4,
+   "HATCH": 1,
+   "DIMENSION": 5
+  },
+  "layers": {
+   "Text": 37,
+   "0": 42,
+   "Slim": 11,
+   "Wide": 2,
+   "Ax": 1,
+   "Hatch": 1,
+   "Dim": 5
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\заглушка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 71,
+   "TEXT": 43,
+   "ARC": 3,
+   "HATCH": 1,
+   "DIMENSION": 6,
+   "LEADER": 1
+  },
+  "layers": {
+   "0": 59,
+   "TOST": 66
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\звездочка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 62,
+   "ARC": 15,
+   "TEXT": 36,
+   "LWPOLYLINE": 2,
+   "MTEXT": 1,
+   "DIMENSION": 7,
+   "LEADER": 1,
+   "SPLINE": 1
+  },
+  "layers": {
+   "Ax": 4,
+   "0": 63,
+   "Text": 35,
+   "Slim": 13,
+   "Wide": 2,
+   "Dim": 8
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 2,
+   "0": 2,
+   "2": 2,
+   "1": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\золотник.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 111,
+   "TEXT": 22,
+   "ARC": 20,
+   "HATCH": 2,
+   "DIMENSION": 14,
+   "CIRCLE": 2,
+   "SPLINE": 1
+  },
+  "layers": {
+   "0": 32,
+   "Техт": 20,
+   "Основная": 90,
+   "Размерная": 25,
+   "Штриховка": 2,
+   "Осевая": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 11,
+   "2": 1,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Кожух.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 762,
+   "LINE": 1571,
+   "LWPOLYLINE": 75,
+   "MTEXT": 12,
+   "ARC": 73,
+   "CIRCLE": 29,
+   "SPLINE": 18,
+   "DIMENSION": 121,
+   "HATCH": 23,
+   "LEADER": 23,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Text": 771,
+   "0": 1181,
+   "Slim": 399,
+   "Wide": 47,
+   "Ax": 60,
+   "Hidden": 88,
+   "Dim": 140,
+   "Hatch": 22
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 94,
+   "4": 4,
+   "3": 9,
+   "2": 14
+  },
+  "hatch_patterns": {
+   "ANSI31": 21,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\кольцо.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 71,
+   "TEXT": 43,
+   "ARC": 4,
+   "DIMENSION": 4,
+   "MTEXT": 3,
+   "SOLID": 3,
+   "POINT": 3,
+   "HATCH": 1
+  },
+  "layers": {
+   "TOST": 61,
+   "0": 68,
+   "DEFPOINTS": 3
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 3,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\кольцо2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 763,
+   "LINE": 1569,
+   "LWPOLYLINE": 79,
+   "HATCH": 24,
+   "DIMENSION": 116,
+   "MTEXT": 12,
+   "CIRCLE": 36,
+   "ARC": 72,
+   "TOLERANCE": 2,
+   "LEADER": 24,
+   "SPLINE": 17
+  },
+  "layers": {
+   "Text": 778,
+   "0": 1179,
+   "Slim": 405,
+   "Wide": 47,
+   "Hatch": 23,
+   "Ax": 59,
+   "Dim": 136,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 89,
+   "3": 10,
+   "2": 14,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\кольцо3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 763,
+   "LINE": 1569,
+   "LWPOLYLINE": 79,
+   "HATCH": 24,
+   "CIRCLE": 36,
+   "ARC": 72,
+   "DIMENSION": 116,
+   "TOLERANCE": 2,
+   "MTEXT": 12,
+   "LEADER": 24,
+   "SPLINE": 17
+  },
+  "layers": {
+   "Text": 778,
+   "0": 1179,
+   "Slim": 405,
+   "Wide": 47,
+   "Hatch": 23,
+   "Ax": 59,
+   "Dim": 136,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 10,
+   "0": 89,
+   "2": 14,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\кольцо4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 1555,
+   "HATCH": 24,
+   "LWPOLYLINE": 77,
+   "ARC": 69,
+   "CIRCLE": 28,
+   "TEXT": 762,
+   "MTEXT": 12,
+   "DIMENSION": 113,
+   "LEADER": 25,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Ax": 53,
+   "Hatch": 23,
+   "0": 1169,
+   "Slim": 400,
+   "Text": 772,
+   "Dim": 132,
+   "Wide": 47,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 88,
+   "2": 14,
+   "3": 8,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\кольцо5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 49,
+   "HATCH": 1,
+   "TEXT": 37,
+   "LWPOLYLINE": 6,
+   "DIMENSION": 3,
+   "MTEXT": 1,
+   "LEADER": 2
+  },
+  "layers": {
+   "Ax": 1,
+   "Hatch": 1,
+   "0": 39,
+   "Text": 40,
+   "Slim": 13,
+   "Wide": 2,
+   "Dim": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\коромысло.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 22,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 3,
+   "ARC": 8,
+   "DIMENSION": 13,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 11,
+   "Осевая": 5,
+   "Размер": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "4": 8,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\корпус клапана.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 150,
+   "TEXT": 23,
+   "ARC": 32,
+   "LWPOLYLINE": 1,
+   "CIRCLE": 6,
+   "DIMENSION": 30,
+   "LEADER": 1,
+   "HATCH": 2
+  },
+  "layers": {
+   "0": 24,
+   "Техт": 21,
+   "Основная": 149,
+   "Размерная": 8,
+   "DEFPOINTS": 1,
+   "Осевая": 9,
+   "Размер": 31,
+   "Штриховка": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__0.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 23,
+   "4": 6,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\корпус.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 130,
+   "TEXT": 25,
+   "HATCH": 1,
+   "ARC": 24,
+   "CIRCLE": 11,
+   "DIMENSION": 27
+  },
+  "layers": {
+   "0": 39,
+   "Техт": 21,
+   "Основная": 112,
+   "Штриховка": 1,
+   "Осевая": 9,
+   "Размерная": 36
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 1,
+   "0": 23,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус10.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 142,
+   "TEXT": 18,
+   "CIRCLE": 5,
+   "ARC": 14,
+   "HATCH": 2,
+   "DIMENSION": 19,
+   "MTEXT": 4
+  },
+  "layers": {
+   "0": 18,
+   "Техт": 18,
+   "Основная": 114,
+   "Пунктир": 21,
+   "Осевая": 8,
+   "Штриховка": 2,
+   "Размерная": 23
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_BASIC",
+   "K5LT_DASHED",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 15,
+   "3": 3,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус11.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 388,
+   "TEXT": 40,
+   "ARC": 81,
+   "CIRCLE": 34,
+   "POINT": 1,
+   "LWPOLYLINE": 16,
+   "LEADER": 11,
+   "MTEXT": 16,
+   "HATCH": 5,
+   "DIMENSION": 4
+  },
+  "layers": {
+   "0": 199,
+   "TOST": 397
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4
+  },
+  "hatch_patterns": {
+   "ANSI31": 5
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\корпус12.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 149,
+   "HATCH": 2,
+   "ARC": 9,
+   "CIRCLE": 4,
+   "SPLINE": 3,
+   "TEXT": 43,
+   "LWPOLYLINE": 9,
+   "DIMENSION": 24,
+   "LEADER": 2,
+   "TOLERANCE": 1,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Ax": 9,
+   "Hatch": 1,
+   "0": 130,
+   "Slim": 23,
+   "Hidden": 3,
+   "Text": 45,
+   "Wide": 6,
+   "Dim": 30
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 16,
+   "3": 1,
+   "2": 4,
+   "1": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1,
+   "SOLID": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\корпус13.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "HATCH": 2,
+   "LINE": 157,
+   "DIMENSION": 15,
+   "LWPOLYLINE": 9,
+   "LEADER": 2,
+   "TEXT": 44,
+   "CIRCLE": 3,
+   "ARC": 4,
+   "SPLINE": 2
+  },
+  "layers": {
+   "Hatch": 2,
+   "0": 95,
+   "Ax": 7,
+   "Slim": 25,
+   "Dim": 19,
+   "Text": 46,
+   "Hidden": 42,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 2,
+   "0": 12,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\корпус2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 26,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "HATCH": 1,
+   "CIRCLE": 4,
+   "ARC": 7,
+   "DIMENSION": 11,
+   "LARGE_RADIAL_DIMENSION": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "Осевая": 7,
+   "ОСН": 13,
+   "Размер": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5,
+   "4": 5,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 141,
+   "TEXT": 17,
+   "ARC": 5,
+   "CIRCLE": 6,
+   "HATCH": 2,
+   "ELLIPSE": 1,
+   "DIMENSION": 21,
+   "MTEXT": 6,
+   "SPLINE": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Основная": 119,
+   "Техт": 17,
+   "Осевая": 8,
+   "Штриховка": 2,
+   "Размерная": 37,
+   "WELDING": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_BASIC",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "3": 2,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 24,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 4,
+   "ARC": 4,
+   "DIMENSION": 11,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 10,
+   "Осевая": 5,
+   "Размер": 11
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 3,
+   "4": 4,
+   "3": 4
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 34,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 9,
+   "ARC": 8,
+   "DIMENSION": 13,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 25,
+   "Осевая": 8,
+   "Размер": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 6,
+   "4": 5,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус6.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 158,
+   "TEXT": 18,
+   "CIRCLE": 1,
+   "ARC": 1,
+   "SPLINE": 2,
+   "HATCH": 2,
+   "DIMENSION": 20,
+   "LWPOLYLINE": 1,
+   "MTEXT": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 14,
+   "Техт": 18,
+   "Основная": 124,
+   "Пунктир": 14,
+   "Осевая": 6,
+   "Штриховка": 2,
+   "Размерная": 23
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 20
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус7.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 140,
+   "TEXT": 20,
+   "ARC": 2,
+   "CIRCLE": 6,
+   "HATCH": 3,
+   "DIMENSION": 21,
+   "MTEXT": 6,
+   "SPLINE": 1,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 13,
+   "Техт": 26,
+   "Основная": 106,
+   "Пунктир": 16,
+   "Осевая": 6,
+   "Штриховка": 3,
+   "Размерная": 27
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 19,
+   "3": 1,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус8.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 130,
+   "TEXT": 18,
+   "ELLIPSE": 1,
+   "CIRCLE": 6,
+   "ARC": 4,
+   "SPLINE": 3,
+   "HATCH": 3,
+   "DIMENSION": 18,
+   "MTEXT": 3
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 18,
+   "Техт": 18,
+   "Основная": 107,
+   "Пунктир": 9,
+   "Осевая": 9,
+   "Размерная": 21
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 16,
+   "4": 1,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Корпус9.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 133,
+   "TEXT": 21,
+   "CIRCLE": 6,
+   "SPLINE": 3,
+   "ARC": 10,
+   "HATCH": 3,
+   "ELLIPSE": 2,
+   "LWPOLYLINE": 5,
+   "DIMENSION": 15,
+   "MTEXT": 5,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 13,
+   "Техт": 27,
+   "Основная": 119,
+   "Пунктир": 8,
+   "Осевая": 11,
+   "Штриховка": 2,
+   "Размерная": 21
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 11,
+   "4": 2,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Кран.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 157,
+   "TEXT": 24,
+   "SPLINE": 3,
+   "ELLIPSE": 2,
+   "HATCH": 2,
+   "CIRCLE": 6,
+   "ARC": 4,
+   "DIMENSION": 16,
+   "MTEXT": 6,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 29,
+   "Основная": 144,
+   "Осевая": 8,
+   "Штриховка": 2,
+   "Размерная": 23
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "GOST_A.TTF"
+   ],
+   [
+    "Standard",
+    ""
+   ]
+  ],
+  "dimtypes": {
+   "0": 12,
+   "3": 2,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\крышка бака.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 110,
+   "HATCH": 5,
+   "CIRCLE": 33,
+   "ARC": 4,
+   "DIMENSION": 33,
+   "LWPOLYLINE": 18,
+   "TOLERANCE": 3,
+   "TEXT": 45,
+   "MTEXT": 1,
+   "SPLINE": 2,
+   "LEADER": 2
+  },
+  "layers": {
+   "0": 76,
+   "Ax": 56,
+   "Dim": 40,
+   "Slim": 25,
+   "Text": 50,
+   "Hatch": 3,
+   "Wide": 6
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 25,
+   "3": 8
+  },
+  "hatch_patterns": {
+   "SOLID": 4,
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\крышка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 64,
+   "LWPOLYLINE": 4,
+   "HATCH": 1,
+   "DIMENSION": 9
+  },
+  "layers": {
+   "Text": 37,
+   "0": 54,
+   "Slim": 11,
+   "Wide": 2,
+   "Ax": 1,
+   "Hatch": 1,
+   "Dim": 9
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\линейка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 38,
+   "LINE": 59,
+   "LWPOLYLINE": 5,
+   "MTEXT": 1,
+   "CIRCLE": 1,
+   "ARC": 6,
+   "SPLINE": 2,
+   "DIMENSION": 9
+  },
+  "layers": {
+   "Text": 42,
+   "0": 50,
+   "Slim": 13,
+   "Wide": 2,
+   "Ax": 5,
+   "Dim": 9
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "4": 1,
+   "3": 1,
+   "0": 7
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\МТСП.24.03.001_Лист.dxf": {
+  "version": "AC1032",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 8,
+   "DIMENSION": 8,
+   "INSERT": 9,
+   "CIRCLE": 4
+  },
+  "layers": {
+   "Системный слой": 26,
+   "0": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_AXLED",
+   "K5LT_BASIC",
+   "K5LT_THIN"
+  ],
+  "styles": [
+   [
+    "KDIMTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "KTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {
+   "0": 7,
+   "3": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\МТСП.24.03.003_Палец .dxf": {
+  "version": "AC1032",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 29,
+   "INSERT": 18,
+   "ARC": 4,
+   "HATCH": 1,
+   "DIMENSION": 12,
+   "CIRCLE": 9,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Системный слой": 71,
+   "0": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_AXLED",
+   "K5LT_BASIC",
+   "K5LT_THIN",
+   "K5LT_THIN_INCLUDED_TO_HATCHING"
+  ],
+  "styles": [
+   [
+    "KDIMTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "KTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "4": 1,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\МТСП.24.08.006_Двутавр.dxf": {
+  "version": "AC1032",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "INSERT": 24,
+   "LINE": 71,
+   "ARC": 16,
+   "DIMENSION": 10,
+   "ELLIPSE": 4
+  },
+  "layers": {
+   "Системный слой": 122,
+   "0": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_AXLED",
+   "K5LT_BASIC",
+   "K5LT_THIN",
+   "K5LT_THIN_INCLUDED_TO_HATCHING"
+  ],
+  "styles": [
+   [
+    "KDIMTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "KTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "4": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\МТСП.24.08.007_Втулка.dxf": {
+  "version": "AC1032",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "CIRCLE": 3,
+   "INSERT": 10,
+   "DIMENSION": 7,
+   "LINE": 37,
+   "SPLINE": 8,
+   "HATCH": 1
+  },
+  "layers": {
+   "Системный слой": 63,
+   "0": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_AXLED",
+   "K5LT_BASIC",
+   "K5LT_REINFORCED",
+   "K5LT_THIN"
+  ],
+  "styles": [
+   [
+    "KDIMTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "KTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {
+   "3": 2,
+   "0": 5
+  },
+  "hatch_patterns": {
+   "": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\МТСП.24.08.012_Ребро.dxf": {
+  "version": "AC1032",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 47,
+   "DIMENSION": 13,
+   "INSERT": 7,
+   "CIRCLE": 2,
+   "ARC": 2
+  },
+  "layers": {
+   "Системный слой": 68,
+   "0": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "K5LT_AXLED",
+   "K5LT_BASIC",
+   "K5LT_THIN"
+  ],
+  "styles": [
+   [
+    "KDIMTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "KTEXTSTYLE",
+    "GOST_AU.SHX"
+   ],
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {
+   "0": 11,
+   "4": 1,
+   "3": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\ниппель шаровой.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 60,
+   "LWPOLYLINE": 5,
+   "MTEXT": 1,
+   "HATCH": 1,
+   "ARC": 2,
+   "DIMENSION": 12,
+   "LEADER": 1
+  },
+  "layers": {
+   "Text": 39,
+   "0": 51,
+   "Slim": 12,
+   "Wide": 2,
+   "Ax": 1,
+   "Hatch": 1,
+   "Dim": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "4": 1,
+   "0": 9,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\ниппель шаровой2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "HATCH": 1,
+   "ARC": 2,
+   "LINE": 61,
+   "TEXT": 37,
+   "LWPOLYLINE": 5,
+   "MTEXT": 1,
+   "DIMENSION": 12,
+   "LEADER": 1
+  },
+  "layers": {
+   "Hatch": 1,
+   "0": 51,
+   "Ax": 2,
+   "Text": 39,
+   "Slim": 12,
+   "Dim": 13,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "4": 1,
+   "2": 2,
+   "0": 9
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\ниппель.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "HATCH": 1,
+   "LINE": 57,
+   "TEXT": 37,
+   "LWPOLYLINE": 4,
+   "MTEXT": 1,
+   "DIMENSION": 7,
+   "LEADER": 1
+  },
+  "layers": {
+   "Hatch": 1,
+   "0": 46,
+   "Text": 38,
+   "Slim": 11,
+   "Wide": 2,
+   "Dim": 8,
+   "Ax": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 6,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\обойма.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 761,
+   "LINE": 1566,
+   "LWPOLYLINE": 77,
+   "HATCH": 24,
+   "CIRCLE": 36,
+   "DIMENSION": 118,
+   "TOLERANCE": 2,
+   "ARC": 69,
+   "MTEXT": 11,
+   "LEADER": 23,
+   "SPLINE": 17
+  },
+  "layers": {
+   "Text": 770,
+   "0": 1179,
+   "Slim": 400,
+   "Wide": 47,
+   "Hatch": 23,
+   "Ax": 59,
+   "Hidden": 88,
+   "Dim": 138
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 10,
+   "0": 90,
+   "2": 15,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 93,
+   "TEXT": 19,
+   "HATCH": 2,
+   "ARC": 7,
+   "CIRCLE": 6,
+   "DIMENSION": 14,
+   "MTEXT": 6
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 19,
+   "Основная": 82,
+   "Штриховка": 2,
+   "Осевая": 8,
+   "Размерная": 20
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__0.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 131,
+   "TEXT": 20,
+   "ARC": 6,
+   "CIRCLE": 7,
+   "HATCH": 2,
+   "SPLINE": 1,
+   "DIMENSION": 21,
+   "MTEXT": 8,
+   "SOLID": 2
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 16,
+   "Техт": 18,
+   "ОСН": 117,
+   "Осевая": 10,
+   "Размерная": 29,
+   "Размер": 4
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__0.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "3": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 149,
+   "TEXT": 20,
+   "CIRCLE": 4,
+   "ARC": 19,
+   "ELLIPSE": 1,
+   "SPLINE": 1,
+   "HATCH": 2,
+   "DIMENSION": 19,
+   "MTEXT": 6,
+   "SOLID": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 14,
+   "Техт": 20,
+   "Основная": 139,
+   "Размерная": 33,
+   "Осевая": 12
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "3": 4,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 30,
+   "LWPOLYLINE": 24,
+   "TEXT": 22,
+   "ARC": 13,
+   "CIRCLE": 3,
+   "DIMENSION": 15,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 60,
+   "Осевая": 8,
+   "ОСН": 21,
+   "Размер": 15
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "4": 9,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 174,
+   "TEXT": 20,
+   "ARC": 18,
+   "CIRCLE": 7,
+   "SPLINE": 2,
+   "HATCH": 3,
+   "DIMENSION": 21,
+   "SOLID": 1,
+   "MTEXT": 7
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 14,
+   "Техт": 20,
+   "Основная": 165,
+   "Осевая": 11,
+   "Штриховка": 2,
+   "Размерная": 37
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 14,
+   "2": 1,
+   "3": 5,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора6.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 93,
+   "TEXT": 18,
+   "ARC": 1,
+   "CIRCLE": 4,
+   "HATCH": 2,
+   "DIMENSION": 20,
+   "MTEXT": 3
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 18,
+   "Основная": 73,
+   "Осевая": 9,
+   "Штриховка": 2,
+   "Размерная": 23
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "GOST_A.TTF"
+   ],
+   [
+    "Standard",
+    ""
+   ]
+  ],
+  "dimtypes": {
+   "4": 1,
+   "3": 2,
+   "0": 17
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора7.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 142,
+   "TEXT": 20,
+   "ARC": 4,
+   "CIRCLE": 6,
+   "HATCH": 2,
+   "DIMENSION": 20,
+   "MTEXT": 6
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 20,
+   "Основная": 109,
+   "Осевая": 25,
+   "Штриховка": 2,
+   "Размерная": 28
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "GOST_A.TTF"
+   ],
+   [
+    "Standard",
+    ""
+   ]
+  ],
+  "dimtypes": {
+   "0": 16,
+   "3": 3,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Опора8.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 133,
+   "TEXT": 18,
+   "CIRCLE": 1,
+   "ARC": 4,
+   "DIMENSION": 13,
+   "MTEXT": 3,
+   "SOLID": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 18,
+   "Основная": 110,
+   "Пунктир": 4,
+   "Осевая": 4,
+   "Размерная": 21
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    ""
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 12,
+   "1": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Основание.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 105,
+   "TEXT": 18,
+   "ARC": 7,
+   "CIRCLE": 1,
+   "SPLINE": 2,
+   "HATCH": 2,
+   "DIMENSION": 11,
+   "MTEXT": 3
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 16,
+   "Техт": 18,
+   "Основная": 89,
+   "Осевая": 6,
+   "Размерная": 16
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "3": 3,
+   "0": 8
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\патрубок.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 65,
+   "TEXT": 21,
+   "HATCH": 2,
+   "DIMENSION": 5,
+   "ARC": 2
+  },
+  "layers": {
+   "0": 28,
+   "Техт": 20,
+   "Основная": 31,
+   "Штриховка": 2,
+   "Осевая": 1,
+   "Размерная": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5
+  },
+  "hatch_patterns": {
+   "ANSI31": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\патрубок2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 58,
+   "ARC": 10,
+   "TEXT": 37,
+   "LWPOLYLINE": 5,
+   "MTEXT": 1,
+   "DIMENSION": 9,
+   "CIRCLE": 1
+  },
+  "layers": {
+   "0": 43,
+   "Ax": 5,
+   "Hidden": 10,
+   "Text": 41,
+   "Slim": 11,
+   "Wide": 2,
+   "Dim": 9
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 7,
+   "4": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\патрубок3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 36,
+   "LINE": 54,
+   "LWPOLYLINE": 5,
+   "MTEXT": 1,
+   "SPLINE": 2,
+   "DIMENSION": 5,
+   "CIRCLE": 1
+  },
+  "layers": {
+   "Text": 39,
+   "0": 40,
+   "Slim": 13,
+   "Wide": 2,
+   "Ax": 1,
+   "Hidden": 4,
+   "Dim": 5
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\патрубок4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 59,
+   "ARC": 5,
+   "DIMENSION": 6,
+   "CIRCLE": 1,
+   "LWPOLYLINE": 5,
+   "SPLINE": 2,
+   "TEXT": 37,
+   "MTEXT": 1
+  },
+  "layers": {
+   "0": 41,
+   "Ax": 3,
+   "Hidden": 8,
+   "Dim": 6,
+   "Text": 41,
+   "Slim": 15,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5,
+   "4": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\перегородка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 74,
+   "CIRCLE": 24,
+   "TEXT": 38,
+   "LWPOLYLINE": 6,
+   "MTEXT": 1,
+   "DIMENSION": 10
+  },
+  "layers": {
+   "0": 62,
+   "Ax": 24,
+   "Text": 44,
+   "Slim": 11,
+   "Dim": 10,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "3": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\переходник монометра.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 1590,
+   "HATCH": 24,
+   "TEXT": 766,
+   "LWPOLYLINE": 84,
+   "MTEXT": 12,
+   "ARC": 76,
+   "CIRCLE": 31,
+   "DIMENSION": 127,
+   "LEADER": 25,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Ax": 55,
+   "Hatch": 23,
+   "0": 1210,
+   "Slim": 408,
+   "Text": 775,
+   "Wide": 47,
+   "Dim": 148,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 97,
+   "3": 11,
+   "2": 16,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\переходник.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 104,
+   "TEXT": 54,
+   "DIMENSION": 15,
+   "ARC": 5,
+   "HATCH": 1,
+   "LWPOLYLINE": 1,
+   "LEADER": 2,
+   "CIRCLE": 2,
+   "MTEXT": 1
+  },
+  "layers": {
+   "TOST": 94,
+   "0": 91
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "2": 1,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\переходник2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 171,
+   "TEXT": 58,
+   "ARC": 30,
+   "SPLINE": 2,
+   "DIMENSION": 25,
+   "LEADER": 5,
+   "MTEXT": 3,
+   "CIRCLE": 4,
+   "HATCH": 3,
+   "LWPOLYLINE": 1
+  },
+  "layers": {
+   "TOST": 173,
+   "0": 129
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 19,
+   "3": 1,
+   "4": 3,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\переходник3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 119,
+   "ARC": 8,
+   "DIMENSION": 18,
+   "TEXT": 59,
+   "CIRCLE": 5,
+   "LEADER": 5,
+   "LWPOLYLINE": 1,
+   "MTEXT": 1,
+   "HATCH": 1
+  },
+  "layers": {
+   "0": 112,
+   "TOST": 105
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 12,
+   "2": 2,
+   "4": 4
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\переходник4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 1589,
+   "HATCH": 24,
+   "LWPOLYLINE": 83,
+   "ARC": 79,
+   "CIRCLE": 31,
+   "TEXT": 767,
+   "MTEXT": 12,
+   "DIMENSION": 127,
+   "LEADER": 25,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Ax": 55,
+   "Hatch": 23,
+   "0": 1208,
+   "Slim": 414,
+   "Text": 775,
+   "Dim": 146,
+   "Wide": 47,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 97,
+   "2": 16,
+   "3": 11,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\плита.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 59,
+   "CIRCLE": 10,
+   "ARC": 4,
+   "DIMENSION": 14,
+   "TEXT": 40,
+   "LWPOLYLINE": 7,
+   "LEADER": 3,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Ax": 11,
+   "0": 46,
+   "Slim": 17,
+   "Dim": 15,
+   "Text": 47,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 2,
+   "0": 12
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\полумуфта.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 47,
+   "LINE": 120,
+   "LWPOLYLINE": 11,
+   "HATCH": 2,
+   "CIRCLE": 2,
+   "ARC": 8,
+   "DIMENSION": 25,
+   "TOLERANCE": 2,
+   "LEADER": 4,
+   "SPLINE": 1
+  },
+  "layers": {
+   "Text": 55,
+   "0": 94,
+   "Slim": 26,
+   "Wide": 5,
+   "Ax": 10,
+   "Hatch": 1,
+   "Dim": 31
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "2": 4,
+   "3": 1,
+   "1": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1,
+   "SOLID": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\полумуфта2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 47,
+   "LINE": 119,
+   "LWPOLYLINE": 11,
+   "HATCH": 2,
+   "CIRCLE": 2,
+   "ARC": 8,
+   "DIMENSION": 25,
+   "TOLERANCE": 2,
+   "LEADER": 4,
+   "SPLINE": 1
+  },
+  "layers": {
+   "Text": 55,
+   "0": 94,
+   "Slim": 26,
+   "Wide": 5,
+   "Ax": 9,
+   "Hatch": 1,
+   "Dim": 31
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 18,
+   "2": 4,
+   "3": 1,
+   "1": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1,
+   "SOLID": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Поршень.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 95,
+   "TEXT": 25,
+   "ARC": 26,
+   "HATCH": 1,
+   "DIMENSION": 14
+  },
+  "layers": {
+   "0": 36,
+   "Техт": 19,
+   "Основная": 82,
+   "Размерная": 22,
+   "Осевая": 1,
+   "Штриховка": 1
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 14
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\пробка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 41,
+   "LINE": 107,
+   "LWPOLYLINE": 4,
+   "HATCH": 1,
+   "ARC": 1,
+   "DIMENSION": 12,
+   "SPLINE": 1,
+   "LEADER": 1
+  },
+  "layers": {
+   "Text": 41,
+   "0": 60,
+   "Slim": 50,
+   "Wide": 2,
+   "Hatch": 1,
+   "Ax": 1,
+   "Dim": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 11,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\пробка18.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 68,
+   "LWPOLYLINE": 13,
+   "ARC": 13,
+   "CIRCLE": 2,
+   "TEXT": 40,
+   "MTEXT": 1,
+   "DIMENSION": 11,
+   "LEADER": 1
+  },
+  "layers": {
+   "Ax": 4,
+   "0": 72,
+   "Slim": 17,
+   "Text": 42,
+   "Dim": 12,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 7,
+   "2": 2,
+   "3": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Пробка43.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 1575,
+   "TEXT": 765,
+   "LWPOLYLINE": 82,
+   "ARC": 82,
+   "CIRCLE": 31,
+   "DIMENSION": 120,
+   "LEADER": 24,
+   "MTEXT": 12,
+   "HATCH": 23,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Ax": 55,
+   "0": 1201,
+   "Slim": 407,
+   "Text": 774,
+   "Dim": 139,
+   "Wide": 47,
+   "Hatch": 22,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 91,
+   "3": 10,
+   "2": 16,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 21,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\прокладка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 59,
+   "TEXT": 21,
+   "HATCH": 1,
+   "DIMENSION": 3,
+   "ARC": 2
+  },
+  "layers": {
+   "0": 26,
+   "Техт": 20,
+   "Основная": 27,
+   "Осевая": 1,
+   "Штриховка": 1,
+   "Размерная": 11
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 3
+  },
+  "hatch_patterns": {
+   "ANSI37": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\прокладка2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 760,
+   "LINE": 1552,
+   "LWPOLYLINE": 73,
+   "CIRCLE": 34,
+   "DIMENSION": 114,
+   "LEADER": 24,
+   "MTEXT": 12,
+   "HATCH": 23,
+   "ARC": 69,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Text": 766,
+   "0": 1168,
+   "Slim": 398,
+   "Wide": 47,
+   "Ax": 57,
+   "Dim": 134,
+   "Hatch": 22,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 12,
+   "0": 85,
+   "2": 14,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 21,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\прокладка4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 83,
+   "CIRCLE": 18,
+   "DIMENSION": 13,
+   "TEXT": 35,
+   "LWPOLYLINE": 2,
+   "MTEXT": 1,
+   "LEADER": 1
+  },
+  "layers": {
+   "0": 56,
+   "Ax": 36,
+   "Dim": 14,
+   "Text": 34,
+   "Slim": 11,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 12,
+   "3": 1
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\прокладка5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 35,
+   "LINE": 46,
+   "LWPOLYLINE": 2,
+   "CIRCLE": 6,
+   "DIMENSION": 4,
+   "LEADER": 1,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Text": 34,
+   "0": 38,
+   "Slim": 11,
+   "Wide": 2,
+   "Ax": 5,
+   "Dim": 5
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 4
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\прокладка6.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 35,
+   "LINE": 44,
+   "LWPOLYLINE": 2,
+   "CIRCLE": 2,
+   "DIMENSION": 2,
+   "LEADER": 1,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Text": 34,
+   "0": 35,
+   "Slim": 11,
+   "Wide": 2,
+   "Ax": 2,
+   "Dim": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Пружина.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 75,
+   "TEXT": 35,
+   "ARC": 10,
+   "HATCH": 1,
+   "CIRCLE": 2,
+   "DIMENSION": 8
+  },
+  "layers": {
+   "0": 30,
+   "Техт": 30,
+   "Основная": 46,
+   "Размерная": 21,
+   "Штриховка": 1,
+   "Осевая": 3
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 7,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Рычаг.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 27,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 4,
+   "ARC": 7,
+   "DIMENSION": 13,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 13,
+   "Осевая": 8,
+   "Размер": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "2": 1,
+   "3": 2,
+   "4": 6
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\рычаг2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 26,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 7,
+   "ARC": 5,
+   "DIMENSION": 14,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 13,
+   "Осевая": 7,
+   "Размер": 15
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "осевая2",
+   "осеваяX2"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "3": 6,
+   "4": 4
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\сальник.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 760,
+   "LINE": 1555,
+   "LWPOLYLINE": 73,
+   "HATCH": 24,
+   "DIMENSION": 113,
+   "ARC": 69,
+   "CIRCLE": 28,
+   "MTEXT": 11,
+   "LEADER": 23,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Text": 765,
+   "0": 1169,
+   "Slim": 398,
+   "Wide": 47,
+   "Ax": 53,
+   "Hatch": 23,
+   "Dim": 132,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 88,
+   "2": 14,
+   "3": 8,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI37": 1,
+   "ANSI31": 21,
+   "SOLID": 2
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\стойка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 28,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 3,
+   "ARC": 16,
+   "DIMENSION": 18,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 25,
+   "Осевая": 5,
+   "Размер": 18
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 8,
+   "4": 9,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\стойка2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 65,
+   "HATCH": 1,
+   "ARC": 7,
+   "TEXT": 40,
+   "LWPOLYLINE": 8,
+   "MTEXT": 1,
+   "CIRCLE": 5,
+   "DIMENSION": 10,
+   "LEADER": 4,
+   "SPLINE": 2
+  },
+  "layers": {
+   "0": 52,
+   "Hatch": 3,
+   "Text": 47,
+   "Slim": 22,
+   "Wide": 2,
+   "Hidden": 1,
+   "Ax": 6,
+   "Dim": 10
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\стойка3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 40,
+   "LINE": 50,
+   "LWPOLYLINE": 8,
+   "MTEXT": 1,
+   "DIMENSION": 5,
+   "LEADER": 4,
+   "CIRCLE": 1
+  },
+  "layers": {
+   "Text": 47,
+   "0": 39,
+   "Slim": 15,
+   "Hidden": 1,
+   "Dim": 5,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Сфера1.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 59,
+   "TEXT": 18,
+   "CIRCLE": 4,
+   "DIMENSION": 8
+  },
+  "layers": {
+   "0": 27,
+   "Техт": 18,
+   "Основная": 30,
+   "Осевая": 4,
+   "Пунктир": 2,
+   "Размерная": 8
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 6,
+   "3": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Сфера2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 87,
+   "TEXT": 18,
+   "CIRCLE": 2,
+   "ARC": 20,
+   "ELLIPSE": 16,
+   "HATCH": 3,
+   "DIMENSION": 10
+  },
+  "layers": {
+   "0": 25,
+   "Техт": 18,
+   "Основная": 80,
+   "Осевая": 6,
+   "Пунктир": 14,
+   "Штриховка": 3,
+   "Размерная": 10
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 4,
+   "0": 6
+  },
+  "hatch_patterns": {
+   "МЕТАЛЛ": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\трубка.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 78,
+   "TEXT": 40,
+   "ARC": 2,
+   "DIMENSION": 4,
+   "SPLINE": 3,
+   "HATCH": 1,
+   "CIRCLE": 1
+  },
+  "layers": {
+   "TOST": 69,
+   "0": 60
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 3,
+   "2": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Фланец.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 134,
+   "TEXT": 21,
+   "CIRCLE": 6,
+   "ARC": 12,
+   "ELLIPSE": 2,
+   "HATCH": 3,
+   "DIMENSION": 18,
+   "MTEXT": 5
+  },
+  "layers": {
+   "0": 18,
+   "Техт": 19,
+   "Основная": 97,
+   "Пунктир": 29,
+   "Осевая": 9,
+   "Штриховка": 3,
+   "Размерная": 26
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_ANT.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "3": 2,
+   "0": 12,
+   "1": 2,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Фланец2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 146,
+   "TEXT": 21,
+   "CIRCLE": 6,
+   "ARC": 11,
+   "ELLIPSE": 2,
+   "HATCH": 3,
+   "DIMENSION": 20,
+   "MTEXT": 5
+  },
+  "layers": {
+   "0": 18,
+   "Техт": 19,
+   "Основная": 104,
+   "Пунктир": 33,
+   "Осевая": 9,
+   "Штриховка": 3,
+   "Размерная": 28
+  },
+  "linetypes": [
+   "ACAD_ISO02W100",
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_ANT.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "0": 15,
+   "3": 2,
+   "1": 1,
+   "2": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\фланец3.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 112,
+   "ARC": 21,
+   "CIRCLE": 18,
+   "TEXT": 43,
+   "LWPOLYLINE": 12,
+   "MTEXT": 1,
+   "HATCH": 3,
+   "SPLINE": 1,
+   "DIMENSION": 22,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "0": 83,
+   "Ax": 40,
+   "Slim": 36,
+   "Text": 41,
+   "Hatch": 3,
+   "Dim": 23,
+   "Wide": 8
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 20,
+   "2": 1,
+   "4": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 3
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\фланец4.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 41,
+   "LINE": 72,
+   "LWPOLYLINE": 7,
+   "HATCH": 1,
+   "ARC": 2,
+   "DIMENSION": 12,
+   "LEADER": 2,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Text": 45,
+   "0": 58,
+   "Slim": 15,
+   "Wide": 2,
+   "Ax": 3,
+   "Hatch": 1,
+   "Dim": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 12
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\фланец5.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 37,
+   "LINE": 53,
+   "LWPOLYLINE": 4,
+   "HATCH": 1,
+   "DIMENSION": 5
+  },
+  "layers": {
+   "Text": 37,
+   "0": 43,
+   "Slim": 11,
+   "Wide": 2,
+   "Ax": 1,
+   "Hatch": 1,
+   "Dim": 5
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 5
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\фланец6.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "TEXT": 36,
+   "LINE": 47,
+   "LWPOLYLINE": 3,
+   "CIRCLE": 6,
+   "DIMENSION": 4,
+   "LEADER": 1,
+   "TOLERANCE": 1,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Text": 36,
+   "0": 38,
+   "Slim": 12,
+   "Wide": 2,
+   "Ax": 5,
+   "Dim": 6
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "3": 4
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Цилиндр.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 25,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "CIRCLE": 4,
+   "ARC": 13,
+   "DIMENSION": 13,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 19,
+   "Осевая": 6,
+   "Размер": 13
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "4": 6,
+   "3": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Цилиндр2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 27,
+   "LWPOLYLINE": 24,
+   "TEXT": 21,
+   "ARC": 15,
+   "CIRCLE": 3,
+   "DIMENSION": 14,
+   "HATCH": 1
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 59,
+   "ОСН": 21,
+   "Осевая": 7,
+   "Размер": 14
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "isocpeur.ttf"
+   ],
+   [
+    "Standard",
+    "isocpeur.ttf"
+   ]
+  ],
+  "dimtypes": {
+   "0": 4,
+   "4": 7,
+   "3": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Шайба.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 45,
+   "TEXT": 19,
+   "CIRCLE": 12,
+   "ARC": 5,
+   "DIMENSION": 5,
+   "MTEXT": 3
+  },
+  "layers": {
+   "DEFPOINTS": 4,
+   "0": 12,
+   "Техт": 19,
+   "Основная": 39,
+   "Осевая": 7,
+   "Размерная": 8
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "Continuous",
+   "осевая"
+  ],
+  "styles": [
+   [
+    "ESKD",
+    "Eskd2__1.ttf"
+   ],
+   [
+    "Standard",
+    "GOST_A.TTF"
+   ]
+  ],
+  "dimtypes": {
+   "3": 3,
+   "0": 2
+  },
+  "hatch_patterns": {}
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\Шайба2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 0,
+  "types": {
+   "LINE": 92,
+   "TEXT": 55,
+   "ARC": 4,
+   "CIRCLE": 3,
+   "DIMENSION": 4,
+   "LWPOLYLINE": 1,
+   "LEADER": 1,
+   "HATCH": 1
+  },
+  "layers": {
+   "TOST": 87,
+   "0": 74
+  },
+  "linetypes": [
+   "BYBLOCK",
+   "BYLAYER",
+   "CENTER",
+   "CONTINUOUS",
+   "DASHED2"
+  ],
+  "styles": [
+   [
+    "GREK",
+    "greeks.shx"
+   ],
+   [
+    "STANDARD",
+    "simplex.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 2,
+   "3": 2
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\штуцер концевой.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "HATCH": 3,
+   "LINE": 103,
+   "TEXT": 45,
+   "LWPOLYLINE": 14,
+   "DIMENSION": 22,
+   "LEADER": 3,
+   "SPLINE": 1,
+   "ARC": 8,
+   "CIRCLE": 4,
+   "TOLERANCE": 1,
+   "MTEXT": 1
+  },
+  "layers": {
+   "Hatch": 2,
+   "0": 89,
+   "Slim": 32,
+   "Ax": 5,
+   "Text": 45,
+   "Wide": 6,
+   "Dim": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 5,
+   "0": 16,
+   "3": 1
+  },
+  "hatch_patterns": {
+   "ANSI31": 2,
+   "SOLID": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\штуцер.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 69,
+   "HATCH": 1,
+   "TEXT": 40,
+   "LWPOLYLINE": 6,
+   "DIMENSION": 12,
+   "LEADER": 1
+  },
+  "layers": {
+   "Ax": 2,
+   "Hatch": 1,
+   "0": 54,
+   "Slim": 16,
+   "Text": 42,
+   "Wide": 2,
+   "Dim": 12
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 9,
+   "2": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\штуцер18.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 93,
+   "HATCH": 1,
+   "LWPOLYLINE": 14,
+   "ARC": 7,
+   "CIRCLE": 3,
+   "TEXT": 41,
+   "MTEXT": 1,
+   "DIMENSION": 20,
+   "LEADER": 2
+  },
+  "layers": {
+   "Ax": 5,
+   "Hatch": 1,
+   "0": 84,
+   "Slim": 24,
+   "Text": 44,
+   "Dim": 22,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "0": 13,
+   "2": 4,
+   "3": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\штуцер2.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "HATCH": 1,
+   "LINE": 70,
+   "DIMENSION": 12,
+   "TEXT": 40,
+   "LWPOLYLINE": 6,
+   "LEADER": 1
+  },
+  "layers": {
+   "Hatch": 1,
+   "0": 55,
+   "Slim": 16,
+   "Dim": 12,
+   "Ax": 2,
+   "Text": 42,
+   "Wide": 2
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 3,
+   "0": 9
+  },
+  "hatch_patterns": {
+   "ANSI31": 1
+  }
+ },
+ "dataset\\clear_sum_dataset\\vse_dxf\\штуцер43.dxf": {
+  "version": "AC1024",
+  "codepage": "ANSI_1251",
+  "insunits": 4,
+  "types": {
+   "LINE": 1596,
+   "HATCH": 24,
+   "TEXT": 768,
+   "LWPOLYLINE": 86,
+   "ARC": 76,
+   "CIRCLE": 32,
+   "DIMENSION": 127,
+   "LEADER": 25,
+   "MTEXT": 12,
+   "SPLINE": 17,
+   "TOLERANCE": 1
+  },
+  "layers": {
+   "Ax": 57,
+   "Hatch": 23,
+   "0": 1212,
+   "Slim": 413,
+   "Text": 779,
+   "Dim": 146,
+   "Wide": 47,
+   "Hidden": 87
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "HIDDEN"
+  ],
+  "styles": [
+   [
+    "GOST B",
+    "gost_b.ttf"
+   ],
+   [
+    "Standard",
+    "txt"
+   ],
+   [
+    "курсив",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_65",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_75",
+    "romans.shx"
+   ],
+   [
+    "курсив 0_85",
+    "romans.shx"
+   ]
+  ],
+  "dimtypes": {
+   "2": 17,
+   "0": 97,
+   "3": 10,
+   "4": 3
+  },
+  "hatch_patterns": {
+   "ANSI31": 22,
+   "SOLID": 2
+  }
+ },
+ "dataset\\data\\dxf\\drawing_001.dxf": {
+  "version": "AC1021",
+  "codepage": null,
+  "insunits": 4,
+  "types": {
+   "LINE": 85,
+   "CIRCLE": 5,
+   "TEXT": 34
+  },
+  "layers": {
+   "MAIN": 19,
+   "AXIS": 12,
+   "DIMS": 49,
+   "THIN": 18,
+   "TEXT": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "DASHDOT",
+   "DASHED"
+  ],
+  "styles": [
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {},
+  "hatch_patterns": {}
+ },
+ "dataset\\data\\dxf\\drawing_002.dxf": {
+  "version": "AC1021",
+  "codepage": null,
+  "insunits": 4,
+  "types": {
+   "CIRCLE": 7,
+   "LINE": 57,
+   "TEXT": 31
+  },
+  "layers": {
+   "MAIN": 13,
+   "AXIS": 12,
+   "DIMS": 28,
+   "THIN": 16,
+   "TEXT": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "DASHDOT",
+   "DASHED"
+  ],
+  "styles": [
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {},
+  "hatch_patterns": {}
+ },
+ "dataset\\data\\dxf\\drawing_003.dxf": {
+  "version": "AC1021",
+  "codepage": null,
+  "insunits": 4,
+  "types": {
+   "LINE": 62,
+   "CIRCLE": 1,
+   "TEXT": 31
+  },
+  "layers": {
+   "MAIN": 10,
+   "THIN": 18,
+   "AXIS": 3,
+   "DIMS": 37,
+   "TEXT": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "DASHDOT",
+   "DASHED"
+  ],
+  "styles": [
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {},
+  "hatch_patterns": {}
+ },
+ "dataset\\data\\dxf\\drawing_004.dxf": {
+  "version": "AC1021",
+  "codepage": null,
+  "insunits": 4,
+  "types": {
+   "LINE": 73,
+   "CIRCLE": 3,
+   "TEXT": 32
+  },
+  "layers": {
+   "MAIN": 15,
+   "THIN": 18,
+   "AXIS": 10,
+   "DIMS": 39,
+   "TEXT": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "DASHDOT",
+   "DASHED"
+  ],
+  "styles": [
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {},
+  "hatch_patterns": {}
+ },
+ "dataset\\data\\dxf\\drawing_005.dxf": {
+  "version": "AC1021",
+  "codepage": null,
+  "insunits": 4,
+  "types": {
+   "LINE": 44,
+   "ARC": 4,
+   "CIRCLE": 5,
+   "TEXT": 30
+  },
+  "layers": {
+   "MAIN": 15,
+   "AXIS": 2,
+   "DIMS": 26,
+   "THIN": 14,
+   "TEXT": 26
+  },
+  "linetypes": [
+   "ByBlock",
+   "ByLayer",
+   "CENTER",
+   "Continuous",
+   "DASHDOT",
+   "DASHED"
+  ],
+  "styles": [
+   [
+    "Standard",
+    "txt"
+   ]
+  ],
+  "dimtypes": {},
+  "hatch_patterns": {}
+ }
+}

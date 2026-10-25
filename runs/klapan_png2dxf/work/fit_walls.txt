@@ -1,0 +1,7 @@
+upper outer wall (pred thru (64.3,181.41) 60°): n=4312 angle=60.001 offset_from_pred=+0.006 mm (median +0.010)
+upper inner wall (pred +4/sin60): n=4298 angle=60.001 offset_from_pred=+0.016 mm (median +0.015)
+lower outer wall (pred thru (64.3,139.41) -60°): n=3966 angle=119.994 offset_from_pred=-0.004 mm (median -0.007)
+lower inner wall: n=3688 angle=119.978 offset_from_pred=-0.025 mm (median -0.024)
+groove top: c=(96.242,235.299) r=1.427 (stroke-centre approx, n=408)
+groove bot: c=(96.281,85.673) r=1.316 (stroke-centre approx, n=416)
+callout A circle: c=(94.057,234.563) r=1.693 (stroke-centre approx, n=339)

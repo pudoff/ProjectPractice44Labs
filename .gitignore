@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pkl
+.pytest_cache/
+
+# Виртуальное окружение (создаётся локально: py -3.14 -m venv .venv)
+.venv/
+venv/
+
+# Временные файлы прогонов и экспериментов (пересоздаются скриптами)
+runs/*/out/dwg/in/
+runs/*/out/dwg/dwg/
+runs/*/work/ocr_boxes.json
+docs/architecture/experiments/robustness*/*.png
+
+# IDE / ОС
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

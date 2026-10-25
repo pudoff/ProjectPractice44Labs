@@ -1,0 +1,207 @@
+[
+ {
+  "case": "scan200_border",
+  "wall_s": 16.6,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.8273809523809526,
+   "calibrated_on": "sheet trim line"
+  },
+  "skew": -0.7298755309475013,
+  "counts": {
+   "texts": 86,
+   "arrows": 96,
+   "blobs": 454,
+   "lines": 1257,
+   "arcs": 430,
+   "axis_or_dashed": 0,
+   "hatches": 5,
+   "dims_linear": 4,
+   "dims_radius": 2,
+   "dims_angular": 3,
+   "leaders": 23
+  },
+  "dims_with_value": 4,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.173 (P 0.166 / R 0.181)",
+   "geometry F1 @0.25 mm": "0.575 (P 0.545 / R 0.608)",
+   "geometry F1 @0.5 mm": "0.799 (P 0.749 / R 0.856)",
+   "geometry F1 @1.0 mm": "0.834 (P 0.775 / R 0.904)",
+   "primitive recall / precision": "0.519 / 0.642",
+   "layer class accuracy": "0.547",
+   "dimension recall": "0.214 (28 ref, 9 gen)",
+   "dimension recall by value (notation ignored)": "0.214",
+   "dimension type accuracy": "0.179",
+   "text exact / mean CER": "0.188 / 0.521",
+   "text exact / mean CER (matched by line centre)": "0.203 / 0.508",
+   "hatch area ref / gen": "2756.7 / 1399.4"
+  }
+ },
+ {
+  "case": "scan200_cut",
+  "wall_s": 15.9,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.589285714285714,
+   "calibrated_on": "sheet trim line"
+  },
+  "skew": -0.701545912345228,
+  "counts": {
+   "texts": 84,
+   "arrows": 95,
+   "blobs": 408,
+   "lines": 1167,
+   "arcs": 436,
+   "axis_or_dashed": 0,
+   "hatches": 9,
+   "dims_linear": 3,
+   "dims_radius": 4,
+   "dims_angular": 0,
+   "leaders": 22
+  },
+  "dims_with_value": 0,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.031 (P 0.031 / R 0.031)",
+   "geometry F1 @0.25 mm": "0.093 (P 0.094 / R 0.092)",
+   "geometry F1 @0.5 mm": "0.190 (P 0.190 / R 0.191)",
+   "geometry F1 @1.0 mm": "0.315 (P 0.310 / R 0.320)",
+   "primitive recall / precision": "0.073 / 0.137",
+   "layer class accuracy": "0.621",
+   "dimension recall": "0.143 (28 ref, 7 gen)",
+   "dimension recall by value (notation ignored)": "0.179",
+   "dimension type accuracy": "0.143",
+   "text exact / mean CER": "0.145 / 0.692",
+   "text exact / mean CER (matched by line centre)": "0.145 / 0.714",
+   "hatch area ref / gen": "2756.7 / 1129.1"
+  }
+ },
+ {
+  "case": "synthetic_001",
+  "wall_s": 4.6,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.871428571428571,
+   "calibrated_on": "image size (no trim line found)"
+  },
+  "skew": 0.0,
+  "counts": {
+   "texts": 5,
+   "arrows": 24,
+   "blobs": 47,
+   "lines": 483,
+   "arcs": 156,
+   "axis_or_dashed": 2,
+   "hatches": 0,
+   "dims_linear": 0,
+   "dims_radius": 0,
+   "dims_angular": 0,
+   "leaders": 3
+  },
+  "dims_with_value": 0,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.093 (P 0.097 / R 0.089)",
+   "geometry F1 @0.25 mm": "0.358 (P 0.369 / R 0.347)",
+   "geometry F1 @0.5 mm": "0.648 (P 0.662 / R 0.634)",
+   "geometry F1 @1.0 mm": "0.955 (P 0.966 / R 0.944)",
+   "primitive recall / precision": "0.533 / 0.629",
+   "layer class accuracy": "0.254",
+   "dimension recall": "0.000 (0 ref, 0 gen)",
+   "dimension recall by value (notation ignored)": "0.000",
+   "dimension type accuracy": "0.000",
+   "text exact / mean CER": "0.000 / 0.950",
+   "text exact / mean CER (matched by line centre)": "0.000 / 0.950",
+   "hatch area ref / gen": "0 / 23.2"
+  }
+ },
+ {
+  "case": "synthetic_002",
+  "wall_s": 4.8,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.871428571428571,
+   "calibrated_on": "image size (no trim line found)"
+  },
+  "skew": 0.0,
+  "counts": {
+   "texts": 2,
+   "arrows": 14,
+   "blobs": 40,
+   "lines": 560,
+   "arcs": 204,
+   "axis_or_dashed": 1,
+   "hatches": 0,
+   "dims_linear": 0,
+   "dims_radius": 0,
+   "dims_angular": 0,
+   "leaders": 3
+  },
+  "dims_with_value": 0,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.028 (P 0.029 / R 0.027)",
+   "geometry F1 @0.25 mm": "0.083 (P 0.085 / R 0.080)",
+   "geometry F1 @0.5 mm": "0.171 (P 0.176 / R 0.167)",
+   "geometry F1 @1.0 mm": "0.376 (P 0.381 / R 0.371)",
+   "primitive recall / precision": "0.000 / 0.082",
+   "layer class accuracy": "0.424",
+   "dimension recall": "0.000 (0 ref, 0 gen)",
+   "dimension recall by value (notation ignored)": "0.000",
+   "dimension type accuracy": "0.000",
+   "text exact / mean CER": "0.000 / 0.963",
+   "text exact / mean CER (matched by line centre)": "0.000 / 0.963",
+   "hatch area ref / gen": "0 / 19.5"
+  }
+ },
+ {
+  "case": "synthetic_003",
+  "wall_s": 4.0,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.873809523809523,
+   "calibrated_on": "image size (no trim line found)"
+  },
+  "skew": 0.0,
+  "counts": {
+   "texts": 7,
+   "arrows": 18,
+   "blobs": 21,
+   "lines": 297,
+   "arcs": 64,
+   "axis_or_dashed": 2,
+   "hatches": 0,
+   "dims_linear": 0,
+   "dims_radius": 0,
+   "dims_angular": 0,
+   "leaders": 4
+  },
+  "dims_with_value": 0,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.012 (P 0.012 / R 0.011)",
+   "geometry F1 @0.25 mm": "0.071 (P 0.074 / R 0.070)",
+   "geometry F1 @0.5 mm": "0.172 (P 0.176 / R 0.167)",
+   "geometry F1 @1.0 mm": "0.368 (P 0.374 / R 0.363)",
+   "primitive recall / precision": "0.064 / 0.125",
+   "layer class accuracy": "0.214",
+   "dimension recall": "0.000 (0 ref, 0 gen)",
+   "dimension recall by value (notation ignored)": "0.000",
+   "dimension type accuracy": "0.000",
+   "text exact / mean CER": "0.032 / 0.927",
+   "text exact / mean CER (matched by line centre)": "0.032 / 0.927",
+   "hatch area ref / gen": "0 / 16.0"
+  }
+ }
+]

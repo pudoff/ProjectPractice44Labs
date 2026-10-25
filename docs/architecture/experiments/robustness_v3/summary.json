@@ -1,0 +1,43 @@
+[
+ {
+  "case": "scan200_border",
+  "wall_s": 18.0,
+  "ok": true,
+  "calibration": {
+   "sheet": "A3",
+   "px_per_mm_x": 7.8273809523809526,
+   "calibrated_on": "sheet trim line"
+  },
+  "skew": -0.7298755309475013,
+  "counts": {
+   "texts": 83,
+   "arrows": 96,
+   "blobs": 454,
+   "lines": 1350,
+   "arcs": 479,
+   "axis_or_dashed": 0,
+   "hatches": 5,
+   "dims_linear": 4,
+   "dims_radius": 2,
+   "dims_angular": 3,
+   "leaders": 23
+  },
+  "dims_with_value": 4,
+  "title": {},
+  "cmp": {
+   "metric": "value",
+   "geometry F1 @0.1 mm": "0.171 (P 0.161 / R 0.182)",
+   "geometry F1 @0.25 mm": "0.567 (P 0.529 / R 0.611)",
+   "geometry F1 @0.5 mm": "0.787 (P 0.726 / R 0.859)",
+   "geometry F1 @1.0 mm": "0.821 (P 0.751 / R 0.906)",
+   "primitive recall / precision": "0.534 / 0.607",
+   "layer class accuracy": "0.548",
+   "dimension recall": "0.179 (28 ref, 9 gen)",
+   "dimension recall by value (notation ignored)": "0.214",
+   "dimension type accuracy": "0.179",
+   "text exact / mean CER": "0.159 / 0.565",
+   "text exact / mean CER (matched by line centre)": "0.159 / 0.571",
+   "hatch area ref / gen": "2756.7 / 1256.9"
+  }
+ }
+]

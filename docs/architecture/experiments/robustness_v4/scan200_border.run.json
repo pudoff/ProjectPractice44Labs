@@ -1,0 +1,57 @@
+{
+  "input": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\scan200_border.png",
+  "output": "D:\\pp\\ProjectPractice44Labs\\docs\\architecture\\experiments\\robustness_v4\\scan200_border.dxf",
+  "calibration": {
+    "sheet": "A3",
+    "sheet_w": 420,
+    "sheet_h": 297,
+    "px_per_mm_x": 7.8273809523809526,
+    "px_per_mm_y": 7.8232323232323235,
+    "origin_px": [
+      8.5,
+      2331.5
+    ],
+    "calibrated_on": "sheet trim line",
+    "img_w": 3308,
+    "img_h": 2339
+  },
+  "skew_deg": -0.7298755309475013,
+  "stroke_mm": 0.4880304097222738,
+  "format_from_ocr": null,
+  "stages_s": {
+    "load+binarize+deskew+calibrate": 0.6,
+    "ocr": 3.58,
+    "symbols": 0.28,
+    "vectorize": 0.89,
+    "postprocess": 0.54,
+    "hatch": 0.02,
+    "dimensions": 3.43,
+    "snap": 0.02,
+    "cleanup": 6.4,
+    "write": 0.16
+  },
+  "total_s": 16.07,
+  "counts": {
+    "texts": 86,
+    "arrows": 96,
+    "blobs": 454,
+    "lines": 1274,
+    "arcs": 430,
+    "axis_or_dashed": 0,
+    "hatches": 5,
+    "dims_linear": 4,
+    "dims_radius": 2,
+    "dims_angular": 3,
+    "leaders": 23
+  },
+  "dims_with_value": 4,
+  "snap": [
+    {
+      "axis": "x",
+      "constraints": 3,
+      "max_shift_mm": 0.0464
+    }
+  ],
+  "title_fields": {},
+  "verify": "OK"
+}
