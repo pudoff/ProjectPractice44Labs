@@ -8,7 +8,10 @@ venv
 **/*.pkl
 dataset
 task
-runs
+runs/**
+!runs/klapan_png2dxf/
+!runs/klapan_png2dxf/pipeline_b/
+!runs/klapan_png2dxf/pipeline_b/*.py
 docs
 .vscode
 .idea

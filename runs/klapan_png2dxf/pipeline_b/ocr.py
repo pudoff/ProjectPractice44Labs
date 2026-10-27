@@ -1,6 +1,7 @@
 """Text detection + recognition (RapidOCR / PP-OCRv5 'eslav' recogniser: Cyrillic + Latin + digits).
 Two passes (upright and rotated 90° CW) cover horizontal and vertical texts; results are merged."""
 import math
+import os
 import re
 from dataclasses import dataclass
 
@@ -33,10 +34,13 @@ def engine():
     global _engine
     if _engine is None:
         from rapidocr import LangRec, ModelType, OCRVersion, RapidOCR
-        _engine = RapidOCR(params={"Rec.lang_type": LangRec.ESLAV, "Rec.ocr_version": OCRVersion.PPOCRV5,
-                                   "Rec.model_type": ModelType.MOBILE, "Det.limit_side_len": 6000,
-                                   "Det.limit_type": "max", "Global.text_score": 0.3,
-                                   "Global.log_level": "warning"})
+        params = {"Rec.lang_type": LangRec.ESLAV, "Rec.ocr_version": OCRVersion.PPOCRV5,
+                  "Rec.model_type": ModelType.MOBILE, "Det.limit_side_len": 6000,
+                  "Det.limit_type": "max", "Global.text_score": 0.3,
+                  "Global.log_level": "warning"}
+        if os.getenv("OCR_MODEL_PATH"):
+            params["Rec.model_path"] = os.environ["OCR_MODEL_PATH"]
+        _engine = RapidOCR(params=params)
     return _engine
 
 
