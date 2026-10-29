@@ -19,6 +19,8 @@ ProjectPractice44Labs/
 ├─ runs/                    прогоны на конкретных листах
 │  ├─ клапан.png            тестовый лист (А3, 1:1)
 │  └─ klapan_png2dxf/       оцифровка клапана: итоговые DXF/DWG, отчёт, код вариантов A и B
+├─ mlcv/                    CV/ML-часть: модуль drawcv на OpenCV (PNG/JPEG/PDF → примитивы, контуры, дефекты → cv.json),
+│                           тесты, оценка против эталонов, Docker-образ — см. mlcv/README.md
 ├─ docs/architecture/       архитектура сервиса, ревью, эксперименты на 9 листах и «сканах»
 ├─ архитектура_кодекс/      исходное предложение по архитектуре сервиса (разобрано в docs/architecture/REVIEW.md)
 ├─ tools/                   общие инструменты: запись DXF по ЕСКД, сравнение DXF, измерения на растре
@@ -33,6 +35,7 @@ ProjectPractice44Labs/
 | Клапан, вариант B — автоматический конвейер | 92 % в пределах 0,25 мм, 93 % размеров по значению, ≈14 с на лист (CPU); после исправлений ревью — 93 % и в 1,4 раза больше найденной штриховки | там же; [`klapan_recheck`](docs/architecture/experiments/klapan_recheck) |
 | B на 9 других реальных листах | геометрия 89–98 % в пределах 0,25 мм; размеры ≈ 70 % по значению | [`docs/architecture/experiments/RESULTS.md`](docs/architecture/experiments/RESULTS.md) |
 | B на имитации архивного скана 200 dpi | геометрия 79 % (0,5 мм), размеры ≈ 20 % — нужны обучаемые модели | там же |
+| CV-модуль drawcv (OpenCV): PNG/JPEG/PDF → примитивы, контуры, дефекты → `cv.json` | на 50 входах реальных листов (из них 38 — случайные, не участвовавшие в отладке) масштаб определён везде, ошибка центра окружности ≈ 0,02 мм, найдено 79–90 % геометрии; контрольный лист: профиль замкнут, разрыв и самопересечение найдены; подключается к бэкенду через `CV_ADAPTER` | [`mlcv/README.md`](mlcv/README.md), [`mlcv/eval/REPORT.md`](mlcv/eval/REPORT.md) |
 | Целевая архитектура сервиса (FastAPI + OpenCV + OCR + ML) | этапы, описание чертежа `DrawingGraph`, API, данные и обучение, план | [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md) |
 | Ревью: что оставить, убрать, изменить | включая разбор исходного предложения по архитектуре | [`docs/architecture/REVIEW.md`](docs/architecture/REVIEW.md) |
 
@@ -50,10 +53,16 @@ AC1021 (AutoCAD 2007), UTF-8, миллиметры; слои `MAIN / THIN / AXIS
 Нужны Python 3.12+ (проверено на 3.14) и, для проверки в CAD, Docker.
 
 ```bash
-# окружение
+# окружение (всё ставится в .venv проекта, точные версии — в mlcv/requirements*.txt)
 py -3.14 -m venv .venv
-.venv/Scripts/python -m pip install ezdxf==1.4.5 numpy scipy matplotlib opencv-python-headless scikit-image shapely rapidocr onnxruntime pypdfium2
+.venv/Scripts/python -m pip install -r mlcv/requirements-dev.txt matplotlib
 export PYTHONUTF8=1          # кириллица в консоли Windows
+
+# CV-модуль drawcv: PNG / JPEG / PDF → cv.json (примитивы, контуры, дефекты) + картинки проверки
+PYTHONPATH=mlcv .venv/Scripts/python -m drawcv dataset/dataset2/Шайба.pdf --out out_cv
+cd mlcv && ../.venv/Scripts/python -m pytest -q && cd ..                  # тесты модуля
+.venv/Scripts/python mlcv/eval/evaluate.py --set quick                    # качество против эталонных DXF
+docker build -t drawcv mlcv && docker run --rm drawcv                      # то же в чистом Docker-образе
 
 # автоматический конвейер (вариант B): PNG → DXF + отчёт со временем этапов
 .venv/Scripts/python runs/klapan_png2dxf/pipeline_b/pipeline.py runs/клапан.png out.dxf --report report.json
@@ -84,3 +93,4 @@ docker run --rm -v "D:/путь/к/папке:/work" oda-convert convert.sh /wor
 - Эталоны тестового листа (`dataset/clear_sum_dataset/vse_dxf/клапан.dxf`, `dataset/dataset2/клапан.*`) используются только
   скриптом сравнения, не для разработки. 10 приёмочных листов заказчика в разработке не используются.
 - Разбиение данных на обучение и проверку — по детали, а не по файлу (наборы пересекаются).
+- Всё новое по CV/ML кладётся в `mlcv/`; выходы оценки (`mlcv/eval/out*`) в git не попадают, итог — `mlcv/eval/REPORT.md`.
