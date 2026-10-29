@@ -1,0 +1,11 @@
+# Модуль drawcv (OpenCV): точные версии, на которых проверены тесты и оценка.
+# Установка в окружение проекта:  .venv/Scripts/python -m pip install -r mlcv/requirements.txt
+numpy==2.5.4
+opencv-python-headless==5.0.0.93
+scipy==1.18.1
+scikit-image==0.26.0
+shapely==2.2.0
+pillow==13.0.0
+pypdfium2==5.14.0
+rapidocr==3.10.0
+onnxruntime==1.31.1
