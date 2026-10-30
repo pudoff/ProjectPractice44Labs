@@ -1,0 +1,6 @@
+# Тесты и оценка качества (сравнение с эталонными DXF)
+-r requirements.txt
+ezdxf==1.4.5
+pydantic==2.14.1
+pytest==9.2.0
+pyflakes==4.1.0

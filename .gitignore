@@ -20,3 +20,9 @@ docs/architecture/experiments/robustness*/*.png
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# CV-модуль: выходы оценки и сборки пересоздаются (итог — mlcv/eval/REPORT.md)
+mlcv/eval/out*/
+mlcv/eval/*.log
+mlcv/build/
+*.egg-info/
