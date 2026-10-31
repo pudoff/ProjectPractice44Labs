@@ -29,7 +29,7 @@ def main():
         LOG.info("processing job=%s", id_)
         try:
             Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-            run(input_file, output_file, report_path=report_file)
+            run(input_file, output_file, report_path=report_file, strict_ocr=True)
             db.finish(id_)
             LOG.info("completed job=%s", id_)
         except Exception as exc:

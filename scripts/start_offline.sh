@@ -9,5 +9,5 @@ sha256sum -c offline/SHA256SUMS
 mkdir -p models storage/uploads storage/results
 tar -xzf offline/ocr-models.tar.gz -C models
 docker load -i offline/docker-images.tar
-docker compose -f compose.yaml up -d --no-build --pull never
-docker compose -f compose.yaml ps
+docker compose -f compose.offline-prototype.yaml up -d --no-build --pull never
+docker compose -f compose.offline-prototype.yaml ps

@@ -23,7 +23,7 @@ import dims as dimsmod  # noqa: E402
 import hatch as hatchmod  # noqa: E402
 import symbols  # noqa: E402
 from eskd_dxf import new_drawing, verify  # noqa: E402
-from ocr import DIAM, run_ocr  # noqa: E402
+from ocr import DIAM, parse_dim_text, run_ocr  # noqa: E402
 from postproc import angle, as_dicts, dashed_chains, length, merge_collinear, snap_angles  # noqa: E402
 from raster import SHEETS, binarize, calibrate, deskew, estimate_skew, load_gray, stroke_width_mm, to_mm, to_px  # noqa: E402
 from vectorize import vectorize  # noqa: E402
@@ -334,7 +334,82 @@ def detect_frame(lines, sheet_w, sheet_h):
 
 # ---------------------------------------------------------------- main
 
-def run(img_path, out_path, sheet=None, report_path=None):
+def observations(lines, arcs, chains, hatches, dims_lin, texts, used_texts, cal, fmt, ocr_error,
+                 unsupported_counts=None):
+    """Return serializable recognition candidates without writing a DXF."""
+    unsupported_counts = unsupported_counts or {}
+
+    def point(p):
+        return [float(p[0]), float(p[1])]
+
+    primitives = []
+    for e in lines:
+        layer = "MAIN" if length(e) >= 1.5 else "THIN"
+        primitives.append({"id": f"line_{len(primitives)}", "kind": "line", "start": point(e["p"]),
+                           "end": point(e["q"]), "layer": layer})
+    for e in arcs:
+        item = {"id": f"arc_{len(primitives)}", "center": point(e["c"]), "radius": float(e["r"]),
+                "layer": "MAIN"}
+        if e["sweep"] >= 359:
+            item["kind"] = "circle"
+        else:
+            item.update(kind="arc", start_angle=float(e["a0"]), end_angle=float(e["a1"]))
+        primitives.append(item)
+    for e in chains:
+        primitives.append({"id": f"chain_{len(primitives)}", "kind": "line", "start": point(e["p"]),
+                           "end": point(e["q"]), "layer": "AXIS" if e["kind"] == "AXIS" else "THIN"})
+
+    hatch_items = []
+    for h in hatches:
+        outers = [poly for poly, is_hole in h["polys"] if not is_hole and len(poly) >= 3]
+        holes = [poly for poly, is_hole in h["polys"] if is_hole and len(poly) >= 3]
+        for outer in outers:
+            contained = [hole for hole in holes if cv2.pointPolygonTest(np.asarray(outer, np.float32),
+                          tuple(map(float, hole.mean(axis=0))), False) >= 0]
+            hatch_items.append({"id": f"hatch_{len(hatch_items)}", "outer": [point(p) for p in outer],
+                                "holes": [[point(p) for p in hole] for hole in contained], "pattern": "ANSI31",
+                                "scale": float(h["region"]["spacing"] / 3.175),
+                                "angle": float(h["region"]["angle"] - 45)})
+
+    text_items = []
+    raw_items = []
+    for k, t in enumerate(texts):
+        raw_items.append({"id": f"ocr_{k}", "text": t.text, "score": float(t.score),
+                          "poly_mm": [point(p) for p in t.poly]})
+        if k in used_texts or t.score < 0.45:
+            continue
+        height = float(t.glyph_h if getattr(t, "glyph_h", None) else t.height * 0.55)
+        text_items.append({"id": f"text_{k}", "value": t.text, "insert": point(t.poly[3]),
+                           "height": max(height, 0.5), "rotation": float(t.angle)})
+
+    dimension_items = []
+    for k, d in enumerate(dims_lin):
+        raw = d.get("raw_text")
+        prefix, nominal, suffix = parse_dim_text(raw) if raw else ("", None, "")
+        display_prefix = {"⌀": "%%c", "R": "R", "M": "M"}.get(prefix, "")
+        suffix = suffix.replace("±", "%%p").replace("°", "%%d")
+        display = display_prefix + "<>" + suffix if nominal is not None else "<>"
+        dimension_items.append({"id": f"dimension_{k}", "kind": "linear", "p1": point(d["p1"]),
+                                "p2": point(d["p2"]), "base": point(d["base"]),
+                                "angle": float(d["angle"]), "nominal_mm": nominal,
+                                "recognized_text": raw, "display": display,
+                                "view_scale": float(d.get("scale", 1.0)),
+                                "link_status": "resolved" if all(d["ext"]) else "unresolved"})
+
+    reliable_sheet = fmt is not None and cal["calibrated_on"] != "image size (no trim line found)"
+    scale_status = "known" if reliable_sheet and any(d["nominal_mm"] is not None for d in dimension_items) else "unknown"
+    issues = [{"code": "unsupported_object", "severity": "warning",
+               "message": f"Распознаны {count} объектов типа {kind}; экспорт этого типа пока не поддержан"}
+              for kind, count in unsupported_counts.items() if count]
+    cv = {"schema_version": "0.1", "status": "ok", "coordinate_space": "sheet_mm",
+          "scale_status": scale_status, "calibration": cal, "primitives": primitives,
+          "hatches": hatch_items, "issues": issues}
+    ocr = {"schema_version": "0.1", "status": "error" if ocr_error else "ok", "error": ocr_error,
+           "candidates": raw_items, "texts": text_items, "dimensions": dimension_items}
+    return cv, ocr
+
+
+def run(img_path, out_path, sheet=None, report_path=None, observations_only=False, strict_ocr=False):
     T = Timer()
     gray = load_gray(img_path)
     bw = binarize(gray)
@@ -345,7 +420,14 @@ def run(img_path, out_path, sheet=None, report_path=None):
     cal = calibrate(bw, sheet)
     T("load+binarize+deskew+calibrate")
 
-    texts = run_ocr(gray, cal)
+    ocr_error = None
+    try:
+        texts = run_ocr(gray, cal)
+    except Exception as exc:
+        if strict_ocr:
+            raise
+        texts = []
+        ocr_error = f"{type(exc).__name__}: {exc}"
     fmt = None
     for t in texts:
         m = re.search(r"Формат\s*[AА]\s*([0-4])", t.text.replace(" ", " "))
@@ -353,7 +435,13 @@ def run(img_path, out_path, sheet=None, report_path=None):
             fmt = "A" + m.group(1)
     if fmt and fmt in SHEETS and fmt != cal["sheet"] and sheet is None:
         cal = calibrate(bw, fmt)
-        texts = run_ocr(gray, cal)
+        try:
+            texts = run_ocr(gray, cal)
+        except Exception as exc:
+            if strict_ocr:
+                raise
+            texts = []
+            ocr_error = f"{type(exc).__name__}: {exc}"
     T("ocr")
 
     stroke = stroke_width_mm(bw, cal)
@@ -420,7 +508,8 @@ def run(img_path, out_path, sheet=None, report_path=None):
         new_lines += pieces
     lines = new_lines
     from ocr import ocr_window
-    rad = dimsmod.radius_dims(arrows, arcs, texts, used_texts, ocr_window=lambda box: ocr_window(gray, cal, box))
+    rad = dimsmod.radius_dims(arrows, arcs, texts, used_texts,
+                              ocr_window=(lambda box: ocr_window(gray, cal, box)) if ocr_error is None else None)
     angd = dimsmod.angular_dims(arrows, arcs, texts, used_texts)
     used_arc_ids = {id(e) for e in arcs for d in angd if np.allclose(e["c"], d["c"]) and abs(e["r"] - d["r"]) < 1e-6}
     arcs = [e for e in arcs if id(e) not in used_arc_ids]
@@ -442,6 +531,11 @@ def run(img_path, out_path, sheet=None, report_path=None):
 
     frame = detect_frame(lines, cal["sheet_w"], cal["sheet_h"])
     fields = title_fields(texts, frame)
+
+    if observations_only:
+        return observations(lines, arcs, chains, hatches, dims_lin, texts, used_texts, cal, fmt, ocr_error,
+                            {"radius_dimension": len(rad), "angular_dimension": len(angd),
+                             "leader": len(leads), "filled_symbol": len(blobs)})
 
     # ------------------------------------------------------------ write DXF
     doc = new_drawing(font="isocpeur.ttf", oblique=15.0, dim_text_height=5.0, arrow=3.0)

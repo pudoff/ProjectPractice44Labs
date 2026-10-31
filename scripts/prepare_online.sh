@@ -3,11 +3,10 @@ set -euo pipefail
 # Internet required on this machine only. Run at repository root.
 command -v poetry >/dev/null || { echo "Install Poetry 2.5.1 first" >&2; exit 1; }
 [[ "$(poetry --version)" == *"2.5.1"* ]] || { echo "Expected Poetry 2.5.1" >&2; exit 1; }
-poetry lock
 poetry check --lock
 poetry install --only main --no-root --sync
 poetry run python -m tools.fetch_models --download
-docker compose -f compose.yaml build api
+docker compose -f compose.offline-prototype.yaml build api
 docker pull postgres:16.6-bookworm
 mkdir -p offline
 docker save -o offline/docker-images.tar practice44-app:0.1.0 postgres:16.6-bookworm

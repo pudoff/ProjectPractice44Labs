@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgomp1 libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 
-RUN python -m pip install --no-cache-dir poetry==2.2.1
+RUN python -m pip install --no-cache-dir poetry==2.5.1
 
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./

@@ -6,6 +6,7 @@ umask 077
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 MODE="${1:-online}"
+COMPOSE_FILE="compose.offline-prototype.yaml"
 [[ "$MODE" == "online" || "$MODE" == "--offline" ]] || {
   echo "Использование: bash setup-mac.sh [--offline]"
   exit 2
@@ -56,7 +57,7 @@ info "Проверка системы"
 [[ "$(uname -m)" == "arm64" ]] ||
   fail "Требуется нативный терминал Apple Silicon (arm64)"
 
-[[ -f compose.yaml && -f pyproject.toml ]] ||
+[[ -f "$COMPOSE_FILE" && -f pyproject.toml ]] ||
   fail "Запустите сценарий из корня проекта"
 
 [[ -f scripts/prepare_online.sh ]] ||
@@ -98,7 +99,7 @@ grep -q '^POSTGRES_PASSWORD=[^[:space:]]' .env ||
 set_env "APP_UID" "$(id -u)"
 set_env "APP_GID" "$(id -g)"
 
-docker compose config --quiet
+docker compose -f "$COMPOSE_FILE" config --quiet
 
 if [[ "$MODE" == "online" ]]; then
   info "Проверка инструментов разработки"
@@ -137,8 +138,8 @@ if [[ "$MODE" == "online" ]]; then
   fi
 
   if ! command -v poetry >/dev/null; then
-    confirm "Установить Poetry 2.2.1?"
-    pipx install poetry==2.2.1
+    confirm "Установить Poetry 2.5.1?"
+    pipx install poetry==2.5.1
   fi
 
   command -v poetry >/dev/null ||
@@ -166,7 +167,7 @@ if [[ "$MODE" == "online" ]]; then
 
   info "Запуск контейнеров"
 
-  docker compose up -d --no-build --pull never
+  docker compose -f "$COMPOSE_FILE" up -d --no-build --pull never
 else
   info "Автономный запуск"
 
@@ -188,7 +189,7 @@ fi
 
 info "Проверка сервисов"
 
-docker compose ps
+docker compose -f "$COMPOSE_FILE" ps
 
 PORT="$(sed -n 's/^API_PORT=//p' .env | tail -n 1)"
 PORT="${PORT:-8000}"
@@ -206,7 +207,7 @@ for i in $(seq 1 30); do
 done
 
 if [[ "$READY" != "1" ]]; then
-  docker compose logs --tail=100 api worker db
+  docker compose -f "$COMPOSE_FILE" logs --tail=100 api worker db
   fail "API не ответил на проверку состояния"
 fi
 
@@ -218,7 +219,7 @@ else
   echo "HTTP-тест пропущен: нестандартный API_PORT=$PORT"
 fi
 
-docker compose logs --no-color --tail=150 \
+docker compose -f "$COMPOSE_FILE" logs --no-color --tail=150 \
   api worker db > logs/docker-last.log
 
 info "Запуск завершён"

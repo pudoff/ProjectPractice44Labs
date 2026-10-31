@@ -93,4 +93,29 @@ docker run --rm -v "D:/путь/к/папке:/work" oda-convert convert.sh /wor
 - Эталоны тестового листа (`dataset/clear_sum_dataset/vse_dxf/клапан.dxf`, `dataset/dataset2/клапан.*`) используются только
   скриптом сравнения, не для разработки. 10 приёмочных листов заказчика в разработке не используются.
 - Разбиение данных на обучение и проверку — по детали, а не по файлу (наборы пересекаются).
-- Всё новое по CV/ML кладётся в `mlcv/`; выходы оценки (`mlcv/eval/out*`) в git не попадают, итог — `mlcv/eval/REPORT.md`.
+
+# Сервер API
+
+FastAPI, PostgreSQL, worker и экспорт DrawingGraph → DXF находятся в [backend/README.md](backend/README.md). Порядок первого запуска и применения миграции описан там же.
+
+## Офлайн-прототип и основной backend
+
+В репозитории сохранены два отдельных варианта запуска:
+
+| Вариант | Compose | API | Хранение |
+|---|---|---|---|
+| Основной backend | `compose.yaml` | `/api/v1/jobs`, PDF/PNG/JPEG, версии и DrawingGraph | Собственные Docker volumes и миграции Alembic |
+| Офлайн-прототип из `feature/offline-deployment` | `compose.offline-prototype.yaml` | `/jobs`, PNG | Проект Compose `practice44`, его PostgreSQL volume, каталоги `storage/` и `models/` |
+
+`docker compose ...` использует основной backend. Скрипты `scripts/prepare_online.sh`,
+`scripts/start_offline.sh` и `setup-mac.sh` явно выбирают офлайн-прототип. Для его ручного
+запуска используйте `docker compose -f compose.offline-prototype.yaml ...`.
+Не подключайте эти сервисы к одной базе: у них различаются схемы и контракты API.
+При одновременном запуске задайте прототипу другой `API_PORT` в `.env`, например `8001`.
+Основной backend пока не получает гарантию автономности от наличия второго Compose-файла.
+
+В общем OCR-модуле `OCR_MODEL_PATH` без `MODEL_DIR` сохраняет существующий режим backend.
+Офлайн-прототип задаёт `MODEL_DIR`: все модели проверяются локально, а отсутствие или
+повреждение файла вызывает ошибку без перехода на сетевую загрузку. При указании обеих
+переменных применяется строгий офлайн-режим. Без обеих переменных прототип использует `./models`.
+Отчёт исходного офлайн-эксперимента: [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md).

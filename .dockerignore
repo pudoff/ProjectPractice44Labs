@@ -27,3 +27,4 @@ storage/
 logs/
 models/
 result*.dxf
+.local-backups/

@@ -1,0 +1,54 @@
+name: practice44
+x-app: &app
+  image: practice44-app:0.1.0
+  env_file: .env
+  environment:
+    DATABASE_URL: postgresql://${POSTGRES_USER:-practice44}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-practice44}
+    DATA_DIR: /data
+    MODEL_DIR: /models
+  volumes:
+    - ./storage:/data
+    - ./models:/models:ro
+  depends_on:
+    db:
+      condition: service_healthy
+  user: "${APP_UID:-1000}:${APP_GID:-1000}"
+  init: true
+  restart: unless-stopped
+
+services:
+  api:
+    <<: *app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["uvicorn", "service.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+
+  worker:
+    <<: *app
+    command: ["python", "-m", "service.worker"]
+
+  db:
+    image: postgres:16.6-bookworm
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-practice44}
+      POSTGRES_USER: ${POSTGRES_USER:-practice44}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+volumes:
+  pgdata:
