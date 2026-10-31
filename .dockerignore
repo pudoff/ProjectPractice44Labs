@@ -8,10 +8,23 @@ venv
 **/*.pkl
 dataset
 task
-runs/**
-!runs/klapan_png2dxf/
-!runs/klapan_png2dxf/pipeline_b/
-!runs/klapan_png2dxf/pipeline_b/*.py
 docs
 .vscode
 .idea
+
+# Include only the required image-processing pipeline
+runs/*
+!runs/klapan_png2dxf/
+runs/klapan_png2dxf/*
+!runs/klapan_png2dxf/pipeline_b/
+!runs/klapan_png2dxf/pipeline_b/**
+
+# Exclude local runtime assets
+.env
+.env.*
+offline/
+storage/
+logs/
+models/
+result*.dxf
+.local-backups/

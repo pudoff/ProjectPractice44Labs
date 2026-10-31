@@ -26,3 +26,20 @@ mlcv/eval/out*/
 mlcv/eval/*.log
 mlcv/build/
 *.egg-info/
+
+# Local configuration and secrets
+/.env
+/.env.*
+!/.env.example
+
+# Offline deployment archives
+/offline/
+
+# Runtime data and logs
+/storage/
+/logs/
+/result*.dxf
+
+# Locally downloaded OCR models
+/models/*
+!/models/SOURCES.json
