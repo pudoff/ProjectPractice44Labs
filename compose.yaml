@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: draw
+      POSTGRES_USER: draw
+      POSTGRES_PASSWORD: draw
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U draw"]
+      interval: 5s
+      retries: 10
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: &service_env
+      DATABASE_URL: postgresql+psycopg://draw:draw@db:5432/draw
+      STORAGE_ROOT: /storage
+      BUILTIN_PIPELINE_PATH: /srv/runs/klapan_png2dxf/pipeline_b/pipeline.py
+    volumes:
+      - storage:/storage
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["python", "-m", "app.worker"]
+    environment:
+      <<: *service_env
+      OCR_MODEL_PATH: /models/eslav_PP-OCRv5_rec_mobile.onnx
+    volumes:
+      - storage:/storage
+      - models:/models
+    depends_on:
+      db:
+        condition: service_healthy
+  migrate:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment: *service_env
+    volumes:
+      - ./backend/migrations:/srv/migrations
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:
+  storage:
+  models:

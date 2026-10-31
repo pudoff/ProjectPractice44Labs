@@ -214,13 +214,15 @@ def build(arrows, lines, texts, axes, bw, cal, to_px):
         if k is not None:
             used_texts.add(k)
             txt, val, vscale = dim_text(texts[k].text, L, sym)
+            raw_text = texts[k].text
             loc = texts[k].center
         else:
             txt, val, loc, vscale = ("%%c<>" if sym else "<>"), None, None, 1.0
+            raw_text = None
         a.used = b.used = True
         out.append({"kind": "linear", "p1": p1, "p2": p2, "base": a.tip, "angle": math.degrees(math.atan2(uh[1], uh[0])),
                     "text": txt, "value": val, "loc": loc, "L": L, "ext": (e1, e2), "arrows": (i, j),
-                    "scale": vscale})
+                    "scale": vscale, "raw_text": raw_text})
     return out, used_lines, used_texts
 
 
