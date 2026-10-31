@@ -31,6 +31,20 @@ class Primitive(Strict):
 
     @model_validator(mode="after")
     def check_geometry(self):
+        geometry_fields = {
+            "line": {"start", "end"},
+            "circle": {"center", "radius"},
+            "arc": {"center", "radius", "start_angle", "end_angle"},
+            "polyline": {"vertices", "closed"},
+        }
+        unexpected = {
+            field for field in ("start", "end", "center", "radius", "start_angle", "end_angle", "vertices")
+            if getattr(self, field) is not None and field not in geometry_fields[self.kind]
+        }
+        if self.closed and self.kind != "polyline":
+            unexpected.add("closed")
+        if unexpected:
+            raise ValueError(f"{self.kind} has unrelated geometry fields: {', '.join(sorted(unexpected))}")
         if self.kind == "line" and (self.start is None or self.end is None):
             raise ValueError("line requires start and end")
         if self.kind == "circle" and (self.center is None or self.radius is None):

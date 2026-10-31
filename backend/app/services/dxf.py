@@ -1,22 +1,24 @@
 import math
 from pathlib import Path
 import ezdxf
-from .drawing import DrawingGraph, Issue
+from app.config import get_settings
+from app.domain.drawing import DrawingGraph, Issue
 
 
 def new_document():
-    doc = ezdxf.new("R2007", units=4)
-    doc.header["$INSUNITS"] = 4
-    doc.header["$MEASUREMENT"] = 1
-    for name, color, lineweight in (("MAIN", 7, 50), ("THIN", 3, 25), ("AXIS", 1, 25), ("DIMS", 4, 25), ("TEXT", 7, 25)):
+    settings = get_settings()
+    doc = ezdxf.new(settings.dxf_version, units=settings.dxf_units)
+    doc.header["$INSUNITS"] = settings.dxf_units
+    doc.header["$MEASUREMENT"] = settings.dxf_measurement
+    for name, color, lineweight in settings.dxf_layers:
         doc.layers.new(name, dxfattribs={"color": color, "lineweight": lineweight})
-    doc.styles.new("DRAWING", dxfattribs={"font": "isocpeur.ttf"})
+    doc.styles.new("DRAWING", dxfattribs={"font": settings.dxf_font})
     style = doc.dimstyles.new("DRAWING")
     style.dxf.dimtxsty = "DRAWING"
-    style.dxf.dimtxt = 3.5
-    style.dxf.dimasz = 3
-    style.dxf.dimdec = 2
-    style.dxf.dimzin = 8
+    style.dxf.dimtxt = settings.dxf_text_height
+    style.dxf.dimasz = settings.dxf_arrow_size
+    style.dxf.dimdec = settings.dxf_dimension_decimals
+    style.dxf.dimzin = settings.dxf_dimension_zero_suppression
     style.dxf.dimlfac = 1
     return doc
 
@@ -60,27 +62,28 @@ def add_hatch(msp, item):
         hatch.paths.add_polyline_path(hole, is_closed=True, flags=0)
 
 
-def export_dxf(graph: DrawingGraph, path: Path) -> list[Issue]:
-    issues = list(graph.issues)
-    if graph.scale_status == "unknown":
-        if not any(issue.code == "unknown_scale" for issue in issues):
-            issues.append(Issue(code="unknown_scale", severity="error", message="Масштаб детали не определён"))
+class DxfExporter:
+    def export(self, graph: DrawingGraph, path: Path) -> list[Issue]:
+        issues = list(graph.issues)
+        if graph.scale_status == "unknown":
+            if not any(issue.code == "unknown_scale" for issue in issues):
+                issues.append(Issue(code="unknown_scale", severity="error", message="Масштаб детали не определён"))
+            return issues
+        if not graph.primitives and not graph.hatches:
+            issues.append(Issue(code="empty_drawing", severity="error", message="Геометрия чертежа отсутствует"))
+            return issues
+        doc = new_document()
+        msp = doc.modelspace()
+        for item in graph.primitives:
+            add_primitive(msp, item)
+        for item in graph.texts:
+            add_text(msp, item)
+        for item in graph.dimensions:
+            add_dimension(msp, item, issues)
+        for item in graph.hatches:
+            add_hatch(msp, item)
+        if not doc.audit().has_errors:
+            doc.saveas(path)
+        else:
+            issues.append(Issue(code="dxf_audit", severity="error", message="Ошибка структуры DXF"))
         return issues
-    if not graph.primitives and not graph.hatches:
-        issues.append(Issue(code="empty_drawing", severity="error", message="Геометрия чертежа отсутствует"))
-        return issues
-    doc = new_document()
-    msp = doc.modelspace()
-    for item in graph.primitives:
-        add_primitive(msp, item)
-    for item in graph.texts:
-        add_text(msp, item)
-    for item in graph.dimensions:
-        add_dimension(msp, item, issues)
-    for item in graph.hatches:
-        add_hatch(msp, item)
-    if not doc.audit().has_errors:
-        doc.saveas(path)
-    else:
-        issues.append(Issue(code="dxf_audit", severity="error", message="Ошибка структуры DXF"))
-    return issues

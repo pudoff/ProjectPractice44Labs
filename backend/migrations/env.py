@@ -4,12 +4,12 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from app.config import DATABASE_URL
-from app.db import Base
-from app import models  # noqa: F401
+from app.config import get_settings
+from app.infra.db import Base
+from app.infra import models  # noqa: F401
 
 config = context.config
-config.set_main_option("sqlalchemy.url", DATABASE_URL.replace("%", "%%"))
+config.set_main_option("sqlalchemy.url", get_settings().database_url.replace("%", "%%"))
 target_metadata = Base.metadata
 
 
