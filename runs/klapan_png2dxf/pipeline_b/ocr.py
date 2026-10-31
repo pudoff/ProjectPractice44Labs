@@ -33,10 +33,16 @@ def engine():
     global _engine
     if _engine is None:
         from rapidocr import LangRec, ModelType, OCRVersion, RapidOCR
-        _engine = RapidOCR(params={"Rec.lang_type": LangRec.ESLAV, "Rec.ocr_version": OCRVersion.PPOCRV5,
-                                   "Rec.model_type": ModelType.MOBILE, "Det.limit_side_len": 6000,
-                                   "Det.limit_type": "max", "Global.text_score": 0.3,
-                                   "Global.log_level": "warning"})
+        from service.models import rapidocr_params
+        params = rapidocr_params()
+        params.update({
+            "Rec.lang_type": LangRec.ESLAV,
+            "Rec.ocr_version": OCRVersion.PPOCRV5,
+            "Rec.model_type": ModelType.MOBILE,
+            "Det.ocr_version": OCRVersion.PPOCRV5,
+            "Det.model_type": ModelType.MOBILE,
+        })
+        _engine = RapidOCR(params=params)
     return _engine
 
 

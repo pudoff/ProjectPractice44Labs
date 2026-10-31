@@ -15,6 +15,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT / "tools"))
 
@@ -246,21 +247,27 @@ def roughness_marks(lines, tol=0.2):
     for k, e in enumerate(lines):
         ends.append((k, e["p"], e["q"]))
         ends.append((k, e["q"], e["p"]))
+    from scipy.spatial import cKDTree
+    if not ends:
+        return set()
+    # Neighbour lookup replaces an O(N²) scan over all line endpoints.
+    # query_pairs returns exactly the candidate pairs within `tol`.
+    points = np.asarray([e[1] for e in ends], dtype=float)
+    candidates = cKDTree(points).query_pairs(r=tol, output_type="ndarray")
     out = set()
-    for i in range(len(ends)):
+    for i, j in candidates:
         k1, a1, b1 = ends[i]
-        for j in range(i + 1, len(ends)):
-            k2, a2, b2 = ends[j]
-            if k1 == k2 or np.linalg.norm(a1 - a2) > tol:
-                continue
-            v1, v2 = b1 - a1, b2 - a2
-            l1, l2 = np.linalg.norm(v1), np.linalg.norm(v2)
-            s, lg = min(l1, l2), max(l1, l2)
-            if not (2.0 <= s <= 12 and 1.5 <= lg / s <= 2.7):
-                continue
-            cosang = v1 @ v2 / (l1 * l2)
-            if abs(math.degrees(math.acos(np.clip(cosang, -1, 1))) - 60) < 6:
-                out |= {k1, k2}
+        k2, a2, b2 = ends[j]
+        if k1 == k2:
+            continue
+        v1, v2 = b1 - a1, b2 - a2
+        l1, l2 = np.linalg.norm(v1), np.linalg.norm(v2)
+        s, lg = min(l1, l2), max(l1, l2)
+        if not (2.0 <= s <= 12 and 1.5 <= lg / s <= 2.7):
+            continue
+        cosang = v1 @ v2 / (l1 * l2)
+        if abs(math.degrees(math.acos(np.clip(cosang, -1, 1))) - 60) < 6:
+            out |= {k1, k2}
     return out
 
 
@@ -514,7 +521,9 @@ def run(img_path, out_path, sheet=None, report_path=None):
            "dims_with_value": sum(1 for d in dims_lin if d["value"] is not None),
            "snap": snap_rep, "title_fields": fields, "verify": problems or "OK"}
     if report_path:
-        json.dump(rep, open(report_path, "w", encoding="utf-8"), ensure_ascii=False, indent=2, default=str)
+        Path(report_path).parent.mkdir(parents=True, exist_ok=True)
+        with open(report_path, "w", encoding="utf-8") as f:
+            json.dump(rep, f, ensure_ascii=False, indent=2, default=str)
     return rep
 
 
