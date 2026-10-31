@@ -25,6 +25,7 @@ runs/klapan_png2dxf/*
 offline/
 storage/
 logs/
-models/
+models/*
+!models/SOURCES.json
 result*.dxf
 .local-backups/

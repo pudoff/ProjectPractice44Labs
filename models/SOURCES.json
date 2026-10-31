@@ -1,8 +1,13 @@
 {
   "repository": "RapidAI/RapidOCR",
-  "release": "v3.9.2",
+  "release": "v3.9.2 legacy OCR; v3.10.0 drawcv detector",
   "engine": "onnxruntime",
   "artifacts": [
+    {
+      "filename": "det_cv_v6_small.onnx",
+      "url": "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.10.0/onnx/PP-OCRv6/det/PP-OCRv6_det_small.onnx",
+      "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f"
+    },
     {
       "filename": "det.onnx",
       "url": "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2/onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx",

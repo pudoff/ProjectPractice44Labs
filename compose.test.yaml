@@ -1,0 +1,15 @@
+services:
+  checks:
+    image: practice44-checks:local
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: test
+    environment:
+      MODEL_DIR: /models
+      STORAGE_ROOT: /tmp/check-storage
+      REQUIRE_LOCAL_MODELS: "true"
+    volumes:
+      - ./models:/models:ro
+    network_mode: none
+    command: ["python", "-m", "pytest", "-q", "/srv/backend/tests", "/srv/tests"]

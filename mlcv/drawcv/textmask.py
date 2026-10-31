@@ -8,6 +8,8 @@ Providers:
 Only connected components lying (almost) entirely inside a text polygon are erased, so a line crossing a label
 survives. Erased pixels are kept as a separate mask for review; the source image is never changed."""
 import json
+import os
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -20,8 +22,23 @@ MAX_TEXT_HEIGHT_MM = 15.0
 def rapidocr_engine():
     global _engine
     if _engine is None:
-        from rapidocr import RapidOCR
-        _engine = RapidOCR(params={"Det.limit_side_len": 5000, "Det.limit_type": "max", "Global.log_level": "warning"})
+        params = {"Det.limit_side_len": 5000, "Det.limit_type": "max", "Global.log_level": "warning"}
+        config = os.getenv("DRAWCV_RAPIDOCR_CONFIG")
+        if config:
+            params.update(json.loads(Path(config).read_text(encoding="utf-8")))
+            for key in ("Det.model_path", "Cls.model_path", "Rec.model_path", "Rec.rec_keys_path"):
+                if key not in params or not Path(params[key]).is_file():
+                    raise FileNotFoundError(f"Local RapidOCR asset missing: {key}")
+        elif os.getenv("DRAWCV_OFFLINE") == "1":
+            raise RuntimeError("Offline drawcv requires DRAWCV_RAPIDOCR_CONFIG with local model paths")
+        from rapidocr import RapidOCR, ModelType, OCRVersion
+        # JSON stores strings; RapidOCR's Python params require Enum instances.
+        enum_fields = {"model_type": ModelType, "ocr_version": OCRVersion}
+        for key, value in list(params.items()):
+            enum = enum_fields.get(key.rsplit(".", 1)[-1])
+            if enum is not None:
+                params[key] = enum(value)
+        _engine = RapidOCR(params=params)
     return _engine
 
 
@@ -84,6 +101,8 @@ def find_text_regions(prep, page_gray_work, params, px_per_mm):
         try:
             regions = detect_rapidocr(page_gray_work)
         except Exception as exc:          # model missing / runtime error: fall back, but say so
+            if os.getenv("DRAWCV_STRICT_MODELS") == "1":
+                raise
             note = f"rapidocr unavailable ({type(exc).__name__}: {exc}); components fallback used"
             provider = "components"
     if provider == "components":

@@ -36,6 +36,7 @@ mlcv/build/
 /offline/
 
 # Runtime data and logs
+/.local-backups/
 /storage/
 /logs/
 /result*.dxf

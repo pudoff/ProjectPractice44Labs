@@ -36,7 +36,7 @@ def main():
             finally:
                 tmp.unlink(missing_ok=True)
             print("downloaded:", target.name)
-    present = paths(check=True)
+    present = paths(check=True, include_cv=True)
     manifest = {key: {"filename": obj.name, "sha256": digest(obj),
                       "bytes": obj.stat().st_size} for key, obj in present.items()}
     if opts.download or opts.register:

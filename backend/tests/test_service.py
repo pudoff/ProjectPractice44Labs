@@ -1,10 +1,8 @@
 import io
+import json
 import os
 import uuid
 from pathlib import Path
-
-os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/drawing-service-test.sqlite3"
-os.environ["STORAGE_ROOT"] = "/tmp/drawing-service-test-storage"
 
 import ezdxf
 import httpx
@@ -24,7 +22,8 @@ from app.services.recognition import assemble_graph
 
 @event.listens_for(engine.sync_engine, "connect")
 def sqlite_uuid(dbapi_connection, _record):
-    dbapi_connection.create_function("uuid_generate_v7", 0, lambda: str(uuid.uuid4()))
+    if engine.dialect.name == "sqlite":
+        dbapi_connection.create_function("uuid_generate_v7", 0, lambda: str(uuid.uuid4()))
 
 
 async def request(method, path, **kwargs):
@@ -34,7 +33,7 @@ async def request(method, path, **kwargs):
 
 @pytest.fixture(scope="session")
 def anyio_backend():
-    return "asyncio", {"use_uvloop": True}
+    return "asyncio"
 
 
 @pytest.fixture(autouse=True)
@@ -45,10 +44,13 @@ async def clean_db(anyio_backend):
     yield
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.drop_all)
+    await engine.dispose()
 
 
 @pytest.mark.anyio
 async def test_upload_review_and_manual_graph_export(monkeypatch):
+    from app.config import get_settings
+    monkeypatch.setattr(get_settings(), "recognition_profile", "legacy")
     monkeypatch.setattr("app.services.recognition.run_builtin_recognition", lambda image: (
         {"status": "error", "scale_status": "unknown", "error": "CV unavailable"},
         {"status": "error", "error": "OCR unavailable"}))
@@ -69,7 +71,7 @@ async def test_upload_review_and_manual_graph_export(monkeypatch):
     assert (run_dir(job_id, status["runs"][-1]["id"]) / "result.dxf").is_file()
     result = await request("GET", f"/api/v1/jobs/{job_id}/artifacts/result.dxf")
     assert result.status_code == 200
-    doc = ezdxf.read(io.StringIO(result.text))
+    doc = ezdxf.read(io.StringIO(result.text, newline=None))
     types = {entity.dxftype() for entity in doc.modelspace()}
     assert {"LWPOLYLINE", "TEXT", "DIMENSION", "HATCH"} <= types
     assert doc.modelspace().query("DIMENSION")[0].dxf.text == "<>"
@@ -183,3 +185,43 @@ def test_unresolved_dimension_is_reported_without_fabricated_measurement(tmp_pat
     issues = DxfExporter().export(graph, target)
     assert any(issue.code == "unresolved_dimension_link" for issue in issues)
     assert not ezdxf.readfile(target).modelspace().query("DIMENSION")
+
+
+@pytest.mark.anyio
+async def test_api_calls_real_drawcv_and_preserves_semantics(tmp_path, monkeypatch):
+    from PIL import Image, ImageDraw
+    from app.config import get_settings
+    params = tmp_path / "cv-params.json"
+    params.write_text(json.dumps({"text_provider": "none", "manual_px_per_mm": 10,
+                                  "save_debug_images": False}), encoding="utf-8")
+    monkeypatch.setenv("DRAWCV_PARAMS", str(params))
+    monkeypatch.setattr(get_settings(), "recognition_profile", "current")
+    monkeypatch.setattr(get_settings(), "cv_adapter", "drawcv.adapter:run_cv")
+    monkeypatch.setattr(get_settings(), "ocr_adapter", None)
+    def unexpected_legacy(_image):
+        raise AssertionError("The current route must not call the legacy pipeline")
+    monkeypatch.setattr("app.services.recognition.run_builtin_recognition", unexpected_legacy)
+    picture = Image.new("RGB", (800, 500), "white")
+    pen = ImageDraw.Draw(picture)
+    pen.rectangle((100, 100, 700, 400), outline="black", width=5)
+    pen.ellipse((200, 200, 300, 300), outline="black", width=5)
+    buffer = io.BytesIO()
+    picture.save(buffer, format="PNG")
+    response = await request("POST", "/api/v1/jobs", files={"file": ("plate.png", buffer.getvalue(), "image/png")})
+    assert response.status_code == 201
+    job_id = response.json()["id"]
+    await process_run(await claim_run())
+    status = (await request("GET", f"/api/v1/jobs/{job_id}")).json()
+    assert status["state"] == "needs_review", status
+    cv = (await request("GET", f"/api/v1/jobs/{job_id}/artifacts/cv.json")).json()
+    assert cv["status"] == "ok", cv
+    assert cv["module"]["name"] == "drawcv"
+    drawing = (await request("GET", f"/api/v1/jobs/{job_id}/artifacts/drawing.json")).json()
+    assert drawing["schema_version"] == "0.2"
+    assert drawing["points"] and drawing["contours"] and drawing["transforms"]
+    assert drawing["calibration"]["manual"] is True
+    assert len(drawing["primitives"]) > 0
+    report = (await request("GET", f"/api/v1/jobs/{job_id}/artifacts/report.json")).json()
+    assert "ocr_error" in {i["code"] for i in report["issues"]}
+    assert report["provenance"]["cv"]["module"]["name"] == "drawcv"
+    assert (await request("GET", f"/api/v1/jobs/{job_id}/artifacts/result.dxf")).status_code == 200

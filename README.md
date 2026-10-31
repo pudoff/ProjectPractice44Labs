@@ -50,6 +50,8 @@ AC1021 (AutoCAD 2007), UTF-8, миллиметры; слои `MAIN / THIN / AXIS
 
 ## Как запустить
 
+Основной сервис после интеграции использует **Python 3.12, `backend/uv.lock` и `compose.yaml`**: [инструкция backend](backend/README.md), [контракт чертежа 0.2](docs/drawing-graph-v0.2.md), [статус задач](docs/project-task-status.md). `scripts/prepare_online.sh` и `scripts/start_offline.sh` поставляют этот же сервис. Команды ниже относятся к самостоятельным CV-экспериментам и прежнему конвейеру.
+
 Нужны Python 3.12+ (проверено на 3.14) и, для проверки в CAD, Docker.
 
 ```bash
@@ -107,15 +109,23 @@ FastAPI, PostgreSQL, worker и экспорт DrawingGraph → DXF находя�
 | Основной backend | `compose.yaml` | `/api/v1/jobs`, PDF/PNG/JPEG, версии и DrawingGraph | Собственные Docker volumes и миграции Alembic |
 | Офлайн-прототип из `feature/offline-deployment` | `compose.offline-prototype.yaml` | `/jobs`, PNG | Проект Compose `practice44`, его PostgreSQL volume, каталоги `storage/` и `models/` |
 
-`docker compose ...` использует основной backend. Скрипты `scripts/prepare_online.sh`,
-`scripts/start_offline.sh` и `setup-mac.sh` явно выбирают офлайн-прототип. Для его ручного
-запуска используйте `docker compose -f compose.offline-prototype.yaml ...`.
+`docker compose ...`, `scripts/prepare_online.sh`, `scripts/start_offline.sh` и `setup-mac.sh`
+теперь используют **один основной backend с drawcv**. Миграции выполняются перед запуском
+API/worker. В комплект включён детектор текущего CV и хеши всех локальных ресурсов.
+Для ручного запуска исторического прототипа используйте
+`docker compose -f compose.offline-prototype.yaml ...`.
 Не подключайте эти сервисы к одной базе: у них различаются схемы и контракты API.
 При одновременном запуске задайте прототипу другой `API_PORT` в `.env`, например `8001`.
-Основной backend пока не получает гарантию автономности от наличия второго Compose-файла.
+Инструкции и ограничения основного сервиса: [backend/README.md](backend/README.md).
+Текущий контракт: [DrawingGraph 0.2](docs/drawing-graph-v0.2.md).
 
 В общем OCR-модуле `OCR_MODEL_PATH` без `MODEL_DIR` сохраняет существующий режим backend.
 Офлайн-прототип задаёт `MODEL_DIR`: все модели проверяются локально, а отсутствие или
 повреждение файла вызывает ошибку без перехода на сетевую загрузку. При указании обеих
 переменных применяется строгий офлайн-режим. Без обеих переменных прототип использует `./models`.
 Отчёт исходного офлайн-эксперимента: [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md).
+
+Ход исправлений и оставшаяся работа: [Code review](docs/code-review-2026-10-31.md),
+[статус всех задач первого спринта](docs/project-task-status.md).
+[Следующие задачи по четырём проверенным ролям](docs/next-sprint-after-review.md),
+[протокол проверок исправлений](docs/reviews/2026-10-31-fixes/verification.md).

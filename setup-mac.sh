@@ -6,13 +6,13 @@ umask 077
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 MODE="${1:-online}"
-COMPOSE_FILE="compose.offline-prototype.yaml"
+COMPOSE_FILE="compose.yaml"
 [[ "$MODE" == "online" || "$MODE" == "--offline" ]] || {
   echo "Использование: bash setup-mac.sh [--offline]"
   exit 2
 }
 
-mkdir -p logs storage/uploads storage/results
+mkdir -p logs
 LOG="logs/setup-mac-$(date +%Y%m%d-%H%M%S).log"
 
 exec > >(tee -a "$LOG") 2>&1
@@ -57,7 +57,7 @@ info "Проверка системы"
 [[ "$(uname -m)" == "arm64" ]] ||
   fail "Требуется нативный терминал Apple Silicon (arm64)"
 
-[[ -f "$COMPOSE_FILE" && -f pyproject.toml ]] ||
+[[ -f "$COMPOSE_FILE" && -f backend/uv.lock ]] ||
   fail "Запустите сценарий из корня проекта"
 
 [[ -f scripts/prepare_online.sh ]] ||
@@ -111,12 +111,6 @@ if [[ "$MODE" == "online" ]]; then
 
   PACKAGES=()
 
-  command -v pyenv >/dev/null ||
-    PACKAGES+=(pyenv)
-
-  command -v pipx >/dev/null ||
-    PACKAGES+=(pipx)
-
   command -v sha256sum >/dev/null ||
     PACKAGES+=(coreutils)
 
@@ -130,33 +124,12 @@ if [[ "$MODE" == "online" ]]; then
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
   fi
 
-  export PATH="$HOME/.local/bin:$PATH"
-
-  if ! pyenv prefix 3.12.8 >/dev/null 2>&1; then
-    confirm "Установить Python 3.12.8?"
-    pyenv install 3.12.8
-  fi
-
-  if ! command -v poetry >/dev/null; then
-    confirm "Установить Poetry 2.5.1?"
-    pipx install poetry==2.5.1
-  fi
-
-  command -v poetry >/dev/null ||
-  fail "Poetry не найден"
-
-  poetry --version
-
-  poetry env use "$(pyenv prefix 3.12.8)/bin/python"
-
-  poetry run python --version
-
   info "Подготовка зависимостей и Docker-образов"
 
   bash scripts/prepare_online.sh
 
   for FILE in \
-    poetry.lock \
+    backend/uv.lock \
     offline/docker-images.tar \
     offline/ocr-models.tar.gz \
     offline/SHA256SUMS
@@ -175,7 +148,7 @@ else
     fail "Для автономной проверки нужен sha256sum"
 
   for FILE in \
-    poetry.lock \
+    backend/uv.lock \
     offline/docker-images.tar \
     offline/ocr-models.tar.gz \
     offline/SHA256SUMS
@@ -213,11 +186,7 @@ fi
 
 info "Проверка обработки изображения"
 
-if [[ "$PORT" == "8000" ]]; then
-  bash scripts/smoke_http.sh
-else
-  echo "HTTP-тест пропущен: нестандартный API_PORT=$PORT"
-fi
+API_URL="http://127.0.0.1:${PORT}" bash scripts/smoke_http.sh
 
 docker compose -f "$COMPOSE_FILE" logs --no-color --tail=150 \
   api worker db > logs/docker-last.log
@@ -225,6 +194,6 @@ docker compose -f "$COMPOSE_FILE" logs --no-color --tail=150 \
 info "Запуск завершён"
 
 echo "API: http://127.0.0.1:${PORT}"
-echo "Результаты: storage/results/"
+echo "Результаты: /api/v1/jobs/{id}/artifacts/{name}; постоянный Docker volume storage"
 echo "Журнал: $LOG"
 echo "Логи Docker: logs/docker-last.log"

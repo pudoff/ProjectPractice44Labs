@@ -1,6 +1,8 @@
 import asyncio
 import json
 import logging
+import os
+import time
 from datetime import datetime, timezone
 
 from app.domain.drawing import DrawingGraph, Issue
@@ -52,7 +54,7 @@ async def set_stage(run_id: str, stage: str) -> None:
 
 def _recognize(source, out, source_hash, parameters):
     if parameters.get("drawing_path"):
-        graph = DrawingGraph.model_validate_json((out / "submitted.json").read_text())
+        graph = DrawingGraph.model_validate_json((out / "submitted.json").read_text(encoding="utf-8"))
         if graph.source_sha256 and graph.source_sha256 != source_hash:
             raise ValueError("DrawingGraph source_sha256 differs from original")
     else:
@@ -62,6 +64,7 @@ def _recognize(source, out, source_hash, parameters):
 
 
 def _export(graph, out, source_hash):
+    started = time.perf_counter()
     issues = DxfExporter().export(graph, out / "result.dxf")
     if (out / "result.dxf").exists():
         try:
@@ -71,7 +74,9 @@ def _export(graph, out, source_hash):
             issues.append(Issue(code="preview_error", severity="warning", message=f"Предпросмотр не создан: {exc}"))
     state = "needs_review" if issues else "succeeded"
     atomic_json(out / "report.json", {"status": state, "schema_version": graph.schema_version,
-                                      "issues": [i.model_dump() for i in issues], "source_sha256": source_hash})
+                                      "issues": [i.model_dump() for i in issues], "source_sha256": source_hash,
+                                      "export_profile": graph.export_profile, "build_revision": os.getenv("BUILD_REVISION", "unknown"),
+                                      "provenance": graph.provenance, "export_seconds": time.perf_counter() - started})
     return state
 
 

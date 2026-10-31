@@ -1,0 +1,47 @@
+name: Backend, CV and offline integration
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      COMPOSE_PROJECT_NAME: practice44-ci
+      API_PORT: "18044"
+      BUILD_REVISION: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the application and test images from the same lock
+        run: |
+          docker compose build api
+          docker compose -f compose.test.yaml build checks
+          docker compose pull db
+      - name: Prepare and verify local models (online preparation)
+        run: |
+          docker compose run --rm --no-deps model-assets
+          MODEL_PREPARATION_NETWORK=none docker compose run --rm --no-deps model-assets python -m app.infra.model_assets
+      - name: Unit and API regression tests without network
+        run: docker compose -f compose.test.yaml run --rm checks
+      - name: CV tests with local models and without network
+        run: >-
+          docker compose -f compose.test.yaml run --rm checks python -c
+          "from app.infra.model_assets import configure_local_models; configure_local_models(); import pytest; raise SystemExit(pytest.main(['-q', '/srv/mlcv/tests']))"
+      - name: PostgreSQL migration and real API-worker integration
+        run: |
+          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --no-build --pull never
+          mkdir -p evidence
+          docker run --rm --network host --volume "${PWD}/evidence:/evidence" practice44-checks:local python -m tools.smoke_backend --base http://127.0.0.1:18044 --out /evidence
+      - name: Save service logs
+        if: always()
+        run: |
+          mkdir -p evidence
+          docker compose logs --no-color > evidence/services.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-evidence
+          path: evidence/
+      - name: Stop test services
+        if: always()
+        run: docker compose down

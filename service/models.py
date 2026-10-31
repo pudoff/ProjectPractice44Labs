@@ -10,6 +10,10 @@ MODEL_FILES = {
     "rec": ("rec_eslav.onnx", "08705d6721849b1347d26187f15a5e362c431963a2a62bfff4feac578c489aab"),
     "cls": ("ch_ppocr_mobile_v2.0_cls_mobile.onnx", "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"),
 }
+CV_MODEL_FILES = {
+    # RapidOCR 3.10 default detector used by drawcv, distinct from legacy OCR.
+    "cv_det": ("det_cv_v6_small.onnx", "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f"),
+}
 DICT_NAME = "ppocrv5_eslav_dict.txt"
 
 def digest(path: Path) -> str:
@@ -19,15 +23,16 @@ def digest(path: Path) -> str:
             d.update(chunk)
     return d.hexdigest()
 
-def paths(*, check: bool = True) -> dict[str, Path]:
+def paths(*, check: bool = True, include_cv: bool = False) -> dict[str, Path]:
     root = model_dir()
-    result = {k: root / fn for k, (fn, _) in MODEL_FILES.items()}
+    files = {**MODEL_FILES, **(CV_MODEL_FILES if include_cv else {})}
+    result = {k: root / fn for k, (fn, _) in files.items()}
     result["dict"] = root / DICT_NAME
     if check:
         for k, path in result.items():
             if not path.is_file() or path.stat().st_size == 0:
                 raise FileNotFoundError(f"Offline OCR asset missing: {path}")
-            if k in MODEL_FILES and digest(path) != MODEL_FILES[k][1]:
+            if k in files and digest(path) != files[k][1]:
                 raise ValueError(f"OCR SHA256 mismatch: {path}")
     return result
 
