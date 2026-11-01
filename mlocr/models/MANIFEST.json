@@ -1,0 +1,27 @@
+{
+  "runtime": {
+    "paddleocr": "3.7.0",
+    "paddlepaddle": "3.2.0",
+    "device": "cpu",
+    "offline_inference": "Both model directories are passed explicitly; no default model selection is used."
+  },
+  "license": "Apache-2.0",
+  "license_source": "https://github.com/PaddlePaddle/PaddleOCR",
+  "models": [
+    {
+      "role": "text_detection",
+      "name": "PP-OCRv5_mobile_det",
+      "source": "https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_det_infer.tar",
+      "archive_sha256": "50446E5D01AC2A73D5319C89513281F6578414C888C602F9AF13F93FEEFFFC58",
+      "local_directory": "mlocr/models/det/PP-OCRv5_mobile_det_infer"
+    },
+    {
+      "role": "text_recognition",
+      "name": "eslav_PP-OCRv5_mobile_rec",
+      "languages": ["Russian", "Belarusian", "Ukrainian"],
+      "source": "https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/eslav_PP-OCRv5_mobile_rec_infer.tar",
+      "archive_sha256": "B9F70DA0CA2BBC4D4CB7BA406A2D023061178437D6A930F07C8CA18C6C591839",
+      "local_directory": "mlocr/models/eslav-rec/eslav_PP-OCRv5_mobile_rec_infer"
+    }
+  ]
+}

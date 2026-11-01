@@ -1,0 +1,7 @@
+.venv/
+models/archives/*.tar
+models/det/
+models/eslav-rec/
+results/
+__pycache__/
+*.py[cod]

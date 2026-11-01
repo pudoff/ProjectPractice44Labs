@@ -44,3 +44,4 @@ mlcv/build/
 # Locally downloaded OCR models
 /models/*
 !/models/SOURCES.json
+/mlocr/OD-OCR-System-for-Engineering-Drawings-main

@@ -1,0 +1,5 @@
+paddleocr==3.7.0
+paddlepaddle==3.2.0
+PyMuPDF==2.0
+Pillow==12.1.0
+numpy==2.3.5
