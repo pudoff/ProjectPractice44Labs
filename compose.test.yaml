@@ -12,4 +12,4 @@ services:
     volumes:
       - ./models:/models:ro
     network_mode: none
-    command: ["python", "-m", "pytest", "-q", "/srv/backend/tests", "/srv/tests"]
+    command: ["python", "-m", "pytest", "-q", "/srv/backend/tests", "/srv/tests", "/srv/mlocr/tests"]

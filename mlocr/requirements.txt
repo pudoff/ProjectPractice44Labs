@@ -1,5 +1,6 @@
 paddleocr==3.7.0
 paddlepaddle==3.2.0
-PyMuPDF==2.0
+PyMuPDF==1.28.2
 Pillow==12.1.0
 numpy==2.3.5
+opencv-contrib-python==4.10.0.84

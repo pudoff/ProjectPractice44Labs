@@ -45,6 +45,11 @@ def run(input_path, out_dir=None, params=None, page_index=0):
     params = params or Params()
     T = Timer()
     page = load_page(input_path, page_index, params.pdf_render_dpi)
+    if params.ocr_json and params.text_provider in {'file', 'auto'}:
+        observed = json.loads(Path(params.ocr_json).read_text(encoding='utf-8'))
+        if isinstance(observed, dict) and observed.get('schema_version') == 'ocr-observations-1':
+            if len(observed.get('pages', [])) != 1 or observed.get('source') != page.raster_identity:
+                raise ValueError('OCR mask belongs to another raster/page; prepare a shared PNG first')
     T("ingest")
     prep = prepare(page, params)
     T("preprocess")
@@ -70,6 +75,8 @@ def run(input_path, out_dir=None, params=None, page_index=0):
     prims, thin_mm = ex["prims"], ex["thin_mm"]
     T("vectorize")
     separable, thick_mm, threshold = _lineweights(prims, thin_mm, cal)
+    if separable:
+        thin_mm = min(thin_mm, threshold * threshold / thick_mm)
     _classify(prims, params, cal, region_mask, mm_to_work, thin_mm, thick_mm, threshold, separable)
     groups = find_hatch_groups([e for e in prims if e["status"] == "ok" and e["kind"] == "line" and e["role"] in ("thin", "part")],
                                params.hatch_min_lines, params.hatch_spacing_mm)
@@ -579,6 +586,9 @@ def _lineweights(prims, thin_mm, cal):
     order = np.argsort(w)
     cum = np.cumsum(L[order]) / L.sum()
     thick = float(w[order][np.searchsorted(cum, 0.9)])
+    # The initial skeleton statistic includes a very long thick sheet frame.
+    # Re-estimate the thin population from the drawing body, just like thick.
+    thin_mm = min(thin_mm, float(w[order][np.searchsorted(cum, 0.2)]))
     separable = thick >= 1.5 * thin_mm
     threshold = math.sqrt(thin_mm * thick) if separable else thin_mm * 1.5
     return separable, thick, threshold

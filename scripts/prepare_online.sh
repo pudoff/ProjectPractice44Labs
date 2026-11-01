@@ -16,7 +16,7 @@ mkdir -p offline
 images=()
 while IFS= read -r image; do images+=("$image"); done < <(docker compose "${compose_args[@]}" config --images | sort -u)
 docker save -o offline/docker-images.tar "${images[@]}"
-tar -czf offline/ocr-models.tar.gz -C models det.onnx det_cv_v6_small.onnx rec_eslav.onnx ppocrv5_eslav_dict.txt ch_ppocr_mobile_v2.0_cls_mobile.onnx manifest.local.json
+tar -czf offline/ocr-models.tar.gz -C models det.onnx det_cv_v6_small.onnx rec_eslav.onnx ppocrv5_eslav_dict.txt ch_ppocr_mobile_v2.0_cls_mobile.onnx manifest.local.json paddle
 docker image inspect "${images[@]}" --format '{{.Id}} {{.Os}}/{{.Architecture}} {{json .RepoTags}}' > offline/images.txt
 printf '%s\n' "$BUILD_REVISION" > offline/revision.txt
 sha256sum offline/docker-images.tar offline/ocr-models.tar.gz offline/images.txt offline/revision.txt \

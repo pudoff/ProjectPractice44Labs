@@ -37,6 +37,8 @@ def main():
                 tmp.unlink(missing_ok=True)
             print("downloaded:", target.name)
     present = paths(check=True, include_cv=True)
+    from mlocr.src.assets import prepare
+    prepare(download=opts.download)
     manifest = {key: {"filename": obj.name, "sha256": digest(obj),
                       "bytes": obj.stat().st_size} for key, obj in present.items()}
     if opts.download or opts.register:

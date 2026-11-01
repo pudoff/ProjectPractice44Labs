@@ -1,0 +1,47 @@
+[
+  {
+    "id": "real-1",
+    "image": "crops/real-1.png",
+    "source_pdf": "бобышка.pdf",
+    "source_sha256": "fdc8c84f40a35c2a188cc1a693bc1fed7412842751954e82cb6cd877d06d3422",
+    "page": 1,
+    "clip_pdf_pt": [
+      345.0,
+      312.0,
+      366.0,
+      351.0
+    ],
+    "expected": "Ø32",
+    "label_status": "reviewer_transcription_pending_CAD_acceptance"
+  },
+  {
+    "id": "real-2",
+    "image": "crops/real-2.png",
+    "source_pdf": "втулка.pdf",
+    "source_sha256": "ea4dd91e9472fc8bc62afcf97cbfa147af455e5ea6dd06c7f4a48af9ac5e2fd3",
+    "page": 1,
+    "clip_pdf_pt": [
+      456.0,
+      195.0,
+      531.0,
+      217.2
+    ],
+    "expected": "8отв.Ø4",
+    "label_status": "reviewer_transcription_pending_CAD_acceptance"
+  },
+  {
+    "id": "real-3",
+    "image": "crops/real-3.png",
+    "source_pdf": "крышка.pdf",
+    "source_sha256": "2824ffedcceada02ec0bc5b9d014a39e5cae779a139d8e8f5b413a14d9fe1bac",
+    "page": 1,
+    "clip_pdf_pt": [
+      258.0,
+      792.0,
+      426.0,
+      819.0
+    ],
+    "expected": "Ст3 ГОСТ 380-2005",
+    "label_status": "reviewer_transcription_pending_CAD_acceptance"
+  }
+]

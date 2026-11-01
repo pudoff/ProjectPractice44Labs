@@ -99,7 +99,7 @@ def main():
                 'Content-Type: application/octet-stream\r\n\r\n').encode() + path.read_bytes() + f"\r\n--{boundary}--\r\n".encode()
         job = json.loads(request(args.base, "/api/v1/jobs", body, f"multipart/form-data; boundary={boundary}"))
         status = wait_job(args.base, job["id"])
-        assert status["state"] == "needs_review", status  # OCR has not been delivered.
+        assert status["state"] in {"needs_review", "succeeded"}, status
         prefix = f"/api/v1/jobs/{job['id']}/artifacts/"
         cv = json.loads(request(args.base, prefix + "cv.json"))
         assert cv["status"] == "ok", cv
@@ -108,12 +108,18 @@ def main():
         report = json.loads(request(args.base, prefix + "report.json"))
         for field in ("points", "contours", "objects", "calibration", "transforms"):
             assert_preserved(cv[field], graph[field], field)
-        assert any(i["code"] == "ocr_error" for i in report["issues"])
+        ocr = json.loads(request(args.base, prefix + "ocr.json"))
+        raw_ocr = json.loads(request(args.base, prefix + "ocr-observations.json"))
+        assert ocr["status"] == "ok" and ocr["module"]["name"] == "mlocr", ocr
+        assert raw_ocr["source"] == cv["raster_identity"]
+        assert raw_ocr["texts"] and graph["texts"], "Real OCR produced no text"
+        assert not any(i["code"] == "ocr_error" for i in report["issues"])
         assert not any(i["code"] == "contour_kind_mismatch" for i in report["issues"]), report["issues"]
         (args.out / f"{path.suffix[1:]}-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
         results.append({"input": path.name, "job_id": job["id"], "state": status["state"], "cv_module": cv["module"],
                         "primitives": len(graph["primitives"]), "points": len(graph["points"]), "contours": len(graph["contours"]),
-                        "scale_status": graph["scale_status"], "issues": sorted({i["code"] for i in report["issues"]})})
+                        "scale_status": graph["scale_status"], "ocr_module": ocr["module"], "texts": len(graph["texts"]),
+                        "issues": sorted({i["code"] for i in report["issues"]})})
         print(f"Recognized {path.name}: {len(graph['primitives'])} primitives", flush=True)
     job_id = results[0]["job_id"]
     for width in (46, 47):

@@ -12,14 +12,23 @@ param(
 
     [string]$CvJson,
 
+    [string]$ModelsRoot = $env:DRAWING_OCR_MODEL_DIR,
+
+    [string]$PythonPath,
+
     [switch]$AllPages
 )
 
 $ErrorActionPreference = 'Stop'
 $RepoRoot = Split-Path -Parent $PSScriptRoot
-$Python = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
-$DetModel = Join-Path $PSScriptRoot 'models\det\PP-OCRv5_mobile_det_infer'
-$RecModel = Join-Path $PSScriptRoot 'models\eslav-rec\eslav_PP-OCRv5_mobile_rec_infer'
+$Python = $PythonPath
+if (-not $Python) { $Python = Join-Path $RepoRoot 'backend\.venv\Scripts\python.exe' }
+if (-not (Test-Path -LiteralPath $Python -PathType Leaf) -and -not $PythonPath) {
+    $Python = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
+}
+if (-not $ModelsRoot) { $ModelsRoot = Join-Path $RepoRoot 'models\paddle' }
+$DetModel = Join-Path $ModelsRoot 'PP-OCRv5_mobile_det_infer'
+$RecModel = Join-Path $ModelsRoot 'eslav_PP-OCRv5_mobile_rec_infer'
 
 if (-not (Test-Path -LiteralPath $Python -PathType Leaf)) {
     throw "OCR environment not found: $Python`nCreate it using the instructions in mlocr/README.md."

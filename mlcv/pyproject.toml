@@ -9,7 +9,7 @@ description = "OpenCV module of the drawing digitisation service (joint project 
 requires-python = ">=3.11"
 dependencies = [
     "numpy>=2.0",
-    "opencv-python-headless>=4.10",
+    "opencv-contrib-python==4.10.0.84",
     "scipy>=1.13",
     "scikit-image>=0.24",
     "shapely>=2.0",

@@ -10,6 +10,7 @@ from typing import Any
 import pymupdf
 
 from .semantics import classify_purpose, parse_engineering_notation
+from .normalization import enrich, normalize_text
 
 
 def _transform_bbox(page, bbox, dpi: int, image_width: int, image_height: int):
@@ -29,6 +30,7 @@ def extract_pdf_text_page(path: Path, page_index: int, dpi: int,
     """Extract selectable PDF words grouped by text line and map their boxes to rendered pixels."""
     doc = pymupdf.open(path)
     page = doc[page_index]
+    hidden = [span['bbox'] for span in page.get_texttrace() if span.get('type') == 3 or span.get('opacity', 1) == 0]
     line_directions = {}
     blocks = page.get_text("dict", sort=False).get("blocks", [])
     for block_index, block in enumerate(blocks):
@@ -55,13 +57,15 @@ def extract_pdf_text_page(path: Path, page_index: int, dpi: int,
             min(item[2][0] for item in words), min(item[2][1] for item in words),
             max(item[2][2] for item in words), max(item[2][3] for item in words),
         )
+        if any(_overlap_score(bbox, hidden_box) > 0.35 for hidden_box in hidden):
+            continue  # Invisible/overprinted OCR layers must not override the raster.
         polygon = _transform_bbox(page, bbox, dpi, image_width, image_height)
         dx, dy = line_directions.get((block_index, line_index), (1.0, 0.0))
         origin = pymupdf.Point(0, 0) * page.rotation_matrix
         endpoint = pymupdf.Point(dx, dy) * page.rotation_matrix
         angle = (math.degrees(math.atan2(endpoint.y - origin.y, endpoint.x - origin.x)) + 90) % 180 - 90
         page_id = f"page-{page_index + 1}"
-        rows.append({
+        rows.append(enrich({
             "id": f"{page_id}-pdftext-{len(rows) + 1:04d}",
             "page": page_id,
             "text": text,
@@ -75,12 +79,13 @@ def extract_pdf_text_page(path: Path, page_index: int, dpi: int,
             "polygon_px": polygon,
             "poly_source_px": polygon,
             "bbox_pdf_pt": [float(v) for v in bbox],
-        })
+        }))
 
     for row in rows:
         row["purpose"] = classify_purpose(
             row["text"], row["poly_source_px"], image_width, image_height
         )
+    doc.close()
     return rows
 
 
@@ -119,11 +124,15 @@ def merge_pdf_and_ocr(pdf_items: list[dict], ocr_items: list[dict]) -> list[dict
                 "text": ocr["text"], "score": ocr.get("score"),
                 "alternatives": ocr.get("alternatives", []),
             })
-            if ocr["text"] != target["text"]:
+            if normalize_text(ocr["text"])[0] != normalize_text(target["text"])[0]:
+                target['needs_review'] = True
                 target.setdefault("issues", []).append({
                     "code": "pdf_ocr_disagreement",
                     "message": "Selectable PDF text and raster OCR differ; both readings are retained.",
                 })
+            if ocr.get('needs_review'):
+                target['needs_review'] = True
+                target.setdefault('issues', []).extend(ocr.get('issues', []))
         else:
             item = dict(ocr)
             item["source"] = "paddleocr"
@@ -147,6 +156,33 @@ def _unknown(reason: str, source_ids: list[str] | None = None):
             "source_text_ids": source_ids or []}
 
 
+def _authors(items):
+    labels = re.compile(r'^(Разраб\.?|Пров\.?|Н\.?\s*контр\.?|Утв\.?)\s*(.*)$', re.I)
+    person = re.compile(r'^[А-ЯЁ][а-яё]{2,}(?:\s+[А-ЯЁ]\.(?:\s*[А-ЯЁ]\.)?|\s+[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+)?)?$')
+    values, ids = [], []
+    for item in items:
+        match = labels.fullmatch(item['text'].strip())
+        if not match:
+            continue
+        candidates = []
+        if person.fullmatch(match[2]):
+            candidates = [(item, match[2])]
+        else:
+            box = _bounds(item)
+            for other in items:
+                if other is item or not person.fullmatch(other['text'].strip()):
+                    continue
+                target = _bounds(other)
+                if target[0] >= box[2] and target[0]-box[2] <= 8*(box[3]-box[1]) and abs(_center(other)[1]-_center(item)[1]) <= (box[3]-box[1])*0.6:
+                    candidates.append((other, other['text']))
+        if len(candidates) == 1:
+            other, name = candidates[0]
+            values.append({'role': match[1], 'name': name})
+            ids.extend([item['id'], other['id']])
+    return ({'value': values, 'status': 'candidate', 'source_text_ids': sorted(set(ids))} if values else
+            _unknown('No unambiguous person in a labelled author row.'))
+
+
 def build_title_block(pages: list[dict]) -> dict:
     """Return reviewable field candidates; never fill a value from layout plausibility alone."""
     output = {}
@@ -166,6 +202,7 @@ def build_title_block(pages: list[dict]) -> dict:
             and not re.fullmatch(r"0+", item["text"].replace(" ", ""))
         ]
         doc = max(doc_candidates, key=lambda item: _center(item)[1], default=None)
+        authors = _authors(candidates)
 
         excluded = re.compile(
             r"(?:\u0437\u0430\u0434\u0430\u043d\u0438\u0435|\u043a\u0430\u0444\u0435\u0434\u0440\u0430|"
@@ -178,7 +215,7 @@ def build_title_block(pages: list[dict]) -> dict:
         for item in candidates:
             text = item["text"].strip()
             x, y = _center(item)
-            if item is doc or item.get("notation", {}).get("kind") != "unknown":
+            if item is doc or item['id'] in authors['source_text_ids'] or item.get("notation", {}).get("kind") != "unknown":
                 continue
             if not re.search(r"[A-Za-z\u0400-\u04FF]", text) or excluded.search(text):
                 continue
@@ -206,10 +243,7 @@ def build_title_block(pages: list[dict]) -> dict:
             "material": ({"value": material["text"], "status": "candidate",
                           "source_text_ids": [material["id"]]} if material else
                          _unknown("No readable material field was found in the title-block area.")),
-            "authors": _unknown("Author fields are blank, placeholders, or cannot be assigned reliably.",
-                                [item["id"] for item in candidates
-                                 if re.search(r"(?:\u0440\u0430\u0437\u0440\u0430\u0431\.|\u043f\u0440\u043e\u0432\.|\u043f\u043e\u0434\u043f\.)",
-                                              item["text"], re.IGNORECASE)]),
+            "authors": authors,
         }
         output[page["page"]] = {"status": "needs_review", "fields": fields}
     return output

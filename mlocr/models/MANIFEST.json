@@ -13,15 +13,31 @@
       "name": "PP-OCRv5_mobile_det",
       "source": "https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/PP-OCRv5_mobile_det_infer.tar",
       "archive_sha256": "50446E5D01AC2A73D5319C89513281F6578414C888C602F9AF13F93FEEFFFC58",
-      "local_directory": "mlocr/models/det/PP-OCRv5_mobile_det_infer"
+      "local_directory": "mlocr/models/det/PP-OCRv5_mobile_det_infer",
+      "directory": "PP-OCRv5_mobile_det_infer",
+      "files": {
+        "inference.json": "05feef1acb00aa4cd7362b15f7f501fc4f99d7b1fa73c1c871e0c7b1504b0f5c",
+        "inference.pdiparams": "afa1820cb16c1fd0dad589d0f8b389139061c1ef6d68019685fd07be997dda5b",
+        "inference.yml": "98069072e1b6b37d727fd9d9f11725faa46d6ea0de012f2ed26caea011c37699"
+      }
     },
     {
       "role": "text_recognition",
       "name": "eslav_PP-OCRv5_mobile_rec",
-      "languages": ["Russian", "Belarusian", "Ukrainian"],
+      "languages": [
+        "Russian",
+        "Belarusian",
+        "Ukrainian"
+      ],
       "source": "https://paddle-model-ecology.bj.bcebos.com/paddlex/official_inference_model/paddle3.0.0/eslav_PP-OCRv5_mobile_rec_infer.tar",
       "archive_sha256": "B9F70DA0CA2BBC4D4CB7BA406A2D023061178437D6A930F07C8CA18C6C591839",
-      "local_directory": "mlocr/models/eslav-rec/eslav_PP-OCRv5_mobile_rec_infer"
+      "local_directory": "mlocr/models/eslav-rec/eslav_PP-OCRv5_mobile_rec_infer",
+      "directory": "eslav_PP-OCRv5_mobile_rec_infer",
+      "files": {
+        "inference.json": "3fb6e2e658f5139ff16e35260de8f0577f106a9505c902e1dfc1f4f1d03cc9cb",
+        "inference.pdiparams": "f11057b05d8517868bca505271278973d706600d9dcc184cbcf5c4512091c32b",
+        "inference.yml": "025039bac23eb4a308efcefa4d58eab3af440767815c6ba6938468bf6353ee5a"
+      }
     }
   ]
 }

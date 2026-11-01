@@ -24,6 +24,7 @@ class Page:
     dpi: float | None = None                 # physical resolution if the file states it (PDF render dpi or PNG/JPEG metadata)
     pdf_page_mm: tuple[float, float] | None = None
     notes: list = field(default_factory=list)
+    raster_identity: dict = field(default_factory=dict)
 
     @property
     def size_px(self):
@@ -76,6 +77,8 @@ def load_page(path, page_index=0, pdf_render_dpi=300.0):
             gray = np.clip(arr / max(arr.max(), 1) * 255, 0, 255).astype(np.uint8)
         else:
             gray = np.asarray(im.convert("L"), dtype=np.uint8).copy()
+        identity = {'page': 'page-1', 'width_px': im.width, 'height_px': im.height,
+                    'raster_sha256': hashlib.sha256(im.convert('RGB').tobytes()).hexdigest()}
     dpi_value = float(dpi[0]) if dpi and dpi[0] and abs(dpi[0] - dpi[1]) < 0.5 and dpi[0] > 50 else None
     if dpi_value:
         from .calibrate import standard_sheet_of
@@ -86,7 +89,7 @@ def load_page(path, page_index=0, pdf_render_dpi=300.0):
         else:
             notes.append(f"dpi metadata {dpi_value:g} used as a resolution hint")
     return Page(gray=gray, source_name=path.name, source_format=RASTER_FORMATS[suffix], source_sha256=digest,
-                dpi=dpi_value, notes=notes)
+                dpi=dpi_value, notes=notes, raster_identity=identity)
 
 
 def _load_pdf(path, digest, page_index, dpi):

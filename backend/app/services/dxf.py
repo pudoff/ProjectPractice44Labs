@@ -69,6 +69,7 @@ def add_dimension(msp, item, issues, tolerance=None):
                              dimstyle="DRAWING", override={"dimlfac": 1.0 / item.view_scale},
                              dxfattribs={"layer": "DIMS"})
     dim.render()
+    return True
 
 
 def add_hatch(msp, item, resolved, profile):
@@ -111,22 +112,26 @@ class DxfExporter:
                     resolver.contour(contour.id)
                 except GeometryError as exc:
                     problem(exc.code, str(exc), contour.id)
-        for item in graph.primitives:
-            invalid = primitive_problem(item)
-            if invalid:
-                problem("invalid_primitive", invalid, item.id)
-                continue
-            add_primitive(msp, item)
         for item in graph.texts:
             add_text(msp, item)
+        rendered_dimensions = set()
         for item in graph.dimensions:
             if graph.coordinate_space == "part_mm" and item.view_scale != 1:
                 problem("coordinate_scale_conflict", "Геометрия уже в миллиметрах детали: view_scale должен быть 1", item.id)
                 continue
             try:
-                add_dimension(msp, resolver.dimension(item), issues)
+                if add_dimension(msp, resolver.dimension(item), issues):
+                    rendered_dimensions.add(item.id)
             except GeometryError as exc:
                 problem(exc.code, str(exc), item.id)
+        for item in graph.primitives:
+            invalid = primitive_problem(item)
+            if invalid:
+                problem("invalid_primitive", invalid, item.id)
+                continue
+            if graph.objects.get(item.id, {}).get('represented_by_dimension') in rendered_dimensions:
+                continue
+            add_primitive(msp, item)
         for item in graph.hatches:
             try:
                 resolved = resolver.hatch(item)

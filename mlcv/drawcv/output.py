@@ -126,6 +126,7 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
         "status": "ok",
         "module": {"name": "drawcv", "version": version},
         "source": page.info(),
+        "raster_identity": page.raster_identity,
         "coordinate_space": "sheet_mm",
         "units": "mm",
         "scale_status": cal["scale_status"],

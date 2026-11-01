@@ -55,6 +55,8 @@ def load_ocr_file(path, source_to_work):
     """Accepts {"texts"|"candidates"|"regions": [...]} or a bare list; each item has "poly_source_px" / "poly_px"
     (list of [x, y]) or "box_px" ([x0, y0, x1, y1]) in source pixels."""
     data = json.loads(open(path, encoding="utf-8").read())
+    if isinstance(data, dict) and len(data.get('pages', [])) > 1:
+        raise ValueError('Text masking requires a single matching page')
     items = data if isinstance(data, list) else next((data[k] for k in ("regions", "texts", "candidates") if k in data), [])
     out = []
     for it in items:

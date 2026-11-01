@@ -16,6 +16,7 @@ def test_strict_assets_validate_dictionary_and_generate_local_config(tmp_path, m
     monkeypatch.setenv("MODEL_DIR", str(tmp_path))
     monkeypatch.setattr(get_settings(), "require_local_models", True)
     monkeypatch.setattr(get_settings(), "storage_root", tmp_path / "storage")
+    monkeypatch.setattr(get_settings(), "ocr_adapter", None)  # This fixture contains only RapidOCR assets.
     payload = b"test-model"
     checksum = hashlib.sha256(payload).hexdigest()
     monkeypatch.setattr(models, "MODEL_FILES", {key: (f"{key}.onnx", checksum) for key in ("det", "rec", "cls")})

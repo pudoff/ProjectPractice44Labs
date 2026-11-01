@@ -52,6 +52,8 @@ AC1021 (AutoCAD 2007), UTF-8, миллиметры; слои `MAIN / THIN / AXIS
 
 Основной сервис после интеграции использует **Python 3.12, `backend/uv.lock` и `compose.yaml`**: [инструкция backend](backend/README.md), [контракт чертежа 0.2](docs/drawing-graph-v0.2.md), [статус задач](docs/project-task-status.md). `scripts/prepare_online.sh` и `scripts/start_offline.sh` поставляют этот же сервис. Команды ниже относятся к самостоятельным CV-экспериментам и прежнему конвейеру.
 
+После слияния `feature/ocr-module` общий сервис использует PaddleOCR, передаёт маски текста в CV и сохраняет исходные чтения/исправления. Поддержан ограниченный случай автоматического линейного DIMENSION; качество геометрии и редактирование в CAD ещё требуют приёмки. [Правила OCR](docs/ocr-integration.md), [результаты проверок](docs/reviews/2026-11-01-ocr-fixes/verification.md), [следующий спринт всех 8 ролей](docs/sprint-02-all-roles.md).
+
 Нужны Python 3.12+ (проверено на 3.14) и, для проверки в CAD, Docker.
 
 ```bash

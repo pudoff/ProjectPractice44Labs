@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     poll_seconds: float = Field(default=2, gt=0)
     recognition_profile: Literal["current", "legacy"] = "current"
     cv_adapter: str | None = "drawcv.adapter:run_cv"
-    ocr_adapter: str | None = None
+    ocr_adapter: str | None = "mlocr.src.adapter:run_ocr"
     require_local_models: bool = False
     dimension_numeric_tolerance_mm: float = Field(default=1e-6, gt=0, le=0.001)
     max_image_pixels: int = Field(default=50_000_000, gt=0)

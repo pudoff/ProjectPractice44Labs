@@ -19,6 +19,9 @@ def configure_local_models():
               for key, path in assets.items()}
     if recorded != actual:
         raise ValueError("Local model manifest does not match assets (including dictionary)")
+    if settings.ocr_adapter == 'mlocr.src.adapter:run_ocr':
+        from mlocr.src.assets import prepare
+        actual['paddle_ocr'] = prepare(download=False)
     config = settings.storage_root / ".runtime" / "rapidocr.json"
     params = rapidocr_params()
     params.update({"Det.model_path": str(assets["cv_det"]), "Det.ocr_version": "PP-OCRv6",

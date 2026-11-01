@@ -11,7 +11,9 @@ x-app: &app
     STORAGE_ROOT: /storage
     CV_ADAPTER: drawcv.adapter:run_cv
     RECOGNITION_PROFILE: current
-    OCR_ADAPTER: ${OCR_ADAPTER:-}
+    OCR_ADAPTER: ${OCR_ADAPTER:-mlocr.src.adapter:run_ocr}
+    DRAWING_OCR_MODEL_DIR: /models/paddle
+    PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK: "True"
     MODEL_DIR: /models
     REQUIRE_LOCAL_MODELS: "true"
     DRAWCV_OFFLINE: "1"

@@ -11,14 +11,17 @@ from pathlib import Path
 from . import Params, __version__, run
 
 
-def run_cv(image):
+def run_cv(image, ocr_json=None):
     image = Path(image)
     try:
         params = Params()
         if os.getenv("DRAWCV_PARAMS"):
             params = Params.from_dict(json.loads(Path(os.environ["DRAWCV_PARAMS"]).read_text(encoding="utf-8")))
+        if ocr_json is not None:
+            params.text_provider, params.ocr_json = 'file', str(ocr_json)
         out_dir = image.parent.parent / "cv" if image.parent.name == "pages" else image.parent / f"{image.stem}_cv"
-        return run(image, out_dir, params)
+        result = run(image, out_dir, params)
+        return result
     except Exception as exc:
         return {"schema_version": "0.1", "status": "error", "module": {"name": "drawcv", "version": __version__},
                 "error": f"{type(exc).__name__}: {exc}", "traceback": traceback.format_exc(limit=5),
