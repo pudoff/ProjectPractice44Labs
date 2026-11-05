@@ -1,0 +1,62 @@
+{
+  "dimension_tolerance": {
+    "saved": true,
+    "issues": [],
+    "actual_measurement": 45.95
+  },
+  "layers": {
+    "saved": true,
+    "issues": [],
+    "axis_linetype": "Continuous",
+    "hatch_layer": "THIN"
+  },
+  "zero_length": {
+    "saved": true,
+    "issues": []
+  },
+  "self_intersection": {
+    "saved": true,
+    "issues": []
+  },
+  "outside_hatch_hole": {
+    "saved": true,
+    "issues": []
+  },
+  "discarded_metadata": {
+    "graph_fields": [
+      "coordinate_space",
+      "dimensions",
+      "hatches",
+      "issues",
+      "primitives",
+      "scale_status",
+      "schema_version",
+      "source_sha256",
+      "texts"
+    ],
+    "lost_from_graph": [
+      "points",
+      "contours",
+      "objects",
+      "calibration",
+      "transforms",
+      "title_block"
+    ]
+  },
+  "transparency": {
+    "backend_background": [
+      0,
+      0,
+      0
+    ],
+    "direct_cv_background": 255,
+    "backend_unique_gray_values": [
+      0
+    ]
+  },
+  "topology_gap": {
+    "closed_contours": 1,
+    "closure_error_mm": 0.064,
+    "remaining_gap_mm": 0.06403124237432851
+  }
+}

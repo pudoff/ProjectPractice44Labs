@@ -1,0 +1,8566 @@
+{
+  "summary": {
+    "dxf_files": 510,
+    "png_files": 510,
+    "same_stem_pairs_casefold": 504,
+    "dxf_without_png": [
+      "260620-КМ3.18-00.06.00 СБ - Колесо с ребордой ф400.dxf",
+      "МТСП.24.03.003_Палец .dxf",
+      "МТСП.24.08.006_Двутавр.dxf",
+      "МТСП.24.08.007_Втулка.dxf",
+      "МТСП.24.08.012_Ребро.dxf",
+      "Поршень.dxf"
+    ],
+    "png_without_dxf": [
+      "260620-КМ3.18-00.06.00 СБ - Колесо с ребордой  ф400.png",
+      "МТСП.24.03.003 Палец .png",
+      "МТСП.24.08.006 Двутавр.png",
+      "МТСП.24.08.007 Втулка.png",
+      "МТСП.24.08.012 Ребро.png",
+      "Поршеньpdf.png"
+    ],
+    "dxf_read_ok": 510,
+    "dxf_read_errors": [],
+    "dxf_with_modelspace_dimensions": 488,
+    "dxf_with_dimensions_anywhere": 498,
+    "dxf_with_modelspace_hatch": 329,
+    "units_histogram": {
+      "4": 468,
+      "0": 42
+    },
+    "versions": {
+      "AC1032": 296,
+      "AC1024": 197,
+      "AC1021": 12,
+      "AC1027": 2,
+      "AC1018": 3
+    },
+    "exact_duplicate_groups": {
+      "dxf": 0,
+      "png": 0
+    },
+    "exact_duplicate_extra_files": {
+      "dxf": 0,
+      "png": 0
+    }
+  },
+  "duplicates": {
+    "dxf": [],
+    "png": []
+  },
+  "dxf_inventory": [
+    {
+      "name": "1539140_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 113,
+        "ARC": 24,
+        "DIMENSION": 17,
+        "TEXT": 4,
+        "SPLINE": 16,
+        "INSERT": 11,
+        "CIRCLE": 1,
+        "MTEXT": 2
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "1539141_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 110,
+        "ARC": 24,
+        "DIMENSION": 17,
+        "TEXT": 4,
+        "SPLINE": 16,
+        "INSERT": 11,
+        "CIRCLE": 1,
+        "MTEXT": 2
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "1539142_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 28,
+        "ARC": 3,
+        "DIMENSION": 9,
+        "INSERT": 2,
+        "SPLINE": 2,
+        "HATCH": 1,
+        "CIRCLE": 1,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1539145_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "POINT": 1,
+        "MTEXT": 7,
+        "ATTDEF": 5,
+        "LINE": 18,
+        "ARC": 4,
+        "TEXT": 2,
+        "DIMENSION": 8,
+        "INSERT": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1539151_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 15,
+        "DIMENSION": 10,
+        "ARC": 2,
+        "CIRCLE": 1,
+        "LEADER": 2,
+        "INSERT": 4,
+        "TEXT": 1,
+        "REGION": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1539151_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 7,
+        "CIRCLE": 2,
+        "DIMENSION": 6,
+        "INSERT": 2,
+        "LEADER": 1,
+        "TEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1539181_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 4,
+        "LINE": 18,
+        "DIMENSION": 8,
+        "LEADER": 3,
+        "TEXT": 1,
+        "INSERT": 3,
+        "ARC": 2,
+        "REGION": 1
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1539582_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 8,
+        "LINE": 7,
+        "LWPOLYLINE": 1,
+        "DIMENSION": 8,
+        "INSERT": 1
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1539582_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 11,
+        "LINE": 39,
+        "LWPOLYLINE": 4,
+        "DIMENSION": 12,
+        "INSERT": 15,
+        "LEADER": 3,
+        "SPLINE": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1539583_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 11,
+        "LINE": 39,
+        "LWPOLYLINE": 4,
+        "DIMENSION": 12,
+        "INSERT": 15,
+        "LEADER": 3,
+        "SPLINE": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1539584_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 11,
+        "LINE": 39,
+        "LWPOLYLINE": 4,
+        "DIMENSION": 12,
+        "INSERT": 15,
+        "LEADER": 3,
+        "SPLINE": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1539585_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 8,
+        "VIEWPORT": 1,
+        "INSERT": 6,
+        "LINE": 16,
+        "CIRCLE": 3,
+        "DIMENSION": 12,
+        "TEXT": 1,
+        "LEADER": 2,
+        "LWPOLYLINE": 2,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "REGION": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 28
+    },
+    {
+      "name": "1539586_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 17,
+        "DIMENSION": 6,
+        "INSERT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1539586_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "ARC": 12,
+        "LINE": 27,
+        "CIRCLE": 20,
+        "DIMENSION": 18,
+        "INSERT": 2,
+        "TEXT": 3
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "1539586_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 21,
+        "ARC": 14,
+        "DIMENSION": 10,
+        "INSERT": 2,
+        "TEXT": 2,
+        "CIRCLE": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1539586_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 21,
+        "ARC": 14,
+        "DIMENSION": 10,
+        "INSERT": 2,
+        "TEXT": 2,
+        "LEADER": 1,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1539586_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 17,
+        "INSERT": 22,
+        "LINE": 59,
+        "TEXT": 4,
+        "LEADER": 3,
+        "ARC": 16,
+        "CIRCLE": 3,
+        "SPLINE": 3,
+        "HATCH": 3
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "1539586_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 41,
+        "SPLINE": 3,
+        "INSERT": 17,
+        "DIMENSION": 19,
+        "LEADER": 2,
+        "ARC": 8,
+        "CIRCLE": 6,
+        "TEXT": 3,
+        "HATCH": 2
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1539586_09.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 9,
+        "DIMENSION": 11,
+        "LINE": 25,
+        "ARC": 4,
+        "LEADER": 3,
+        "TEXT": 1,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539586_10.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 8,
+        "LINE": 29,
+        "ARC": 8,
+        "DIMENSION": 12,
+        "TEXT": 1,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1539586_11.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 11,
+        "INSERT": 6,
+        "LINE": 27,
+        "ARC": 8,
+        "TEXT": 1,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539586_12.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 7,
+        "INSERT": 15,
+        "LINE": 29,
+        "SPLINE": 2,
+        "HATCH": 2
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1539586_13.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 20,
+        "ARC": 6,
+        "DIMENSION": 5,
+        "TEXT": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "1539586_14.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 18,
+        "CIRCLE": 6,
+        "DIMENSION": 11,
+        "INSERT": 6,
+        "TEXT": 1,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539588_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 20,
+        "LINE": 51,
+        "DIMENSION": 13,
+        "SPLINE": 8,
+        "HATCH": 4,
+        "LEADER": 4,
+        "REGION": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "1539588_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 29,
+        "LINE": 69,
+        "DIMENSION": 29,
+        "SPLINE": 13,
+        "HATCH": 5,
+        "LEADER": 6,
+        "MTEXT": 1,
+        "CIRCLE": 11,
+        "TEXT": 1,
+        "ARC": 1
+      },
+      "layout_dimensions": 29,
+      "block_dimensions": 29
+    },
+    {
+      "name": "1539589_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 17,
+        "LINE": 53,
+        "ARC": 12,
+        "CIRCLE": 4,
+        "DIMENSION": 15,
+        "TEXT": 1,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "LEADER": 5
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1539589_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 9,
+        "LINE": 25,
+        "ARC": 4,
+        "DIMENSION": 11,
+        "LEADER": 3,
+        "TEXT": 1,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539590_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 18,
+        "LINE": 44,
+        "DIMENSION": 11,
+        "SPLINE": 7,
+        "HATCH": 3,
+        "LEADER": 3,
+        "REGION": 4,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539590_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "MTEXT": 1,
+        "DIMENSION": 12,
+        "LINE": 22,
+        "CIRCLE": 8,
+        "SPLINE": 3,
+        "LEADER": 2,
+        "TEXT": 1,
+        "INSERT": 7,
+        "HATCH": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1539593_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 21,
+        "LINE": 72,
+        "ARC": 13,
+        "CIRCLE": 8,
+        "DIMENSION": 22,
+        "TEXT": 2,
+        "SPLINE": 2,
+        "HATCH": 2,
+        "LEADER": 6
+      },
+      "layout_dimensions": 22,
+      "block_dimensions": 22
+    },
+    {
+      "name": "1539593_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 11,
+        "INSERT": 6,
+        "LINE": 24,
+        "ARC": 8,
+        "TEXT": 1,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539593_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 48,
+        "SPLINE": 3,
+        "INSERT": 19,
+        "DIMENSION": 19,
+        "LEADER": 2,
+        "ARC": 8,
+        "CIRCLE": 6,
+        "TEXT": 3,
+        "HATCH": 2
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1539594_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 20,
+        "LINE": 49,
+        "DIMENSION": 13,
+        "SPLINE": 8,
+        "HATCH": 4,
+        "LEADER": 4,
+        "REGION": 4,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "1539594_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 35,
+        "LINE": 77,
+        "DIMENSION": 30,
+        "SPLINE": 12,
+        "HATCH": 6,
+        "LEADER": 7,
+        "MTEXT": 1,
+        "CIRCLE": 7,
+        "TEXT": 1,
+        "ARC": 1
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "1539595_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "MTEXT": 1,
+        "DIMENSION": 11,
+        "LINE": 31,
+        "INSERT": 16,
+        "SPLINE": 5,
+        "HATCH": 3,
+        "LEADER": 3
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1539607_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 2,
+        "ARC": 4,
+        "LINE": 21,
+        "DIMENSION": 7,
+        "TEXT": 1,
+        "INSERT": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1539610_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 7,
+        "DIMENSION": 22,
+        "LINE": 212,
+        "MTEXT": 3,
+        "SPLINE": 4,
+        "ARC": 35,
+        "POLYLINE": 2,
+        "LEADER": 2,
+        "LWPOLYLINE": 1,
+        "CIRCLE": 2,
+        "POINT": 4
+      },
+      "layout_dimensions": 22,
+      "block_dimensions": 22
+    },
+    {
+      "name": "1539610_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 1,
+        "LINE": 26,
+        "POLYLINE": 4,
+        "ARC": 2,
+        "DIMENSION": 7,
+        "MTEXT": 1,
+        "CIRCLE": 1,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1539610_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 14,
+        "LINE": 40,
+        "ARC": 6,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "CIRCLE": 1,
+        "MTEXT": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 28
+    },
+    {
+      "name": "1539610_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 9,
+        "DIMENSION": 5,
+        "ARC": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1579111_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 93,
+        "DIMENSION": 23,
+        "ARC": 13,
+        "CIRCLE": 10,
+        "TEXT": 7,
+        "INSERT": 8,
+        "LWPOLYLINE": 3,
+        "LEADER": 3,
+        "SOLID": 3,
+        "MTEXT": 4,
+        "HATCH": 1
+      },
+      "layout_dimensions": 23,
+      "block_dimensions": 23
+    },
+    {
+      "name": "1579111_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 10,
+        "INSERT": 10,
+        "CIRCLE": 5,
+        "LINE": 53,
+        "DIMENSION": 13,
+        "ARC": 11,
+        "TEXT": 2,
+        "LEADER": 8,
+        "SOLID": 6,
+        "HATCH": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "1579111_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 16,
+        "INSERT": 10,
+        "CIRCLE": 5,
+        "LINE": 56,
+        "DIMENSION": 16,
+        "ARC": 11,
+        "TEXT": 3,
+        "LEADER": 8,
+        "SOLID": 6,
+        "HATCH": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579111_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 21,
+        "TEXT": 2,
+        "LINE": 60,
+        "DIMENSION": 12,
+        "ARC": 11,
+        "INSERT": 10,
+        "LEADER": 8,
+        "SOLID": 8,
+        "CIRCLE": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1579111_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 27,
+        "TEXT": 3,
+        "LINE": 75,
+        "ARC": 11,
+        "DIMENSION": 14,
+        "INSERT": 10,
+        "LEADER": 9,
+        "SOLID": 11,
+        "CIRCLE": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579111_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 30,
+        "LINE": 84,
+        "DIMENSION": 19,
+        "ARC": 9,
+        "CIRCLE": 21,
+        "TEXT": 6,
+        "INSERT": 8,
+        "SOLID": 6,
+        "LWPOLYLINE": 1,
+        "LEADER": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1579111_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 34,
+        "LINE": 41,
+        "ARC": 11,
+        "DIMENSION": 16,
+        "INSERT": 11,
+        "TEXT": 1,
+        "SOLID": 6,
+        "LEADER": 2,
+        "LWPOLYLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579111_08.Изм.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 44,
+        "LINE": 84,
+        "ARC": 21,
+        "SPLINE": 1,
+        "INSERT": 11,
+        "DIMENSION": 15,
+        "SOLID": 8,
+        "LEADER": 4,
+        "LWPOLYLINE": 1,
+        "CIRCLE": 15,
+        "TEXT": 3,
+        "ATTDEF": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1579112_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 28,
+        "TEXT": 8,
+        "LINE": 52,
+        "DIMENSION": 8,
+        "LWPOLYLINE": 6,
+        "ARC": 11,
+        "INSERT": 7,
+        "LEADER": 3,
+        "POINT": 5,
+        "SOLID": 2,
+        "HATCH": 1,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579112_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 27,
+        "LEADER": 5,
+        "INSERT": 14,
+        "LINE": 215,
+        "DIMENSION": 25,
+        "HATCH": 2,
+        "ARC": 35,
+        "LWPOLYLINE": 3,
+        "CIRCLE": 6,
+        "TEXT": 11,
+        "SPLINE": 3,
+        "ELLIPSE": 3,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "1579112_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 28,
+        "INSERT": 11,
+        "LINE": 79,
+        "ATTDEF": 1,
+        "LEADER": 7,
+        "ARC": 6,
+        "TEXT": 8,
+        "DIMENSION": 18,
+        "HATCH": 4,
+        "LWPOLYLINE": 2,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "1579112_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 3,
+        "HATCH": 1,
+        "LINE": 7
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "1579112_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 4,
+        "HATCH": 1,
+        "LINE": 13,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579112_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 28,
+        "DIMENSION": 21,
+        "LINE": 43,
+        "HATCH": 1,
+        "LEADER": 2,
+        "INSERT": 3,
+        "SPLINE": 2,
+        "ARC": 4,
+        "CIRCLE": 2,
+        "TEXT": 1,
+        "SOLID": 1,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "1579112_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 2,
+        "DIMENSION": 6,
+        "LINE": 18,
+        "CIRCLE": 2,
+        "TEXT": 2,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579112_08.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 4,
+        "HATCH": 1,
+        "LINE": 14,
+        "LEADER": 1,
+        "INSERT": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579112_09.Изм.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 15,
+        "HATCH": 1,
+        "INSERT": 2,
+        "TEXT": 1,
+        "DIMENSION": 4,
+        "POINT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579112_10.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 29,
+        "DIMENSION": 29,
+        "ARC": 19,
+        "LINE": 126,
+        "CIRCLE": 1,
+        "INSERT": 10,
+        "ATTDEF": 1,
+        "TEXT": 6,
+        "LEADER": 2,
+        "LWPOLYLINE": 5,
+        "POINT": 3,
+        "SOLID": 2,
+        "HATCH": 5,
+        "POLYLINE": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 29,
+      "block_dimensions": 29
+    },
+    {
+      "name": "1579112_11.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "HATCH": 1,
+        "DIMENSION": 9,
+        "LINE": 29,
+        "INSERT": 4,
+        "ARC": 4,
+        "TEXT": 3,
+        "LEADER": 3
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579112_12.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 27,
+        "LINE": 51,
+        "CIRCLE": 1,
+        "TEXT": 1,
+        "INSERT": 1,
+        "DIMENSION": 20,
+        "ARC": 8,
+        "HATCH": 1,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "1579112_13.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 2,
+        "LINE": 14,
+        "DIMENSION": 4,
+        "TEXT": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579112_14.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 4,
+        "HATCH": 1,
+        "LINE": 14,
+        "INSERT": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579112_15.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "HATCH": 3,
+        "LINE": 49,
+        "ARC": 7,
+        "SPLINE": 1,
+        "LEADER": 1,
+        "DIMENSION": 9,
+        "CIRCLE": 3,
+        "INSERT": 3,
+        "TEXT": 2
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579112_16.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 27,
+        "INSERT": 9,
+        "POINT": 1,
+        "LINE": 55,
+        "TEXT": 6,
+        "LWPOLYLINE": 2,
+        "ARC": 6,
+        "LEADER": 4,
+        "DIMENSION": 15,
+        "HATCH": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1579112_17.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 28,
+        "INSERT": 14,
+        "ATTDEF": 5,
+        "ARC": 26,
+        "LINE": 129,
+        "TEXT": 6,
+        "LEADER": 4,
+        "DIMENSION": 35,
+        "CIRCLE": 1,
+        "LWPOLYLINE": 3,
+        "SPLINE": 5,
+        "HATCH": 3,
+        "ELLIPSE": 1,
+        "SOLID": 1
+      },
+      "layout_dimensions": 35,
+      "block_dimensions": 35
+    },
+    {
+      "name": "1579113_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 4,
+        "LINE": 554,
+        "CIRCLE": 23,
+        "DIMENSION": 64,
+        "ARC": 131,
+        "INSERT": 52,
+        "TEXT": 25,
+        "SOLID": 5,
+        "LEADER": 30,
+        "LWPOLYLINE": 12,
+        "HATCH": 8,
+        "ATTDEF": 2,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 64,
+      "block_dimensions": 64
+    },
+    {
+      "name": "1579113_02.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 18,
+        "LINE": 343,
+        "DIMENSION": 26,
+        "LEADER": 13,
+        "INSERT": 17,
+        "SOLID": 15,
+        "POINT": 20,
+        "LWPOLYLINE": 5,
+        "ARC": 34,
+        "MTEXT": 5,
+        "CIRCLE": 11,
+        "SPLINE": 4,
+        "HATCH": 3,
+        "ATTDEF": 4
+      },
+      "layout_dimensions": 26,
+      "block_dimensions": 26
+    },
+    {
+      "name": "1579113_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 149,
+        "DIMENSION": 32,
+        "CIRCLE": 10,
+        "ARC": 13,
+        "LEADER": 2,
+        "MTEXT": 3,
+        "INSERT": 16,
+        "TEXT": 4,
+        "SPLINE": 6,
+        "SOLID": 2,
+        "HATCH": 4
+      },
+      "layout_dimensions": 32,
+      "block_dimensions": 32
+    },
+    {
+      "name": "1579113_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 5,
+        "LINE": 223,
+        "SPLINE": 1,
+        "DIMENSION": 14,
+        "ARC": 20,
+        "HATCH": 6,
+        "SOLID": 4,
+        "LWPOLYLINE": 1,
+        "INSERT": 8,
+        "LEADER": 3,
+        "CIRCLE": 1,
+        "TEXT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579113_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 5,
+        "LINE": 50,
+        "SPLINE": 1,
+        "DIMENSION": 14,
+        "ARC": 8,
+        "HATCH": 2,
+        "SOLID": 4,
+        "LWPOLYLINE": 1,
+        "INSERT": 5,
+        "LEADER": 3
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579113_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "CIRCLE": 9,
+        "LINE": 3,
+        "DIMENSION": 4,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579113_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "CIRCLE": 5,
+        "LINE": 6,
+        "DIMENSION": 3,
+        "TEXT": 1,
+        "INSERT": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "1579113_08.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "HATCH": 1,
+        "LINE": 26,
+        "ARC": 2,
+        "CIRCLE": 1,
+        "DIMENSION": 11,
+        "LEADER": 2,
+        "INSERT": 4
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1579113_09.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 12,
+        "TEXT": 1,
+        "INSERT": 2,
+        "DIMENSION": 7,
+        "LEADER": 1,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579113_10.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "CIRCLE": 5,
+        "LINE": 6,
+        "TEXT": 1,
+        "INSERT": 2,
+        "DIMENSION": 3,
+        "LEADER": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "1579113_11.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 7,
+        "LINE": 36,
+        "DIMENSION": 4,
+        "INSERT": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579113_12.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 7,
+        "LINE": 63,
+        "DIMENSION": 11,
+        "INSERT": 6,
+        "HATCH": 2,
+        "ARC": 2,
+        "TEXT": 1,
+        "LEADER": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1579114_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 18,
+        "LINE": 364,
+        "TEXT": 34,
+        "INSERT": 6,
+        "LEADER": 2,
+        "MTEXT": 2,
+        "SPLINE": 8,
+        "ATTDEF": 2
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "1579114_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 3,
+        "ARC": 1,
+        "CIRCLE": 9,
+        "LINE": 19,
+        "DIMENSION": 10,
+        "LEADER": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579114_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 25,
+        "LINE": 431,
+        "ARC": 93,
+        "SPLINE": 81,
+        "DIMENSION": 31,
+        "CIRCLE": 14,
+        "HATCH": 18,
+        "INSERT": 17,
+        "LEADER": 8,
+        "TEXT": 6,
+        "SOLID": 1
+      },
+      "layout_dimensions": 31,
+      "block_dimensions": 62
+    },
+    {
+      "name": "1579114_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 34,
+        "ARC": 6,
+        "DIMENSION": 12,
+        "INSERT": 2,
+        "HATCH": 1,
+        "TEXT": 2,
+        "MTEXT": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1579114_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 41,
+        "ARC": 6,
+        "DIMENSION": 16,
+        "TEXT": 1,
+        "INSERT": 3,
+        "HATCH": 2
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579114_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 6,
+        "ARC": 2,
+        "DIMENSION": 6,
+        "LEADER": 1,
+        "INSERT": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579114_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 58,
+        "DIMENSION": 13,
+        "SPLINE": 6,
+        "CIRCLE": 2,
+        "ARC": 1,
+        "INSERT": 8,
+        "HATCH": 5,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "1579114_08.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 44,
+        "CIRCLE": 3,
+        "DIMENSION": 19,
+        "INSERT": 3,
+        "ARC": 2,
+        "LEADER": 4,
+        "TEXT": 2
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1579115_01.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 14,
+        "INSERT": 10,
+        "MTEXT": 2,
+        "DIMENSION": 12,
+        "HATCH": 1,
+        "LINE": 40,
+        "CIRCLE": 7,
+        "ARC": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1579116_01.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 13,
+        "INSERT": 7,
+        "MTEXT": 2,
+        "DIMENSION": 10,
+        "LINE": 33,
+        "CIRCLE": 8,
+        "HATCH": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579118_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 5,
+        "DIMENSION": 4,
+        "INSERT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579120_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 8,
+        "SPLINE": 2,
+        "DIMENSION": 4,
+        "INSERT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579121.02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 9,
+        "LINE": 35,
+        "DIMENSION": 8,
+        "TEXT": 6,
+        "MTEXT": 6,
+        "OLE2FRAME": 1,
+        "SOLID": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579121.03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 12,
+        "LINE": 39,
+        "DIMENSION": 7,
+        "MTEXT": 3,
+        "TEXT": 7
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579121.04_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 39,
+        "DIMENSION": 7,
+        "MTEXT": 7,
+        "TEXT": 6,
+        "INSERT": 12,
+        "OLE2FRAME": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1579121.05_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 12,
+        "LINE": 164,
+        "DIMENSION": 20,
+        "TEXT": 9,
+        "MTEXT": 11,
+        "OLE2FRAME": 1,
+        "CIRCLE": 10,
+        "LEADER": 3,
+        "POLYLINE": 2,
+        "SOLID": 2,
+        "HATCH": 3
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "1579122_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 1,
+        "LINE": 5,
+        "DIMENSION": 4
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579122SB.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 75,
+        "LINE": 10011,
+        "INSERT": 95,
+        "CIRCLE": 163,
+        "DIMENSION": 153,
+        "LEADER": 90,
+        "TEXT": 26,
+        "ARC": 592,
+        "SPLINE": 26,
+        "SOLID": 4,
+        "HATCH": 3,
+        "LWPOLYLINE": 2,
+        "ATTDEF": 17
+      },
+      "layout_dimensions": 153,
+      "block_dimensions": 260
+    },
+    {
+      "name": "1579124_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 64,
+        "ARC": 7,
+        "DIMENSION": 14,
+        "SPLINE": 3,
+        "INSERT": 4,
+        "TEXT": 2,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579125.03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 8,
+        "LINE": 7,
+        "INSERT": 1,
+        "LWPOLYLINE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579125.04_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 8,
+        "INSERT": 6,
+        "LWPOLYLINE": 6,
+        "MTEXT": 14,
+        "LINE": 165,
+        "HATCH": 2,
+        "LEADER": 4,
+        "DIMENSION": 26,
+        "ARC": 8,
+        "SPLINE": 4,
+        "ELLIPSE": 22,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 26,
+      "block_dimensions": 26
+    },
+    {
+      "name": "1579125_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 65,
+        "ARC": 7,
+        "DIMENSION": 13,
+        "INSERT": 4,
+        "TEXT": 2,
+        "SPLINE": 3,
+        "CIRCLE": 2,
+        "SOLID": 2,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 26
+    },
+    {
+      "name": "1579126_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 30,
+        "LINE": 106,
+        "ARC": 4,
+        "HATCH": 2,
+        "DIMENSION": 25,
+        "TEXT": 44,
+        "LEADER": 3,
+        "MTEXT": 1,
+        "INSERT": 9
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "1579126_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 15,
+        "HATCH": 2,
+        "DIMENSION": 6,
+        "LEADER": 2,
+        "INSERT": 4,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579126_03.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "DIMENSION": 4,
+        "CIRCLE": 9,
+        "LINE": 9,
+        "TEXT": 7
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579126_04.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "LINE": 22,
+        "HATCH": 3,
+        "TEXT": 2,
+        "MTEXT": 3,
+        "DIMENSION": 3,
+        "INSERT": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "1579126_05.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "LINE": 40,
+        "DIMENSION": 14,
+        "LEADER": 2,
+        "TEXT": 2,
+        "INSERT": 3,
+        "MTEXT": 2,
+        "SOLID": 3,
+        "ARC": 10,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "1579126_06.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "DIMENSION": 35,
+        "TEXT": 14,
+        "CIRCLE": 78,
+        "LINE": 267,
+        "ARC": 34,
+        "SPLINE": 2,
+        "INSERT": 16,
+        "LEADER": 6,
+        "MTEXT": 5,
+        "LWPOLYLINE": 7,
+        "HATCH": 10,
+        "ATTDEF": 2
+      },
+      "layout_dimensions": 35,
+      "block_dimensions": 35
+    },
+    {
+      "name": "1579127_1.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "LINE": 281,
+        "CIRCLE": 70,
+        "ARC": 32,
+        "DIMENSION": 36,
+        "TEXT": 13,
+        "SPLINE": 2,
+        "ATTDEF": 2,
+        "LWPOLYLINE": 7,
+        "INSERT": 16,
+        "LEADER": 6,
+        "MTEXT": 11,
+        "HATCH": 7
+      },
+      "layout_dimensions": 36,
+      "block_dimensions": 36
+    },
+    {
+      "name": "1579128_01.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 36,
+        "ARC": 7,
+        "CIRCLE": 1,
+        "DIMENSION": 15,
+        "LEADER": 4,
+        "INSERT": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1579128_02.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "LINE": 240,
+        "ARC": 29,
+        "CIRCLE": 58,
+        "DIMENSION": 35,
+        "INSERT": 14,
+        "TEXT": 10,
+        "SPLINE": 1,
+        "ATTDEF": 2,
+        "LWPOLYLINE": 7,
+        "MTEXT": 9,
+        "LEADER": 6,
+        "HATCH": 5
+      },
+      "layout_dimensions": 35,
+      "block_dimensions": 35
+    },
+    {
+      "name": "1579128_03.Зам.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 25,
+        "DIMENSION": 30,
+        "LINE": 104,
+        "LEADER": 16,
+        "INSERT": 18,
+        "ARC": 26,
+        "SOLID": 8,
+        "CIRCLE": 10,
+        "TEXT": 2,
+        "HATCH": 2,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "1579130_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 12,
+        "HATCH": 1,
+        "INSERT": 4,
+        "DIMENSION": 4,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579137_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 6,
+        "LINE": 6,
+        "INSERT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579137_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 9,
+        "TEXT": 1,
+        "LINE": 30,
+        "CIRCLE": 4,
+        "INSERT": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579137_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 7,
+        "DIMENSION": 4,
+        "INSERT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579138_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 32,
+        "INSERT": 21,
+        "DIMENSION": 25,
+        "LWPOLYLINE": 9,
+        "ATTDEF": 5,
+        "LINE": 138,
+        "TEXT": 4,
+        "CIRCLE": 15,
+        "ARC": 10,
+        "LEADER": 7,
+        "POINT": 1,
+        "HATCH": 2
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "1579138_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 6,
+        "DIMENSION": 10,
+        "LINE": 21,
+        "LEADER": 3,
+        "ARC": 9,
+        "ATTDEF": 1,
+        "POLYLINE": 1,
+        "TEXT": 3,
+        "HATCH": 4
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579139_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 33,
+        "DIMENSION": 17,
+        "LINE": 64,
+        "ARC": 7,
+        "HATCH": 5,
+        "INSERT": 3,
+        "LEADER": 3,
+        "TEXT": 5,
+        "POINT": 4,
+        "LWPOLYLINE": 1,
+        "SOLID": 2,
+        "CIRCLE": 3,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "1579139_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "TEXT": 1,
+        "DIMENSION": 3,
+        "LINE": 20,
+        "HATCH": 1,
+        "SOLID": 3,
+        "INSERT": 4,
+        "LEADER": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "1579140_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "ARC": 14,
+        "DIMENSION": 19,
+        "LINE": 52,
+        "LWPOLYLINE": 4,
+        "CIRCLE": 2,
+        "INSERT": 2,
+        "SOLID": 2,
+        "XLINE": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "1579140_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "ARC": 48,
+        "DIMENSION": 7,
+        "LINE": 24,
+        "LWPOLYLINE": 2,
+        "INSERT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579140_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 72,
+        "ARC": 12,
+        "DIMENSION": 16,
+        "INSERT": 5,
+        "TEXT": 2,
+        "LEADER": 1,
+        "HATCH": 2
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579140_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 28,
+        "DIMENSION": 9,
+        "INSERT": 2,
+        "TEXT": 2,
+        "HATCH": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579140_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 21,
+        "INSERT": 1,
+        "ARC": 4,
+        "DIMENSION": 9
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579141_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 18,
+        "DIMENSION": 9,
+        "ARC": 2,
+        "INSERT": 3,
+        "HATCH": 1,
+        "SPLINE": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579142_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 32,
+        "LINE": 56,
+        "CIRCLE": 4,
+        "ARC": 8,
+        "TEXT": 7,
+        "LWPOLYLINE": 4,
+        "LEADER": 6,
+        "DIMENSION": 16,
+        "HATCH": 2,
+        "INSERT": 2
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579142_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 26,
+        "INSERT": 1,
+        "DIMENSION": 8,
+        "TEXT": 1,
+        "HATCH": 1,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579142_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 15,
+        "SOLID": 2,
+        "POINT": 9,
+        "ARC": 1,
+        "INSERT": 1,
+        "DIMENSION": 4,
+        "HATCH": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579143_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 64,
+        "TEXT": 2,
+        "LEADER": 2,
+        "CIRCLE": 2,
+        "LWPOLYLINE": 2,
+        "HATCH": 2,
+        "DIMENSION": 21,
+        "INSERT": 4,
+        "ARC": 3,
+        "REGION": 1
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "1579143_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 8,
+        "LINE": 25,
+        "HATCH": 2,
+        "INSERT": 2,
+        "TEXT": 1,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579143_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "DIMENSION": 4,
+        "INSERT": 2,
+        "LINE": 12,
+        "HATCH": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579144_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "DIMENSION": 6,
+        "LINE": 19,
+        "ARC": 5,
+        "INSERT": 3,
+        "TEXT": 2,
+        "LEADER": 1,
+        "SOLID": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579144_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 22,
+        "DIMENSION": 9,
+        "INSERT": 5,
+        "CIRCLE": 2,
+        "ATTDEF": 1,
+        "TEXT": 1,
+        "HATCH": 1,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579148_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 63,
+        "DIMENSION": 10,
+        "INSERT": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579148_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "DIMENSION": 35,
+        "INSERT": 15,
+        "LINE": 275,
+        "ARC": 23,
+        "TEXT": 2,
+        "LEADER": 10,
+        "CIRCLE": 11,
+        "ATTDEF": 1,
+        "HATCH": 14,
+        "SPLINE": 74,
+        "SOLID": 2,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 35,
+      "block_dimensions": 35
+    },
+    {
+      "name": "1579149_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 165,
+        "DIMENSION": 18,
+        "INSERT": 6,
+        "LEADER": 1,
+        "TEXT": 13,
+        "LWPOLYLINE": 4,
+        "SPLINE": 4,
+        "ARC": 8
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "1579149_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 36,
+        "CIRCLE": 1,
+        "ATTDEF": 1,
+        "DIMENSION": 6,
+        "SPLINE": 2,
+        "HATCH": 1,
+        "INSERT": 3,
+        "TEXT": 4
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579149_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 76,
+        "HATCH": 2,
+        "DIMENSION": 11,
+        "INSERT": 6,
+        "CIRCLE": 6,
+        "SPLINE": 2,
+        "TEXT": 4,
+        "ARC": 1,
+        "SOLID": 2
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "1579151_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 27,
+        "LEADER": 17,
+        "HATCH": 5,
+        "ARC": 88,
+        "LWPOLYLINE": 2,
+        "TEXT": 5,
+        "LINE": 347,
+        "DIMENSION": 34,
+        "MTEXT": 20,
+        "SPLINE": 3,
+        "SOLID": 6,
+        "CIRCLE": 24
+      },
+      "layout_dimensions": 34,
+      "block_dimensions": 34
+    },
+    {
+      "name": "1579151_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 486,
+        "ARC": 77,
+        "SPLINE": 10,
+        "CIRCLE": 40,
+        "LEADER": 18,
+        "HATCH": 5,
+        "MTEXT": 17,
+        "INSERT": 27,
+        "DIMENSION": 35,
+        "SOLID": 5,
+        "POLYLINE": 6,
+        "TEXT": 11
+      },
+      "layout_dimensions": 35,
+      "block_dimensions": 35
+    },
+    {
+      "name": "1579152_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 43,
+        "DIMENSION": 7,
+        "INSERT": 2,
+        "ARC": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579152_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 62,
+        "CIRCLE": 4,
+        "INSERT": 3,
+        "DIMENSION": 7,
+        "TEXT": 4
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579155_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 25,
+        "DIMENSION": 7,
+        "MTEXT": 7,
+        "ARC": 4,
+        "TEXT": 2,
+        "SPLINE": 2,
+        "LEADER": 2,
+        "INSERT": 2
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579156.01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 2,
+        "LINE": 50,
+        "DIMENSION": 12,
+        "INSERT": 4,
+        "LEADER": 3,
+        "MTEXT": 2,
+        "CIRCLE": 4,
+        "SPLINE": 6,
+        "ARC": 10
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1579156.02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 10,
+        "CIRCLE": 2,
+        "DIMENSION": 10,
+        "INSERT": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579156.03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 5,
+        "LINE": 28,
+        "LEADER": 1,
+        "INSERT": 3,
+        "TEXT": 15,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "1579156.04.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 13,
+        "ARC": 3,
+        "LINE": 23,
+        "ATTDEF": 2,
+        "SPLINE": 3,
+        "DIMENSION": 10,
+        "CIRCLE": 2,
+        "TEXT": 1,
+        "MTEXT": 1,
+        "INSERT": 4,
+        "LEADER": 3
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579158_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "LINE": 56,
+        "ARC": 3,
+        "DIMENSION": 15,
+        "TEXT": 2,
+        "HATCH": 1,
+        "CIRCLE": 2,
+        "INSERT": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1579158_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 2,
+        "TEXT": 1,
+        "DIMENSION": 7,
+        "LINE": 23,
+        "ARC": 3
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579160.01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 134,
+        "TEXT": 44,
+        "INSERT": 2,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "ARC": 6,
+        "MTEXT": 1,
+        "ATTDEF": 5,
+        "CIRCLE": 5,
+        "SOLID": 2,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579160.02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 84,
+        "TEXT": 6,
+        "CIRCLE": 5,
+        "ARC": 2,
+        "DIMENSION": 8,
+        "SOLID": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579170.01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 4,
+        "MTEXT": 1,
+        "LEADER": 1,
+        "INSERT": 3,
+        "LINE": 14
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579170.02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 18,
+        "CIRCLE": 2,
+        "DIMENSION": 5,
+        "LEADER": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579170.03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 3,
+        "LINE": 66,
+        "DIMENSION": 4,
+        "MTEXT": 2,
+        "INSERT": 4,
+        "LWPOLYLINE": 1,
+        "TEXT": 37,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579170.04 _Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 107,
+        "TEXT": 40,
+        "CIRCLE": 6,
+        "DIMENSION": 8,
+        "MTEXT": 4,
+        "INSERT": 4,
+        "LWPOLYLINE": 1,
+        "LEADER": 2,
+        "ARC": 2,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579170.05_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 7,
+        "LINE": 72,
+        "DIMENSION": 13,
+        "MTEXT": 14,
+        "INSERT": 5,
+        "LWPOLYLINE": 1,
+        "TEXT": 8,
+        "ARC": 2,
+        "VIEWPORT": 1,
+        "SPLINE": 7
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "1579170.06_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 65,
+        "TEXT": 6,
+        "CIRCLE": 8,
+        "DIMENSION": 8,
+        "MTEXT": 3,
+        "INSERT": 1,
+        "LWPOLYLINE": 1,
+        "LEADER": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579170.07_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 8,
+        "INSERT": 6,
+        "LEADER": 1,
+        "LINE": 80,
+        "CIRCLE": 4,
+        "ARC": 3,
+        "TEXT": 37,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "MTEXT": 2,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579170.08_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 106,
+        "TEXT": 11,
+        "CIRCLE": 21,
+        "DIMENSION": 20,
+        "MTEXT": 16,
+        "ARC": 2,
+        "LEADER": 2,
+        "LWPOLYLINE": 1,
+        "INSERT": 4,
+        "VIEWPORT": 1,
+        "SPLINE": 7
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "1579170.09_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 113,
+        "TEXT": 38,
+        "DIMENSION": 7,
+        "INSERT": 4,
+        "LWPOLYLINE": 1,
+        "CIRCLE": 1,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "MTEXT": 1,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579170.11_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 3,
+        "LINE": 63,
+        "DIMENSION": 4,
+        "INSERT": 4,
+        "LWPOLYLINE": 1,
+        "TEXT": 38,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "MTEXT": 1,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579170.12_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 3,
+        "LINE": 65,
+        "DIMENSION": 4,
+        "MTEXT": 2,
+        "INSERT": 4,
+        "LWPOLYLINE": 1,
+        "TEXT": 37,
+        "VIEWPORT": 1,
+        "OLE2FRAME": 1,
+        "SPLINE": 6,
+        "ATTDEF": 5
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579175_01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 8,
+        "INSERT": 13,
+        "TEXT": 129,
+        "MTEXT": 184,
+        "LINE": 2453,
+        "XLINE": 2,
+        "ARC": 151,
+        "CIRCLE": 81,
+        "SPLINE": 225,
+        "ELLIPSE": 15,
+        "OLE2FRAME": 4,
+        "DIMENSION": 48,
+        "LEADER": 10,
+        "LWPOLYLINE": 7,
+        "SOLID": 12
+      },
+      "layout_dimensions": 48,
+      "block_dimensions": 48
+    },
+    {
+      "name": "1579175_02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 8,
+        "INSERT": 13,
+        "TEXT": 129,
+        "MTEXT": 184,
+        "LINE": 2453,
+        "XLINE": 2,
+        "ARC": 151,
+        "CIRCLE": 81,
+        "SPLINE": 225,
+        "ELLIPSE": 15,
+        "OLE2FRAME": 4,
+        "DIMENSION": 48,
+        "LEADER": 10,
+        "LWPOLYLINE": 7,
+        "SOLID": 12
+      },
+      "layout_dimensions": 48,
+      "block_dimensions": 48
+    },
+    {
+      "name": "1579175_03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 8,
+        "INSERT": 13,
+        "TEXT": 129,
+        "MTEXT": 184,
+        "LINE": 2453,
+        "XLINE": 2,
+        "ARC": 151,
+        "CIRCLE": 81,
+        "SPLINE": 225,
+        "ELLIPSE": 15,
+        "OLE2FRAME": 4,
+        "DIMENSION": 48,
+        "LEADER": 10,
+        "LWPOLYLINE": 7,
+        "SOLID": 12
+      },
+      "layout_dimensions": 48,
+      "block_dimensions": 48
+    },
+    {
+      "name": "1579175_04_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 12,
+        "INSERT": 1,
+        "MTEXT": 1,
+        "LINE": 70,
+        "ARC": 6,
+        "CIRCLE": 4,
+        "TEXT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "1579180 СБ ,Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 171,
+        "ARC": 8,
+        "CIRCLE": 9,
+        "DIMENSION": 4,
+        "LEADER": 8,
+        "ELLIPSE": 30,
+        "TEXT": 8,
+        "LWPOLYLINE": 6,
+        "INSERT": 10,
+        "MTEXT": 8,
+        "HATCH": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579180.01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 24,
+        "LEADER": 4,
+        "INSERT": 10,
+        "MTEXT": 4,
+        "DIMENSION": 1
+      },
+      "layout_dimensions": 1,
+      "block_dimensions": 1
+    },
+    {
+      "name": "1579180.02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 8,
+        "CIRCLE": 3,
+        "LINE": 9,
+        "DIMENSION": 1,
+        "MTEXT": 2,
+        "HATCH": 1
+      },
+      "layout_dimensions": 1,
+      "block_dimensions": 1
+    },
+    {
+      "name": "1579180.03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 20,
+        "CIRCLE": 14,
+        "LINE": 60,
+        "DIMENSION": 5,
+        "MTEXT": 6
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579180.04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 17,
+        "LINE": 107,
+        "ARC": 16,
+        "DIMENSION": 6,
+        "MTEXT": 7
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579185.01.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "SPLINE": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "1579185.02.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 1,
+        "LINE": 7,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 10
+    },
+    {
+      "name": "1579185.03.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 1,
+        "HATCH": 1,
+        "LINE": 10,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579185.04.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 1,
+        "LINE": 5
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579185.05.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 3,
+        "LINE": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579185.06.Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "1579190.01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 30,
+        "LEADER": 3,
+        "MTEXT": 12,
+        "LINE": 687,
+        "ARC": 34,
+        "CIRCLE": 5,
+        "SPLINE": 78,
+        "HATCH": 11,
+        "LWPOLYLINE": 9,
+        "TEXT": 3,
+        "TRACE": 4
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "1579190.02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 15,
+        "INSERT": 2,
+        "LINE": 37,
+        "ARC": 5,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "1579190.03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 3,
+        "HATCH": 1,
+        "DIMENSION": 4,
+        "MTEXT": 30,
+        "LINE": 76,
+        "CIRCLE": 4,
+        "ARC": 1,
+        "OLE2FRAME": 1,
+        "TEXT": 4,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579190.04_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 4,
+        "LINE": 22,
+        "INSERT": 2,
+        "MTEXT": 1,
+        "CIRCLE": 4,
+        "ARC": 1,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579200.01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 4,
+        "LINE": 30,
+        "INSERT": 2,
+        "DIMENSION": 8,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "1579200.02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 13,
+        "INSERT": 2,
+        "DIMENSION": 7
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579200.03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 26,
+        "LINE": 227,
+        "ARC": 8,
+        "INSERT": 3,
+        "MTEXT": 11,
+        "HATCH": 6,
+        "DIMENSION": 32,
+        "LEADER": 2,
+        "POLYLINE": 2,
+        "SOLID": 6,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 32,
+      "block_dimensions": 32
+    },
+    {
+      "name": "1579261_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 33,
+        "LINE": 149,
+        "ARC": 43,
+        "CIRCLE": 8,
+        "LEADER": 5,
+        "SPLINE": 1,
+        "INSERT": 6,
+        "TEXT": 4,
+        "ATTDEF": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 33,
+      "block_dimensions": 33
+    },
+    {
+      "name": "1579261_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 3,
+        "LINE": 24,
+        "DIMENSION": 6,
+        "ARC": 6,
+        "INSERT": 3,
+        "HATCH": 1,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "1579262_01.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 14,
+        "INSERT": 7,
+        "DIMENSION": 16,
+        "LINE": 80,
+        "ARC": 11,
+        "LWPOLYLINE": 6,
+        "MTEXT": 1,
+        "POLYLINE": 8,
+        "CIRCLE": 3,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579262_02.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 11,
+        "INSERT": 4,
+        "LINE": 7,
+        "DIMENSION": 4,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "1579262_03.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "TEXT": 11,
+        "INSERT": 4,
+        "DIMENSION": 7,
+        "LINE": 12,
+        "ARC": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579262_04.dxf",
+      "version": "AC1032",
+      "units": 0,
+      "modelspace": {
+        "LINE": 6,
+        "CIRCLE": 1,
+        "INSERT": 4,
+        "TEXT": 4,
+        "DIMENSION": 5
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "1579769_01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 357,
+        "ARC": 15,
+        "CIRCLE": 19,
+        "HATCH": 15,
+        "INSERT": 31,
+        "LWPOLYLINE": 69,
+        "DIMENSION": 95,
+        "SPLINE": 5,
+        "ELLIPSE": 8,
+        "TEXT": 127,
+        "MTEXT": 56,
+        "OLE2FRAME": 1,
+        "LEADER": 2,
+        "ATTDEF": 1,
+        "POINT": 1
+      },
+      "layout_dimensions": 95,
+      "block_dimensions": 122
+    },
+    {
+      "name": "1579769_02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 236,
+        "ARC": 15,
+        "CIRCLE": 19,
+        "HATCH": 15,
+        "INSERT": 31,
+        "LWPOLYLINE": 6,
+        "DIMENSION": 95,
+        "SPLINE": 5,
+        "ELLIPSE": 8,
+        "LEADER": 2,
+        "MTEXT": 2,
+        "ATTDEF": 1,
+        "POINT": 1
+      },
+      "layout_dimensions": 95,
+      "block_dimensions": 122
+    },
+    {
+      "name": "1579769_03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 357,
+        "ARC": 15,
+        "CIRCLE": 19,
+        "HATCH": 15,
+        "INSERT": 30,
+        "LWPOLYLINE": 69,
+        "DIMENSION": 95,
+        "SPLINE": 5,
+        "ELLIPSE": 8,
+        "TEXT": 127,
+        "MTEXT": 56,
+        "OLE2FRAME": 1,
+        "LEADER": 2,
+        "ATTDEF": 1,
+        "POINT": 1
+      },
+      "layout_dimensions": 95,
+      "block_dimensions": 122
+    },
+    {
+      "name": "1579769_04_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11636,
+        "HATCH": 150,
+        "CIRCLE": 356,
+        "ARC": 1061,
+        "SPLINE": 181,
+        "DIMENSION": 233,
+        "INSERT": 126,
+        "LWPOLYLINE": 180,
+        "LEADER": 67,
+        "MTEXT": 119,
+        "TEXT": 135,
+        "SOLID": 9,
+        "ATTDEF": 7,
+        "IMAGE": 1,
+        "ELLIPSE": 8,
+        "OLE2FRAME": 1,
+        "POINT": 2,
+        "REGION": 3
+      },
+      "layout_dimensions": 233,
+      "block_dimensions": 260
+    },
+    {
+      "name": "1579769_05_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 516,
+        "CIRCLE": 33,
+        "ARC": 26,
+        "LWPOLYLINE": 71,
+        "MTEXT": 57,
+        "TEXT": 90,
+        "SPLINE": 7,
+        "IMAGE": 1,
+        "INSERT": 33,
+        "HATCH": 15,
+        "DIMENSION": 95,
+        "ELLIPSE": 8,
+        "OLE2FRAME": 1,
+        "LEADER": 2,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 95,
+      "block_dimensions": 122
+    },
+    {
+      "name": "1579769_06_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 517,
+        "CIRCLE": 33,
+        "ARC": 26,
+        "LWPOLYLINE": 71,
+        "MTEXT": 57,
+        "TEXT": 90,
+        "SPLINE": 7,
+        "IMAGE": 1,
+        "INSERT": 33,
+        "HATCH": 15,
+        "DIMENSION": 95,
+        "ELLIPSE": 8,
+        "OLE2FRAME": 1,
+        "LEADER": 2,
+        "ATTDEF": 1
+      },
+      "layout_dimensions": 95,
+      "block_dimensions": 122
+    },
+    {
+      "name": "1579770_01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 20,
+        "ARC": 3,
+        "DIMENSION": 16,
+        "INSERT": 5,
+        "TEXT": 3,
+        "HATCH": 1,
+        "SPLINE": 1,
+        "LEADER": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "1579770_02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 7,
+        "LINE": 16,
+        "ARC": 2,
+        "CIRCLE": 1,
+        "INSERT": 1,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579770_03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "ARC": 2,
+        "DIMENSION": 7,
+        "INSERT": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "1579771_01 _Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "DIMENSION": 9,
+        "CIRCLE": 4,
+        "INSERT": 2,
+        "TEXT": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579771_02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 19,
+        "CIRCLE": 4,
+        "DIMENSION": 9,
+        "INSERT": 3,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "TEXT": 2
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "1579772_01_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "ARC": 7,
+        "LINE": 12,
+        "POINT": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 45
+    },
+    {
+      "name": "1579772_02_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "ARC": 3,
+        "LINE": 8,
+        "POINT": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 39
+    },
+    {
+      "name": "1579772_03_Нов.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1,
+        "CIRCLE": 2,
+        "POINT": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 2,
+      "block_dimensions": 29
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 ВП - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 80,
+        "LWPOLYLINE": 2,
+        "MTEXT": 120,
+        "INSERT": 9,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 ВП2 - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 2,
+        "LINE": 78,
+        "MTEXT": 84,
+        "INSERT": 3
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 ВС - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 78,
+        "LWPOLYLINE": 2,
+        "MTEXT": 99,
+        "INSERT": 5,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 ДЧ.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 2540,
+        "INSERT": 496,
+        "MTEXT": 69,
+        "IMAGE": 1,
+        "ELLIPSE": 78,
+        "SPLINE": 311,
+        "ARC": 184,
+        "CIRCLE": 56,
+        "HATCH": 5,
+        "DIMENSION": 19
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 СБ - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 5127,
+        "SPLINE": 507,
+        "CIRCLE": 90,
+        "INSERT": 989,
+        "ARC": 290,
+        "ELLIPSE": 141,
+        "DIMENSION": 150,
+        "HATCH": 89,
+        "MTEXT": 4,
+        "LWPOLYLINE": 12,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 150,
+      "block_dimensions": 150
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 СП - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 СП2 - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 6
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.00 СП3 - Тележка тяговая.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 6
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.00.01 - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 15,
+        "LINE": 17,
+        "ARC": 2,
+        "DIMENSION": 14,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "260620-КМ3.18-00.00.02 - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 39,
+        "INSERT": 19,
+        "ARC": 6,
+        "SPLINE": 2,
+        "HATCH": 2,
+        "DIMENSION": 18,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "260620-КМ3.18-00.00.03 - Колесо ф400.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 15,
+        "INSERT": 25,
+        "DIMENSION": 10,
+        "LINE": 61,
+        "HATCH": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "260620-КМ3.18-00.00.04 - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 16,
+        "IMAGE": 1,
+        "LINE": 19,
+        "ARC": 2,
+        "SPLINE": 2,
+        "HATCH": 1,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "260620-КМ3.18-00.00.05 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 8,
+        "IMAGE": 1,
+        "LINE": 11,
+        "HATCH": 1,
+        "DIMENSION": 3
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.00.06 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "INSERT": 8,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.00.07 - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 14,
+        "LINE": 15,
+        "ARC": 2,
+        "DIMENSION": 14,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "260620-КМ3.18-00.00.09 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "INSERT": 8,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.00.10  - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 19,
+        "IMAGE": 1,
+        "LINE": 39,
+        "ARC": 6,
+        "SPLINE": 2,
+        "HATCH": 2,
+        "DIMENSION": 18,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "260620-КМ3.18-00.00.11 - Втулка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 1,
+        "LINE": 29,
+        "ARC": 4,
+        "INSERT": 10,
+        "DIMENSION": 5,
+        "IMAGE": 1,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "260620-КМ3.18-00.00.13 - Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 21,
+        "IMAGE": 1,
+        "LINE": 18,
+        "ARC": 2,
+        "HATCH": 1,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "260620-КМ3.18-00.00.14 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "ARC": 8,
+        "INSERT": 16,
+        "LINE": 20,
+        "HATCH": 2,
+        "DIMENSION": 6,
+        "CIRCLE": 1,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.00.15 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "INSERT": 8,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.00.16 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "IMAGE": 1,
+        "INSERT": 8
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.00.17 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 16,
+        "IMAGE": 1,
+        "ARC": 8,
+        "LINE": 20,
+        "HATCH": 2,
+        "DIMENSION": 6,
+        "CIRCLE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.00.18 - Втулка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "IMAGE": 1,
+        "INSERT": 10,
+        "CIRCLE": 1,
+        "ARC": 4,
+        "LINE": 29,
+        "DIMENSION": 5,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "260620-КМ3.18-00.00.20 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 8,
+        "IMAGE": 1,
+        "LINE": 17,
+        "HATCH": 1,
+        "DIMENSION": 4
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.00.21 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 8,
+        "IMAGE": 1,
+        "LINE": 17,
+        "HATCH": 1,
+        "DIMENSION": 4
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.00.22  - Прокладка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 4,
+        "CIRCLE": 4,
+        "DIMENSION": 7,
+        "INSERT": 15,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "260620-КМ3.18-00.00.24 - Втулка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 10,
+        "LINE": 24,
+        "ARC": 2,
+        "HATCH": 1,
+        "DIMENSION": 9,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "260620-КМ3.18-00.00.25 - Втулка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 10,
+        "IMAGE": 1,
+        "LINE": 24,
+        "ARC": 2,
+        "HATCH": 1,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "260620-КМ3.18-00.01.00 СБ - Корпус тележки.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "ARC": 94,
+        "INSERT": 304,
+        "LINE": 2241,
+        "CIRCLE": 77,
+        "DIMENSION": 101,
+        "HATCH": 77,
+        "IMAGE": 1,
+        "MTEXT": 41,
+        "SPLINE": 4,
+        "ELLIPSE": 33
+      },
+      "layout_dimensions": 101,
+      "block_dimensions": 101
+    },
+    {
+      "name": "260620-КМ3.18-00.01.01 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 36,
+        "ARC": 6,
+        "CIRCLE": 3,
+        "DIMENSION": 19,
+        "INSERT": 16,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "260620-КМ3.18-00.01.02 - Лист гнутый.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 42,
+        "DIMENSION": 12,
+        "ARC": 4,
+        "INSERT": 15,
+        "IMAGE": 1,
+        "MTEXT": 1,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "260620-КМ3.18-00.01.03 - Лист гнутый.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 38,
+        "DIMENSION": 9,
+        "ARC": 4,
+        "INSERT": 15,
+        "IMAGE": 1,
+        "MTEXT": 2,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "260620-КМ3.18-00.01.04 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "ARC": 4,
+        "LINE": 22,
+        "DIMENSION": 19,
+        "INSERT": 14,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "260620-КМ3.18-00.01.05 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 26,
+        "ARC": 7,
+        "CIRCLE": 2,
+        "DIMENSION": 14,
+        "INSERT": 13,
+        "HATCH": 1,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "260620-КМ3.18-00.01.08 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 4,
+        "INSERT": 12,
+        "IMAGE": 1,
+        "ARC": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.09 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 15,
+        "IMAGE": 1,
+        "LINE": 16,
+        "DIMENSION": 8,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "260620-КМ3.18-00.01.10 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 4,
+        "INSERT": 10,
+        "IMAGE": 1,
+        "ARC": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.11 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 14,
+        "DIMENSION": 4,
+        "INSERT": 10,
+        "ARC": 4,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.12 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 30,
+        "INSERT": 41,
+        "DIMENSION": 12,
+        "IMAGE": 1,
+        "CIRCLE": 10,
+        "HATCH": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "260620-КМ3.18-00.01.13  - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "INSERT": 20,
+        "CIRCLE": 1,
+        "DIMENSION": 7,
+        "HATCH": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "260620-КМ3.18-00.01.14 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 19,
+        "IMAGE": 1,
+        "LINE": 8,
+        "CIRCLE": 8,
+        "DIMENSION": 10
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "260620-КМ3.18-00.01.15 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 36,
+        "DIMENSION": 18,
+        "INSERT": 15,
+        "ARC": 6,
+        "CIRCLE": 3,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "260620-КМ3.18-00.01.16  - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 14,
+        "DIMENSION": 4,
+        "INSERT": 13,
+        "ARC": 4,
+        "IMAGE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.17 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 14,
+        "ARC": 2,
+        "DIMENSION": 4,
+        "INSERT": 10,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.18 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 14,
+        "DIMENSION": 4,
+        "INSERT": 10,
+        "IMAGE": 1,
+        "ARC": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.19 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 10,
+        "IMAGE": 1,
+        "LINE": 11,
+        "DIMENSION": 4,
+        "ARC": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.20 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 20,
+        "LINE": 13,
+        "DIMENSION": 5,
+        "IMAGE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "260620-КМ3.18-00.01.21 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 6,
+        "INSERT": 12,
+        "CIRCLE": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.01.22 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 6,
+        "INSERT": 12,
+        "CIRCLE": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.01.23 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 6,
+        "INSERT": 12,
+        "CIRCLE": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.01.24 - Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 12,
+        "DIMENSION": 4,
+        "INSERT": 14,
+        "IMAGE": 1,
+        "ARC": 4
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "260620-КМ3.18-00.01.25 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 6,
+        "DIMENSION": 3,
+        "INSERT": 13,
+        "IMAGE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.01.26 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 18,
+        "IMAGE": 1,
+        "LINE": 19,
+        "CIRCLE": 5,
+        "ARC": 4,
+        "DIMENSION": 11,
+        "HATCH": 1,
+        "SPLINE": 2,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "260620-КМ3.18-00.02 00 СБ - Колесо нижнее.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 462,
+        "CIRCLE": 11,
+        "INSERT": 86,
+        "ARC": 16,
+        "DIMENSION": 26,
+        "SPLINE": 18,
+        "ELLIPSE": 9,
+        "HATCH": 8,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 26,
+      "block_dimensions": 26
+    },
+    {
+      "name": "260620-КМ3.18-00.02.00 СП-Колесо нижнее.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.02.01-Ось.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 14,
+        "LINE": 15,
+        "ARC": 2,
+        "DIMENSION": 14,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "260620-КМ3.18-00.02.02- Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 14,
+        "LINE": 15,
+        "ARC": 2,
+        "DIMENSION": 14,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "260620-КМ3.18-00.02.03 - Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 11,
+        "DIMENSION": 3,
+        "HATCH": 1,
+        "INSERT": 8,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "260620-КМ3.18-00.02.05 - Оседержатель.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 7,
+        "INSERT": 13,
+        "CIRCLE": 2,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "260620-КМ3.18-00.03.00 СП - Колесо Ф320.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.03.01  - Колесо ходовое Ф320.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 30,
+        "ARC": 19,
+        "INSERT": 44,
+        "DIMENSION": 22,
+        "LINE": 114,
+        "HATCH": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 22,
+      "block_dimensions": 22
+    },
+    {
+      "name": "260620-КМ3.18-00.03.03 - Шайба упорная.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 11,
+        "LINE": 38,
+        "INSERT": 18,
+        "DIMENSION": 9,
+        "ARC": 2,
+        "HATCH": 1,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "260620-КМ3.18-00.04.00 СБ -Стойка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 170,
+        "CIRCLE": 15,
+        "INSERT": 28,
+        "DIMENSION": 27,
+        "IMAGE": 1,
+        "ARC": 6,
+        "HATCH": 2,
+        "SPLINE": 3,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 27,
+      "block_dimensions": 27
+    },
+    {
+      "name": "260620-КМ3.18-00.04.00 СП-Стойка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.04.01 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 18,
+        "CIRCLE": 1,
+        "INSERT": 16,
+        "DIMENSION": 7,
+        "HATCH": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "260620-КМ3.18-00.04.02-Ребро.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 12,
+        "INSERT": 10,
+        "DIMENSION": 6,
+        "ARC": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.04.03 -Основание.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 4,
+        "CIRCLE": 4,
+        "DIMENSION": 7,
+        "INSERT": 15,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "260620-КМ3.18-00.04.04 - Лист.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 33,
+        "CIRCLE": 6,
+        "ARC": 4,
+        "INSERT": 24,
+        "DIMENSION": 13,
+        "HATCH": 2,
+        "IMAGE": 1,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "260620-КМ3.18-00.06.00 СБ - Колесо с ребордой ф400.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 49,
+        "LINE": 193,
+        "ARC": 11,
+        "CIRCLE": 23,
+        "DIMENSION": 9,
+        "ELLIPSE": 4,
+        "SPLINE": 12,
+        "HATCH": 4,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "260620-КМ3.18-00.06.00 СП - Колесо  с ребордой Ф400.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.06.01 - Колесо с ребордой Ф400.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "ARC": 16,
+        "CIRCLE": 25,
+        "INSERT": 38,
+        "DIMENSION": 18,
+        "IMAGE": 1,
+        "LINE": 98,
+        "HATCH": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "260620-КМ3.18-00.06.02-Втулкаcdw.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 20,
+        "HATCH": 1,
+        "DIMENSION": 6,
+        "INSERT": 9,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "260620-КМ3.18-00.06.03 - Шайба упорная.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 9,
+        "INSERT": 24,
+        "DIMENSION": 9,
+        "LINE": 34,
+        "ARC": 2,
+        "HATCH": 1,
+        "MTEXT": 1,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "260620-КМ3.18-00.07.00 СБ - Отбойник.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 48,
+        "LINE": 176,
+        "ARC": 4,
+        "SPLINE": 24,
+        "DIMENSION": 21,
+        "CIRCLE": 15,
+        "MTEXT": 2,
+        "IMAGE": 1,
+        "ELLIPSE": 1,
+        "HATCH": 2
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "260620-КМ3.18-00.07.00 СП-Отбойник.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 11,
+        "IMAGE": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "260620-КМ3.18-00.07.01 - Лист.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 15,
+        "IMAGE": 1,
+        "LINE": 9,
+        "DIMENSION": 8,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "260620-КМ3.18-00.07.02 - Фланец буфера БР-100.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 18,
+        "IMAGE": 1,
+        "LINE": 34,
+        "CIRCLE": 6,
+        "DIMENSION": 19,
+        "ARC": 13,
+        "HATCH": 2,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "346866_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 338,
+        "INSERT": 23,
+        "DIMENSION": 36,
+        "TEXT": 20,
+        "CIRCLE": 42,
+        "ARC": 39,
+        "LWPOLYLINE": 8,
+        "SPLINE": 4,
+        "HATCH": 7,
+        "LEADER": 3,
+        "SOLID": 1
+      },
+      "layout_dimensions": 36,
+      "block_dimensions": 36
+    },
+    {
+      "name": "346866_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 8,
+        "CIRCLE": 18,
+        "HATCH": 3,
+        "LINE": 185,
+        "ARC": 37,
+        "DIMENSION": 34,
+        "INSERT": 20,
+        "LEADER": 5,
+        "SPLINE": 3,
+        "TEXT": 8
+      },
+      "layout_dimensions": 34,
+      "block_dimensions": 34
+    },
+    {
+      "name": "346866_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 98,
+        "ARC": 6,
+        "LWPOLYLINE": 2,
+        "DIMENSION": 20,
+        "CIRCLE": 19,
+        "LEADER": 1,
+        "INSERT": 7,
+        "TEXT": 7,
+        "SOLID": 1,
+        "ELLIPSE": 6,
+        "HATCH": 3,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "346866_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 85,
+        "ARC": 22,
+        "INSERT": 12,
+        "DIMENSION": 19,
+        "HATCH": 3,
+        "SPLINE": 2,
+        "LEADER": 4,
+        "TEXT": 9,
+        "SOLID": 2,
+        "CIRCLE": 19
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "346866_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "CIRCLE": 9,
+        "LINE": 31,
+        "HATCH": 1,
+        "ARC": 2,
+        "LWPOLYLINE": 1,
+        "INSERT": 4,
+        "DIMENSION": 9,
+        "LEADER": 1,
+        "TEXT": 3
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "346866_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "HATCH": 1,
+        "LINE": 33,
+        "ARC": 10,
+        "CIRCLE": 2,
+        "INSERT": 3,
+        "DIMENSION": 6,
+        "MTEXT": 1,
+        "SOLID": 1,
+        "LEADER": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "346866_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "CIRCLE": 2,
+        "LINE": 3,
+        "DIMENSION": 2,
+        "INSERT": 2,
+        "LEADER": 2
+      },
+      "layout_dimensions": 2,
+      "block_dimensions": 2
+    },
+    {
+      "name": "346866_08.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "HATCH": 1,
+        "LINE": 10,
+        "DIMENSION": 4,
+        "INSERT": 3
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "346867_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 6,
+        "VIEWPORT": 1,
+        "LWPOLYLINE": 1,
+        "ARC": 11,
+        "DIMENSION": 14,
+        "INSERT": 6,
+        "LINE": 20,
+        "CIRCLE": 3,
+        "HATCH": 1,
+        "TEXT": 1,
+        "LEADER": 1,
+        "REGION": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "346868_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 16,
+        "LINE": 93,
+        "INSERT": 5,
+        "HATCH": 4,
+        "ARC": 10,
+        "POINT": 2,
+        "MTEXT": 2,
+        "SOLID": 1,
+        "TEXT": 7,
+        "LWPOLYLINE": 5,
+        "ATTDEF": 2,
+        "CIRCLE": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "346868_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 2,
+        "LINE": 31,
+        "INSERT": 4,
+        "DIMENSION": 12,
+        "TEXT": 2
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "346869_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 7,
+        "LINE": 166,
+        "POINT": 2,
+        "ARC": 45,
+        "SPLINE": 3,
+        "INSERT": 12,
+        "DIMENSION": 29,
+        "CIRCLE": 12,
+        "LEADER": 2,
+        "HATCH": 3
+      },
+      "layout_dimensions": 29,
+      "block_dimensions": 29
+    },
+    {
+      "name": "346869_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "INSERT": 3,
+        "DIMENSION": 9,
+        "LEADER": 1,
+        "TEXT": 1,
+        "LINE": 25,
+        "ARC": 12
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "626183_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "POINT": 1,
+        "MTEXT": 9,
+        "ATTDEF": 5,
+        "LINE": 30,
+        "ARC": 4,
+        "TEXT": 4,
+        "DIMENSION": 12,
+        "INSERT": 3,
+        "CIRCLE": 2,
+        "LEADER": 2,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "626240_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "HATCH": 8,
+        "LINE": 11,
+        "LWPOLYLINE": 2,
+        "SOLID": 2,
+        "TEXT": 4,
+        "CIRCLE": 1,
+        "INSERT": 1,
+        "DIMENSION": 3,
+        "SPLINE": 2,
+        "ARC": 4
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "626274_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "INSERT": 40,
+        "LINE": 166,
+        "CIRCLE": 29,
+        "SPLINE": 4,
+        "DIMENSION": 28,
+        "HATCH": 2,
+        "ARC": 9,
+        "TEXT": 2,
+        "LWPOLYLINE": 3
+      },
+      "layout_dimensions": 28,
+      "block_dimensions": 28
+    },
+    {
+      "name": "626274_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 181,
+        "ARC": 7,
+        "DIMENSION": 30,
+        "INSERT": 32,
+        "TEXT": 2,
+        "CIRCLE": 30,
+        "HATCH": 2,
+        "SPLINE": 4,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "626274_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 72,
+        "ARC": 10,
+        "CIRCLE": 18,
+        "HATCH": 2,
+        "DIMENSION": 33,
+        "INSERT": 39,
+        "TEXT": 2,
+        "SPLINE": 2,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 33,
+      "block_dimensions": 33
+    },
+    {
+      "name": "626275_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "INSERT": 5,
+        "HATCH": 1,
+        "ARC": 4,
+        "LINE": 18,
+        "DIMENSION": 7,
+        "POINT": 1,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "626275_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LINE": 18,
+        "SPLINE": 2,
+        "ARC": 4,
+        "POINT": 1,
+        "DIMENSION": 5,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "626276_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LINE": 12,
+        "SPLINE": 2,
+        "DIMENSION": 5,
+        "INSERT": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "626278_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LINE": 36,
+        "DIMENSION": 9,
+        "TEXT": 2,
+        "ARC": 8,
+        "3DSOLID": 1,
+        "LWPOLYLINE": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "626278_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 2,
+        "TEXT": 1,
+        "DIMENSION": 6,
+        "LEADER": 1,
+        "MTEXT": 1,
+        "LINE": 8,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 11
+    },
+    {
+      "name": "626278_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "LINE": 35,
+        "INSERT": 9,
+        "DIMENSION": 10,
+        "MTEXT": 1,
+        "SOLID": 5,
+        "HATCH": 1,
+        "SPLINE": 3,
+        "LEADER": 2,
+        "ARC": 3,
+        "TEXT": 4
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 19
+    },
+    {
+      "name": "626278_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "VIEWPORT": 1,
+        "DIMENSION": 6,
+        "INSERT": 1,
+        "TEXT": 2,
+        "LINE": 13,
+        "MTEXT": 1,
+        "CIRCLE": 2,
+        "3DSOLID": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "626278_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 4,
+        "DIMENSION": 8,
+        "LINE": 32,
+        "ELLIPSE": 2,
+        "TEXT": 3,
+        "CIRCLE": 2,
+        "ARC": 2,
+        "HATCH": 3,
+        "SPLINE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "626278_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 2,
+        "INSERT": 3,
+        "TEXT": 3,
+        "DIMENSION": 6,
+        "LINE": 49,
+        "LEADER": 2,
+        "POINT": 1,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "626278_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "LINE": 18,
+        "DIMENSION": 4,
+        "TEXT": 1,
+        "HATCH": 1,
+        "INSERT": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 9
+    },
+    {
+      "name": "626282_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 166,
+        "ARC": 7,
+        "DIMENSION": 30,
+        "INSERT": 32,
+        "TEXT": 2,
+        "CIRCLE": 29,
+        "HATCH": 2,
+        "SPLINE": 4,
+        "LWPOLYLINE": 2
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "626282_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 27,
+        "CIRCLE": 4,
+        "SPLINE": 2,
+        "LWPOLYLINE": 1,
+        "DIMENSION": 6,
+        "INSERT": 3,
+        "TEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "626282_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 286,
+        "ARC": 105,
+        "DIMENSION": 43,
+        "INSERT": 42,
+        "TEXT": 2,
+        "CIRCLE": 63,
+        "HATCH": 3,
+        "SPLINE": 4,
+        "LWPOLYLINE": 4,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 43,
+      "block_dimensions": 43
+    },
+    {
+      "name": "626282_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 429,
+        "ARC": 224,
+        "DIMENSION": 54,
+        "INSERT": 47,
+        "TEXT": 2,
+        "CIRCLE": 105,
+        "HATCH": 3,
+        "SPLINE": 4,
+        "LWPOLYLINE": 5,
+        "MTEXT": 2
+      },
+      "layout_dimensions": 54,
+      "block_dimensions": 54
+    },
+    {
+      "name": "626282_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 148,
+        "ARC": 29,
+        "LWPOLYLINE": 7,
+        "DIMENSION": 47,
+        "TEXT": 7,
+        "INSERT": 27,
+        "HATCH": 2,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 47,
+      "block_dimensions": 47
+    },
+    {
+      "name": "626282_06.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 14,
+        "LWPOLYLINE": 1,
+        "DIMENSION": 6,
+        "SPLINE": 2,
+        "ARC": 4
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "626282_07.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 30,
+        "SPLINE": 4,
+        "LWPOLYLINE": 1,
+        "DIMENSION": 7,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "964414_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 17,
+        "SPLINE": 3,
+        "DIMENSION": 5,
+        "INSERT": 6,
+        "LEADER": 3,
+        "HATCH": 1,
+        "TEXT": 2
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964414_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 28,
+        "SPLINE": 4,
+        "HATCH": 2,
+        "DIMENSION": 6,
+        "TEXT": 3,
+        "INSERT": 9,
+        "SOLID": 2,
+        "LEADER": 2
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "964414_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 11,
+        "DIMENSION": 4,
+        "LEADER": 3,
+        "INSERT": 5,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964414_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 9,
+        "DIMENSION": 4,
+        "LEADER": 3,
+        "INSERT": 5,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964415_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 33,
+        "SPLINE": 3,
+        "DIMENSION": 14,
+        "INSERT": 11,
+        "LEADER": 4,
+        "HATCH": 1,
+        "TEXT": 3,
+        "ARC": 3
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "964415_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 3,
+        "LINE": 55,
+        "SPLINE": 7,
+        "DIMENSION": 18,
+        "INSERT": 23,
+        "LEADER": 5,
+        "HATCH": 3,
+        "TEXT": 7,
+        "ARC": 5,
+        "REGION": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "964416_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 7,
+        "LINE": 10,
+        "DIMENSION": 4,
+        "INSERT": 4,
+        "TEXT": 1,
+        "LEADER": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964416_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 10,
+        "SPLINE": 1,
+        "DIMENSION": 5,
+        "HATCH": 1,
+        "INSERT": 9,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964416_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 6,
+        "LINE": 10,
+        "DIMENSION": 4,
+        "INSERT": 4,
+        "TEXT": 1,
+        "LEADER": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964417_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 10,
+        "SPLINE": 1,
+        "DIMENSION": 5,
+        "HATCH": 1,
+        "INSERT": 9,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964417_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 4,
+        "LINE": 10,
+        "DIMENSION": 4,
+        "LEADER": 3,
+        "INSERT": 4,
+        "TEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964418_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 12,
+        "LINE": 31,
+        "INSERT": 14,
+        "SPLINE": 1,
+        "ARC": 3,
+        "TEXT": 2,
+        "LEADER": 1,
+        "MTEXT": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "964418_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 10,
+        "SPLINE": 1,
+        "DIMENSION": 5,
+        "HATCH": 1,
+        "INSERT": 9,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964418_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 5,
+        "LINE": 9,
+        "INSERT": 6,
+        "LEADER": 1,
+        "MTEXT": 1,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964418_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 4,
+        "LINE": 12,
+        "DIMENSION": 4,
+        "LEADER": 3,
+        "INSERT": 4,
+        "TEXT": 1,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "964418_05.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 1,
+        "INSERT": 5,
+        "LINE": 35,
+        "ARC": 2,
+        "DIMENSION": 15,
+        "SPLINE": 3,
+        "TEXT": 1,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "964419_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 17,
+        "SPLINE": 1,
+        "DIMENSION": 9,
+        "INSERT": 10,
+        "HATCH": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "964420_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 9,
+        "SPLINE": 1,
+        "DIMENSION": 5,
+        "INSERT": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964421_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 12,
+        "SPLINE": 3,
+        "DIMENSION": 5,
+        "INSERT": 5,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964422_01.Зам.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 12,
+        "SPLINE": 1,
+        "DIMENSION": 5,
+        "INSERT": 5,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "964423_01.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 34,
+        "CIRCLE": 8,
+        "DIMENSION": 10,
+        "TEXT": 1,
+        "INSERT": 3,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "964423_02.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 21,
+        "DIMENSION": 7,
+        "INSERT": 11,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "964423_03.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 7,
+        "LINE": 16,
+        "INSERT": 9,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "TEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "964423_04.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 5,
+        "LINE": 10,
+        "INSERT": 7,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "Bolti 193-83_1.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 98,
+        "MTEXT": 41,
+        "DIMENSION": 13,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "HATCH": 2,
+        "SPLINE": 1,
+        "SOLID": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Bolti 193-83_10.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 98,
+        "LWPOLYLINE": 1,
+        "MTEXT": 41,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "SPLINE": 3,
+        "DIMENSION": 13,
+        "HATCH": 2,
+        "SOLID": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Bolti 193-83_11.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "MTEXT": 42,
+        "LWPOLYLINE": 1,
+        "LINE": 96,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "SPLINE": 1,
+        "DIMENSION": 13,
+        "HATCH": 2,
+        "SOLID": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Bolti 193-83_2.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 101,
+        "MTEXT": 42,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "SPLINE": 1,
+        "DIMENSION": 13,
+        "HATCH": 2,
+        "SOLID": 1,
+        "INSERT": 2
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Bolti 193-83_3.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 102,
+        "MTEXT": 43,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "SPLINE": 1,
+        "DIMENSION": 14,
+        "HATCH": 2,
+        "SOLID": 1,
+        "INSERT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Bolti 193-83_4.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "MTEXT": 41,
+        "LWPOLYLINE": 1,
+        "LINE": 96,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "SPLINE": 1,
+        "HATCH": 2,
+        "DIMENSION": 11,
+        "SOLID": 3,
+        "INSERT": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "Bolti 193-83_5.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 96,
+        "MTEXT": 41,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "DIMENSION": 11,
+        "SOLID": 3,
+        "HATCH": 2,
+        "SPLINE": 1,
+        "CIRCLE": 5,
+        "INSERT": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "Bolti 193-83_6.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 99,
+        "MTEXT": 44,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "CIRCLE": 5,
+        "DIMENSION": 12,
+        "SOLID": 3,
+        "SPLINE": 1,
+        "HATCH": 2,
+        "INSERT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "Bolti 193-83_7.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 96,
+        "DIMENSION": 13,
+        "MTEXT": 42,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "HATCH": 2,
+        "SOLID": 1,
+        "SPLINE": 1,
+        "CIRCLE": 5,
+        "INSERT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Bolti 193-83_8.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "LINE": 101,
+        "DIMENSION": 14,
+        "MTEXT": 43,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "HATCH": 2,
+        "SOLID": 1,
+        "SPLINE": 3,
+        "CIRCLE": 5,
+        "INSERT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Bolti 193-83_9.dxf",
+      "version": "AC1021",
+      "units": 0,
+      "modelspace": {
+        "DIMENSION": 13,
+        "MTEXT": 42,
+        "LINE": 96,
+        "LWPOLYLINE": 1,
+        "ARC": 10,
+        "HATCH": 2,
+        "SOLID": 1,
+        "SPLINE": 1,
+        "CIRCLE": 5,
+        "INSERT": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "бобышка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 57,
+        "HATCH": 1,
+        "TEXT": 39,
+        "LWPOLYLINE": 6,
+        "MTEXT": 1,
+        "LEADER": 2,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "болт1.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 120,
+        "TEXT": 57,
+        "ARC": 8,
+        "LWPOLYLINE": 5,
+        "CIRCLE": 2,
+        "DIMENSION": 14,
+        "LEADER": 2,
+        "MTEXT": 2
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Болтокомплекты (высокопрочные).dxf",
+      "version": "AC1027",
+      "units": 4,
+      "modelspace": {
+        "MTEXT": 26,
+        "INSERT": 29
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 0
+    },
+    {
+      "name": "Вал L-722 мм.dxf",
+      "version": "AC1018",
+      "units": 4,
+      "modelspace": {
+        "XLINE": 43,
+        "LINE": 194,
+        "ARC": 38,
+        "DIMENSION": 54,
+        "TEXT": 10,
+        "LEADER": 17,
+        "MTEXT": 7,
+        "CIRCLE": 5,
+        "SPLINE": 3,
+        "HATCH": 8
+      },
+      "layout_dimensions": 54,
+      "block_dimensions": 54
+    },
+    {
+      "name": "Вал.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 61,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "HATCH": 2,
+        "CIRCLE": 1,
+        "SPLINE": 8,
+        "ARC": 7,
+        "INSERT": 3,
+        "DIMENSION": 16
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "Вал10.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 63,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 4,
+        "HATCH": 5,
+        "ARC": 2,
+        "SPLINE": 2,
+        "SOLID": 2,
+        "DIMENSION": 17
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "Вал11.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 78,
+        "LWPOLYLINE": 24,
+        "TEXT": 25,
+        "CIRCLE": 4,
+        "ARC": 6,
+        "SPLINE": 5,
+        "HATCH": 7,
+        "SOLID": 2,
+        "DIMENSION": 16
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "Вал12.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 68,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "HATCH": 6,
+        "CIRCLE": 3,
+        "ARC": 4,
+        "SPLINE": 4,
+        "DIMENSION": 19,
+        "SOLID": 2
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "Вал13.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 70,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 2,
+        "HATCH": 5,
+        "ARC": 5,
+        "SPLINE": 2,
+        "SOLID": 2,
+        "DIMENSION": 18
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "Вал2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 170,
+        "TEXT": 53,
+        "ARC": 22,
+        "SPLINE": 4,
+        "HATCH": 5,
+        "DIMENSION": 28,
+        "SOLID": 10,
+        "CIRCLE": 1,
+        "MTEXT": 15
+      },
+      "layout_dimensions": 28,
+      "block_dimensions": 28
+    },
+    {
+      "name": "Вал3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 78,
+        "LWPOLYLINE": 24,
+        "TEXT": 25,
+        "CIRCLE": 4,
+        "ARC": 6,
+        "SPLINE": 5,
+        "HATCH": 7,
+        "SOLID": 2,
+        "DIMENSION": 16
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "Вал4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 70,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 7,
+        "HATCH": 5,
+        "ARC": 6,
+        "SPLINE": 3,
+        "DIMENSION": 15,
+        "SOLID": 2
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "Вал5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 72,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 6,
+        "ARC": 6,
+        "SPLINE": 3,
+        "HATCH": 5,
+        "DIMENSION": 16,
+        "SOLID": 2
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "Вал6.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 67,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 3,
+        "HATCH": 5,
+        "ARC": 6,
+        "SPLINE": 3,
+        "SOLID": 2,
+        "DIMENSION": 16
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "Вал7.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 64,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 2,
+        "ARC": 4,
+        "SPLINE": 1,
+        "HATCH": 4,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Вал8.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 78,
+        "LWPOLYLINE": 24,
+        "TEXT": 24,
+        "CIRCLE": 3,
+        "HATCH": 6,
+        "ARC": 16,
+        "DIMENSION": 18,
+        "SPLINE": 3,
+        "SOLID": 2
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "Вал9.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 72,
+        "LWPOLYLINE": 24,
+        "TEXT": 23,
+        "CIRCLE": 5,
+        "ARC": 3,
+        "HATCH": 6,
+        "SPLINE": 3,
+        "DIMENSION": 17,
+        "SOLID": 2
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "Воронка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 33,
+        "LWPOLYLINE": 24,
+        "TEXT": 22,
+        "CIRCLE": 4,
+        "ARC": 20,
+        "DIMENSION": 14,
+        "HATCH": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Втулка ГАЗ-31ХХ.dxf",
+      "version": "AC1021",
+      "units": 4,
+      "modelspace": {
+        "LWPOLYLINE": 3,
+        "TEXT": 40,
+        "LINE": 49,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "втулка резьбовая.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 110,
+        "TEXT": 60,
+        "ARC": 2,
+        "HATCH": 2,
+        "CIRCLE": 1,
+        "DIMENSION": 9,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "втулка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 127,
+        "TEXT": 23,
+        "HATCH": 1,
+        "ARC": 11,
+        "CIRCLE": 8,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "втулка2.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 115,
+        "TEXT": 64,
+        "CIRCLE": 4,
+        "HATCH": 4,
+        "DIMENSION": 12,
+        "LEADER": 7,
+        "MTEXT": 4,
+        "ELLIPSE": 2,
+        "LWPOLYLINE": 4,
+        "SPLINE": 1,
+        "ARC": 2
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "втулка3.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 152,
+        "TEXT": 70,
+        "ARC": 8,
+        "DIMENSION": 25,
+        "LWPOLYLINE": 4,
+        "LEADER": 10,
+        "CIRCLE": 3,
+        "MTEXT": 3,
+        "SPLINE": 1,
+        "HATCH": 6
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "втулка4.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 153,
+        "ARC": 10,
+        "DIMENSION": 23,
+        "TEXT": 83,
+        "LWPOLYLINE": 5,
+        "LEADER": 11,
+        "CIRCLE": 1,
+        "MTEXT": 5,
+        "SPLINE": 1,
+        "HATCH": 2
+      },
+      "layout_dimensions": 23,
+      "block_dimensions": 23
+    },
+    {
+      "name": "втулка5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 40,
+        "LINE": 89,
+        "LWPOLYLINE": 6,
+        "HATCH": 2,
+        "DIMENSION": 8,
+        "CIRCLE": 3,
+        "ARC": 4,
+        "ELLIPSE": 2
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "гайка круглая.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 165,
+        "TEXT": 52,
+        "ARC": 6,
+        "CIRCLE": 2,
+        "DIMENSION": 10,
+        "HATCH": 2,
+        "LWPOLYLINE": 4,
+        "SOLID": 1,
+        "LEADER": 2
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "гайка круглая2.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 201,
+        "TEXT": 63,
+        "ARC": 32,
+        "LWPOLYLINE": 132,
+        "CIRCLE": 2,
+        "DIMENSION": 10,
+        "HATCH": 2,
+        "SOLID": 4
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "Гайка накидная.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 86,
+        "TEXT": 24,
+        "ARC": 8,
+        "LWPOLYLINE": 1,
+        "CIRCLE": 3,
+        "DIMENSION": 11,
+        "HATCH": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "гайка накидная2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 71,
+        "LWPOLYLINE": 11,
+        "MTEXT": 1,
+        "CIRCLE": 2,
+        "ARC": 8,
+        "HATCH": 1,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "гайка накидная3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 73,
+        "HATCH": 1,
+        "TEXT": 37,
+        "LWPOLYLINE": 13,
+        "MTEXT": 1,
+        "ARC": 7,
+        "CIRCLE": 2,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "гайка накидная4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 70,
+        "LWPOLYLINE": 12,
+        "MTEXT": 1,
+        "ARC": 7,
+        "CIRCLE": 2,
+        "HATCH": 1,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "гайка.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 165,
+        "TEXT": 58,
+        "DIMENSION": 18,
+        "LWPOLYLINE": 8,
+        "LEADER": 2,
+        "ARC": 19,
+        "CIRCLE": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "гайка2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 60,
+        "LWPOLYLINE": 5,
+        "HATCH": 1,
+        "DIMENSION": 7
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "гайка3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 80,
+        "HATCH": 1,
+        "ARC": 11,
+        "SPLINE": 1,
+        "TEXT": 41,
+        "LWPOLYLINE": 13,
+        "DIMENSION": 15,
+        "LEADER": 1,
+        "CIRCLE": 3,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "дно.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 50,
+        "TEXT": 38,
+        "LWPOLYLINE": 6,
+        "MTEXT": 1,
+        "DIMENSION": 6,
+        "CIRCLE": 4,
+        "SPLINE": 2,
+        "LEADER": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "дно2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 52,
+        "LWPOLYLINE": 4,
+        "HATCH": 1,
+        "DIMENSION": 5
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "заглушка.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 71,
+        "TEXT": 43,
+        "ARC": 3,
+        "HATCH": 1,
+        "DIMENSION": 6,
+        "LEADER": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "звездочка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 62,
+        "ARC": 15,
+        "TEXT": 36,
+        "LWPOLYLINE": 2,
+        "MTEXT": 1,
+        "DIMENSION": 7,
+        "LEADER": 1,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "ЗЗП.000.001.09.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 2,
+        "INSERT": 7,
+        "DIMENSION": 7,
+        "LINE": 17,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "ЗЗП.000.001.09.02 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 8,
+        "INSERT": 8,
+        "CIRCLE": 3
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "ЗЗП.000.001.10.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 33,
+        "DIMENSION": 16,
+        "INSERT": 6
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "ЗЗП.000.001.10.02 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 21,
+        "ARC": 2,
+        "INSERT": 6,
+        "DIMENSION": 14,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "ЗЗП.000.001.10.03 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 33,
+        "ARC": 2,
+        "DIMENSION": 15,
+        "INSERT": 9,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "ЗЗП.000.001.11.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 58,
+        "ARC": 4,
+        "DIMENSION": 18,
+        "INSERT": 7,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "ЗЗП.000.001.11.02 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 89,
+        "ARC": 3,
+        "DIMENSION": 23,
+        "INSERT": 10,
+        "SPLINE": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 23,
+      "block_dimensions": 23
+    },
+    {
+      "name": "ЗЗП.000.001.11.05 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 18,
+        "INSERT": 16,
+        "HATCH": 1,
+        "ARC": 4,
+        "DIMENSION": 9,
+        "CIRCLE": 2
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "ЗЗП.000.001.11.06 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 16,
+        "DIMENSION": 7,
+        "INSERT": 5
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "ЗЗП.000.001.11.07 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "DIMENSION": 6,
+        "INSERT": 6,
+        "LINE": 13
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "ЗЗП.000.001.13.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "CIRCLE": 4,
+        "INSERT": 9,
+        "DIMENSION": 9
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "ЗЗП.000.001.13.02 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 4,
+        "LINE": 13,
+        "INSERT": 9,
+        "DIMENSION": 10
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "ЗЗП.000.001.13.03 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 22,
+        "CIRCLE": 6,
+        "INSERT": 5,
+        "DIMENSION": 10,
+        "SPLINE": 1,
+        "HATCH": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "ЗЗП.000.001.14.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 9,
+        "DIMENSION": 11,
+        "INSERT": 9,
+        "CIRCLE": 3,
+        "ARC": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "ЗЗП.000.001.15.01 .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 9,
+        "INSERT": 6,
+        "DIMENSION": 6,
+        "ARC": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "золотник.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 111,
+        "TEXT": 22,
+        "ARC": 20,
+        "HATCH": 2,
+        "DIMENSION": 14,
+        "CIRCLE": 2,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "клапан.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 170,
+        "TEXT": 65,
+        "ARC": 25,
+        "DIMENSION": 28,
+        "LWPOLYLINE": 2,
+        "LEADER": 9,
+        "MTEXT": 4,
+        "SPLINE": 5,
+        "CIRCLE": 4,
+        "HATCH": 3
+      },
+      "layout_dimensions": 28,
+      "block_dimensions": 28
+    },
+    {
+      "name": "Кожух.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 762,
+        "LINE": 1571,
+        "LWPOLYLINE": 75,
+        "MTEXT": 12,
+        "ARC": 73,
+        "CIRCLE": 29,
+        "SPLINE": 18,
+        "DIMENSION": 121,
+        "HATCH": 23,
+        "LEADER": 23,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 121,
+      "block_dimensions": 121
+    },
+    {
+      "name": "Колесо зубчатое.dxf",
+      "version": "AC1018",
+      "units": 4,
+      "modelspace": {
+        "LINE": 61,
+        "XLINE": 44,
+        "ARC": 18,
+        "DIMENSION": 16,
+        "LEADER": 7,
+        "MTEXT": 7,
+        "CIRCLE": 1,
+        "SPLINE": 2,
+        "HATCH": 1
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "кольцо.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 71,
+        "TEXT": 43,
+        "ARC": 4,
+        "DIMENSION": 4,
+        "MTEXT": 3,
+        "SOLID": 3,
+        "POINT": 3,
+        "HATCH": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "кольцо2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 763,
+        "LINE": 1569,
+        "LWPOLYLINE": 79,
+        "HATCH": 24,
+        "DIMENSION": 116,
+        "MTEXT": 12,
+        "CIRCLE": 36,
+        "ARC": 72,
+        "TOLERANCE": 2,
+        "LEADER": 24,
+        "SPLINE": 17
+      },
+      "layout_dimensions": 116,
+      "block_dimensions": 116
+    },
+    {
+      "name": "кольцо3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 763,
+        "LINE": 1569,
+        "LWPOLYLINE": 79,
+        "HATCH": 24,
+        "CIRCLE": 36,
+        "ARC": 72,
+        "DIMENSION": 116,
+        "TOLERANCE": 2,
+        "MTEXT": 12,
+        "LEADER": 24,
+        "SPLINE": 17
+      },
+      "layout_dimensions": 116,
+      "block_dimensions": 116
+    },
+    {
+      "name": "кольцо4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1555,
+        "HATCH": 24,
+        "LWPOLYLINE": 77,
+        "ARC": 69,
+        "CIRCLE": 28,
+        "TEXT": 762,
+        "MTEXT": 12,
+        "DIMENSION": 113,
+        "LEADER": 25,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 113,
+      "block_dimensions": 113
+    },
+    {
+      "name": "кольцо5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 49,
+        "HATCH": 1,
+        "TEXT": 37,
+        "LWPOLYLINE": 6,
+        "DIMENSION": 3,
+        "MTEXT": 1,
+        "LEADER": 2
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "коромысло.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 22,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 3,
+        "ARC": 8,
+        "DIMENSION": 13,
+        "HATCH": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "корпус клапана.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 150,
+        "TEXT": 23,
+        "ARC": 32,
+        "LWPOLYLINE": 1,
+        "CIRCLE": 6,
+        "DIMENSION": 30,
+        "LEADER": 1,
+        "HATCH": 2
+      },
+      "layout_dimensions": 30,
+      "block_dimensions": 30
+    },
+    {
+      "name": "корпус.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 130,
+        "TEXT": 25,
+        "HATCH": 1,
+        "ARC": 24,
+        "CIRCLE": 11,
+        "DIMENSION": 27
+      },
+      "layout_dimensions": 27,
+      "block_dimensions": 27
+    },
+    {
+      "name": "Корпус10.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 142,
+        "TEXT": 18,
+        "CIRCLE": 5,
+        "ARC": 14,
+        "HATCH": 2,
+        "DIMENSION": 19,
+        "MTEXT": 4
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "Корпус11.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 388,
+        "TEXT": 40,
+        "ARC": 81,
+        "CIRCLE": 34,
+        "POINT": 1,
+        "LWPOLYLINE": 16,
+        "LEADER": 11,
+        "MTEXT": 16,
+        "HATCH": 5,
+        "DIMENSION": 4
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "корпус12.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 149,
+        "HATCH": 2,
+        "ARC": 9,
+        "CIRCLE": 4,
+        "SPLINE": 3,
+        "TEXT": 43,
+        "LWPOLYLINE": 9,
+        "DIMENSION": 24,
+        "LEADER": 2,
+        "TOLERANCE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 24,
+      "block_dimensions": 24
+    },
+    {
+      "name": "корпус13.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 2,
+        "LINE": 157,
+        "DIMENSION": 15,
+        "LWPOLYLINE": 9,
+        "LEADER": 2,
+        "TEXT": 44,
+        "CIRCLE": 3,
+        "ARC": 4,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "корпус2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 26,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "HATCH": 1,
+        "CIRCLE": 4,
+        "ARC": 7,
+        "DIMENSION": 11,
+        "LARGE_RADIAL_DIMENSION": 2
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "Корпус3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 141,
+        "TEXT": 17,
+        "ARC": 5,
+        "CIRCLE": 6,
+        "HATCH": 2,
+        "ELLIPSE": 1,
+        "DIMENSION": 21,
+        "MTEXT": 6,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "Корпус4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 24,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 4,
+        "ARC": 4,
+        "DIMENSION": 11,
+        "HATCH": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "Корпус5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 34,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 9,
+        "ARC": 8,
+        "DIMENSION": 13,
+        "HATCH": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Корпус6.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 158,
+        "TEXT": 18,
+        "CIRCLE": 1,
+        "ARC": 1,
+        "SPLINE": 2,
+        "HATCH": 2,
+        "DIMENSION": 20,
+        "LWPOLYLINE": 1,
+        "MTEXT": 2
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "Корпус7.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 140,
+        "TEXT": 20,
+        "ARC": 2,
+        "CIRCLE": 6,
+        "HATCH": 3,
+        "DIMENSION": 21,
+        "MTEXT": 6,
+        "SPLINE": 1,
+        "SOLID": 2
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "Корпус8.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 130,
+        "TEXT": 18,
+        "ELLIPSE": 1,
+        "CIRCLE": 6,
+        "ARC": 4,
+        "SPLINE": 3,
+        "HATCH": 3,
+        "DIMENSION": 18,
+        "MTEXT": 3
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "Корпус9.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 133,
+        "TEXT": 21,
+        "CIRCLE": 6,
+        "SPLINE": 3,
+        "ARC": 10,
+        "HATCH": 3,
+        "ELLIPSE": 2,
+        "LWPOLYLINE": 5,
+        "DIMENSION": 15,
+        "MTEXT": 5,
+        "SOLID": 2
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "Кран.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 157,
+        "TEXT": 24,
+        "SPLINE": 3,
+        "ELLIPSE": 2,
+        "HATCH": 2,
+        "CIRCLE": 6,
+        "ARC": 4,
+        "DIMENSION": 16,
+        "MTEXT": 6,
+        "SOLID": 2
+      },
+      "layout_dimensions": 16,
+      "block_dimensions": 16
+    },
+    {
+      "name": "крышка бака.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 110,
+        "HATCH": 5,
+        "CIRCLE": 33,
+        "ARC": 4,
+        "DIMENSION": 33,
+        "LWPOLYLINE": 18,
+        "TOLERANCE": 3,
+        "TEXT": 45,
+        "MTEXT": 1,
+        "SPLINE": 2,
+        "LEADER": 2
+      },
+      "layout_dimensions": 33,
+      "block_dimensions": 33
+    },
+    {
+      "name": "крышка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 64,
+        "LWPOLYLINE": 4,
+        "HATCH": 1,
+        "DIMENSION": 9
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "линейка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 38,
+        "LINE": 59,
+        "LWPOLYLINE": 5,
+        "MTEXT": 1,
+        "CIRCLE": 1,
+        "ARC": 6,
+        "SPLINE": 2,
+        "DIMENSION": 9
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "МТСП.24.03.001_Лист.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 8,
+        "INSERT": 9,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "МТСП.24.03.003_Палец .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 29,
+        "INSERT": 18,
+        "ARC": 4,
+        "HATCH": 1,
+        "DIMENSION": 12,
+        "CIRCLE": 9,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "МТСП.24.08.006_Двутавр.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 24,
+        "LINE": 71,
+        "ARC": 16,
+        "DIMENSION": 10,
+        "ELLIPSE": 4
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "МТСП.24.08.007_Втулка.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 3,
+        "INSERT": 10,
+        "DIMENSION": 7,
+        "LINE": 37,
+        "SPLINE": 8,
+        "HATCH": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "МТСП.24.08.012_Ребро.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 47,
+        "DIMENSION": 13,
+        "INSERT": 7,
+        "CIRCLE": 2,
+        "ARC": 2
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "МТСП.24.35.001_Втулка .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 1,
+        "LINE": 31,
+        "SPLINE": 4,
+        "CIRCLE": 5,
+        "DIMENSION": 6,
+        "INSERT": 6
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "МТСП.24.35.002_Палец .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 14,
+        "LINE": 38,
+        "HATCH": 2,
+        "SPLINE": 4,
+        "ARC": 2,
+        "CIRCLE": 5,
+        "DIMENSION": 10
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "МТСП.24.36.000 СБ Стойка .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 35,
+        "CIRCLE": 4,
+        "LINE": 131,
+        "DIMENSION": 17,
+        "HATCH": 3
+      },
+      "layout_dimensions": 17,
+      "block_dimensions": 17
+    },
+    {
+      "name": "МТСП.24.36.001_Ребро.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "DIMENSION": 7,
+        "INSERT": 6,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "МТСП.24.36.003_Втулка .dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 1,
+        "LINE": 21,
+        "CIRCLE": 5,
+        "DIMENSION": 4,
+        "INSERT": 6
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "МТСП.24.38.001 Швеллер.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 13,
+        "LINE": 52,
+        "ARC": 4,
+        "DIMENSION": 14,
+        "CIRCLE": 5,
+        "ELLIPSE": 6
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "МТСП.24.38.002 Швеллер.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 41,
+        "ARC": 4,
+        "DIMENSION": 9,
+        "INSERT": 6,
+        "ELLIPSE": 6
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "МТСП.24.39.001_Лист.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 12,
+        "INSERT": 11,
+        "CIRCLE": 6
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "МТСП.24.39.004_Лист.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 8,
+        "INSERT": 9,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "МТСП.24.40.002_Ребро.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 13,
+        "DIMENSION": 6,
+        "INSERT": 5
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "МТСП.24.40.003_Лист.dxf",
+      "version": "AC1032",
+      "units": 4,
+      "modelspace": {
+        "LINE": 8,
+        "DIMENSION": 8,
+        "INSERT": 9,
+        "CIRCLE": 4
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "Муфта.dxf",
+      "version": "AC1018",
+      "units": 4,
+      "modelspace": {
+        "CIRCLE": 6,
+        "ARC": 3,
+        "LINE": 30,
+        "HATCH": 2,
+        "SPLINE": 1,
+        "DIMENSION": 13
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 26
+    },
+    {
+      "name": "ниппель шаровой.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 60,
+        "LWPOLYLINE": 5,
+        "MTEXT": 1,
+        "HATCH": 1,
+        "ARC": 2,
+        "DIMENSION": 12,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "ниппель шаровой2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 1,
+        "ARC": 2,
+        "LINE": 61,
+        "TEXT": 37,
+        "LWPOLYLINE": 5,
+        "MTEXT": 1,
+        "DIMENSION": 12,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "ниппель.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 1,
+        "LINE": 57,
+        "TEXT": 37,
+        "LWPOLYLINE": 4,
+        "MTEXT": 1,
+        "DIMENSION": 7,
+        "LEADER": 1
+      },
+      "layout_dimensions": 7,
+      "block_dimensions": 7
+    },
+    {
+      "name": "обойма.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 761,
+        "LINE": 1566,
+        "LWPOLYLINE": 77,
+        "HATCH": 24,
+        "CIRCLE": 36,
+        "DIMENSION": 118,
+        "TOLERANCE": 2,
+        "ARC": 69,
+        "MTEXT": 11,
+        "LEADER": 23,
+        "SPLINE": 17
+      },
+      "layout_dimensions": 118,
+      "block_dimensions": 118
+    },
+    {
+      "name": "Опора.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 93,
+        "TEXT": 19,
+        "HATCH": 2,
+        "ARC": 7,
+        "CIRCLE": 6,
+        "DIMENSION": 14,
+        "MTEXT": 6
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Опора2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 131,
+        "TEXT": 20,
+        "ARC": 6,
+        "CIRCLE": 7,
+        "HATCH": 2,
+        "SPLINE": 1,
+        "DIMENSION": 21,
+        "MTEXT": 8,
+        "SOLID": 2
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "Опора3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 149,
+        "TEXT": 20,
+        "CIRCLE": 4,
+        "ARC": 19,
+        "ELLIPSE": 1,
+        "SPLINE": 1,
+        "HATCH": 2,
+        "DIMENSION": 19,
+        "MTEXT": 6,
+        "SOLID": 1
+      },
+      "layout_dimensions": 19,
+      "block_dimensions": 19
+    },
+    {
+      "name": "Опора4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 30,
+        "LWPOLYLINE": 24,
+        "TEXT": 22,
+        "ARC": 13,
+        "CIRCLE": 3,
+        "DIMENSION": 15,
+        "HATCH": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "Опора5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 174,
+        "TEXT": 20,
+        "ARC": 18,
+        "CIRCLE": 7,
+        "SPLINE": 2,
+        "HATCH": 3,
+        "DIMENSION": 21,
+        "SOLID": 1,
+        "MTEXT": 7
+      },
+      "layout_dimensions": 21,
+      "block_dimensions": 21
+    },
+    {
+      "name": "Опора6.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 93,
+        "TEXT": 18,
+        "ARC": 1,
+        "CIRCLE": 4,
+        "HATCH": 2,
+        "DIMENSION": 20,
+        "MTEXT": 3
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "Опора7.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 142,
+        "TEXT": 20,
+        "ARC": 4,
+        "CIRCLE": 6,
+        "HATCH": 2,
+        "DIMENSION": 20,
+        "MTEXT": 6
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "Опора8.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 133,
+        "TEXT": 18,
+        "CIRCLE": 1,
+        "ARC": 4,
+        "DIMENSION": 13,
+        "MTEXT": 3,
+        "SOLID": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Основание.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 105,
+        "TEXT": 18,
+        "ARC": 7,
+        "CIRCLE": 1,
+        "SPLINE": 2,
+        "HATCH": 2,
+        "DIMENSION": 11,
+        "MTEXT": 3
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "патрубок.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 65,
+        "TEXT": 21,
+        "HATCH": 2,
+        "DIMENSION": 5,
+        "ARC": 2
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "патрубок2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 58,
+        "ARC": 10,
+        "TEXT": 37,
+        "LWPOLYLINE": 5,
+        "MTEXT": 1,
+        "DIMENSION": 9,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 9,
+      "block_dimensions": 9
+    },
+    {
+      "name": "патрубок3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 36,
+        "LINE": 54,
+        "LWPOLYLINE": 5,
+        "MTEXT": 1,
+        "SPLINE": 2,
+        "DIMENSION": 5,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "патрубок4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 59,
+        "ARC": 5,
+        "DIMENSION": 6,
+        "CIRCLE": 1,
+        "LWPOLYLINE": 5,
+        "SPLINE": 2,
+        "TEXT": 37,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 6,
+      "block_dimensions": 6
+    },
+    {
+      "name": "перегородка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 74,
+        "CIRCLE": 24,
+        "TEXT": 38,
+        "LWPOLYLINE": 6,
+        "MTEXT": 1,
+        "DIMENSION": 10
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "переходник монометра.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1590,
+        "HATCH": 24,
+        "TEXT": 766,
+        "LWPOLYLINE": 84,
+        "MTEXT": 12,
+        "ARC": 76,
+        "CIRCLE": 31,
+        "DIMENSION": 127,
+        "LEADER": 25,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 127,
+      "block_dimensions": 127
+    },
+    {
+      "name": "переходник.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 104,
+        "TEXT": 54,
+        "DIMENSION": 15,
+        "ARC": 5,
+        "HATCH": 1,
+        "LWPOLYLINE": 1,
+        "LEADER": 2,
+        "CIRCLE": 2,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 15,
+      "block_dimensions": 15
+    },
+    {
+      "name": "переходник2.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 171,
+        "TEXT": 58,
+        "ARC": 30,
+        "SPLINE": 2,
+        "DIMENSION": 25,
+        "LEADER": 5,
+        "MTEXT": 3,
+        "CIRCLE": 4,
+        "HATCH": 3,
+        "LWPOLYLINE": 1
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "переходник3.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 119,
+        "ARC": 8,
+        "DIMENSION": 18,
+        "TEXT": 59,
+        "CIRCLE": 5,
+        "LEADER": 5,
+        "LWPOLYLINE": 1,
+        "MTEXT": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "переходник4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1589,
+        "HATCH": 24,
+        "LWPOLYLINE": 83,
+        "ARC": 79,
+        "CIRCLE": 31,
+        "TEXT": 767,
+        "MTEXT": 12,
+        "DIMENSION": 127,
+        "LEADER": 25,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 127,
+      "block_dimensions": 127
+    },
+    {
+      "name": "плита.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 59,
+        "CIRCLE": 10,
+        "ARC": 4,
+        "DIMENSION": 14,
+        "TEXT": 40,
+        "LWPOLYLINE": 7,
+        "LEADER": 3,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "полумуфта.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 47,
+        "LINE": 120,
+        "LWPOLYLINE": 11,
+        "HATCH": 2,
+        "CIRCLE": 2,
+        "ARC": 8,
+        "DIMENSION": 25,
+        "TOLERANCE": 2,
+        "LEADER": 4,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "полумуфта2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 47,
+        "LINE": 119,
+        "LWPOLYLINE": 11,
+        "HATCH": 2,
+        "CIRCLE": 2,
+        "ARC": 8,
+        "DIMENSION": 25,
+        "TOLERANCE": 2,
+        "LEADER": 4,
+        "SPLINE": 1
+      },
+      "layout_dimensions": 25,
+      "block_dimensions": 25
+    },
+    {
+      "name": "Поршень.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 95,
+        "TEXT": 25,
+        "ARC": 26,
+        "HATCH": 1,
+        "DIMENSION": 14
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "пробка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 41,
+        "LINE": 107,
+        "LWPOLYLINE": 4,
+        "HATCH": 1,
+        "ARC": 1,
+        "DIMENSION": 12,
+        "SPLINE": 1,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "пробка18.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 68,
+        "LWPOLYLINE": 13,
+        "ARC": 13,
+        "CIRCLE": 2,
+        "TEXT": 40,
+        "MTEXT": 1,
+        "DIMENSION": 11,
+        "LEADER": 1
+      },
+      "layout_dimensions": 11,
+      "block_dimensions": 11
+    },
+    {
+      "name": "Пробка43.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1575,
+        "TEXT": 765,
+        "LWPOLYLINE": 82,
+        "ARC": 82,
+        "CIRCLE": 31,
+        "DIMENSION": 120,
+        "LEADER": 24,
+        "MTEXT": 12,
+        "HATCH": 23,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 120,
+      "block_dimensions": 120
+    },
+    {
+      "name": "прокладка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 59,
+        "TEXT": 21,
+        "HATCH": 1,
+        "DIMENSION": 3,
+        "ARC": 2
+      },
+      "layout_dimensions": 3,
+      "block_dimensions": 3
+    },
+    {
+      "name": "прокладка2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 760,
+        "LINE": 1552,
+        "LWPOLYLINE": 73,
+        "CIRCLE": 34,
+        "DIMENSION": 114,
+        "LEADER": 24,
+        "MTEXT": 12,
+        "HATCH": 23,
+        "ARC": 69,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 114,
+      "block_dimensions": 114
+    },
+    {
+      "name": "прокладка4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 83,
+        "CIRCLE": 18,
+        "DIMENSION": 13,
+        "TEXT": 35,
+        "LWPOLYLINE": 2,
+        "MTEXT": 1,
+        "LEADER": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "прокладка5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 35,
+        "LINE": 46,
+        "LWPOLYLINE": 2,
+        "CIRCLE": 6,
+        "DIMENSION": 4,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "прокладка6.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 35,
+        "LINE": 44,
+        "LWPOLYLINE": 2,
+        "CIRCLE": 2,
+        "DIMENSION": 2,
+        "LEADER": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 2,
+      "block_dimensions": 2
+    },
+    {
+      "name": "Пружина.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 75,
+        "TEXT": 35,
+        "ARC": 10,
+        "HATCH": 1,
+        "CIRCLE": 2,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "Рычаг.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 27,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 4,
+        "ARC": 7,
+        "DIMENSION": 13,
+        "HATCH": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "рычаг2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 26,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 7,
+        "ARC": 5,
+        "DIMENSION": 14,
+        "HATCH": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "сальник.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 760,
+        "LINE": 1555,
+        "LWPOLYLINE": 73,
+        "HATCH": 24,
+        "DIMENSION": 113,
+        "ARC": 69,
+        "CIRCLE": 28,
+        "MTEXT": 11,
+        "LEADER": 23,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 113,
+      "block_dimensions": 113
+    },
+    {
+      "name": "стойка.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 28,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 3,
+        "ARC": 16,
+        "DIMENSION": 18,
+        "HATCH": 1
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "стойка2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 65,
+        "HATCH": 1,
+        "ARC": 7,
+        "TEXT": 40,
+        "LWPOLYLINE": 8,
+        "MTEXT": 1,
+        "CIRCLE": 5,
+        "DIMENSION": 10,
+        "LEADER": 4,
+        "SPLINE": 2
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "стойка3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 40,
+        "LINE": 50,
+        "LWPOLYLINE": 8,
+        "MTEXT": 1,
+        "DIMENSION": 5,
+        "LEADER": 4,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "Сфера1.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 59,
+        "TEXT": 18,
+        "CIRCLE": 4,
+        "DIMENSION": 8
+      },
+      "layout_dimensions": 8,
+      "block_dimensions": 8
+    },
+    {
+      "name": "Сфера2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 87,
+        "TEXT": 18,
+        "CIRCLE": 2,
+        "ARC": 20,
+        "ELLIPSE": 16,
+        "HATCH": 3,
+        "DIMENSION": 10
+      },
+      "layout_dimensions": 10,
+      "block_dimensions": 10
+    },
+    {
+      "name": "трубка.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 78,
+        "TEXT": 40,
+        "ARC": 2,
+        "DIMENSION": 4,
+        "SPLINE": 3,
+        "HATCH": 1,
+        "CIRCLE": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "Фланец ГОСТ 12821-80.dxf",
+      "version": "AC1027",
+      "units": 4,
+      "modelspace": {
+        "INSERT": 1
+      },
+      "layout_dimensions": 0,
+      "block_dimensions": 4
+    },
+    {
+      "name": "Фланец.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 134,
+        "TEXT": 21,
+        "CIRCLE": 6,
+        "ARC": 12,
+        "ELLIPSE": 2,
+        "HATCH": 3,
+        "DIMENSION": 18,
+        "MTEXT": 5
+      },
+      "layout_dimensions": 18,
+      "block_dimensions": 18
+    },
+    {
+      "name": "Фланец2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 146,
+        "TEXT": 21,
+        "CIRCLE": 6,
+        "ARC": 11,
+        "ELLIPSE": 2,
+        "HATCH": 3,
+        "DIMENSION": 20,
+        "MTEXT": 5
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "фланец3.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 112,
+        "ARC": 21,
+        "CIRCLE": 18,
+        "TEXT": 43,
+        "LWPOLYLINE": 12,
+        "MTEXT": 1,
+        "HATCH": 3,
+        "SPLINE": 1,
+        "DIMENSION": 22,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 22,
+      "block_dimensions": 22
+    },
+    {
+      "name": "фланец4.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 41,
+        "LINE": 72,
+        "LWPOLYLINE": 7,
+        "HATCH": 1,
+        "ARC": 2,
+        "DIMENSION": 12,
+        "LEADER": 2,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "фланец5.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 37,
+        "LINE": 53,
+        "LWPOLYLINE": 4,
+        "HATCH": 1,
+        "DIMENSION": 5
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "фланец6.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "TEXT": 36,
+        "LINE": 47,
+        "LWPOLYLINE": 3,
+        "CIRCLE": 6,
+        "DIMENSION": 4,
+        "LEADER": 1,
+        "TOLERANCE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "Цилиндр.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 25,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "CIRCLE": 4,
+        "ARC": 13,
+        "DIMENSION": 13,
+        "HATCH": 1
+      },
+      "layout_dimensions": 13,
+      "block_dimensions": 13
+    },
+    {
+      "name": "Цилиндр2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 27,
+        "LWPOLYLINE": 24,
+        "TEXT": 21,
+        "ARC": 15,
+        "CIRCLE": 3,
+        "DIMENSION": 14,
+        "HATCH": 1
+      },
+      "layout_dimensions": 14,
+      "block_dimensions": 14
+    },
+    {
+      "name": "Шайба.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 45,
+        "TEXT": 19,
+        "CIRCLE": 12,
+        "ARC": 5,
+        "DIMENSION": 5,
+        "MTEXT": 3
+      },
+      "layout_dimensions": 5,
+      "block_dimensions": 5
+    },
+    {
+      "name": "Шайба2.dxf",
+      "version": "AC1024",
+      "units": 0,
+      "modelspace": {
+        "LINE": 92,
+        "TEXT": 55,
+        "ARC": 4,
+        "CIRCLE": 3,
+        "DIMENSION": 4,
+        "LWPOLYLINE": 1,
+        "LEADER": 1,
+        "HATCH": 1
+      },
+      "layout_dimensions": 4,
+      "block_dimensions": 4
+    },
+    {
+      "name": "штуцер концевой.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 3,
+        "LINE": 103,
+        "TEXT": 45,
+        "LWPOLYLINE": 14,
+        "DIMENSION": 22,
+        "LEADER": 3,
+        "SPLINE": 1,
+        "ARC": 8,
+        "CIRCLE": 4,
+        "TOLERANCE": 1,
+        "MTEXT": 1
+      },
+      "layout_dimensions": 22,
+      "block_dimensions": 22
+    },
+    {
+      "name": "штуцер.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 69,
+        "HATCH": 1,
+        "TEXT": 40,
+        "LWPOLYLINE": 6,
+        "DIMENSION": 12,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "штуцер18.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 93,
+        "HATCH": 1,
+        "LWPOLYLINE": 14,
+        "ARC": 7,
+        "CIRCLE": 3,
+        "TEXT": 41,
+        "MTEXT": 1,
+        "DIMENSION": 20,
+        "LEADER": 2
+      },
+      "layout_dimensions": 20,
+      "block_dimensions": 20
+    },
+    {
+      "name": "штуцер2.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "HATCH": 1,
+        "LINE": 70,
+        "DIMENSION": 12,
+        "TEXT": 40,
+        "LWPOLYLINE": 6,
+        "LEADER": 1
+      },
+      "layout_dimensions": 12,
+      "block_dimensions": 12
+    },
+    {
+      "name": "штуцер43.dxf",
+      "version": "AC1024",
+      "units": 4,
+      "modelspace": {
+        "LINE": 1596,
+        "HATCH": 24,
+        "TEXT": 768,
+        "LWPOLYLINE": 86,
+        "ARC": 76,
+        "CIRCLE": 32,
+        "DIMENSION": 127,
+        "LEADER": 25,
+        "MTEXT": 12,
+        "SPLINE": 17,
+        "TOLERANCE": 1
+      },
+      "layout_dimensions": 127,
+      "block_dimensions": 127
+    }
+  ]
+}
