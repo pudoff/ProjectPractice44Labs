@@ -2,7 +2,7 @@
  "scale": {
   "status": "known",
   "method": "sheet_trim",
-  "residual": 0.9998820089073123,
+  "residual": 0.999882714243991,
   "px_per_mm": [
    11.80952380952381,
    11.808080808080808
@@ -23,12 +23,12 @@
    },
    "detected": 221,
    "on_geometry": 125,
-   "not_part_graphics": 66,
-   "extra": 30,
+   "not_part_graphics": 65,
+   "extra": 31,
    "extra_causes": {
     "other": 14,
     "short": 7,
-    "dims": 5,
+    "dims": 6,
     "hatch": 4
    },
    "duplicates": 1,
@@ -101,44 +101,44 @@
   },
   "contour": {
    "reference": 7,
-   "found": 2,
-   "missed": 5,
+   "found": 3,
+   "missed": 4,
    "missed_causes": {
-    "break": 4,
-    "lost": 1
+    "break": 2,
+    "lost": 2
    },
-   "detected": 30,
-   "extra": 28,
+   "detected": 35,
+   "extra": 32,
    "extra_causes": {
-    "other": 28
+    "other": 32
    },
    "copies": 0,
-   "precision": 0.0667,
-   "recall": 0.2857
+   "precision": 0.0857,
+   "recall": 0.4286
   }
  },
  "backend": {
   "graph_valid": true,
-  "closed": 30,
-  "accepted": 30,
+  "closed": 35,
+  "accepted": 35,
   "rejected": {},
-  "points": 661,
+  "points": 657,
   "ambiguous_points": 0
  },
  "closure": {
   "edges_meet": true,
   "max_residual_mm": 0.0,
-  "joined": 148,
-  "refused": 10,
-  "undone": 5,
+  "joined": 159,
+  "refused": 12,
+  "undone": 7,
   "closed_by_tolerance_only": 40,
   "closed_by_tolerance_with_real_gap": 39,
-  "closed_in_coordinates": 30
+  "closed_in_coordinates": 35
  },
  "defects": {
-  "contour_not_simple": 6,
+  "contour_not_simple": 7,
   "end_extended": 17,
-  "gap": 110,
+  "gap": 101,
   "hatch_boundary_unresolved": 1,
   "open_end": 33,
   "self_intersection": 18

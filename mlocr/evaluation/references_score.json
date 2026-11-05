@@ -1,0 +1,87 @@
+{
+ "sheets": 33,
+ "readings_matched": 448,
+ "exact": 324,
+ "exact_share": 0.7232,
+ "mean_similarity": 0.9273,
+ "by_kind": {
+  "diameter": {
+   "n": 1,
+   "exact": 0.0
+  },
+  "linear": {
+   "n": 26,
+   "exact": 0.731
+  },
+  "linear_tolerance": {
+   "n": 1,
+   "exact": 1.0
+  },
+  "radius": {
+   "n": 7,
+   "exact": 1.0
+  },
+  "scale": {
+   "n": 13,
+   "exact": 1.0
+  },
+  "unknown": {
+   "n": 400,
+   "exact": 0.71
+  }
+ },
+ "fields": {
+  "authors": {
+   "sheets_with_truth": 7,
+   "correct_0.9": 0,
+   "filled_0.5": 0,
+   "mean": 0.063
+  },
+  "document_number": {
+   "sheets_with_truth": 4,
+   "correct_0.9": 3,
+   "filled_0.5": 3,
+   "mean": 0.786
+  },
+  "name": {
+   "sheets_with_truth": 15,
+   "correct_0.9": 8,
+   "filled_0.5": 14,
+   "mean": 0.83
+  },
+  "material": {
+   "sheets_with_truth": 10,
+   "correct_0.9": 7,
+   "filled_0.5": 8,
+   "mean": 0.833
+  }
+ },
+ "by_file_name": {
+  "document_number:cells": {
+   "sheets": 20,
+   "correct": 16
+  },
+  "document_number:layout": {
+   "sheets": 20,
+   "correct": 11
+  },
+  "name:cells": {
+   "sheets": 23,
+   "correct": 17
+  },
+  "name:layout": {
+   "sheets": 23,
+   "correct": 3
+  }
+ },
+ "filled": {
+  "authors:cells": 19,
+  "document_number:cells": 21,
+  "material:cells": 27,
+  "name:cells": 29,
+  "authors:layout": 4,
+  "document_number:layout": 23,
+  "material:layout": 23,
+  "name:layout": 32
+ }
+}

@@ -43,6 +43,7 @@
   "extend_max_mm": 2.0,
   "closure_max_turn_deg": 3.0,
   "closure_min_ink": 0.75,
+  "closure_reach_over_ink_mm": 2.0,
   "overlay_max_side_px": 4000,
   "save_debug_images": true,
   "extra": {}
@@ -103,18 +104,18 @@
   "anisotropy": 0.006649
  },
  "timings_s": {
-  "ingest": 0.264,
-  "preprocess": 8.724,
-  "calibrate": 0.677,
-  "text_regions": 0.579,
-  "vectorize": 1.443,
-  "hatch_second_pass": 1.529,
-  "classify": 0.041,
-  "topology": 0.38,
-  "images": 0.343,
-  "total": 13.98
+  "ingest": 0.251,
+  "preprocess": 9.063,
+  "calibrate": 0.702,
+  "text_regions": 0.558,
+  "vectorize": 1.474,
+  "hatch_second_pass": 1.531,
+  "classify": 0.04,
+  "topology": 0.442,
+  "images": 0.342,
+  "total": 14.403
  },
- "evaluation_wall_s": 18.55,
+ "evaluation_wall_s": 19.04,
  "source_size_px": [
   4959,
   7017

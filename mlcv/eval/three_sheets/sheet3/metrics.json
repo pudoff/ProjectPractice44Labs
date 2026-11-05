@@ -2,7 +2,7 @@
  "scale": {
   "status": "known",
   "method": "sheet_trim",
-  "residual": 0.9999282867492848,
+  "residual": 0.9999292849555196,
   "px_per_mm": [
    11.80952380952381,
    11.808080808080808
@@ -12,10 +12,11 @@
  "kinds": {
   "line": {
    "reference": 56,
-   "found": 44,
-   "missed": 12,
+   "found": 43,
+   "missed": 13,
    "missed_causes": {
-    "text": 12
+    "text": 12,
+    "hatch": 1
    },
    "detected": 221,
    "on_geometry": 111,
@@ -28,13 +29,13 @@
     "short": 5,
     "text": 1
    },
-   "duplicates": 4,
+   "duplicates": 6,
    "errors_mm": {
     "конец": {
-     "n": 19,
-     "mean": 0.14,
-     "p95": 0.347,
-     "max": 0.347
+     "n": 18,
+     "mean": 0.111,
+     "p95": 0.199,
+     "max": 0.324
     }
    }
   },
@@ -96,48 +97,48 @@
   },
   "contour": {
    "reference": 7,
-   "found": 3,
-   "missed": 4,
+   "found": 2,
+   "missed": 5,
    "missed_causes": {
     "break": 3,
-    "lost": 1
+    "lost": 2
    },
-   "detected": 17,
-   "extra": 14,
+   "detected": 30,
+   "extra": 28,
    "extra_causes": {
-    "other": 5,
-    "hatch": 9
+    "other": 11,
+    "hatch": 17
    },
    "copies": 0,
-   "precision": 0.1765,
-   "recall": 0.4286
+   "precision": 0.0667,
+   "recall": 0.2857
   }
  },
  "backend": {
   "graph_valid": true,
-  "closed": 17,
-  "accepted": 17,
+  "closed": 30,
+  "accepted": 30,
   "rejected": {},
-  "points": 622,
+  "points": 617,
   "ambiguous_points": 0
  },
  "closure": {
   "edges_meet": true,
   "max_residual_mm": 0.0,
-  "joined": 109,
-  "refused": 12,
+  "joined": 127,
+  "refused": 15,
   "undone": 0,
   "closed_by_tolerance_only": 28,
   "closed_by_tolerance_with_real_gap": 26,
-  "closed_in_coordinates": 17
+  "closed_in_coordinates": 30
  },
  "defects": {
   "contour_not_simple": 2,
   "corner_restored": 1,
   "end_extended": 22,
-  "gap": 105,
+  "gap": 86,
   "hatch_boundary_unresolved": 2,
   "open_end": 23,
-  "self_intersection": 11
+  "self_intersection": 12
  }
 }

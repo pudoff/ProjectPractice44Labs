@@ -20,20 +20,20 @@
    "graph_rejected": 0
   },
   "new": {
-   "body_found": 1070,
+   "body_found": 1066,
    "body_total": 1244,
-   "extra": 1448,
-   "contour_pairs": 121,
+   "extra": 1454,
+   "contour_pairs": 132,
    "contour_reference": 246,
-   "contours_closed": 641,
+   "contours_closed": 710,
    "contour_copies": 0,
-   "found_many_to_one": 124,
-   "backend_accepted": 640,
+   "found_many_to_one": 132,
+   "backend_accepted": 709,
    "ambiguous_points": 0,
-   "gaps": 573,
-   "self_intersections": 390,
+   "gaps": 435,
+   "self_intersections": 382,
    "hatches": 7,
-   "points": 14037,
+   "points": 13946,
    "over_ocr_limit": 14,
    "graph_rejected": 0
   }
@@ -77,7 +77,7 @@
     "points": 116,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.803
+    "time_s": 7.568
    }
   },
   {
@@ -105,20 +105,20 @@
     "body_found": 24,
     "body_total": 24,
     "extra": 4,
-    "contour_pairs": 5,
+    "contour_pairs": 6,
     "contour_reference": 6,
-    "contours_closed": 5,
+    "contours_closed": 6,
     "contour_copies": 0,
-    "found_many_to_one": 5,
-    "backend_accepted": 5,
+    "found_many_to_one": 6,
+    "backend_accepted": 6,
     "ambiguous_points": 0,
-    "gaps": 4,
+    "gaps": 2,
     "self_intersections": 1,
     "hatches": 1,
-    "points": 114,
+    "points": 113,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.351
+    "time_s": 6.894
    }
   },
   {
@@ -159,7 +159,7 @@
     "points": 116,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.973
+    "time_s": 7.789
    }
   },
   {
@@ -200,7 +200,7 @@
     "points": 171,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.884
+    "time_s": 8.149
    }
   },
   {
@@ -241,7 +241,7 @@
     "points": 187,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.151
+    "time_s": 7.111
    }
   },
   {
@@ -282,7 +282,7 @@
     "points": 193,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.013
+    "time_s": 6.746
    }
   },
   {
@@ -323,7 +323,7 @@
     "points": 195,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 7.565
+    "time_s": 7.22
    }
   },
   {
@@ -364,7 +364,7 @@
     "points": 287,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 6.946
+    "time_s": 7.647
    }
   },
   {
@@ -405,7 +405,7 @@
     "points": 294,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 5.677
+    "time_s": 6.003
    }
   },
   {
@@ -446,7 +446,7 @@
     "points": 299,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 9.304
+    "time_s": 9.198
    }
   },
   {
@@ -476,18 +476,18 @@
     "extra": 214,
     "contour_pairs": 0,
     "contour_reference": 0,
-    "contours_closed": 33,
+    "contours_closed": 42,
     "contour_copies": 0,
     "found_many_to_one": 0,
-    "backend_accepted": 33,
+    "backend_accepted": 42,
     "ambiguous_points": 0,
-    "gaps": 52,
+    "gaps": 34,
     "self_intersections": 23,
     "hatches": 0,
-    "points": 570,
+    "points": 555,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 12.862
+    "time_s": 13.528
    }
   },
   {
@@ -517,18 +517,18 @@
     "extra": 91,
     "contour_pairs": 1,
     "contour_reference": 9,
-    "contours_closed": 53,
+    "contours_closed": 59,
     "contour_copies": 0,
     "found_many_to_one": 1,
-    "backend_accepted": 53,
+    "backend_accepted": 59,
     "ambiguous_points": 0,
-    "gaps": 79,
-    "self_intersections": 43,
+    "gaps": 52,
+    "self_intersections": 38,
     "hatches": 0,
-    "points": 595,
+    "points": 578,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 14.845
+    "time_s": 15.022
    }
   },
   {
@@ -555,21 +555,21 @@
    "new": {
     "body_found": 42,
     "body_total": 45,
-    "extra": 88,
-    "contour_pairs": 2,
+    "extra": 89,
+    "contour_pairs": 1,
     "contour_reference": 8,
     "contours_closed": 16,
     "contour_copies": 0,
-    "found_many_to_one": 2,
+    "found_many_to_one": 1,
     "backend_accepted": 16,
     "ambiguous_points": 0,
-    "gaps": 48,
-    "self_intersections": 17,
+    "gaps": 45,
+    "self_intersections": 16,
     "hatches": 0,
-    "points": 381,
+    "points": 378,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 8.676
+    "time_s": 9.17
    }
   },
   {
@@ -610,7 +610,7 @@
     "points": 514,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 20.362
+    "time_s": 22.019
    }
   },
   {
@@ -635,23 +635,23 @@
     "time_s": 16.975
    },
    "new": {
-    "body_found": 59,
+    "body_found": 56,
     "body_total": 64,
-    "extra": 127,
-    "contour_pairs": 2,
+    "extra": 129,
+    "contour_pairs": 4,
     "contour_reference": 11,
-    "contours_closed": 4,
+    "contours_closed": 9,
     "contour_copies": 0,
     "found_many_to_one": 4,
-    "backend_accepted": 4,
+    "backend_accepted": 9,
     "ambiguous_points": 0,
-    "gaps": 24,
+    "gaps": 18,
     "self_intersections": 2,
     "hatches": 0,
-    "points": 830,
+    "points": 825,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 19.256
+    "time_s": 19.283
    }
   },
   {
@@ -692,7 +692,7 @@
     "points": 491,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 11.841
+    "time_s": 11.756
    }
   },
   {
@@ -720,20 +720,20 @@
     "body_found": 24,
     "body_total": 25,
     "extra": 62,
-    "contour_pairs": 4,
+    "contour_pairs": 5,
     "contour_reference": 5,
-    "contours_closed": 4,
+    "contours_closed": 5,
     "contour_copies": 0,
-    "found_many_to_one": 4,
-    "backend_accepted": 4,
+    "found_many_to_one": 5,
+    "backend_accepted": 5,
     "ambiguous_points": 0,
-    "gaps": 4,
+    "gaps": 2,
     "self_intersections": 0,
     "hatches": 0,
-    "points": 568,
+    "points": 567,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 15.276
+    "time_s": 15.733
    }
   },
   {
@@ -763,18 +763,18 @@
     "extra": 27,
     "contour_pairs": 2,
     "contour_reference": 5,
-    "contours_closed": 7,
+    "contours_closed": 10,
     "contour_copies": 0,
     "found_many_to_one": 2,
-    "backend_accepted": 7,
+    "backend_accepted": 10,
     "ambiguous_points": 0,
-    "gaps": 20,
-    "self_intersections": 1,
+    "gaps": 14,
+    "self_intersections": 0,
     "hatches": 0,
-    "points": 355,
+    "points": 351,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 9.113
+    "time_s": 9.519
    }
   },
   {
@@ -809,13 +809,13 @@
     "found_many_to_one": 0,
     "backend_accepted": 2,
     "ambiguous_points": 0,
-    "gaps": 37,
+    "gaps": 34,
     "self_intersections": 3,
     "hatches": 0,
-    "points": 359,
+    "points": 357,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 8.971
+    "time_s": 8.868
    }
   },
   {
@@ -856,7 +856,7 @@
     "points": 382,
     "over_ocr_limit": 0,
     "graph_rejected": 0,
-    "time_s": 11.251
+    "time_s": 11.378
    }
   },
   {
@@ -881,23 +881,23 @@
     "time_s": 17.015
    },
    "new": {
-    "body_found": 56,
+    "body_found": 54,
     "body_total": 60,
-    "extra": 107,
-    "contour_pairs": 5,
+    "extra": 109,
+    "contour_pairs": 6,
     "contour_reference": 11,
-    "contours_closed": 7,
+    "contours_closed": 9,
     "contour_copies": 0,
     "found_many_to_one": 6,
-    "backend_accepted": 6,
+    "backend_accepted": 8,
     "ambiguous_points": 0,
-    "gaps": 19,
-    "self_intersections": 4,
+    "gaps": 16,
+    "self_intersections": 3,
     "hatches": 0,
-    "points": 769,
+    "points": 767,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 19.811
+    "time_s": 20.291
    }
   },
   {
@@ -938,7 +938,7 @@
     "points": 433,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 10.41
+    "time_s": 10.691
    }
   },
   {
@@ -979,7 +979,7 @@
     "points": 1130,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 18.425
+    "time_s": 18.305
    }
   },
   {
@@ -1014,13 +1014,13 @@
     "found_many_to_one": 10,
     "backend_accepted": 12,
     "ambiguous_points": 0,
-    "gaps": 16,
+    "gaps": 13,
     "self_intersections": 2,
     "hatches": 0,
-    "points": 956,
+    "points": 954,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 20.496
+    "time_s": 21.724
    }
   },
   {
@@ -1055,13 +1055,13 @@
     "found_many_to_one": 8,
     "backend_accepted": 14,
     "ambiguous_points": 0,
-    "gaps": 19,
+    "gaps": 13,
     "self_intersections": 1,
     "hatches": 0,
-    "points": 1352,
+    "points": 1349,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 15.648
+    "time_s": 15.43
    }
   },
   {
@@ -1089,20 +1089,20 @@
     "body_found": 103,
     "body_total": 113,
     "extra": 16,
-    "contour_pairs": 10,
+    "contour_pairs": 17,
     "contour_reference": 42,
-    "contours_closed": 16,
+    "contours_closed": 24,
     "contour_copies": 0,
-    "found_many_to_one": 10,
-    "backend_accepted": 16,
+    "found_many_to_one": 17,
+    "backend_accepted": 24,
     "ambiguous_points": 0,
-    "gaps": 57,
+    "gaps": 45,
     "self_intersections": 10,
     "hatches": 2,
-    "points": 950,
+    "points": 941,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 18.836
+    "time_s": 18.62
    }
   },
   {
@@ -1132,18 +1132,18 @@
     "extra": 8,
     "contour_pairs": 0,
     "contour_reference": 0,
-    "contours_closed": 90,
+    "contours_closed": 98,
     "contour_copies": 0,
     "found_many_to_one": 0,
-    "backend_accepted": 90,
+    "backend_accepted": 98,
     "ambiguous_points": 0,
-    "gaps": 55,
+    "gaps": 44,
     "self_intersections": 4,
     "hatches": 0,
-    "points": 755,
+    "points": 747,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 17.263
+    "time_s": 17.93
    }
   },
   {
@@ -1168,23 +1168,23 @@
     "time_s": 14.49
    },
    "new": {
-    "body_found": 31,
+    "body_found": 32,
     "body_total": 35,
-    "extra": 7,
+    "extra": 8,
     "contour_pairs": 0,
     "contour_reference": 0,
-    "contours_closed": 57,
+    "contours_closed": 83,
     "contour_copies": 0,
     "found_many_to_one": 0,
-    "backend_accepted": 57,
+    "backend_accepted": 83,
     "ambiguous_points": 0,
-    "gaps": 100,
+    "gaps": 64,
     "self_intersections": 3,
     "hatches": 0,
-    "points": 675,
+    "points": 656,
     "over_ocr_limit": 1,
     "graph_rejected": 0,
-    "time_s": 17.336
+    "time_s": 18.582
    }
   }
  ]
