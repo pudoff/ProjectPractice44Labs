@@ -1,5 +1,9 @@
-"""Reading PNG / JPEG / PDF into one grayscale page image. After this stage all formats follow the same path."""
+"""Reading PNG / JPEG / PDF into one grayscale page image. After this stage all formats follow the same path.
+
+The size of the image is checked from the file header (PDF: from the page size) before anything is decoded, so a small
+file that unpacks into gigabytes is refused without allocating them."""
 import hashlib
+import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -8,9 +12,37 @@ from PIL import Image, ImageOps
 
 from .transform import Transform
 
-Image.MAX_IMAGE_PIXELS = None
 RASTER_FORMATS = {".png": "png", ".jpg": "jpeg", ".jpeg": "jpeg"}
 MM_PER_INCH = 25.4
+DEFAULT_MAX_PIXELS = 300_000_000
+MAX_SIDE_PX = 32000                  # OpenCV warpAffine / remap refuse sides of 32767 px and more
+_header_lock = threading.Lock()
+
+
+class ImageTooLarge(ValueError):
+    """The decoded image would exceed the configured limit; nothing was decoded."""
+
+
+def check_size(width, height, max_pixels, what="image"):
+    pixels = int(width) * int(height)
+    if pixels > max_pixels:
+        raise ImageTooLarge(f"{what} {int(width)}x{int(height)} px = {pixels / 1e6:.1f} Mpx exceeds the limit of "
+                            f"{max_pixels / 1e6:.0f} Mpx (Params.max_image_pixels, DRAWCV_MAX_IMAGE_PIXELS)")
+    if max(width, height) > MAX_SIDE_PX:
+        raise ImageTooLarge(f"{what} {int(width)}x{int(height)} px: a side exceeds {MAX_SIDE_PX} px")
+
+
+def open_header(path):
+    """Image.open reads only the header. Pillow's own bomb check is global and lower than the sheets of the dataset
+    (A1 at 600 dpi), and changing it for the whole process would also change it for the other modules, so it is
+    lifted for this call only; check_size() follows before any decoding."""
+    with _header_lock:
+        saved = Image.MAX_IMAGE_PIXELS
+        Image.MAX_IMAGE_PIXELS = None
+        try:
+            return Image.open(path)
+        finally:
+            Image.MAX_IMAGE_PIXELS = saved
 
 
 @dataclass
@@ -53,15 +85,16 @@ def sha256_of(path):
     return h.hexdigest()
 
 
-def load_page(path, page_index=0, pdf_render_dpi=300.0):
+def load_page(path, page_index=0, pdf_render_dpi=300.0, max_pixels=DEFAULT_MAX_PIXELS):
     path = Path(path)
     suffix = path.suffix.lower()
     digest = sha256_of(path)
     if suffix == ".pdf":
-        return _load_pdf(path, digest, page_index, pdf_render_dpi)
+        return _load_pdf(path, digest, page_index, pdf_render_dpi, max_pixels)
     if suffix not in RASTER_FORMATS:
         raise ValueError(f"unsupported input format: {suffix} (PNG, JPEG or PDF expected)")
-    with Image.open(path) as im:
+    with open_header(path) as im:
+        check_size(im.width, im.height, max_pixels)
         notes = []
         orientation = im.getexif().get(0x0112, 1)
         if orientation != 1:
@@ -92,7 +125,7 @@ def load_page(path, page_index=0, pdf_render_dpi=300.0):
                 dpi=dpi_value, notes=notes, raster_identity=identity)
 
 
-def _load_pdf(path, digest, page_index, dpi):
+def _load_pdf(path, digest, page_index, dpi, max_pixels):
     import pypdfium2 as pdfium
 
     pdf = pdfium.PdfDocument(str(path))
@@ -102,6 +135,7 @@ def _load_pdf(path, digest, page_index, dpi):
             raise ValueError(f"page {page_index + 1} requested, PDF has {count}")
         page = pdf[page_index]
         w_pt, h_pt = page.get_size()
+        check_size(w_pt * dpi / 72.0, h_pt * dpi / 72.0, max_pixels, f"PDF page at {dpi:g} dpi")
         bitmap = page.render(scale=dpi / 72.0, grayscale=True, fill_color=(255, 255, 255, 255))
         gray = np.asarray(bitmap.to_pil().convert("L"), dtype=np.uint8).copy()
     finally:

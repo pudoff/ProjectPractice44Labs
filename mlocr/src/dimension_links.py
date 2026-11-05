@@ -21,6 +21,15 @@ def _transform(matrix: list[list[float]], point: tuple[float, float]) -> tuple[f
             matrix[1][0] * x + matrix[1][1] * y + matrix[1][2])
 
 
+def _can_anchor(point, objects):
+    """A linear dimension is confirmed only on the start or end of a part object (see _line_evidence). Middles,
+    quadrants, centres and thin lines of a crowded sheet must not use up the complexity limit."""
+    for ref in point.get("refs", []):
+        if objects.get(ref.get("object_id"), {}).get("role", "part") == "part" and ref.get("anchor", "start") in {"start", "end"}:
+            return True
+    return False
+
+
 def propose_dimension_links(ocr_page: dict[str, Any], cv: dict[str, Any],
                            length_tolerance_mm: float = 0.8,
                            max_candidates: int = 5) -> list[dict[str, Any]]:
@@ -34,13 +43,13 @@ def propose_dimension_links(ocr_page: dict[str, Any], cv: dict[str, Any],
     matrix = cv.get("transforms", {}).get("source_px_to_sheet_mm")
     if not matrix or cv.get("scale_status") != "known":
         return []
-    points = [p for p in cv.get("points", []) if p.get('kind') != 'ocr_dimension_anchor']
+    objects = cv.get("objects", {})
+    points = [p for p in cv.get("points", []) if p.get('kind') != 'ocr_dimension_anchor' and _can_anchor(p, objects)]
     if len(points) > 400 or len(cv.get('primitives', [])) > 2000:
         raise ValueError('Dimension linking complexity limit exceeded (400 points / 2000 primitives)')
     scale = 1.0 if cv.get('coordinate_space') == 'part_mm' else cv.get('calibration', {}).get('view_scale')
     if scale is None or not math.isfinite(scale) or scale <= 0:
         return []
-    objects = cv.get("objects", {})
     # Compute axis-aligned pairs once, rather than rescanning O(n²) points for
     # every OCR label on a page.
     axis_pairs = []
@@ -135,8 +144,13 @@ def _line_evidence(candidate, center, cv):
     if len(common) == 1:
         shared = next(iter(common))
         part_refs = [[r for r in refs if r['object_id'] == shared] for refs in part_refs]
-    if any(len(refs) != 1 for refs in part_refs):
-        return None
+    # drawcv puts anchors in one point only when their coordinates coincide, so any of them names the same place;
+    # anchors that really differ stay ambiguous.
+    primitives = {g['id']: g for g in cv.get('primitives', [])}
+    for refs in part_refs:
+        ends = [primitives[r['object_id']][r['anchor']] for r in refs]
+        if any(math.dist(ends[0], other) > 1e-4 for other in ends[1:]):
+            return None
     anchors = [refs[0] for refs in part_refs]
     p, q = candidate['p1_mm'], candidate['p2_mm']
     axis = 0 if abs(p[1]-q[1]) < 0.35 else 1

@@ -174,6 +174,15 @@ def test_text_polygon_corner_order_does_not_rotate_horizontal_text():
     assert abs(output['rotation']) < 1e-6 and abs(output['height']-10) < 1e-6
 
 
+def test_detector_box_is_taller_than_the_text_and_text_stays_in_the_box():
+    obs, cv = dimension_case()
+    obs['texts'][0].update(text='Сталь', source='paddleocr', poly_source_px=[[10, 10], [50, 10], [50, 20], [10, 20]])
+    obs['texts'][0]['notation'] = {'kind': 'unknown'}
+    output = to_drawing(obs, cv)['texts'][0]
+    assert abs(output['height']-6.2) < 1e-6
+    assert abs(output['insert'][1]-(10+(10-6.2)/2)) < 1e-6 and abs(output['insert'][0]-10) < 1e-6
+
+
 @pytest.mark.parametrize('number', ['036', '836', '8036', '88'])
 def test_zeros_and_eights_are_not_diameter_prefixes(number):
     import cv2
@@ -182,3 +191,38 @@ def test_zeros_and_eights_are_not_diameter_prefixes(number):
     item = enrich({'text': number})
     recover_diameter(item, canvas, [[0, 0], [240, 0], [240, 90], [0, 90]])
     assert item['text'] == number
+
+
+def _shared_corners_case(offset):
+    """Both measured points are corners of two part lines; no line runs between them."""
+    identity = {'page': 'page-1', 'width_px': 200, 'height_px': 100, 'raster_sha256': 'fixture'}
+    text = enrich({'id': 't1', 'text': '50', 'poly_source_px': [[23, 11], [27, 11], [27, 13], [23, 13]],
+                   'purpose': 'dimension_or_scale_candidate'})
+    cv = {'status': 'ok', 'raster_identity': identity, 'coordinate_space': 'sheet_mm', 'scale_status': 'known',
+          'calibration': {'view_scale': 1}, 'transforms': {'source_px_to_sheet_mm': [[1, 0, 0], [0, 1, 0], [0, 0, 1]]},
+          'points': [{'id': 'p1', 'xy': [0, 0], 'refs': [{'object_id': 'a', 'anchor': 'start'}, {'object_id': 'b', 'anchor': 'end'}]},
+                     {'id': 'p2', 'xy': [50, 0], 'refs': [{'object_id': 'c', 'anchor': 'start'}, {'object_id': 'd', 'anchor': 'end'}]}],
+          'primitives': [{'id': 'a', 'kind': 'line', 'start': [0, 0], 'end': [0, -5]},
+                         {'id': 'b', 'kind': 'line', 'start': [-5, 0], 'end': [offset, 0]},
+                         {'id': 'c', 'kind': 'line', 'start': [50, 0], 'end': [50, -5]},
+                         {'id': 'd', 'kind': 'line', 'start': [55, 0], 'end': [50, 0]},
+                         {'id': 'dim', 'kind': 'line', 'start': [0, 10], 'end': [50, 10]},
+                         {'id': 'e1', 'kind': 'line', 'start': [0, 0], 'end': [0, 12]},
+                         {'id': 'e2', 'kind': 'line', 'start': [50, 0], 'end': [50, 12]}],
+          'objects': {'a': {'role': 'part'}, 'b': {'role': 'part'}, 'c': {'role': 'part'}, 'd': {'role': 'part'},
+                      'dim': {'role': 'thin'}, 'e1': {'role': 'thin'}, 'e2': {'role': 'thin'}}}
+    return {'status': 'ok', 'source': identity, 'texts': [text], 'issues': [], 'title_block': {}}, cv
+
+
+def test_shared_corner_links_when_its_anchors_coincide_and_not_when_they_diverge():
+    obs, cv = _shared_corners_case(0.0)
+    assert len(to_drawing(obs, cv)['dimensions']) == 1
+    obs, cv = _shared_corners_case(0.1)                  # the lines really stay apart: which end is measured is unknown
+    assert to_drawing(obs, cv)['dimensions'] == []
+
+
+def test_crowded_sheet_does_not_hit_the_limit_with_points_that_cannot_anchor():
+    obs, cv = dimension_case()
+    cv['objects']['thin_many'] = {'role': 'thin'}
+    cv['points'] += [{'id': f'x{k}', 'xy': [k * .1, 40], 'refs': [{'object_id': 'thin_many', 'anchor': 'mid'}]} for k in range(900)]
+    assert not any(i['code'] == 'dimension_link_limit' for i in to_drawing(obs, cv)['issues'])

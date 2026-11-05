@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "drawcv"
-version = "0.1.0"
+version = "0.2.0"
 description = "OpenCV module of the drawing digitisation service (joint project with 44labs): page preparation, lines/circles/arcs, contours and defects -> cv.json"
 requires-python = ">=3.11"
 dependencies = [

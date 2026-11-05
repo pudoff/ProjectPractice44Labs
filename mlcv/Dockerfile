@@ -6,14 +6,18 @@
 FROM python:3.14-slim
 ENV PYTHONUTF8=1 PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
 RUN apt-get update \
- && apt-get install -y --no-install-recommends libglib2.0-0 libgomp1 \
+ && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libgomp1 \
  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY requirements.txt requirements-dev.txt ./
-RUN pip install -r requirements-dev.txt
+# RapidOCR тянет opencv-python-headless, а бэкенд работает с contrib: оба дают cv2, оставляем один (как в backend/pyproject.toml).
+RUN pip install -r requirements-dev.txt \
+ && pip uninstall -y opencv-python-headless opencv-contrib-python \
+ && pip install --no-deps opencv-contrib-python==4.10.0.84
 COPY pyproject.toml ./
 COPY drawcv ./drawcv
 COPY tests ./tests
+COPY eval/contour_match.py ./eval/contour_match.py
 RUN pip install --no-deps . \
  && python -c "import numpy as np; from drawcv.textmask import detect_rapidocr; detect_rapidocr(np.full((64, 64), 255, np.uint8))"
 CMD ["python", "-m", "pytest", "-q", "tests"]

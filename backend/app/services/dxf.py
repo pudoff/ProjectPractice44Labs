@@ -11,6 +11,7 @@ from app.services.geometry import GeometryError, GeometryResolver, primitive_pro
 def new_document(profile="eskd_tz"):
     settings = get_settings()
     doc = ezdxf.new(settings.dxf_version, units=settings.dxf_units)
+    doc.encoding = "cp1251"                  # $DWGCODEPAGE = ANSI_1251 (the file itself stays UTF-8 for R2007)
     doc.header["$INSUNITS"] = settings.dxf_units
     doc.header["$MEASUREMENT"] = settings.dxf_measurement
     for name, color, lineweight in settings.dxf_layers:

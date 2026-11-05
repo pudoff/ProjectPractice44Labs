@@ -5,6 +5,7 @@ from dataclasses import asdict, dataclass, field, fields
 
 @dataclass
 class Params:
+    max_image_pixels: int = 300_000_000     # refused before decoding; the largest dataset sheet (A1, 600 dpi) has 280 M
     work_px_per_mm: float = 11.811          # working resolution (300 dpi); images are never upsampled
     pdf_render_dpi: float = 300.0
     max_skew_deg: float = 5.0               # only small scan skew is corrected automatically
@@ -42,6 +43,8 @@ class Params:
     snap_stroke_factor: float = 0.75        # stroke width (skeleton ends move by about half a stroke at junctions)
     gap_search_mm: float = 3.0              # dangling ends closer than this to other geometry are reported as gaps
     extend_max_mm: float = 2.0              # an end may be extended along its own curve only over thick ink
+    closure_max_turn_deg: float = 3.0       # joining ends may turn a line by this much (or move its end 0.1 mm across)
+    closure_min_ink: float = 0.75           # share of the path of a moved end that must lie on stroke-wide ink
 
     overlay_max_side_px: int = 4000
     save_debug_images: bool = True

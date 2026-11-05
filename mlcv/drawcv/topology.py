@@ -3,7 +3,12 @@
 Only primitives with role "part" (solid thick lines, arcs, circles) take part: text, axes, dimension and hatch
 lines are never joined to the part. Ends closer than snap_tol are joined; T-junctions and proper crossings split
 edges; nothing is closed beyond snap_tol - such places are reported as gaps. Arcs stay arcs: a contour edge
-references its primitive and the parameter range used."""
+references its primitive and the parameter range used.
+
+The pipeline calls build() with COINCIDENT_MM after closure.close_contours() has moved the joined ends to common
+points, so a closed contour really closes. A larger snap_tol only describes which ends are near each other (used for
+reference contours and for the "what tolerance alone would close" view); then closure_error_mm says how far apart the
+neighbouring edges really are."""
 import math
 
 import numpy as np
@@ -13,6 +18,7 @@ from shapely.geometry import LineString, Polygon
 from .primitives import sample
 
 EPS = 1e-9
+COINCIDENT_MM = 5e-5                  # coordinates that are the same point (the backend accepts 1e-4 between edges)
 
 
 # ------------------------------------------------------------------ edge geometry
@@ -28,7 +34,7 @@ class Edge:
         e = self.prim
         if self.kind == "line":
             d = e["q"] - e["p"]
-            return e["p"] + d / (np.linalg.norm(d) + EPS) * t
+            return e["p"] + d / max(float(np.linalg.norm(d)), EPS) * t
         a = math.radians(self.a0 + t)
         return e["c"] + e["r"] * np.array([math.cos(a), math.sin(a)])
 
@@ -144,9 +150,10 @@ def _intersections(e1, e2):
 
 # ------------------------------------------------------------------ main
 
-def build(part, others, snap_tol, gap_search):
+def build(part, others, snap_tol, gap_search, strict_rings=True):
     """part: primitives with role part (status ok). others: remaining visible primitives (for gap context).
-    Returns dict with contours, defects, nodes."""
+    Returns dict with contours, defects, nodes. A closed ring must be a simple polygon: a ring of no area or one
+    touching itself is reported (contour_not_simple) and is not "closed"."""
     defects = []
     whole = [Edge(p, 0.0, Edge(p, 0, 0).full_span()) for p in part]
 
@@ -216,6 +223,9 @@ def build(part, others, snap_tol, gap_search):
             bounds = list(zip([0.0] + ts[1:-1], ts[1:]))
         else:
             lo, hi = trims[i].get("start", 0.0), trims[i].get("end", span)
+            unit = 1.0 if e.kind == "line" else math.radians(1) * e.prim["r"]
+            lo = 0.0 if lo * unit <= COINCIDENT_MM else lo          # the very end, not a trim: keeps exact parameters
+            hi = span if (span - hi) * unit <= COINCIDENT_MM else hi
             cuts = [lo] + _dedupe([t for t in ts if lo < t < hi], 1e-6) + [hi]
             bounds = list(zip(cuts[:-1], cuts[1:]))
         for t0, t1 in bounds:
@@ -267,19 +277,34 @@ def build(part, others, snap_tol, gap_search):
         bounded = [f for f in faces_c if f is not outer and f["area"] > 0]
         if outer["area"] < 0:
             outer_ring = [(ed, not fw) for ed, fw in reversed(outer["half"])]
-            contours.append(_contour(outer_ring, "outer_boundary", nodes, spread, len(bounded)))
+            contours.append(_contour(outer_ring, "outer_boundary", len(bounded)))
         if len(bounded) > 1 or outer["area"] >= 0:
             for f in bounded:
-                contours.append(_contour(f["half"], "region", nodes, spread, 1))
+                contours.append(_contour(f["half"], "region", 1))
     for e in loops:
-        contours.append(_contour([(e, True)], "circle", nodes, spread, 1))
+        contours.append(_contour([(e, True)], "circle", 1))
     for chain in _chains(open_edges):
-        contours.append(_contour(chain, "open_chain", nodes, spread, 0, closed=False))
+        contours.append(_contour(chain, "open_chain", 0, closed=False))
 
+    if strict_rings:
+        defects += _demote_non_simple(contours)
     _containment(contours)
 
     defects += _gaps(dangling, nodes, edges, part, others, snap_tol, gap_search)
     return {"contours": contours, "defects": defects, "nodes": nodes, "edges": edges}
+
+
+def _demote_non_simple(contours):
+    """A ring with no area or touching itself cannot be used as a boundary: keep it as a chain and say so."""
+    out = []
+    for c in contours:
+        if c["closed"] and not c["_simple"]:
+            c.update(closed=False, role="not_simple", area_mm2=0.0)
+            first = c["edges"][0]
+            out.append({"code": "contour_not_simple", "severity": "info", "at_mm": first["start"],
+                        "object_ids": sorted({e["object_id"] for e in c["edges"]}),
+                        "message": "edges form a ring that touches itself or has no area; not used as a closed contour"})
+    return out
 
 
 def _near_end(e, t, tol):
@@ -319,7 +344,7 @@ def _crossing_nodes(edges, nodes, deg, known, tol_deg=10.0):
 
 
 def _r(p):
-    return [round(float(p[0]), 4), round(float(p[1]), 4)]
+    return [round(float(p[0]), 6), round(float(p[1]), 6)]
 
 
 def _dedupe(ts, tol):
@@ -457,35 +482,70 @@ def _chains(open_edges):
     return chains
 
 
-def _contour(half, role, nodes, spread, faces_inside, closed=True):
+def _contour(half, role, faces_inside, closed=True):
     pts = np.vstack([e.polyline(f) for e, f in half])
     edges = []
-    closure = 0.0
     for e, f in half:
         item = {"object_id": e.prim["id"], "kind": e.kind, "reversed": not f}
         if e.kind == "line":
             item.update(start=_r(e.a if f else e.b), end=_r(e.b if f else e.a))
         else:
             item.update(start=_r(e.a if f else e.b), end=_r(e.b if f else e.a), center=_r(e.prim["c"]),
-                        radius=round(float(e.prim["r"]), 4),
-                        start_angle=round((e.a0 + e.t0) % 360, 4), end_angle=round((e.a0 + e.t1) % 360, 4))
+                        radius=round(float(e.prim["r"]), 6),
+                        start_angle=round((e.a0 + e.t0) % 360, 6), end_angle=round((e.a0 + e.t1) % 360, 6))
         edges.append(item)
-        for n in ((getattr(e, "u", None), getattr(e, "v", None))):
-            if n is not None:
-                closure = max(closure, float(spread[n]))
+    simple = ring_valid = True
+    closure = 0.0
+    bounds = LineString(pts).bounds
     if role == "circle":
         e = half[0][0]
         poly = Polygon(sample(e.prim, 0.25))
-        closure = 0.0
-    else:
-        poly = Polygon(pts) if closed and len(pts) >= 3 else LineString(pts)
-        if closed and not poly.is_valid:          # a ring touching itself (bridge between cycles): area of the cleaned shape
+    elif closed and len(pts) >= 3:
+        # the real distance between neighbouring edges, from the coordinates and not from the node they were grouped in
+        ends = [(e.b if f else e.a, g.a if h else g.b) for (e, f), (g, h) in zip(half, half[1:] + half[:1])]
+        closure = max(float(np.linalg.norm(a - b)) for a, b in ends)
+        poly = Polygon(_as_stored(pts))
+        ring_valid = bool(poly.is_valid and poly.area > 1e-6)
+        simple = ring_valid and _simple_when_resolved(edges)
+        if not simple:                             # a ring touching itself (bridge between cycles): area of the cleaned shape
             poly = poly.buffer(0)
+    else:
+        poly = LineString(pts)
     area = abs(poly.area) if closed else 0.0
+    if not poly.is_empty:
+        bounds = poly.bounds
     return {"role": role, "closed": closed, "edges": edges, "area_mm2": round(float(area), 4),
             "length_mm": round(float(sum(LineString(e.polyline()).length for e, _ in half)), 4),
-            "closure_error_mm": round(closure, 4), "faces_inside": faces_inside,
-            "bbox_mm": [round(float(v), 4) for v in poly.bounds], "_poly": poly, "_pts": pts}
+            "closure_error_mm": round(closure, 6), "faces_inside": faces_inside,
+            "bbox_mm": [round(float(v), 6) for v in bounds], "_poly": poly, "_pts": pts, "_simple": simple, "_ring_valid": ring_valid}
+
+
+def _simple_when_resolved(edges):
+    """The test the consumers of the contour apply: arcs sampled to a chord error of 5e-5 mm from the written values.
+    A line touching an arc at a shallow angle can cross it by microns, which the coarse ring above does not show."""
+    if all(e["kind"] == "line" for e in edges):
+        return True
+    ring = []
+    for e in edges:
+        if e["kind"] == "line":
+            ring.append(e["start"])
+            continue
+        span = (e["end_angle"] - e["start_angle"]) % 360 or 360.0
+        step = 2 * math.acos(max(-1.0, 1 - min(COINCIDENT_MM / e["radius"], 1.0)))
+        n = max(12, int(math.ceil(math.radians(span) / max(step, 1e-12))))
+        if n > 100_000:
+            return False
+        a = np.radians(e["start_angle"] + span * np.arange(n + 1) / n)
+        arc = np.column_stack([e["center"][0] + e["radius"] * np.cos(a), e["center"][1] + e["radius"] * np.sin(a)])
+        ring.extend((arc[::-1] if e["reversed"] else arc).tolist())
+    return Polygon(ring).is_valid
+
+
+def _as_stored(pts):
+    """The ring in the coordinates that are written out: rounding noise must not decide whether a ring is simple."""
+    r = np.round(pts, 6)
+    keep = np.r_[True, np.any(r[1:] != r[:-1], axis=1)]
+    return r[keep]
 
 
 def _containment(contours):

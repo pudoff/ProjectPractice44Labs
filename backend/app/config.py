@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     ocr_adapter: str | None = "mlocr.src.adapter:run_ocr"
     require_local_models: bool = False
     dimension_numeric_tolerance_mm: float = Field(default=1e-6, gt=0, le=0.001)
-    max_image_pixels: int = Field(default=50_000_000, gt=0)
+    max_image_pixels: int = Field(default=300_000_000, gt=0)  # A1 at 600 dpi has 280 M; A3 at 600 dpi 70 M
     builtin_pipeline_path: Path = Path(__file__).resolve().parents[2] / "runs/klapan_png2dxf/pipeline_b/pipeline.py"
     dxf_version: str = "R2007"
     dxf_units: int = 4

@@ -7,6 +7,7 @@ Providers:
   none       - no masking.
 Only connected components lying (almost) entirely inside a text polygon are erased, so a line crossing a label
 survives. Erased pixels are kept as a separate mask for review; the source image is never changed."""
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -40,6 +41,20 @@ def rapidocr_engine():
                 params[key] = enum(value)
         _engine = RapidOCR(params=params)
     return _engine
+
+
+def model_info(provider):
+    """The model that found the text regions of this run: name, file hash, runtime. No model -> empty list."""
+    if provider != "rapidocr" or _engine is None or getattr(_engine, "text_det", None) is None:
+        return []
+    session = getattr(_engine.text_det.session, "session", None)     # the onnxruntime session knows its file
+    path = getattr(session, "_model_path", None)
+    item = {"role": "text_detector", "engine": "rapidocr", "runtime": "onnxruntime"}
+    if path and Path(path).is_file():
+        item.update(name=Path(path).name, sha256=hashlib.sha256(Path(path).read_bytes()).hexdigest())
+    else:
+        item["name"] = "unknown"
+    return [item]
 
 
 def detect_rapidocr(gray):

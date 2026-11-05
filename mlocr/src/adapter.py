@@ -6,6 +6,10 @@ from .cli import recognize_file
 from .inputs import assert_same_page
 from .dimension_links import propose_dimension_links
 
+# The PaddleOCR detector box is taller than the characters: reference TEXT height / box height is 0.60-0.65
+# (5 mm text has a 9 mm box). With the box height the text in the DXF runs over its neighbours.
+DETECTOR_BOX_TO_TEXT_HEIGHT = 0.62
+
 
 def run_ocr(image):
     return recognize_file(image)
@@ -40,10 +44,11 @@ def to_drawing(observations, cv):
         u = np.array([math.cos(math.radians(angle)), math.sin(math.radians(angle))])
         v = np.array([-u[1], u[0]])
         along, across = xy[:, :2] @ u, xy[:, :2] @ v
-        height = float(np.ptp(across))
-        if height <= 0:
+        box_height = float(np.ptp(across))
+        if box_height <= 0:
             continue
-        insert = u*along.min()+v*across.min()
+        height = box_height*(DETECTOR_BOX_TO_TEXT_HEIGHT if item.get('source') == 'paddleocr' else 1)
+        insert = u*along.min()+v*(across.min()+(box_height-height)/2)   # stays in the middle of its box
         result['texts'].append({'id': item['id'], 'value': item['text'], 'insert': insert.tolist(),
                                 'height': height, 'rotation': angle})
     try:

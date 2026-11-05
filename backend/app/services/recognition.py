@@ -55,7 +55,7 @@ def assemble_graph(cv: dict, ocr: dict, source_sha256: str) -> DrawingGraph:
         primitives=primitives, hatches=hatches, texts=ocr.get("texts", []), dimensions=dimensions, issues=issues,
         points=cv.get("points", []), contours=cv.get("contours", []), objects=cv.get("objects", {}),
         calibration=cv.get("calibration", {}), transforms=cv.get("transforms", {}), title_block=ocr.get("title_block", {}),
-        provenance={"cv": {key: cv[key] for key in ("module", "source", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups") if key in cv},
+        provenance={"cv": {key: cv[key] for key in ("module", "source", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups", "closures") if key in cv},
                     "ocr": {key: ocr[key] for key in ("module", "source", "params", "timings_s", "observations", "dimension_links") if key in ocr}},
     )
 
