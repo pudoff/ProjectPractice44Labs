@@ -64,6 +64,41 @@ def test_real_white_gap_stays_open_with_a_reason():
     assert gap and gap[0]["distance_mm"] == pytest.approx(0.4, abs=0.1)
 
 
+def test_longer_gap_is_joined_only_over_ink():
+    """1.2 mm is beyond the tolerance: the skeleton stopped short of the corner, or the line really ends there."""
+    def square():
+        return [line("a", (0, 0), (8.8, 0)), line("b", (10, 0), (10, 10)), line("c", (10, 10), (0, 10)), line("d", (0, 10), (0, 0))]
+
+    inked = lambda pts: np.full(len(pts), 0.5)
+    prims = square()
+    topo = close_contours(prims, [], 0.3, 3.0, widths_at=inked, thick_mm=0.5, ink_reach=2.0)
+    assert closed(topo) and np.allclose(prims[0]["q"], [10, 0])
+    assert any(c["reason"].endswith("_over_ink") for c in topo["closures"] if c["status"] == "joined")
+
+    white = lambda pts: np.where(np.asarray(pts)[:, 0] > 8.9, 0.0, 0.5)     # the last 1.1 mm of the bottom edge is paper
+    prims = square()
+    topo = close_contours(prims, [], 0.3, 3.0, widths_at=white, thick_mm=0.5, ink_reach=2.0)
+    assert not closed(topo) and np.allclose(prims[0]["q"], [8.8, 0])
+    assert any(d["code"] == "gap" for d in topo["defects"])
+
+
+def test_third_line_joins_a_corner_that_is_already_made():
+    """Its end is out of reach of the first cluster, then only the made corner is near it."""
+    a, b = line("a", (0, 0), (10, 0)), line("b", (10, 0), (10, 10))
+    third = line("c", (10.5, 0.5), (20, 10))
+    close_contours([a, b, third], [], 0.8, 3.0, widths_at=lambda pts: np.full(len(pts), 0.5), thick_mm=0.5, ink_reach=2.0)
+    assert np.allclose(third["p"], a["q"]) and np.allclose(a["q"], b["p"])
+
+
+def test_ends_meet_each_other_when_the_object_nearby_cannot_host_them():
+    """A move onto the third object is refused (it would turn a line); the two ends are nearly together anyway."""
+    a, b = line("a", (0, 0), (10, 0)), line("b", (10.02, 0.01), (20, 0))
+    host = line("h", (9, 0.5), (11, 0.5))
+    worker = Reconciler([a, b, host], 0.8, max_turn_deg=0.0)
+    worker.run()
+    assert np.allclose(a["q"], b["p"], atol=1e-6)
+
+
 def test_t_junction_end_goes_on_the_host_and_the_host_does_not_move():
     bottom = line("a", (0, 0), (10, 0))
     prims = [bottom, line("b", (10, 0), (10, 10)), line("c", (10, 10), (0, 10)), line("d", (0, 10), (0, 0)), line("e", (5, 0.2), (5, 10))]

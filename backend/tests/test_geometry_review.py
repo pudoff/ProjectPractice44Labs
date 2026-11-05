@@ -229,6 +229,15 @@ def test_dxf_code_page_is_ansi_1251_and_cyrillic_is_readable(tmp_path):
     assert doc.modelspace().query("TEXT")[0].dxf.text == "Шайба"
 
 
+def test_dxf_font_has_cyrillic_in_cad_and_special_glyphs_are_control_codes(tmp_path):
+    path = tmp_path / "font.dxf"
+    drawing = graph(primitives=[line()], texts=[dict(id="t", value="Ø20±0,1 45°", insert=(0, 0), height=3.5)])
+    DxfExporter().export(drawing, path)
+    doc = ezdxf.readfile(path)
+    assert doc.styles.get("DRAWING").dxf.font == "isocpeur.ttf" and doc.styles.get("Standard").dxf.font == "isocpeur.ttf"
+    assert doc.modelspace().query("TEXT")[0].dxf.text == "%%c20%%p0,1 45%%d"
+
+
 def test_legacy_graph_migrates_to_current_version():
     result = DrawingGraph.model_validate({"schema_version": "0.1", "coordinate_space": "part_mm", "primitives": [line()]})
     assert result.schema_version == "0.2"

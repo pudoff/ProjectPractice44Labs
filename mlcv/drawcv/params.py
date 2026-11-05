@@ -45,6 +45,7 @@ class Params:
     extend_max_mm: float = 2.0              # an end may be extended along its own curve only over thick ink
     closure_max_turn_deg: float = 3.0       # joining ends may turn a line by this much (or move its end 0.1 mm across)
     closure_min_ink: float = 0.75           # share of the path of a moved end that must lie on stroke-wide ink
+    closure_reach_over_ink_mm: float = 2.0  # free ends may reach this far when the whole way is stroke-wide ink
 
     overlay_max_side_px: int = 4000
     save_debug_images: bool = True

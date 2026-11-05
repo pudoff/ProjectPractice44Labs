@@ -4,11 +4,35 @@ from copy import deepcopy
 import numpy as np
 from .cli import recognize_file
 from .inputs import assert_same_page
-from .dimension_links import propose_dimension_links
+from .dimension_geometry import closed_contour_objects
+from .dimension_links import propose_dimension_links, vote_view_scale
+from .title_block import merge_title_block
 
 # The PaddleOCR detector box is taller than the characters: reference TEXT height / box height is 0.60-0.65
 # (5 mm text has a 9 mm box). With the box height the text in the DXF runs over its neighbours.
 DETECTOR_BOX_TO_TEXT_HEIGHT = 0.62
+
+
+def _display(link):
+    """Text of a real DIMENSION: <> keeps the measured value, the rest of the printed notation goes around it."""
+    prefix = '%%c' if link.get('notation_kind') == 'diameter' else ''
+    return f"{prefix}<>{(link.get('suffix') or '').replace('±', '%%p')}"
+
+
+def _foot_points(text_id, feet, cv):
+    """A foot on a corner refers to the end of that line; a foot inside a contour line is a point of its own."""
+    ids = []
+    for index, foot in enumerate(feet):
+        anchor = foot['anchor']
+        identity = f"ocr-anchor-{text_id}-{index}" if anchor else f"ocr-foot-{text_id}-{index}"
+        same = next((p['id'] for p in cv['points'] if anchor and p.get('refs') == [anchor]), None)
+        if same:
+            ids.append(same)
+            continue
+        cv['points'] = [p for p in cv['points'] if p['id'] != identity]
+        cv['points'].append({'id': identity, 'xy': foot['xy'], 'kind': 'ocr_dimension_anchor', 'refs': [anchor] if anchor else []})
+        ids.append(identity)
+    return ids
 
 
 def run_ocr(image):
@@ -30,6 +54,11 @@ def to_drawing(observations, cv):
     if cv.get('calibration', {}).get('view_scale') is None and len(scales) == 1:
         cv.setdefault('calibration', {})['view_scale'] = next(iter(scales))
         cv['calibration']['view_scale_basis'] = 'single_ocr_scale_candidate'
+    elif cv.get('calibration', {}).get('view_scale') is None:
+        voted = vote_view_scale(observations, cv)     # no scale read, or several views with their own scales
+        if voted:
+            cv.setdefault('calibration', {})['view_scale'] = voted
+            cv['calibration']['view_scale_basis'] = 'dimension_lines_vote'
     matrix = np.asarray(matrix, dtype=float)
     if matrix.shape != (3, 3) or not np.isfinite(matrix).all():
         raise ValueError('Invalid CV coordinate transform')
@@ -51,6 +80,7 @@ def to_drawing(observations, cv):
         insert = u*along.min()+v*(across.min()+(box_height-height)/2)   # stays in the middle of its box
         result['texts'].append({'id': item['id'], 'value': item['text'], 'insert': insert.tolist(),
                                 'height': height, 'rotation': angle})
+    result['title_block'] = merge_title_block(observations.get('title_block', {}), observations, matrix, cv)
     try:
         links = propose_dimension_links(observations, cv)
     except ValueError as exc:
@@ -63,28 +93,17 @@ def to_drawing(observations, cv):
         if chosen is None:
             continue
         evidence = chosen['evidence']
-        point_ids = []
-        primitives = {p['id']: p for p in cv['primitives']}
-        for index, (original, anchor) in enumerate(zip((chosen['p1_id'], chosen['p2_id']), evidence['part_anchors'])):
-            point = next(p for p in cv['points'] if p['id'] == original)
-            if point.get('refs') == [anchor]:
-                point_ids.append(original)
-                continue
-            # CV clusters near endpoints; backend requires an exact anchor.
-            # Use the identified measured part edge, never average two distinct
-            # coordinates or silently move the underlying geometry.
-            identity = f"ocr-anchor-{link['text_id']}-{index}"
-            xy = primitives[anchor['object_id']][anchor['anchor']]
-            cv['points'] = [p for p in cv['points'] if p['id'] != identity]
-            cv['points'].append({'id': identity, 'xy': xy, 'kind': 'ocr_dimension_anchor', 'refs': [anchor]})
-            point_ids.append(identity)
+        point_ids = _foot_points(link['text_id'], evidence['feet'], cv)
         link['resolved_point_ids'] = point_ids
         result['dimensions'].append({'id': 'dim-'+link['text_id'], 'kind': 'linear', 'p1_ref': point_ids[0],
                                      'p2_ref': point_ids[1], 'base': evidence['base'], 'angle': evidence['angle'],
                                      'nominal_mm': link['nominal_mm'], 'recognized_text': link['recognized_text'],
-                                     'view_scale': chosen['view_scale'], 'link_status': 'resolved'})
-        for object_id in [evidence['dimension_line'], *evidence['extension_lines']]:
-            cv['objects'][object_id]['represented_by_dimension'] = 'dim-'+link['text_id']
+                                     'display': _display(link), 'view_scale': chosen['view_scale'], 'link_status': 'resolved'})
+        closed = closed_contour_objects(cv)
+        for object_id in [*evidence.get('dimension_row', [evidence['dimension_line']]), *evidence['extension_lines']]:
+            # the line now drawn by the DIMENSION; a line of a closed contour and an axis stay on the drawing
+            if object_id and object_id not in closed and cv['objects'][object_id].get('role') != 'axis':
+                cv['objects'][object_id]['represented_by_dimension'] = 'dim-'+link['text_id']
         linked.add(link['text_id'])
     result['texts'] = [t for t in result['texts'] if t['id'] not in linked]
     for item in observations['texts']:

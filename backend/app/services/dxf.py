@@ -1,6 +1,7 @@
 import math
 from pathlib import Path
 import os
+import re
 import tempfile
 import ezdxf
 from app.config import get_settings
@@ -23,6 +24,7 @@ def new_document(profile="eskd_tz"):
     doc.linetypes.new("DASHED", dxfattribs={"description": "Dashed line", "pattern": [6.0, 3.0, -3.0]})
     doc.layers.get("AXIS").dxf.linetype = "CENTER"
     doc.styles.new("DRAWING", dxfattribs={"font": settings.dxf_font})
+    doc.styles.get("Standard").dxf.font = settings.dxf_font      # the default "txt" has no Cyrillic
     style = doc.dimstyles.new("DRAWING")
     style.dxf.dimtxsty = "DRAWING"
     style.dxf.dimtxt = settings.dxf_text_height
@@ -45,8 +47,18 @@ def add_primitive(msp, item):
         msp.add_lwpolyline(item.vertices, close=item.closed, dxfattribs=attrs)
 
 
+# Literal glyphs are missing from many CAD fonts and show up as question marks; DXF control codes always work.
+DXF_SPECIAL_CHARACTERS = str.maketrans({"Ø": "%%c", "ø": "%%c", "⌀": "%%c", "∅": "%%c", "°": "%%d", "±": "%%p"})
+
+
 def add_text(msp, item):
-    msp.add_text(item.value, dxfattribs={"layer": "TEXT", "style": "DRAWING", "height": item.height, "insert": item.insert, "rotation": item.rotation})
+    msp.add_text(item.value.translate(DXF_SPECIAL_CHARACTERS), dxfattribs={"layer": "TEXT", "style": "DRAWING", "height": item.height, "insert": item.insert, "rotation": item.rotation})
+
+
+def printed_decimals(text):
+    """Digits after the separator of the first number of a printed size, None when there is no text."""
+    match = re.search(r"\d+(?:[.,](\d+))?", text or "")
+    return None if match is None else len(match.group(1) or "")
 
 
 def add_dimension(msp, item, issues, tolerance=None):
@@ -64,11 +76,16 @@ def add_dimension(msp, item, issues, tolerance=None):
     if item.nominal_mm is not None and item.nominal_mm <= 0:
         issues.append(Issue(code="invalid_dimension", severity="error", message="Номинал линейного размера должен быть положительным", object_id=item.id))
         return
-    if item.nominal_mm is not None and abs(physical - item.nominal_mm) > tolerance:
+    decimals = printed_decimals(item.recognized_text)
+    # A printed size is rounded: geometry read from a raster agrees with it up to its last digit, not exactly.
+    allowed = tolerance if decimals is None else max(tolerance, 0.5 * 10 ** -decimals + 1e-9)
+    if item.nominal_mm is not None and abs(physical - item.nominal_mm) > allowed:
         issues.append(Issue(code="dimension_mismatch", severity="warning", message=f"Измерено {physical:.3f} мм; распознано {item.nominal_mm:.3f} мм", object_id=item.id))
+    override = {"dimlfac": 1.0 / item.view_scale}
+    if decimals is not None:
+        override["dimdec"] = decimals             # the measured value is shown with the precision of the drawing
     dim = msp.add_linear_dim(base=item.base, p1=item.p1, p2=item.p2, angle=item.angle, text=item.display,
-                             dimstyle="DRAWING", override={"dimlfac": 1.0 / item.view_scale},
-                             dxfattribs={"layer": "DIMS"})
+                             dimstyle="DRAWING", override=override, dxfattribs={"layer": "DIMS"})
     dim.render()
     return True
 

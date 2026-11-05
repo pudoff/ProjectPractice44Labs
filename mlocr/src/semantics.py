@@ -8,6 +8,7 @@ from .normalization import normalize_text
 
 
 _NUMBER = r"[+-]?\d+(?:[.,]\d+)?"
+_SIZE_SUFFIX = r"\*|[A-Za-z]{1,2}\d{1,2}(?:\*)?|\s?[+-]\d+(?:[.,]\d+)?(?:\s?[+-]\d+(?:[.,]\d+)?)?|±\d+(?:[.,]\d+)?\*"
 
 
 def _number(value: str) -> float:
@@ -62,12 +63,18 @@ def parse_engineering_notation(raw_text: str) -> dict[str, Any]:
     match = re.fullmatch(rf"({_NUMBER})[±]({_NUMBER})", text)
     if match:
         result.update(kind="linear_tolerance", nominal=_number(match.group(1)),
-                      tolerance=_number(match.group(2)))
+                      tolerance=_number(match.group(2)), suffix=f"±{match.group(2)}")
         return checked()
 
     match = re.fullmatch(rf"[\u00d8\u2300]({_NUMBER})", text)
     if match:
         result.update(kind="diameter", nominal=_number(match.group(1)))
+        return checked()
+
+    # A size with what is printed after the number: a fit (h14, H7), a tolerance (+0,1), a reference mark (*).
+    match = re.fullmatch(rf"([\u00d8\u2300]?)({_NUMBER})({_SIZE_SUFFIX})", text)
+    if match:
+        result.update(kind="diameter" if match.group(1) else "linear", nominal=_number(match.group(2)), suffix=match.group(3))
         return checked()
 
     # Empty-set and phi-like glyphs are common font/OCR confusions in drawings.

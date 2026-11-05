@@ -9,6 +9,9 @@ The common point is chosen so that the shape changes least:
   - arcs keep centre and radius (they are measured much better than the ends): the point lies on their circle;
   - lines extend or trim along themselves to the intersection; only when there is none (collinear, tangent) an end
     moves across the line: the moved line must stay on its ink (without a raster: within closure_max_turn_deg).
+Later passes take the ends still free: they may join a corner that is already made, and they reach further (the skeleton
+often stops short of a junction), up to closure_reach_over_ink_mm and only when the whole move runs over ink of stroke
+width. White paper is never bridged.
 A move is refused when it would need more than the tolerance, turn or collapse an object, run over white paper or
 cross another object. Every move and every refusal is recorded with its reason; the observation before the moves is
 kept on the primitive."""
@@ -29,6 +32,7 @@ REACH = 1.25                         # a move may be up to this many join tolera
 T_PASSES = 6
 HOLE_MIN_AREA_RATIO = 0.8
 MAX_TURN_ON_INK_DEG = 15.0
+INK_BRIDGE_SHARE = 0.9
 LINE_ON_INK = 0.9
 
 
@@ -124,11 +128,14 @@ class Joint:
         self.target = None
         self.joined = False
         self.undone_reason = None
+        self.over_ink = False
+        self.corner = None               # (primitive, end) of a corner made by an earlier pass that the point must keep
 
 
 class Reconciler:
-    def __init__(self, part, snap_tol, widths_at=None, thick_mm=None, max_turn_deg=3.0, min_ink=0.75):
+    def __init__(self, part, snap_tol, widths_at=None, thick_mm=None, max_turn_deg=3.0, min_ink=0.75, ink_reach=0.0):
         self.part = part
+        self.ink_reach = float(ink_reach)
         self.tol = float(snap_tol)
         self.widths_at = widths_at
         self.thick = thick_mm
@@ -140,8 +147,8 @@ class Reconciler:
         self.index = STRtree(self.geoms)
 
     # ---------------------------------------------------------------- clusters of ends and hosts
-    def clusters(self):
-        ends = [(e, w) for e in self.part if e["kind"] != "circle" for w in ("start", "end")]
+    def clusters(self, locked=frozenset(), locked_ends=()):
+        ends = [(e, w) for e in self.part if e["kind"] != "circle" for w in ("start", "end") if (id(e), w) not in locked]
         if not ends:
             return []
         xy = np.array([end_point(e, w) for e, w in ends])
@@ -162,6 +169,16 @@ class Reconciler:
             members[a] = both
             del members[b]
         joints = [Joint([ends[k] for k in sorted(m)]) for _, m in sorted(members.items())]
+        made = sorted(locked_ends, key=lambda t: t[0]["id"]) if locked_ends else []
+        for joint in joints:
+            nearest = None
+            for e, w in joint.members:
+                p = end_point(e, w)
+                for o, v in made:
+                    dist = float(np.linalg.norm(end_point(o, v) - p))
+                    if dist <= self.tol and o is not e and (nearest is None or dist < nearest[0]):
+                        nearest = (dist, (o, v))
+            joint.corner = nearest[1] if nearest else None
         samples, owner = [], []
         for k, e in enumerate(self.part):
             s = sample(e, 0.25)
@@ -189,7 +206,7 @@ class Reconciler:
                         continue                                    # runs alongside, does not end on it
                     found[k] = h
             joint.hosts = [found[k] for k in sorted(found)]
-        return [j for j in joints if len(j.members) + len(j.hosts) >= 2]
+        return [j for j in joints if len(j.members) + len(j.hosts) + bool(j.corner) >= 2]
 
     @staticmethod
     def _parallel(u, v):
@@ -198,6 +215,8 @@ class Reconciler:
     # ---------------------------------------------------------------- the common point
     def solve(self, joint):
         """(point, reason) or (None, reason)."""
+        if joint.corner:
+            return end_point(*joint.corner).copy(), "joins_corner"
         lines = [(e, w) for e, w in joint.members if e["kind"] == "line"]
         arcs = [(e, w) for e, w in joint.members if e["kind"] == "arc"]
         pts = np.array([end_point(e, w) for e, w in joint.members])
@@ -295,6 +314,8 @@ class Reconciler:
         if moved > 0.1:
             seg = LineString([tuple(old), tuple(target)])
             mine = {id(x) for x, _ in joint.members} | {id(h) for h in joint.hosts}
+            if joint.corner:
+                mine.add(id(joint.corner[0]))
             for k in self.index.query(seg.buffer(0.01)):
                 h = self.part[int(k)]
                 if id(h) in mine:
@@ -321,7 +342,8 @@ class Reconciler:
         joints.sort(key=lambda j: bool(j.hosts))             # hosts settle first, T-junctions follow them
         for joint in joints:
             self._join(joint)
-        t_joints = [j for j in joints if j.joined and j.hosts]
+        joints += self._later_passes(joints)
+        t_joints = [j for j in joints if j.joined and (j.hosts or j.corner)]
         for _ in range(T_PASSES):                            # a host line turned a little: follow it
             worst = 0.0
             for joint in t_joints:
@@ -336,13 +358,48 @@ class Reconciler:
                 break
         return joints
 
+    def _later_passes(self, joints):
+        """Ends left free by the first pass: at the same reach they may join a corner that is made by now, then further
+        over stroke-wide ink."""
+        added = []
+        tolerance, min_ink = self.tol, self.min_ink
+        stages = [(tolerance, min_ink, False)]
+        if self.widths_at is not None and self.ink_reach > tolerance:
+            stages += [(self.ink_reach / REACH, INK_BRIDGE_SHARE, True), (tolerance, min_ink, False)]
+        try:
+            for tol, ink, over_ink in stages:
+                self.tol, self.min_ink = tol, ink
+                made = [(e, w) for j in [*joints, *added] if j.joined for e, w in j.members]
+                wide = self.clusters(frozenset((id(e), w) for e, w in made), made)
+                wide.sort(key=lambda j: bool(j.hosts))
+                for joint in wide:
+                    self._join(joint)
+                    if joint.joined and over_ink:
+                        joint.over_ink = True
+                        joint.reason += "_over_ink"
+                added += [j for j in wide if j.joined]
+        finally:
+            self.tol, self.min_ink = tolerance, min_ink
+        return added
+
     def _join(self, joint):
         duplicates = [(e, w) for e, w in joint.members for f, v in joint.members if e is not f and self._overlap(e, w, f, v)]
         for e, w in {(id(x[0]), x[1]): x for x in duplicates}.values():
             joint.refused.append((e, w, "parallel_overlap"))
         if duplicates:
             joint.members = [m for m in joint.members if not any(m[0] is d[0] and m[1] == d[1] for d in duplicates)]
-        while len(joint.members) + len(joint.hosts) >= 2 and joint.members:
+        members = list(joint.members)
+        self._join_members(joint)
+        if not joint.joined and joint.hosts and len(members) >= 2:
+            # the object it would land on is what fails: the ends can still meet each other
+            refused = joint.refused
+            joint.hosts, joint.members, joint.refused = [], members, []
+            self._join_members(joint)
+            if not joint.joined:
+                joint.refused = refused + joint.refused
+
+    def _join_members(self, joint):
+        while len(joint.members) + len(joint.hosts) + bool(joint.corner) >= 2 and joint.members:
             target, reason = self.solve(joint)
             bad = [(self.refusal(joint, e, w, target), e, w) for e, w in joint.members]
             bad = [b for b in bad if b[0]]
@@ -422,11 +479,12 @@ def _r(p):
     return [round(float(p[0]), 6), round(float(p[1]), 6)]
 
 
-def close_contours(part, others, snap_tol, gap_search, widths_at=None, thick_mm=None, max_turn_deg=3.0, min_ink=0.75):
+def close_contours(part, others, snap_tol, gap_search, widths_at=None, thick_mm=None, max_turn_deg=3.0, min_ink=0.75,
+                   ink_reach=0.0):
     """Move part ends to common points, rebuild the contours exactly, verify. Returns the topology result with
     "closures" and "closure_checks" added. Joins that shrink a hole or create a new crossing are undone."""
     before = build(part, others, snap_tol, gap_search, strict_rings=False)
-    worker = Reconciler(part, snap_tol, widths_at, thick_mm, max_turn_deg, min_ink)
+    worker = Reconciler(part, snap_tol, widths_at, thick_mm, max_turn_deg, min_ink, ink_reach)
     joints = worker.run()
     topo = build(part, others, COINCIDENT_MM, gap_search)
     undone = _verify(joints, before, topo, worker)

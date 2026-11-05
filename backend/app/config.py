@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     dxf_arrow_size: float = 3.0
     dxf_dimension_decimals: int = 2
     dxf_dimension_zero_suppression: int = 8
-    dxf_font: str = "DejaVuSans.ttf"
+    dxf_font: str = "isocpeur.ttf"       # ships with AutoCAD and has Cyrillic; CAD without it substitutes a font
     dxf_layers: tuple[tuple[str, int, int], ...] = (
         ("MAIN", 7, 50), ("THIN", 3, 25), ("AXIS", 1, 25),
         ("DIMS", 4, 25), ("TEXT", 7, 25),

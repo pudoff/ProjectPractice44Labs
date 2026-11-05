@@ -109,7 +109,7 @@ def run(input_path, out_dir=None, params=None, page_index=0):
         e["observed"] = geometry(e)
     extended = _extend_ends(part, widths_at, stroke, snap_tol, params.extend_max_mm)
     topo = close_contours(part, others, snap_tol, params.gap_search_mm, widths_at, stroke,
-                          params.closure_max_turn_deg, params.closure_min_ink)
+                          params.closure_max_turn_deg, params.closure_min_ink, params.closure_reach_over_ink_mm)
     topo["defects"] += extended
     role_rank = {"outer_boundary": 0, "circle": 1, "region": 2, "not_simple": 3, "open_chain": 4}
     topo["contours"].sort(key=lambda c: (role_rank[c["role"]], c["bbox_mm"][0], c["bbox_mm"][1], -c["area_mm2"]))
