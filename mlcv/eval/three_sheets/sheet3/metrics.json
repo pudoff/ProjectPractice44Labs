@@ -1,0 +1,143 @@
+{
+ "scale": {
+  "status": "known",
+  "method": "sheet_trim",
+  "residual": 0.9999282867492848,
+  "px_per_mm": [
+   11.80952380952381,
+   11.808080808080808
+  ],
+  "error_percent": 0.007
+ },
+ "kinds": {
+  "line": {
+   "reference": 56,
+   "found": 44,
+   "missed": 12,
+   "missed_causes": {
+    "text": 12
+   },
+   "detected": 221,
+   "on_geometry": 111,
+   "not_part_graphics": 90,
+   "extra": 20,
+   "extra_causes": {
+    "dims": 6,
+    "other": 7,
+    "hatch": 1,
+    "short": 5,
+    "text": 1
+   },
+   "duplicates": 4,
+   "errors_mm": {
+    "конец": {
+     "n": 19,
+     "mean": 0.14,
+     "p95": 0.347,
+     "max": 0.347
+    }
+   }
+  },
+  "circle": {
+   "reference": 2,
+   "found": 2,
+   "missed": 0,
+   "missed_causes": {},
+   "detected": 2,
+   "on_geometry": 2,
+   "not_part_graphics": 0,
+   "extra": 0,
+   "extra_causes": {},
+   "duplicates": 0,
+   "errors_mm": {
+    "центр": {
+     "n": 2,
+     "mean": 0.015,
+     "p95": 0.015,
+     "max": 0.015
+    },
+    "радиус": {
+     "n": 2,
+     "mean": 0.009,
+     "p95": 0.016,
+     "max": 0.017
+    }
+   }
+  },
+  "arc": {
+   "reference": 5,
+   "found": 3,
+   "missed": 2,
+   "missed_causes": {
+    "hatch": 2
+   },
+   "detected": 17,
+   "on_geometry": 4,
+   "not_part_graphics": 4,
+   "extra": 9,
+   "extra_causes": {
+    "other": 9
+   },
+   "duplicates": 0,
+   "errors_mm": {
+    "центр": {
+     "n": 3,
+     "mean": 0.116,
+     "p95": 0.152,
+     "max": 0.154
+    },
+    "радиус": {
+     "n": 3,
+     "mean": 0.097,
+     "p95": 0.18,
+     "max": 0.193
+    }
+   }
+  },
+  "contour": {
+   "reference": 7,
+   "found": 3,
+   "missed": 4,
+   "missed_causes": {
+    "break": 3,
+    "lost": 1
+   },
+   "detected": 17,
+   "extra": 14,
+   "extra_causes": {
+    "other": 5,
+    "hatch": 9
+   },
+   "copies": 0,
+   "precision": 0.1765,
+   "recall": 0.4286
+  }
+ },
+ "backend": {
+  "graph_valid": true,
+  "closed": 17,
+  "accepted": 17,
+  "rejected": {},
+  "points": 622,
+  "ambiguous_points": 0
+ },
+ "closure": {
+  "edges_meet": true,
+  "max_residual_mm": 0.0,
+  "joined": 109,
+  "refused": 12,
+  "undone": 0,
+  "closed_by_tolerance_only": 28,
+  "closed_by_tolerance_with_real_gap": 26,
+  "closed_in_coordinates": 17
+ },
+ "defects": {
+  "contour_not_simple": 2,
+  "corner_restored": 1,
+  "end_extended": 22,
+  "gap": 105,
+  "hatch_boundary_unresolved": 2,
+  "open_end": 23,
+  "self_intersection": 11
+ }
+}

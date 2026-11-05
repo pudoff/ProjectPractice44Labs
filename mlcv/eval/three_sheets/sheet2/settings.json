@@ -1,0 +1,122 @@
+{
+ "sheet": "Bolti 193-83_1",
+ "module": {
+  "name": "drawcv",
+  "version": "0.2.0"
+ },
+ "params": {
+  "max_image_pixels": 300000000,
+  "work_px_per_mm": 11.811,
+  "pdf_render_dpi": 300.0,
+  "max_skew_deg": 5.0,
+  "min_skew_deg": 0.03,
+  "rotate_deg": 0,
+  "contrast": "normalize",
+  "despeckle_mm2": 0.01,
+  "sheet": null,
+  "manual_px_per_mm": null,
+  "manual_origin_px": null,
+  "text_provider": "auto",
+  "ocr_json": null,
+  "text_margin_mm": 0.4,
+  "tol_fit_mm": 0.08,
+  "min_len_mm": 1.0,
+  "merge_angle_deg": 0.6,
+  "merge_offset_mm": 0.12,
+  "merge_gap_mm": 0.35,
+  "snap_angle_deg": 0.35,
+  "arc_min_radius_mm": 1.0,
+  "arc_min_sweep_deg": 20.0,
+  "arc_max_radius_mm": 500.0,
+  "duplicate_tol_mm": 0.2,
+  "dash_max_mm": 30.0,
+  "dash_gap_max_mm": 6.0,
+  "dash_min_pieces": 3,
+  "hatch_min_lines": 4,
+  "hatch_spacing_mm": [
+   0.8,
+   12.0
+  ],
+  "snap_tol_mm": 0.3,
+  "snap_stroke_factor": 0.75,
+  "gap_search_mm": 3.0,
+  "extend_max_mm": 2.0,
+  "closure_max_turn_deg": 3.0,
+  "closure_min_ink": 0.75,
+  "overlay_max_side_px": 4000,
+  "save_debug_images": true,
+  "extra": {}
+ },
+ "text_provider": "rapidocr",
+ "models": [
+  {
+   "role": "text_detector",
+   "engine": "rapidocr",
+   "runtime": "onnxruntime",
+   "name": "PP-OCRv6_det_small.onnx",
+   "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f"
+  }
+ ],
+ "tolerances_mm": {
+  "snap": 0.7852,
+  "snap_formula": "snap_tol_mm + snap_stroke_factor * thick_mm",
+  "gap_search": 3.0,
+  "fit": 0.08,
+  "duplicate": 0.2,
+  "min_length": 1.0
+ },
+ "calibration": {
+  "manual": false,
+  "view_scale": null,
+  "view_scale_note": "view scale (1:2, 2:1 ...) is read from the title block by OCR, not by this module",
+  "method": "sheet_trim",
+  "sheet": "A4",
+  "sheet_mm": [
+   210,
+   297
+  ],
+  "px_per_mm": [
+   11.847619047619048,
+   11.76936026936027
+  ],
+  "origin_px": [
+   88.0,
+   3633.5
+  ],
+  "xy_agreement": 0.006649365510758676,
+  "frame_px": [
+   88.0,
+   138.0,
+   2576.0,
+   3633.5
+  ],
+  "side_roles": {
+   "left": "trim",
+   "right": "trim",
+   "top": "trim",
+   "bottom": "trim"
+  },
+  "partner_lines_missing": 0,
+  "title_block": 1.0,
+  "title_block_verified": true,
+  "scale_status": "known",
+  "anisotropy": 0.006649
+ },
+ "timings_s": {
+  "ingest": 0.264,
+  "preprocess": 8.724,
+  "calibrate": 0.677,
+  "text_regions": 0.579,
+  "vectorize": 1.443,
+  "hatch_second_pass": 1.529,
+  "classify": 0.041,
+  "topology": 0.38,
+  "images": 0.343,
+  "total": 13.98
+ },
+ "evaluation_wall_s": 18.55,
+ "source_size_px": [
+  4959,
+  7017
+ ]
+}

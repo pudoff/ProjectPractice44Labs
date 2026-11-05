@@ -1,144 +1,125 @@
-# mlcv — CV/ML-часть сервиса оцифровки чертежей
+# mlcv — CV-часть сервиса оцифровки чертежей
 
-Совместный проект с **44labs**. В этой папке всё, что относится к компьютерному зрению и машинному обучению;
-остальной проект (бэкенд, экспорт DXF, прототипы) этот код не дублирует.
+Совместный проект с **44labs**. Здесь **drawcv**: модуль на OpenCV, который из PNG, JPEG или PDF делает `cv.json` — геометрию
+чертежа в миллиметрах листа для бэкенда и OCR. Модуль не читает текст и не определяет масштаб вида: это задача OCR.
 
-Сейчас здесь **drawcv** — CV-модуль на OpenCV по задаче «Подготовить CV модуль на основе OpenCV»:
+| шаг | что делает |
+|---|---|
+| Подготовка | читает страницу, проверяет размер **до декодирования**, поворачивает, снимает наклон до 5°, выравнивает фон, приводит к 300 dpi, калибрует px → мм по рамке |
+| Примитивы | отрезки, окружности, дуги с уверенностью; текст и штриховка отделяются; шум и дубли помечаются, а не прячутся |
+| Контуры | концы рядом сводятся в **одну точку с записью причины** или контур остаётся открытым; разрывы и самопересечения показаны |
+| Связь с OCR | точки с ID и объяснением («начало отрезка», «центр отверстия»), кандидаты измеряемых участков, координаты в пикселях исходника |
 
-1. **Подготовка изображения** — PNG, JPEG и страница PDF идут одним путём; поворот (ручной 90/180/270 и
-   автоматическое выравнивание наклона до 5°), выравнивание фона/контраста, пересчёт к рабочему разрешению 300 dpi,
-   калибровка px → мм листа по рамке. Все преобразования сохраняются матрицами, любой объект возвращается на
-   исходную страницу. Исходник не изменяется; надписи стираются только в рабочей копии, маска сохраняется.
-2. **Отрезки, окружности, дуги** с типом, координатами (мм листа и пиксели исходника) и оценкой уверенности;
-   области текста (детектор RapidOCR или файл OCR) исключаются; штриховка находится и убирается из контура;
-   стрелки, шум, дубли и неподдержанные дуги помечаются, а не прячутся.
-3. **Контуры и дефекты** — сшивка концов по явному допуску в мм, удаление дублей, замкнутые контуры и открытые
-   цепочки, разрывы и самопересечения; дуги остаются дугами; оси и текст к детали не присоединяются; граница
-   штриховки — только в простом случае, иначе вопрос.
-4. **Интеграция и измерения** — стабильный вызов для бэкенда (`CV_ADAPTER=drawcv.adapter:run_cv`), точки с
-   идентификаторами для связи с OCR, таблица качества по каждому листу против эталонного DXF, время этапов.
-
-```
-mlcv/
-├─ drawcv/                пакет
-│  ├─ ingest.py           чтение PNG / JPEG / PDF (pypdfium2) → одна страница в оттенках серого
-│  ├─ preprocess.py       поворот, наклон, фон/контраст, разрешение, бинаризация, «пылинки»
-│  ├─ calibrate.py        px ↔ мм листа: обрез / рамка ГОСТ по сторонам, PDF, ручная
-│  ├─ transform.py        матрицы source_px → work_px → sheet_mm и обратно
-│  ├─ textmask.py         области текста (RapidOCR det / файл OCR / компоненты) и их стирание в рабочей копии
-│  ├─ vectorize.py        скелет → цепочки → отрезки и дуги
-│  ├─ primitives.py       слияние, пунктир/оси, окружности из дуг, толщина, уверенность, дубли
-│  ├─ hatch.py            семейства линий штриховки
-│  ├─ topology.py         контуры, разрывы, самопересечения
-│  ├─ pipeline.py         весь маршрут, роли объектов, время этапов
-│  ├─ output.py           сборка cv.json (контракт бэкенда + подробности)
-│  ├─ overlay.py          картинки для проверки
-│  ├─ adapter.py          вызов из бэкенда
-│  └─ synth.py            контрольный лист с точно известной геометрией (PNG/JPEG/PDF/«скан» + DXF + truth.json)
-├─ tests/                 pytest: форматы, преобразования, примитивы, контуры, контракт бэкенда, детерминизм
-├─ eval/evaluate.py       оценка против эталонных DXF датасета → таблица
-├─ eval/REPORT.md         результаты и ограничения
-├─ examples/              примеры «до/после» и наложений
-├─ CV_JSON.md             формат cv.json
-├─ requirements.txt       зависимости модуля (точные версии)
-├─ requirements-dev.txt   + тесты и оценка
-├─ pyproject.toml         установка пакетом: pip install ./mlcv
-└─ Dockerfile             образ с тестами, работает без интернета
-```
+Формат выхода — [CV_JSON.md](CV_JSON.md). Результаты — [eval/REPORT.md](eval/REPORT.md).
 
 ## Установка
 
-Python 3.11+ (проверено на 3.14). Всё ставится в окружение проекта `.venv`, не глобально:
+Python 3.11+ (проверено на 3.14 и закреплённых версиях бэкенда). Всё ставится в окружение проекта `.venv`:
 
 ```bash
-py -3.14 -m venv .venv                                     # если окружения ещё нет
-.venv/Scripts/python -m pip install -r mlcv/requirements-dev.txt
-export PYTHONUTF8=1                                        # кириллица в консоли Windows
+py -3.14 -m venv .venv                                        # если окружения ещё нет
+.venv/Scripts/python -m pip install -r mlcv/requirements-integration.txt
+# RapidOCR тянет opencv-python-headless, а нужен один пакет cv2 — как в backend/pyproject.toml:
+.venv/Scripts/python -m pip uninstall -y opencv-python-headless opencv-contrib-python
+.venv/Scripts/python -m pip install --no-deps opencv-contrib-python==4.10.0.84
+export PYTHONUTF8=1                                           # кириллица в консоли Windows
 ```
 
-Linux/macOS — то же с `.venv/bin/python`. Как пакет (например, в образ бэкенда): `pip install ./mlcv`.
-Модели детектора текста RapidOCR (≈30 МБ) скачиваются при первом запуске; в Docker-образе — при сборке.
+Только сам модуль: `requirements.txt`; с тестами и оценкой: `requirements-dev.txt`; с проверкой стыковки с настоящими
+`backend/` и `mlocr/`: `requirements-integration.txt` (PaddleOCR для неё не нужен). Linux/macOS — то же с `.venv/bin/python`.
+Веса детектора текста RapidOCR (≈ 30 МБ) скачиваются при первом запуске; в Docker-образе — при сборке.
 
 ## Запуск
 
 ```bash
-# один или несколько листов → DIR/<имя>/cv.json + overlay.png, geometry.png, prep_compare.png, params.json
+# DIR/<имя>/cv.json + overlay.png, geometry.png, prep_compare.png, params.json
 PYTHONPATH=mlcv .venv/Scripts/python -m drawcv dataset/dataset2/Шайба.pdf лист.png скан.jpg --out out_cv
-
-# параметры: --page N (страница PDF), --sheet A3, --rotate 90, --px-per-mm 11.81 [--origin-px x,y] (ручная
-# калибровка, помечается в cv.json), --text-provider rapidocr|components|file|none, --ocr-json ocr.json,
-# --params params.json (любые поля drawcv/params.py), --no-images
 ```
 
-Из Python (стабильный вызов для других модулей):
+Параметры: `--page N`, `--sheet A3`, `--rotate 90`, `--px-per-mm 11.81 [--origin-px x,y]` (ручная калибровка, помечается в `cv.json`),
+`--text-provider rapidocr|components|file|none`, `--ocr-json ocr.json`, `--max-pixels N`, `--params params.json` (любые поля
+[drawcv/params.py](drawcv/params.py)), `--no-images`.
+
+Из Python и из бэкенда:
 
 ```python
 from drawcv import Params, run
 cv = run("лист.pdf", out_dir="out/лист", params=Params(snap_tol_mm=0.3))   # dict; то же в out/лист/cv.json
 ```
 
-В бэкенде (`backend/app/pipeline.py` вызывает `module:function(image) -> dict`):
-
 ```bash
-pip install ./mlcv
-export CV_ADAPTER=drawcv.adapter:run_cv          # картинки проверки пишутся в <run>/cv/
+export CV_ADAPTER=drawcv.adapter:run_cv          # значение по умолчанию в бэкенде; картинки проверки — в <run>/cv/
 export DRAWCV_PARAMS=/path/params.json           # необязательно
+export DRAWCV_MAX_IMAGE_PIXELS=300000000         # необязательно
 ```
 
-Проверено с настоящими `recognize()` и моделями `DrawingGraph` из ветки `feat/fastapi-dxf-backend`: граф строится
-без ошибок валидации. Формат — [CV_JSON.md](CV_JSON.md).
+Адаптер не бросает исключений: при ошибке возвращает `{"status": "error", "error": "..."}`.
 
 ## Проверка
 
 ```bash
-cd mlcv && ../.venv/Scripts/python -m pytest -q && cd ..        # 41 тест, ≈1,5 мин
+cd mlcv && ../.venv/Scripts/python -m pytest -q && cd ..      # все тесты, ≈ 2 мин
 
-# оценка против эталонных DXF; выходы в mlcv/eval/out*/ (не в git), таблица table.md
-.venv/Scripts/python mlcv/eval/evaluate.py --set quick                  # Шайба ×3 формата + контрольный лист ×6
-.venv/Scripts/python mlcv/eval/evaluate.py --set default                # + Сфера1, Опора, Фланец, прокладка, плита
-.venv/Scripts/python mlcv/eval/evaluate.py --set random --n 8 --seed 44 # случайные листы, не участвовавшие в отладке
+P=.venv/Scripts/python
+$P mlcv/eval/evaluate.py --set quick                          # Шайба ×3 формата + контрольный лист ×7, против эталонных DXF
+$P mlcv/eval/evaluate.py --set default                        # + листы разработки
+$P mlcv/eval/evaluate.py --set random --n 8 --seed 44 --out mlcv/eval/out_random   # случайные листы (минимум две выборки)
+$P mlcv/eval/three_sheets.py                                  # три независимых листа: виды, причины ошибок, наложения
+$P mlcv/eval/backend_check.py mlcv/eval/out                   # что принимает настоящий код бэкенда
+$P mlcv/eval/ocr_link_check.py mlcv/eval/out                  # цепочка CV → mlocr → backend → DXF с идеальным чтением
+$P mlcv/eval/compare_runs.py СТАРЫЙ_DIR НОВЫЙ_DIR             # сравнение двух версий по строкам
+$P mlcv/eval/report.py                                        # REPORT.md и TABLES.md
 ```
 
-### Docker
+Docker (чистое окружение, без интернета после сборки):
 
 ```bash
 docker build -t drawcv mlcv
-docker run --rm drawcv                                                   # тесты в чистом окружении
+docker run --rm drawcv                                                    # тесты
 docker run --rm -v "D:/путь/к/листам:/data" drawcv drawcv /data/лист.pdf --out /data/out
-docker run --rm -v "D:/pp/ProjectPractice44Labs:/repo" drawcv \
-       python /repo/mlcv/eval/evaluate.py --set quick --out /repo/mlcv/eval/out_docker
 ```
 
-В Git Bash перед `docker run -v` нужен `MSYS_NO_PATHCONV=1`.
+В Git Bash перед `docker run -v` нужен `MSYS_NO_PATHCONV=1`. Тесты настоящего бэкенда в образе пропускаются: в нём нет папок `backend/` и `mlocr/`.
 
-## Результаты
+## Структура
 
-Подробно, со всеми листами и неудачными случаями, — [eval/REPORT.md](eval/REPORT.md).
+```
+mlcv/
+├─ drawcv/
+│  ├─ ingest.py      чтение PNG / JPEG / PDF, лимит размера до декодирования
+│  ├─ preprocess.py  поворот, наклон, фон, разрешение, бинаризация
+│  ├─ calibrate.py   px ↔ мм листа: обрез / рамка ГОСТ по сторонам, PDF, ручная
+│  ├─ transform.py   матрицы source_px → work_px → sheet_mm и обратно
+│  ├─ textmask.py    области текста (RapidOCR / файл OCR / компоненты), какая модель использована
+│  ├─ vectorize.py   скелет → отрезки и дуги
+│  ├─ primitives.py  слияние, пунктир, окружности из дуг, толщина, уверенность, дубли
+│  ├─ hatch.py       семейства линий штриховки
+│  ├─ closure.py     сведение концов в одну точку, проверки, запись правок
+│  ├─ topology.py    контуры, разрывы, самопересечения
+│  ├─ anchors.py     объяснение точек и кандидаты измеряемых участков для OCR
+│  ├─ pipeline.py    весь маршрут и роли объектов
+│  ├─ output.py      сборка cv.json
+│  ├─ overlay.py     картинки проверки
+│  ├─ adapter.py     вызов из бэкенда
+│  └─ synth.py       контрольный лист с точной истиной
+├─ tests/            pytest: форматы, преобразования, стыки, лимит, опорные точки, настоящий бэкенд
+├─ eval/             оценка против эталонов, отчёты; выходы eval/out*/ в git не попадают
+├─ examples/         примеры «до/после» и наложений
+└─ CV_JSON.md        формат выхода
+```
 
-Сводка по реальным листам (каждая строка — набор; случайные наборы не содержат листов, на которых модуль отлаживался):
+## Результаты в одном абзаце
 
-| набор | входов | масштаб определён | найдено (тело чертежа), ср. / мин. | центр окружности, ср. | радиус, ср. | замкнутые контуры | время ср., с* |
-|---|---|---|---|---|---|---|---|
-| листы разработки (Шайба, Сфера1, Опора, Фланец, прокладка, плита) | 12 | 12/12 | 90 % / 59 % | 0,013 мм | 0,010 мм | 101/148 | 10 |
-| случайные, seed 44 | 12 | 12/12 | 87 % / 67 % | 0,017 мм | 0,006 мм | 118/237 | 12 |
-| случайные, seed 7 | 14 | 14/14 | 80 % / 48 % | 0,024 мм | 0,013 мм | 120/219 | 14 |
-| случайные, seed 101 | 12 | 12/12 | 79 % / 65 % | 0,017 мм | 0,002 мм | 91/159 | 16 |
+Масштаб определён на всех реальных листах с ошибкой меньше 0,2 %. Замкнутые контуры, принятые настоящим кодом бэкенда: **было 36 %, стало 100 %** (640 из 641),
+точек, объединявших разошедшиеся объекты: **было 1745, стало 0**. Цена честности — показано больше разрывов, контуров совпало с эталоном 121 из 246 вместо 138.
+Подробно и с разбором причин — [eval/REPORT.md](eval/REPORT.md), три независимых листа — [eval/three_sheets/REPORT.md](eval/three_sheets/REPORT.md).
 
-\* четыре оценки шли параллельно; одиночный запуск на листе A3/A4 — 3–6 с на CPU.
+Примеры: [до/после подготовки](examples/shaiba_png_prep_compare.jpg), [объекты поверх исходника](examples/opora_png_overlay.jpg),
+[контуры и дефекты](examples/opora_png_geometry.jpg), [сравнение с эталоном](examples/shaiba_png_compare.jpg). Пересобрать: `python mlcv/eval/make_examples.py`.
 
-Контрольный лист (точная истина) в PNG, JPEG, PDF, PDF с печатью 97 % и 99 %×100 %, «скан» с поворотом 1,2°:
-простой профиль замкнут (ошибка площади < 1 %), специально разорванный профиль даёт `gap` 1,5–2,0 мм при истинных
-1,5 мм, самопересечение найдено, оси не попадают в контуры; PDF с печатью 97 %×100 % честно получает
-`scale_status: unknown`. Слабые места — ложные разрывы на перегруженных листах, мелкие дуги без соосной окружности,
-очень тонкие линии рендера 600 dpi — разобраны в [eval/REPORT.md](eval/REPORT.md).
+## Что учесть при стыковке
 
-Примеры (`examples/`):
-
-| что | файл |
-|---|---|
-| до / после подготовки, маска надписей | [shaiba_png_prep_compare.jpg](examples/shaiba_png_prep_compare.jpg), [control_scan_prep_compare.jpg](examples/control_scan_prep_compare.jpg) |
-| найденные объекты поверх исходника (включая отброшенные шум/дубли) | [shaiba_png_overlay.jpg](examples/shaiba_png_overlay.jpg), [shaiba_pdf_overlay.jpg](examples/shaiba_pdf_overlay.jpg), [opora_png_overlay.jpg](examples/opora_png_overlay.jpg), [control_png_overlay.jpg](examples/control_png_overlay.jpg) |
-| только геометрия детали: контуры, разрывы, самопересечения, штриховка | [shaiba_png_geometry.jpg](examples/shaiba_png_geometry.jpg), [opora_png_geometry.jpg](examples/opora_png_geometry.jpg), [control_png_geometry.jpg](examples/control_png_geometry.jpg), [control_scan_geometry.jpg](examples/control_scan_geometry.jpg) |
-| сравнение с эталонным DXF (зелёный — эталон) | [shaiba_png_compare.jpg](examples/shaiba_png_compare.jpg) |
-
-Пересобрать примеры: `python mlcv/eval/make_examples.py` после `evaluate.py --set default`.
+- Лимит размера единый: 300 млн пикселей в бэкенде, `mlocr` и `drawcv` (`MAX_IMAGE_PIXELS`, `DRAWCV_MAX_IMAGE_PIXELS`).
+- `id` объектов и точек действует в пределах одного растра (`raster_identity`). Между разными обрезками сопоставляйте по координатам `sheet_mm`.
+- Поднимая версию в `pyproject.toml`, обновите её в `backend/uv.lock`: образ бэкенда собирается с `uv sync --locked`.
+- Подробности и правила — [CV_JSON.md](CV_JSON.md). Запуск всего сервиса вместе — [главный README](../README.md).
