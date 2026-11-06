@@ -23,6 +23,8 @@ Desktop.ini
 
 # CV-модуль: выходы оценки и сборки пересоздаются (итог — mlcv/eval/REPORT.md)
 mlcv/eval/out*/
+mlcv/eval/prev_*/
+mlocr/evaluation/out*/
 mlcv/eval/*.log
 mlcv/build/
 *.egg-info/

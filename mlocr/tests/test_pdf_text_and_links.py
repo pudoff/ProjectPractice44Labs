@@ -39,7 +39,8 @@ class DimensionLinkTests(unittest.TestCase):
         self.assertEqual(link["status"], "needs_review")
         self.assertEqual(link["candidate_count"], 1)
         self.assertEqual(link["candidates"][0]["measured_mm"], 10.0)
-        self.assertIn("extension-line ownership", link["decision_note"])
+        self.assertIn("Proposal only", link["decision_note"])
+        self.assertIsNone(link["confirmed"])
 
     def test_unknown_scale_prevents_link_proposals(self):
         page = {"texts": [{"id": "txt-1", "text": "10", "notation": {"kind": "linear", "nominal": 10.0},

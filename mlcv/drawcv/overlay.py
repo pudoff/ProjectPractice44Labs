@@ -76,7 +76,7 @@ def geometry_preview(cv, topo, hatches, out, px_per_mm=4.0):
             cv2.fillPoly(img, [to_px(hole["_pts"]).astype(np.int32)], (255, 255, 255))
     for c in topo["contours"]:
         color = {"outer_boundary": (30, 140, 30), "region": (120, 170, 60), "circle": (30, 140, 30),
-                 "open_chain": (40, 40, 220)}[c["role"]]
+                 "open_chain": (40, 40, 220), "not_simple": (0, 140, 255)}[c["role"]]
         _poly(img, to_px(c["_pts"]), color, 2 if c["role"] != "region" else 1, closed=c["closed"])
     for d in cv["defects"]:
         p = to_px([d["at_mm"]])[0]

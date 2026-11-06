@@ -202,6 +202,42 @@ def test_transparent_png_and_pixel_limit(tmp_path, monkeypatch):
         ImageService().prepare(source, tmp_path / "too_big")
 
 
+def test_sheet_above_pillow_bomb_threshold_is_judged_by_our_limit(tmp_path, monkeypatch):
+    """A1 at 600 dpi (280 Mpx) is above Pillow's own limit; only the header is read, then our limit decides."""
+    import struct
+    import zlib
+
+    from app.config import get_settings
+
+    def chunk(tag, data):
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data))
+
+    source = tmp_path / "large.png"
+    source.write_bytes(b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 20000, 15000, 8, 0, 0, 0, 0)) +
+                       chunk(b"IDAT", zlib.compress(b"\0" * 100)) + chunk(b"IEND", b""))
+    monkeypatch.setattr(get_settings(), "max_image_pixels", 299_999_999)
+    with pytest.raises(ValueError, match="пикселей"):
+        ImageService().prepare(source, tmp_path / "refused")
+
+
+def test_dxf_code_page_is_ansi_1251_and_cyrillic_is_readable(tmp_path):
+    path = tmp_path / "text.dxf"
+    drawing = graph(primitives=[line()], texts=[dict(id="t", value="Шайба", insert=(0, 0), height=3.5)])
+    DxfExporter().export(drawing, path)
+    doc = ezdxf.readfile(path)
+    assert doc.header["$DWGCODEPAGE"] == "ANSI_1251" and doc.dxfversion == "AC1021"
+    assert doc.modelspace().query("TEXT")[0].dxf.text == "Шайба"
+
+
+def test_dxf_font_has_cyrillic_in_cad_and_special_glyphs_are_control_codes(tmp_path):
+    path = tmp_path / "font.dxf"
+    drawing = graph(primitives=[line()], texts=[dict(id="t", value="Ø20±0,1 45°", insert=(0, 0), height=3.5)])
+    DxfExporter().export(drawing, path)
+    doc = ezdxf.readfile(path)
+    assert doc.styles.get("DRAWING").dxf.font == "isocpeur.ttf" and doc.styles.get("Standard").dxf.font == "isocpeur.ttf"
+    assert doc.modelspace().query("TEXT")[0].dxf.text == "%%c20%%p0,1 45%%d"
+
+
 def test_legacy_graph_migrates_to_current_version():
     result = DrawingGraph.model_validate({"schema_version": "0.1", "coordinate_space": "part_mm", "primitives": [line()]})
     assert result.schema_version == "0.2"

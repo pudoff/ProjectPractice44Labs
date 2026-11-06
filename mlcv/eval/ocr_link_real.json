@@ -1,0 +1,661 @@
+{
+ "total": {
+  "sheets": 28,
+  "reference_dims": 224,
+  "dimensions": 109,
+  "on_reference": 88,
+  "limit_hit": 0,
+  "dxf_written": 28,
+  "dxf_dimensions": 109
+ },
+ "rows": [
+  {
+   "case": "Опора.png",
+   "reference_dims": 13,
+   "points": 922,
+   "ends_within_025": 0.731,
+   "ends_within_05": 0.769,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 8,
+   "status": {
+    "resolved": 8
+   },
+   "search": {},
+   "dimensions": 8,
+   "dimensions_on_reference_points": 8,
+   "dxf_written": true,
+   "dxf_dimensions": 8,
+   "errors": {}
+  },
+  {
+   "case": "плита.png",
+   "reference_dims": 12,
+   "points": 488,
+   "ends_within_025": 0.833,
+   "ends_within_05": 0.833,
+   "view_scale": 0.4,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 6,
+   "status": {
+    "resolved": 6
+   },
+   "search": {},
+   "dimensions": 6,
+   "dimensions_on_reference_points": 6,
+   "dxf_written": true,
+   "dxf_dimensions": 6,
+   "errors": {}
+  },
+  {
+   "case": "прокладка.png",
+   "reference_dims": 3,
+   "points": 226,
+   "ends_within_025": 0.333,
+   "ends_within_05": 0.833,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 2,
+   "status": {
+    "resolved": 2
+   },
+   "search": {},
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "Сфера1.png",
+   "reference_dims": 6,
+   "points": 503,
+   "ends_within_025": 0.417,
+   "ends_within_05": 0.417,
+   "view_scale": 0.5,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 6,
+   "status": {
+    "resolved": 5,
+    "needs_review": 1
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 1
+   },
+   "dimensions": 5,
+   "dimensions_on_reference_points": 4,
+   "dxf_written": true,
+   "dxf_dimensions": 5,
+   "errors": {}
+  },
+  {
+   "case": "Фланец.png",
+   "reference_dims": 14,
+   "points": 969,
+   "ends_within_025": 0.75,
+   "ends_within_05": 0.786,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 12,
+   "status": {
+    "resolved": 10,
+    "needs_review": 1,
+    "unlinked": 1
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 1,
+    "no_dimension_line_with_matching_extension_lines": 1
+   },
+   "dimensions": 10,
+   "dimensions_on_reference_points": 9,
+   "dxf_written": true,
+   "dxf_dimensions": 10,
+   "errors": {}
+  },
+  {
+   "case": "Шайба.jpeg",
+   "reference_dims": 2,
+   "points": 287,
+   "ends_within_025": 0.75,
+   "ends_within_05": 0.75,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 2,
+   "status": {
+    "unlinked": 2
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 2
+   },
+   "dimensions": 0,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 0,
+   "errors": {}
+  },
+  {
+   "case": "Шайба.png",
+   "reference_dims": 2,
+   "points": 299,
+   "ends_within_025": 0.5,
+   "ends_within_05": 0.5,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 2,
+   "status": {
+    "unlinked": 1,
+    "resolved": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 1
+   },
+   "dimensions": 1,
+   "dimensions_on_reference_points": 1,
+   "dxf_written": true,
+   "dxf_dimensions": 1,
+   "errors": {}
+  },
+  {
+   "case": "1579126_05.png",
+   "reference_dims": 10,
+   "points": 555,
+   "ends_within_025": 0.0,
+   "ends_within_05": 0.0,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 13,
+   "status": {
+    "unlinked": 8,
+    "needs_review": 2,
+    "resolved": 3
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 9,
+    "two_dimension_lines_fit_this_number": 1
+   },
+   "dimensions": 3,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 3,
+   "errors": {}
+  },
+  {
+   "case": "1579139_01.png",
+   "reference_dims": 17,
+   "points": 578,
+   "ends_within_025": 0.471,
+   "ends_within_05": 0.471,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 14,
+   "status": {
+    "resolved": 8,
+    "needs_review": 5,
+    "unlinked": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 4,
+    "two_dimension_lines_fit_this_number": 2
+   },
+   "dimensions": 8,
+   "dimensions_on_reference_points": 7,
+   "dxf_written": true,
+   "dxf_dimensions": 8,
+   "errors": {}
+  },
+  {
+   "case": "1579144_02.png",
+   "reference_dims": 9,
+   "points": 378,
+   "ends_within_025": 0.611,
+   "ends_within_05": 0.611,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 6,
+   "status": {
+    "resolved": 4,
+    "unlinked": 1,
+    "needs_review": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 1,
+    "two_dimension_lines_fit_this_number": 1
+   },
+   "dimensions": 4,
+   "dimensions_on_reference_points": 4,
+   "dxf_written": true,
+   "dxf_dimensions": 4,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.01.02 - Лист гнутый.png",
+   "reference_dims": 10,
+   "points": 825,
+   "ends_within_025": 0.45,
+   "ends_within_05": 0.7,
+   "view_scale": 0.06666666666666667,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 12,
+   "status": {
+    "resolved": 7,
+    "unlinked": 4,
+    "needs_review": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 5
+   },
+   "dimensions": 7,
+   "dimensions_on_reference_points": 6,
+   "dxf_written": true,
+   "dxf_dimensions": 7,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.01.16  - Ребро.png",
+   "reference_dims": 3,
+   "points": 491,
+   "ends_within_025": 0.833,
+   "ends_within_05": 0.833,
+   "view_scale": 0.2,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 6,
+   "status": {
+    "resolved": 2,
+    "unlinked": 4
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 4
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.01.18 - Ребро.png",
+   "reference_dims": 3,
+   "points": 567,
+   "ends_within_025": 1.0,
+   "ends_within_05": 1.0,
+   "view_scale": 0.4,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 7,
+   "status": {
+    "resolved": 2,
+    "unlinked": 5
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 5
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "гайка2.png",
+   "reference_dims": 7,
+   "points": 351,
+   "ends_within_025": 0.857,
+   "ends_within_05": 1.0,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 2,
+   "status": {
+    "resolved": 1,
+    "needs_review": 1
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 1
+   },
+   "dimensions": 1,
+   "dimensions_on_reference_points": 1,
+   "dxf_written": true,
+   "dxf_dimensions": 1,
+   "errors": {}
+  },
+  {
+   "case": "1579144_01.png",
+   "reference_dims": 6,
+   "points": 357,
+   "ends_within_025": 0.667,
+   "ends_within_05": 0.667,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 7,
+   "status": {
+    "resolved": 3,
+    "needs_review": 3,
+    "unlinked": 1
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 2,
+    "no_dimension_line_with_matching_extension_lines": 2
+   },
+   "dimensions": 3,
+   "dimensions_on_reference_points": 3,
+   "dxf_written": true,
+   "dxf_dimensions": 3,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.01.03 - Лист гнутый.png",
+   "reference_dims": 8,
+   "points": 767,
+   "ends_within_025": 0.688,
+   "ends_within_05": 0.812,
+   "view_scale": 0.1,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 8,
+   "status": {
+    "needs_review": 1,
+    "resolved": 2,
+    "unlinked": 5
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 1,
+    "no_dimension_line_with_matching_extension_lines": 5
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {
+    "invalid_boundary": 1
+   }
+  },
+  {
+   "case": "260620-КМ3.18-00.01.10 - Лист.png",
+   "reference_dims": 3,
+   "points": 433,
+   "ends_within_025": 0.833,
+   "ends_within_05": 0.833,
+   "view_scale": 0.2,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 8,
+   "status": {
+    "unlinked": 6,
+    "resolved": 2
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 6
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.03.03 - Шайба упорная.png",
+   "reference_dims": 7,
+   "points": 1130,
+   "ends_within_025": 0.786,
+   "ends_within_05": 0.786,
+   "view_scale": 0.5,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 14,
+   "status": {
+    "unlinked": 9,
+    "resolved": 5
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 9
+   },
+   "dimensions": 5,
+   "dimensions_on_reference_points": 4,
+   "dxf_written": true,
+   "dxf_dimensions": 5,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.06.03 - Шайба упорная.png",
+   "reference_dims": 7,
+   "points": 954,
+   "ends_within_025": 0.571,
+   "ends_within_05": 0.571,
+   "view_scale": 0.5,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 13,
+   "status": {
+    "unlinked": 9,
+    "resolved": 4
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 9
+   },
+   "dimensions": 4,
+   "dimensions_on_reference_points": 3,
+   "dxf_written": true,
+   "dxf_dimensions": 4,
+   "errors": {}
+  },
+  {
+   "case": "Опора7.png",
+   "reference_dims": 16,
+   "points": 941,
+   "ends_within_025": 0.5,
+   "ends_within_05": 0.5,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 15,
+   "status": {
+    "resolved": 12,
+    "needs_review": 2,
+    "unlinked": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 2,
+    "two_dimension_lines_fit_this_number": 1
+   },
+   "dimensions": 12,
+   "dimensions_on_reference_points": 12,
+   "dxf_written": true,
+   "dxf_dimensions": 12,
+   "errors": {}
+  },
+  {
+   "case": "трубка.png",
+   "reference_dims": 3,
+   "points": 656,
+   "ends_within_025": 0.833,
+   "ends_within_05": 0.833,
+   "view_scale": 2.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 5,
+   "status": {
+    "unlinked": 2,
+    "needs_review": 3
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 5
+   },
+   "dimensions": 0,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 0,
+   "errors": {}
+  },
+  {
+   "case": "1579138_02.png",
+   "reference_dims": 9,
+   "points": 571,
+   "ends_within_025": 0.0,
+   "ends_within_05": 0.0,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 2,
+   "status": {
+    "resolved": 2
+   },
+   "search": {},
+   "dimensions": 2,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "1579148_02.png",
+   "reference_dims": 28,
+   "points": 661,
+   "ends_within_025": 0.0,
+   "ends_within_05": 0.0,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 10,
+   "status": {
+    "resolved": 6,
+    "unlinked": 2,
+    "needs_review": 2
+   },
+   "search": {
+    "two_dimension_lines_fit_this_number": 1,
+    "no_dimension_line_with_matching_extension_lines": 3
+   },
+   "dimensions": 6,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 6,
+   "errors": {
+    "invalid_boundary": 1
+   }
+  },
+  {
+   "case": "1579180.04.png",
+   "reference_dims": 5,
+   "points": 385,
+   "ends_within_025": 0.0,
+   "ends_within_05": 0.0,
+   "view_scale": 0.5,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 6,
+   "status": {
+    "unlinked": 2,
+    "resolved": 4
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 2
+   },
+   "dimensions": 4,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 4,
+   "errors": {}
+  },
+  {
+   "case": "1579190.03_Нов.png",
+   "reference_dims": 4,
+   "points": 574,
+   "ends_within_025": 0.625,
+   "ends_within_05": 0.75,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 4,
+   "status": {
+    "unlinked": 2,
+    "resolved": 2
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 2
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "1579262_04.png",
+   "reference_dims": 4,
+   "points": 239,
+   "ends_within_025": 0.0,
+   "ends_within_05": 0.0,
+   "view_scale": null,
+   "view_scale_basis": null,
+   "limit_hit": false,
+   "links": 0,
+   "status": {},
+   "search": {},
+   "dimensions": 0,
+   "dimensions_on_reference_points": 0,
+   "dxf_written": true,
+   "dxf_dimensions": 0,
+   "errors": {}
+  },
+  {
+   "case": "260620-КМ3.18-00.00.15 - Шайба.png",
+   "reference_dims": 3,
+   "points": 403,
+   "ends_within_025": 1.0,
+   "ends_within_05": 1.0,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 7,
+   "status": {
+    "resolved": 2,
+    "unlinked": 5
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 5
+   },
+   "dimensions": 2,
+   "dimensions_on_reference_points": 2,
+   "dxf_written": true,
+   "dxf_dimensions": 2,
+   "errors": {}
+  },
+  {
+   "case": "гайка накидная2.png",
+   "reference_dims": 10,
+   "points": 594,
+   "ends_within_025": 0.65,
+   "ends_within_05": 0.85,
+   "view_scale": 1.0,
+   "view_scale_basis": "single_ocr_scale_candidate",
+   "limit_hit": false,
+   "links": 8,
+   "status": {
+    "resolved": 6,
+    "unlinked": 1,
+    "needs_review": 1
+   },
+   "search": {
+    "no_dimension_line_with_matching_extension_lines": 2
+   },
+   "dimensions": 6,
+   "dimensions_on_reference_points": 6,
+   "dxf_written": true,
+   "dxf_dimensions": 6,
+   "errors": {}
+  }
+ ]
+}

@@ -11,15 +11,15 @@ from shapely.geometry import Point
 
 from . import __version__
 from .calibrate import to_sheet_transform
+from .closure import close_contours
 from .hatch import find_hatch_groups
 from .ingest import load_page
-from .output import build_cv_json
+from .output import build_cv_json, geometry
 from .params import Params
 from .preprocess import prepare
 from .primitives import (confidence, dashed_chains, endpoints, length, mark_duplicates, measure, merge_arcs,
                          merge_collinear, sample, snap_angles, sweep)
-from .textmask import erase_text, find_text_regions
-from .topology import build as build_topology
+from .textmask import erase_text, find_text_regions, model_info
 from .vectorize import fit_circle, vectorize
 
 ROLE_ORDER = ["part", "thin", "axis", "hidden", "hatch", "frame", "title_block", "arrowhead", "text_residue",
@@ -44,7 +44,7 @@ def run(input_path, out_dir=None, params=None, page_index=0):
     """Process one page. Returns the cv.json dict; writes cv.json and images into out_dir when given."""
     params = params or Params()
     T = Timer()
-    page = load_page(input_path, page_index, params.pdf_render_dpi)
+    page = load_page(input_path, page_index, params.pdf_render_dpi, params.max_image_pixels)
     if params.ocr_json and params.text_provider in {'file', 'auto'}:
         observed = json.loads(Path(params.ocr_json).read_text(encoding='utf-8'))
         if isinstance(observed, dict) and observed.get('schema_version') == 'ocr-observations-1':
@@ -103,11 +103,15 @@ def run(input_path, out_dir=None, params=None, page_index=0):
 
     part = [e for e in prims if e["status"] == "ok" and e["role"] == "part"]
     others = [e for e in prims if e["status"] == "ok" and e["role"] != "part"]
-    snap_tol = params.snap_tol_mm + params.snap_stroke_factor * (thick_mm if separable else thin_mm)
-    extended = _extend_ends(part, widths_at, thick_mm if separable else thin_mm, snap_tol, params.extend_max_mm)
-    topo = build_topology(part, others, snap_tol, params.gap_search_mm)
+    stroke = thick_mm if separable else thin_mm
+    snap_tol = params.snap_tol_mm + params.snap_stroke_factor * stroke
+    for e in part:
+        e["observed"] = geometry(e)
+    extended = _extend_ends(part, widths_at, stroke, snap_tol, params.extend_max_mm)
+    topo = close_contours(part, others, snap_tol, params.gap_search_mm, widths_at, stroke,
+                          params.closure_max_turn_deg, params.closure_min_ink, params.closure_reach_over_ink_mm)
     topo["defects"] += extended
-    role_rank = {"outer_boundary": 0, "circle": 1, "region": 2, "open_chain": 3}
+    role_rank = {"outer_boundary": 0, "circle": 1, "region": 2, "not_simple": 3, "open_chain": 4}
     topo["contours"].sort(key=lambda c: (role_rank[c["role"]], c["bbox_mm"][0], c["bbox_mm"][1], -c["area_mm2"]))
     for i, c in enumerate(topo["contours"]):
         c["id"] = f"contour_{i}"
@@ -119,9 +123,9 @@ def run(input_path, out_dir=None, params=None, page_index=0):
     stats = {"tolerances_mm": {"snap": round(snap_tol, 4), "snap_formula": "snap_tol_mm + snap_stroke_factor * thick_mm",
                                "gap_search": params.gap_search_mm, "fit": params.tol_fit_mm,
                                "duplicate": params.duplicate_tol_mm, "min_length": params.min_len_mm},
-             "text_provider": provider, "text_note": text_note, "lineweights": lineweights,
+             "text_provider": provider, "text_note": text_note, "models": model_info(provider), "lineweights": lineweights,
              "raw_pieces": len(pieces), "skeleton_px": int(sk.sum()), "erased_text_px": int(erased.sum()),
-             "erased_hatch_px": int(hatch_px)}
+             "erased_hatch_px": int(hatch_px), "closure": topo["closure_checks"]}
     cv = build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hatches, groups, stats, T.stages,
                        __version__)
     if out_dir is not None:

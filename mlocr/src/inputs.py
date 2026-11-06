@@ -1,12 +1,23 @@
 """Bounded page preparation and an identity shared by OCR and CV."""
 import hashlib
 import math
+import os
 from pathlib import Path
 import numpy as np
 import pymupdf
 from PIL import Image, ImageOps
 
-MAX_PIXELS = 50_000_000
+MAX_PIXELS = int(os.getenv('MAX_IMAGE_PIXELS', 300_000_000))      # the same limit as backend and drawcv
+
+
+def _open_header(path):
+    """Header only; the limit below is checked before decoding. Pillow's own lower threshold is lifted for this call."""
+    saved = Image.MAX_IMAGE_PIXELS
+    Image.MAX_IMAGE_PIXELS = None
+    try:
+        return Image.open(path)
+    finally:
+        Image.MAX_IMAGE_PIXELS = saved
 
 
 def page_identity(image, page='page-1'):
@@ -30,7 +41,7 @@ def iter_pages(path: Path, page_number: int | None, dpi: int, max_pixels=MAX_PIX
                 pix = page.get_pixmap(dpi=dpi, colorspace=pymupdf.csRGB, alpha=False)
                 yield f'page-{i+1}', np.asarray(Image.frombytes('RGB', (pix.width, pix.height), pix.samples))
     else:
-        with Image.open(path) as source:
+        with _open_header(path) as source:
             if source.width*source.height > max_pixels:
                 raise ValueError('Image exceeds pixel limit')
             image = ImageOps.exif_transpose(source)

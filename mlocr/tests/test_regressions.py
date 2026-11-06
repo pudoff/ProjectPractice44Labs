@@ -174,6 +174,15 @@ def test_text_polygon_corner_order_does_not_rotate_horizontal_text():
     assert abs(output['rotation']) < 1e-6 and abs(output['height']-10) < 1e-6
 
 
+def test_detector_box_is_taller_than_the_text_and_text_stays_in_the_box():
+    obs, cv = dimension_case()
+    obs['texts'][0].update(text='Сталь', source='paddleocr', poly_source_px=[[10, 10], [50, 10], [50, 20], [10, 20]])
+    obs['texts'][0]['notation'] = {'kind': 'unknown'}
+    output = to_drawing(obs, cv)['texts'][0]
+    assert abs(output['height']-6.2) < 1e-6
+    assert abs(output['insert'][1]-(10+(10-6.2)/2)) < 1e-6 and abs(output['insert'][0]-10) < 1e-6
+
+
 @pytest.mark.parametrize('number', ['036', '836', '8036', '88'])
 def test_zeros_and_eights_are_not_diameter_prefixes(number):
     import cv2
@@ -182,3 +191,152 @@ def test_zeros_and_eights_are_not_diameter_prefixes(number):
     item = enrich({'text': number})
     recover_diameter(item, canvas, [[0, 0], [240, 0], [240, 90], [0, 90]])
     assert item['text'] == number
+
+
+def _shared_corners_case(offset):
+    """Both measured points are corners of two part lines; no line runs between them."""
+    identity = {'page': 'page-1', 'width_px': 200, 'height_px': 100, 'raster_sha256': 'fixture'}
+    text = enrich({'id': 't1', 'text': '50', 'poly_source_px': [[23, 11], [27, 11], [27, 13], [23, 13]],
+                   'purpose': 'dimension_or_scale_candidate'})
+    cv = {'status': 'ok', 'raster_identity': identity, 'coordinate_space': 'sheet_mm', 'scale_status': 'known',
+          'calibration': {'view_scale': 1}, 'transforms': {'source_px_to_sheet_mm': [[1, 0, 0], [0, 1, 0], [0, 0, 1]]},
+          'points': [{'id': 'p1', 'xy': [0, 0], 'refs': [{'object_id': 'a', 'anchor': 'start'}, {'object_id': 'b', 'anchor': 'end'}]},
+                     {'id': 'p2', 'xy': [50, 0], 'refs': [{'object_id': 'c', 'anchor': 'start'}, {'object_id': 'd', 'anchor': 'end'}]}],
+          'primitives': [{'id': 'a', 'kind': 'line', 'start': [0, 0], 'end': [0, -5]},
+                         {'id': 'b', 'kind': 'line', 'start': [-5, 0], 'end': [offset, 0]},
+                         {'id': 'c', 'kind': 'line', 'start': [50, 0], 'end': [50, -5]},
+                         {'id': 'd', 'kind': 'line', 'start': [55, 0], 'end': [50, 0]},
+                         {'id': 'dim', 'kind': 'line', 'start': [0, 10], 'end': [50, 10]},
+                         {'id': 'e1', 'kind': 'line', 'start': [0, 0], 'end': [0, 12]},
+                         {'id': 'e2', 'kind': 'line', 'start': [50, 0], 'end': [50, 12]}],
+          'objects': {'a': {'role': 'part'}, 'b': {'role': 'part'}, 'c': {'role': 'part'}, 'd': {'role': 'part'},
+                      'dim': {'role': 'thin'}, 'e1': {'role': 'thin'}, 'e2': {'role': 'thin'}}}
+    return {'status': 'ok', 'source': identity, 'texts': [text], 'issues': [], 'title_block': {}}, cv
+
+
+def test_shared_corner_links_and_the_extension_line_decides_which_end_is_measured():
+    obs, cv = _shared_corners_case(0.0)
+    assert len(to_drawing(obs, cv)['dimensions']) == 1
+    obs, cv = _shared_corners_case(0.1)                  # the lines stay apart: the extension line stands at x = 0
+    output = to_drawing(obs, cv)
+    point = next(p for p in cv['points'] if p['id'] == output['dimensions'][0]['p1_ref'])
+    assert point['refs'] == [{'object_id': 'a', 'anchor': 'start'}] and point['xy'] == [0, 0]
+
+
+def test_foot_inside_a_contour_line_is_its_own_point_and_the_line_stays():
+    """The most common case on real sheets: the extension line comes to the middle of a long edge."""
+    obs, cv = dimension_case()
+    cv['primitives'][0].update(start=[-20, 0], end=[70, 0])     # the edge is longer than the measured stretch
+    cv['points'] = []
+    output = to_drawing(obs, cv)
+    dimension = output['dimensions'][0]
+    feet = {p['id']: p for p in cv['points']}
+    assert feet[dimension['p1_ref']]['refs'] == [] and feet[dimension['p1_ref']]['xy'] == [0, 0]
+    assert feet[dimension['p2_ref']]['xy'] == [50, 0]
+    assert 'represented_by_dimension' not in cv['objects']['part'] and cv['objects']['e1']['represented_by_dimension'] == dimension['id']
+
+
+def test_wrong_distance_or_two_equal_dimension_lines_give_no_link():
+    obs, cv = dimension_case()
+    cv['primitives'][3].update(start=[47, 0], end=[47, 12])      # extension line 3 mm away from the printed size
+    assert to_drawing(obs, cv)['dimensions'] == []
+    obs, cv = dimension_case()
+    # another pair of extension lines at the printed distance, just as close to the number
+    cv['primitives'] += [{'id': 'dim2', 'kind': 'line', 'start': [10, 14], 'end': [60, 14]},
+                         {'id': 'e3', 'kind': 'line', 'start': [10, 0], 'end': [10, 16]},
+                         {'id': 'e4', 'kind': 'line', 'start': [60, 0], 'end': [60, 16]}]
+    cv['objects'].update(dim2={'role': 'thin'}, e3={'role': 'thin'}, e4={'role': 'thin'})
+    assert to_drawing(obs, cv)['dimensions'] == []
+
+
+def test_a_size_far_from_its_printed_value_is_not_linked():
+    obs, cv = dimension_case()
+    cv['primitives'][3].update(start=[50.5, 0], end=[50.5, 12])     # 1 % off at scale 1:2: beyond what CV can get wrong
+    assert to_drawing(obs, cv)['dimensions'] == []
+
+
+def test_scale_is_voted_by_dimension_lines_only_with_a_clear_majority():
+    from mlocr.src.dimension_links import vote_view_scale
+    obs, cv = dimension_case(.5)
+    cv['calibration']['view_scale'] = None
+    assert vote_view_scale(obs, cv) is None                         # a single size proves nothing
+    for k, y in enumerate((20, 40)):
+        cv['primitives'] += [{'id': f'r{k}', 'kind': 'line', 'start': [0, y], 'end': [50, y]},
+                             {'id': f'a{k}', 'kind': 'line', 'start': [0, y - 8], 'end': [0, y + 2]},
+                             {'id': f'b{k}', 'kind': 'line', 'start': [50, y - 8], 'end': [50, y + 2]}]
+        arrow = {'role': 'arrowhead', 'kind': 'line', 'geometry_mm': {'start': [1, y], 'end': [4, y]}}
+        cv['objects'].update({f'r{k}': {'role': 'thin'}, f'a{k}': {'role': 'thin'}, f'b{k}': {'role': 'thin'}, f'arrow{k}': arrow})
+        obs['texts'].append(enrich({'id': f't{k + 2}', 'text': '100', 'purpose': 'dimension_or_scale_candidate',
+                                    'poly_source_px': [[23, y + 1], [27, y + 1], [27, y + 3], [23, y + 3]]}))
+    cv['objects']['dim_arrow'] = {'role': 'arrowhead', 'kind': 'line', 'geometry_mm': {'start': [1, 10], 'end': [4, 10]}}
+    assert vote_view_scale(obs, cv) == .5
+    # the cells of a table have no arrows: they never vote, whatever their spacing
+    for name in ('arrow0', 'arrow1', 'dim_arrow'):
+        del cv['objects'][name]
+    assert vote_view_scale(obs, cv) is None
+
+
+def test_drawing_words_are_corrected_with_a_record_and_numbers_are_not():
+    for raw, expected in (('Разрад.', 'Разраб.'), ('Масштад', 'Масштаб'), ('Ymb.', 'Утв.'), ('Шайда', 'Шайба'), ('Луст', 'Лист'),
+                          ('Macca', 'Масса'), ('Cm3 Г0CT 380-2005', 'Ст3 ГОСТ 380-2005'), ('$26', 'Ø26'), ('5omb14', '5отв.14'),
+                          ('Лут.', 'Лит.'), ('Ин6.', 'Инв.'), ('45X F0CT1051-88', '45X ГОСТ1051-88')):
+        text, changes = normalize_text(raw)
+        assert text == expected and changes, raw
+    for raw in ('380', '1050-88', '12,5', 'H14', 'Ra', 'M12', 'Вариант', 'R1', '$', 'Лот'):
+        assert normalize_text(raw) == (raw, []), raw
+
+
+def _sheet_cv():
+    return {'scale_status': 'known', 'calibration': {'sheet_mm': [420, 297]}}
+
+
+def _cell_text(id_, text, x, y):
+    """A text at x, y in mm inside the title block of an A3 sheet; pixels equal mm with y up for simplicity."""
+    X, Y = 420 - 5 - 185 + x, 5 + y
+    return enrich({'id': id_, 'text': text, 'page': 'page-1', 'poly_source_px': [[X - 3, Y - 1], [X + 3, Y - 1], [X + 3, Y + 1], [X - 3, Y + 1]]})
+
+
+def test_title_block_cells_of_the_standard_form():
+    from mlocr.src.title_block import merge_title_block
+    identity = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    texts = [_cell_text('n', 'Переходник', 100, 30), _cell_text('m1', 'Сталь 25', 100, 9), _cell_text('m2', 'ГОСТ 1050-88', 100, 4),
+             _cell_text('d', '1579143.01', 120, 47), _cell_text('a1', 'Разраб.Должиков', 15, 27.5), _cell_text('a2', 'Воронецкий', 28, 22.5),
+             _cell_text('l', 'Масштаб', 170, 37), _cell_text('s', 'Лист', 150, 17)]
+    fields = merge_title_block({}, {'texts': texts}, identity, _sheet_cv())['page-1']['fields']
+    assert fields['name']['value'] == 'Переходник' and fields['document_number']['value'] == '1579143.01'
+    assert fields['material']['value'] == 'Сталь 25 ГОСТ 1050-88'
+    assert fields['authors']['value'] == [{'role': 'Разраб.', 'name': 'Должиков'}, {'role': 'Пров.', 'name': 'Воронецкий'}]
+
+
+def test_title_block_cells_ignore_a_material_standard_and_stray_marks():
+    from mlocr.src.title_block import merge_title_block
+    identity = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    texts = [_cell_text('d', '45X F0CT1051-88', 100, 42), _cell_text('n', 'Болт', 100, 30), _cell_text('t', 'T', 120, 30), _cell_text('u', '1UK', 80, 30)]
+    fields = merge_title_block({}, {'texts': texts}, identity, _sheet_cv())['page-1']['fields']
+    assert fields['document_number']['status'] == 'unknown' and fields['name']['value'] == 'Болт'
+
+
+def test_title_block_keeps_the_layout_rule_where_a_cell_is_empty_and_without_calibration():
+    from mlocr.src.title_block import merge_title_block
+    identity = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    earlier = {'page-1': {'status': 'needs_review', 'fields': {'material': {'value': 'Сталь 45', 'status': 'candidate', 'source_text_ids': ['x']}}}}
+    fields = merge_title_block(earlier, {'texts': [_cell_text('n', 'Втулка', 100, 30)]}, identity, _sheet_cv())['page-1']['fields']
+    assert fields['material']['value'] == 'Сталь 45' and fields['document_number']['status'] == 'unknown'
+    assert merge_title_block(earlier, {'texts': []}, identity, {'scale_status': 'unknown', 'calibration': {}}) == earlier
+
+
+def test_size_with_fit_tolerance_or_mark_keeps_the_notation_around_the_measured_value():
+    for text, kind, nominal, suffix in (('98,4*', 'linear', 98.4, '*'), ('Ø44h14', 'diameter', 44, 'h14'), ('52+0,075', 'linear', 52, '+0,075'),
+                                        ('25*', 'linear', 25, '*'), ('Ø30', 'diameter', 30, None), ('46±0,1', 'linear_tolerance', 46, '±0,1')):
+        parsed = parse_engineering_notation(text)
+        assert (parsed['kind'], parsed['nominal'], parsed.get('suffix')) == (kind, nominal, suffix), text
+    obs, cv = dimension_case()
+    obs['texts'][0] = enrich({**obs['texts'][0], 'text': 'Ø100h14', 'raw_text': 'Ø100h14'})
+    assert to_drawing(obs, cv)['dimensions'][0]['display'] == '%%c<>h14'
+
+
+def test_crowded_sheet_does_not_hit_the_limit_with_points_that_cannot_anchor():
+    obs, cv = dimension_case()
+    cv['objects']['thin_many'] = {'role': 'thin'}
+    cv['points'] += [{'id': f'x{k}', 'xy': [k * .1, 40], 'refs': [{'object_id': 'thin_many', 'anchor': 'mid'}]} for k in range(900)]
+    assert not any(i['code'] == 'dimension_link_limit' for i in to_drawing(obs, cv)['issues'])

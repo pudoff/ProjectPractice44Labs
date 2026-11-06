@@ -1,133 +1,148 @@
 # ProjectPractice44Labs — оцифровка чертежей: скан / PDF → редактируемый DXF
 
-Совместный проект с **44labs**. Цель — MVP сервиса, который по скану или PDF чертежа конструкторской документации
-(ЕСКД) выдаёт **редактируемый DXF**: геометрия, размеры как настоящие `DIMENSION`, штриховки, текст и штамп на русском,
-формат листа и масштаб как в оригинале. Файл должен открываться в AutoCAD, LibreCAD, nanoCAD, КОМПАС и
-конвертироваться в DWG.
+Совместный проект с **44labs**. Сервис получает скан, PNG/JPEG или PDF чертежа ЕСКД и выдаёт **редактируемый DXF**: геометрия,
+штриховки, текст и штамп на русском, размеры как настоящие `DIMENSION`, формат листа и масштаб как в оригинале.
 
 Постановка задачи: [`task/Task.pdf`](task/Task.pdf), ответы заказчика: [`task/additionalComments.txt`](task/additionalComments.txt).
 
-## Где что лежит
+## Как устроен сервис
 
 ```
-ProjectPractice44Labs/
-├─ task/                    постановка задачи и ответы заказчика
-├─ dataset/                 данные (только чтение)
-│  ├─ clear_sum_dataset/    127 реальных пар PNG (600 dpi) ↔ DXF
-│  ├─ dataset2/, dataset3/  реальные пары PDF ↔ DXF (72 и 52, пересекаются по деталям)
-│  └─ data/                 150 синтетических пар PDF-скан ↔ DXF (с дефектами, см. docs)
-├─ runs/                    прогоны на конкретных листах
-│  ├─ клапан.png            тестовый лист (А3, 1:1)
-│  └─ klapan_png2dxf/       оцифровка клапана: итоговые DXF/DWG, отчёт, код вариантов A и B
-├─ mlcv/                    CV/ML-часть: модуль drawcv на OpenCV (PNG/JPEG/PDF → примитивы, контуры, дефекты → cv.json),
-│                           тесты, оценка против эталонов, Docker-образ — см. mlcv/README.md
-├─ docs/architecture/       архитектура сервиса, ревью, эксперименты на 9 листах и «сканах»
-├─ архитектура_кодекс/      исходное предложение по архитектуре сервиса (разобрано в docs/architecture/REVIEW.md)
-├─ tools/                   общие инструменты: запись DXF по ЕСКД, сравнение DXF, измерения на растре
-└─ docker/                  образы проверки: LibreCAD (открытие/печать DXF), ODA File Converter (DXF ↔ DWG)
+ PNG / JPEG / PDF
+        │  POST /api/v1/jobs
+        ▼
+   ┌─────────┐   очередь в PostgreSQL   ┌────────┐
+   │   API   │ ───────────────────────► │ worker │
+   └─────────┘                          └───┬────┘
+                                            │ готовит PNG страницы (лимит размера)
+                             ┌──────────────┴──────────────┐
+                             ▼                             ▼
+                    mlocr — PaddleOCR               mlcv/drawcv — OpenCV
+                    текст, штамп, размеры ─области─► геометрия, контуры, точки
+                             └──────────┬──────────────────┘
+                                        ▼ связывание размеров с точками
+                                   DrawingGraph ──► DXF, превью, отчёт
 ```
 
-## Главное за 1 минуту
+| папка | что | документация |
+|---|---|---|
+| `backend/` | API, worker, база, экспорт DXF | [backend/README.md](backend/README.md) |
+| `mlcv/` | CV: модуль `drawcv` → `cv.json` | [mlcv/README.md](mlcv/README.md), [формат](mlcv/CV_JSON.md), [качество](mlcv/eval/REPORT.md) |
+| `mlocr/` | OCR: текст, штамп, обозначения | [mlocr/README.md](mlocr/README.md) |
+| `tools/`, `docker/` | запись и сравнение DXF, проверка в LibreCAD, конвертация в DWG | |
+| `dataset/` | данные, только чтение | |
+| `runs/`, `docs/` | прогоны, архитектура, спецификация, ревью | [docs/architecture](docs/architecture/README.md) |
+| `service/`, `compose.offline-prototype.yaml` | исторический офлайн-прототип, отдельно от основного сервиса | [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md) |
+
+## Запустить всё вместе
+
+Нужен только Docker. Команды проверены на Windows (Git Bash) и подходят для Linux/macOS.
+
+```bash
+# 1. Настройки: задать пароль базы в .env
+cp .env.example .env
+
+# 2. Собрать образ сервиса (несколько минут, PaddlePaddle большой)
+docker compose build api
+
+# 3. Один раз с интернетом: модели в ./models, проверка хешей. При сбое загрузки просто повторить
+docker compose run --rm --no-deps model-assets
+docker compose run --rm --no-deps model-assets python -m app.infra.model_assets
+
+# 4. Запуск: база, миграции, API, worker. Дальше интернет не нужен
+docker compose up -d --no-build
+```
+
+Отправить чертёж и забрать результат:
+
+```bash
+curl -F "file=@dataset/dataset2/Шайба.pdf;filename=shaiba.pdf" http://localhost:8000/api/v1/jobs   # ответ содержит "id"
+curl http://localhost:8000/api/v1/jobs/<id>                                                        # ждать state: succeeded или needs_review
+curl -o result.dxf http://localhost:8000/api/v1/jobs/<id>/artifacts/result.dxf
+```
+
+Ещё артефакты: `preview.png`, `report.json` (все вопросы к листу), `cv.json`, `ocr.json`, `drawing.json`.
+`needs_review` — нормальный итог: DXF записан, но есть места для проверки человеком.
+
+Остановить: `docker compose down` (данные сохраняются в томах), `docker compose down -v` — вместе с данными.
+Другой порт: `API_PORT=18000` в `.env`. Полностью автономный комплект: `bash scripts/prepare_online.sh`, затем `bash scripts/start_offline.sh`.
+
+## Проверить, что всё работает
+
+```bash
+# Все тесты бэкенда, OCR и прототипа в контейнере, без сети и базы
+docker compose -f compose.test.yaml run --build --rm checks
+
+# Тесты CV-модуля в чистом образе
+docker build -t drawcv mlcv && docker run --rm drawcv
+
+# Открывается ли DXF в настоящем CAD (LibreCAD, печать в PDF); в Git Bash перед командой MSYS_NO_PATHCONV=1
+docker build -t cad-validate docker/cad-validate
+docker run --rm -v "D:/путь/к/папке:/work" cad-validate validate.sh /work/result.dxf 420x297
+```
+
+В этой проверке текст выглядит ромбиками: headless LibreCAD не загружает шрифты, это не ошибка файла. Кириллицу смотрите в `preview.png`.
+
+Без Docker, для разработки CV и оценки качества, — окружение `.venv` (Python 3.12+, проверено на 3.14):
+
+```bash
+py -3.14 -m venv .venv
+.venv/Scripts/python -m pip install -r mlcv/requirements-integration.txt matplotlib
+.venv/Scripts/python -m pip uninstall -y opencv-python-headless opencv-contrib-python   # один пакет cv2, как в бэкенде
+.venv/Scripts/python -m pip install --no-deps opencv-contrib-python==4.10.0.84
+export PYTHONUTF8=1                                                                      # кириллица в консоли Windows
+
+cd mlcv && ../.venv/Scripts/python -m pytest -q && cd ..                                 # тесты CV, включая настоящий бэкенд
+PYTHONPATH=mlcv .venv/Scripts/python -m drawcv лист.pdf --out out_cv                     # только CV: лист → cv.json и картинки
+.venv/Scripts/python mlcv/eval/evaluate.py --set quick                                   # качество против эталонных DXF
+.venv/Scripts/python mlcv/eval/three_sheets.py                                           # три независимых листа, причины ошибок
+.venv/Scripts/python tools/compare_dxf.py REF.dxf out.dxf --out compare_dir --align geom # сравнение DXF с эталоном
+```
+
+Варианты на клапане и регрессия прежнего конвейера — [runs/README.md](runs/README.md), [docs/architecture/README.md](docs/architecture/README.md).
+
+## Где мы сейчас
 
 | что | результат | где |
 |---|---|---|
-| Клапан, вариант A — параметрическая перерисовка от размеров | совпадение геометрии с эталоном 98 % в пределах 0,25 мм, 28/28 настоящих размеров | [`runs/klapan_png2dxf/REPORT.md`](runs/klapan_png2dxf/REPORT.md) |
-| Клапан, вариант B — автоматический конвейер | 92 % в пределах 0,25 мм, 93 % размеров по значению, ≈14 с на лист (CPU); после исправлений ревью — 93 % и в 1,4 раза больше найденной штриховки | там же; [`klapan_recheck`](docs/architecture/experiments/klapan_recheck) |
-| B на 9 других реальных листах | геометрия 89–98 % в пределах 0,25 мм; размеры ≈ 70 % по значению | [`docs/architecture/experiments/RESULTS.md`](docs/architecture/experiments/RESULTS.md) |
-| B на имитации архивного скана 200 dpi | геометрия 79 % (0,5 мм), размеры ≈ 20 % — нужны обучаемые модели | там же |
-| CV-модуль drawcv (OpenCV): PNG/JPEG/PDF → примитивы, контуры, дефекты → `cv.json` | на 50 входах реальных листов (из них 38 — случайные, не участвовавшие в отладке) масштаб определён везде, ошибка центра окружности ≈ 0,02 мм, найдено 79–90 % геометрии; контрольный лист: профиль замкнут, разрыв и самопересечение найдены; подключается к бэкенду через `CV_ADAPTER` | [`mlcv/README.md`](mlcv/README.md), [`mlcv/eval/REPORT.md`](mlcv/eval/REPORT.md) |
-| Целевая архитектура сервиса (FastAPI + OpenCV + OCR + ML) | этапы, описание чертежа `DrawingGraph`, API, данные и обучение, план | [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md) |
-| Ревью: что оставить, убрать, изменить | включая разбор исходного предложения по архитектуре | [`docs/architecture/REVIEW.md`](docs/architecture/REVIEW.md) |
+| Весь сервис на реальных листах | PDF и PNG проходят от загрузки до DXF; файл открывается в LibreCAD. A3 при 600 dpi — 36 с на CPU | [mlcv/eval/REPORT.md](mlcv/eval/REPORT.md) |
+| CV: геометрия | масштаб определён на всех реальных листах с ошибкой меньше 0,2 %; центр окружности ≈ 0,02 мм | там же |
+| CV: контуры | «замкнут» теперь значит «рёбра встречаются по координатам»: бэкенд принимает 100 % контуров (было 36 %) | там же |
+| Размеры `DIMENSION` | связываются автоматически: 143 из 168 при идеальном чтении, 94 при настоящем OCR, ошибок почти нет; показывают измеренное значение с `%%c`, допусками и `*` | там же |
+| OCR и штамп | точных чтений 74 % (было 62 %); наименование найдено на 17 листах из 23 (было 3), обозначение на 16 из 20 (было 11), ФИО заполнено на 19 листах из 33 (было 4) | [mlocr/README.md](mlocr/README.md) |
+| CV на трёх независимых листах | разбор пропусков и лишних по видам и причинам, наложения на исходник | [mlcv/eval/three_sheets/REPORT.md](mlcv/eval/three_sheets/REPORT.md) |
+| Клапан, ручная перерисовка (вариант A) | 98 % геометрии в пределах 0,25 мм, 28/28 настоящих размеров | [runs/klapan_png2dxf/REPORT.md](runs/klapan_png2dxf/REPORT.md) |
+| Архитектура и ревью | этапы, `DrawingGraph`, API, план | [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md), [REVIEW.md](docs/architecture/REVIEW.md) |
 
-Итоговые файлы клапана: `runs/klapan_png2dxf/out/klapan_variant_A.dxf` (рекомендуемый) и `klapan_variant_B.dxf`,
-рядом — `.dwg`.
+**Главные ограничения сервиса сейчас:**
+
+- Около половины размеров при настоящем OCR ещё остаются текстом: радиусы, размеры по выноскам и прочитанные неверно числа. Модель бэкенда пока знает только линейный `DIMENSION`.
+- На больших сборочных листах ещё много разрывов; контуры совпадают с эталоном в 54 % случаев: часть линий получает неверную роль из-за толщины.
+- OCR всё ещё ошибается в редких символах, а значения штампа нужно проверять: это кандидаты.
+- В AutoCAD результат не проверен: AutoCAD здесь нет. Стиль текста — `isocpeur.ttf` с кириллицей, он входит в поставку AutoCAD.
+- Самый большой лист (A1 при 600 dpi, 5650 примитивов) проходит весь сервис за 17 минут на CPU при ориентире заказчика 5–10 (память worker ≈ 2,7 ГБ). Обычный лист A3 — меньше минуты.
 
 ## Требования к DXF (из ТЗ)
 
-AC1021 (AutoCAD 2007), UTF-8, миллиметры; слои `MAIN / THIN / AXIS / DIMS / TEXT` (скрытые линии — `THIN` + тип `DASHED`);
+AC1021 (AutoCAD 2007), UTF-8, `$DWGCODEPAGE=ANSI_1251`, миллиметры; слои `MAIN / THIN / AXIS / DIMS / TEXT` (скрытые линии — `THIN` + тип `DASHED`);
 размеры — настоящие `DIMENSION`; штамп обязателен (наименование, обозначение, материал, ФИО).
 Масштаб ≠ 1:1 — лист в мм бумаги и `DIMLFAC = 1/масштаб` в размерном стиле (так устроены архивные DXF заказчика).
 
-## Как запустить
+## Лимиты
 
-Основной сервис после интеграции использует **Python 3.12, `backend/uv.lock` и `compose.yaml`**: [инструкция backend](backend/README.md), [контракт чертежа 0.2](docs/drawing-graph-v0.2.md), [статус задач](docs/project-task-status.md). `scripts/prepare_online.sh` и `scripts/start_offline.sh` поставляют этот же сервис. Команды ниже относятся к самостоятельным CV-экспериментам и прежнему конвейеру.
-
-После слияния `feature/ocr-module` общий сервис использует PaddleOCR, передаёт маски текста в CV и сохраняет исходные чтения/исправления. Поддержан ограниченный случай автоматического линейного DIMENSION; качество геометрии и редактирование в CAD ещё требуют приёмки. [Правила OCR](docs/ocr-integration.md), [результаты проверок](docs/reviews/2026-11-01-ocr-fixes/verification.md), [следующий спринт всех 8 ролей](docs/sprint-02-all-roles.md).
-
-Нужны Python 3.12+ (проверено на 3.14) и, для проверки в CAD, Docker.
-
-```bash
-# окружение (всё ставится в .venv проекта, точные версии — в mlcv/requirements*.txt)
-py -3.14 -m venv .venv
-.venv/Scripts/python -m pip install -r mlcv/requirements-dev.txt matplotlib
-export PYTHONUTF8=1          # кириллица в консоли Windows
-
-# CV-модуль drawcv: PNG / JPEG / PDF → cv.json (примитивы, контуры, дефекты) + картинки проверки
-PYTHONPATH=mlcv .venv/Scripts/python -m drawcv dataset/dataset2/Шайба.pdf --out out_cv
-cd mlcv && ../.venv/Scripts/python -m pytest -q && cd ..                  # тесты модуля
-.venv/Scripts/python mlcv/eval/evaluate.py --set quick                    # качество против эталонных DXF
-docker build -t drawcv mlcv && docker run --rm drawcv                      # то же в чистом Docker-образе
-
-# автоматический конвейер (вариант B): PNG → DXF + отчёт со временем этапов
-.venv/Scripts/python runs/klapan_png2dxf/pipeline_b/pipeline.py runs/клапан.png out.dxf --report report.json
-
-# вариант A для клапана (пересобрать DXF из параметров)
-.venv/Scripts/python runs/klapan_png2dxf/build_variant_a.py
-
-# проверка DXF (версия, кодировка, единицы, слои, размеры) и сравнение с эталоном
-.venv/Scripts/python tools/eskd_dxf.py out.dxf
-.venv/Scripts/python tools/compare_dxf.py REF.dxf out.dxf --out compare_dir --align geom
-
-# открытие и печать в LibreCAD, конвертация в DWG (Docker; в Git Bash добавить MSYS_NO_PATHCONV=1)
-docker build -t cad-validate docker/cad-validate
-docker run --rm -v "D:/путь/к/папке:/work" cad-validate validate.sh /work/file.dxf 420x297
-docker build -t oda-convert docker/oda-convert
-docker run --rm -v "D:/путь/к/папке:/work" oda-convert convert.sh /work/in /work/dwg ACAD2018 DWG "*.dxf"
-
-# регрессия конвейера на 9 листах датасета и на имитации скана
-.venv/Scripts/python docs/architecture/experiments/run_b_batch.py --batch_b_new
-.venv/Scripts/python docs/architecture/experiments/recompare.py batch_b_new
-.venv/Scripts/python docs/architecture/experiments/robustness.py robustness_new
-```
+| настройка | по умолчанию | зачем |
+|---|---|---|
+| `MAX_IMAGE_PIXELS` | 300 млн пикселей | самый большой лист датасета, A1 при 600 dpi, — 280 млн; проверяется по заголовку файла до декодирования (бэкенд, OCR; у `drawcv` — `DRAWCV_MAX_IMAGE_PIXELS`) |
+| `MAX_UPLOAD_BYTES` | 25 МБ | самый большой файл датасета — менее 10 МБ |
 
 ## Правила работы с данными
 
-- `dataset/` только читаем; результаты — в `runs/<имя>/` (`work/` — промежуточное, `out/` — итог, `compare/` — сравнение,
-  `REPORT.md` — отчёт).
-- Эталоны тестового листа (`dataset/clear_sum_dataset/vse_dxf/клапан.dxf`, `dataset/dataset2/клапан.*`) используются только
-  скриптом сравнения, не для разработки. 10 приёмочных листов заказчика в разработке не используются.
-- Разбиение данных на обучение и проверку — по детали, а не по файлу (наборы пересекаются).
+- `dataset/` только читаем; результаты — в `runs/<имя>/`, выходы оценки CV — в `mlcv/eval/out*` (в git не попадают).
+- Эталоны тестового листа (`dataset/clear_sum_dataset/vse_dxf/клапан.dxf`, `dataset/dataset2/клапан.*`) используются только скриптом сравнения. 10 приёмочных листов заказчика в разработке не используются.
+- Разбиение на обучение и проверку — по детали, а не по файлу: наборы пересекаются.
 
-# Сервер API
+## Офлайн-прототип
 
-FastAPI, PostgreSQL, worker и экспорт DrawingGraph → DXF находятся в [backend/README.md](backend/README.md). Порядок первого запуска и применения миграции описан там же.
-
-## Офлайн-прототип и основной backend
-
-В репозитории сохранены два отдельных варианта запуска:
-
-| Вариант | Compose | API | Хранение |
-|---|---|---|---|
-| Основной backend | `compose.yaml` | `/api/v1/jobs`, PDF/PNG/JPEG, версии и DrawingGraph | Собственные Docker volumes и миграции Alembic |
-| Офлайн-прототип из `feature/offline-deployment` | `compose.offline-prototype.yaml` | `/jobs`, PNG | Проект Compose `practice44`, его PostgreSQL volume, каталоги `storage/` и `models/` |
-
-`docker compose ...`, `scripts/prepare_online.sh`, `scripts/start_offline.sh` и `setup-mac.sh`
-теперь используют **один основной backend с drawcv**. Миграции выполняются перед запуском
-API/worker. В комплект включён детектор текущего CV и хеши всех локальных ресурсов.
-Для ручного запуска исторического прототипа используйте
-`docker compose -f compose.offline-prototype.yaml ...`.
-Не подключайте эти сервисы к одной базе: у них различаются схемы и контракты API.
-При одновременном запуске задайте прототипу другой `API_PORT` в `.env`, например `8001`.
-Инструкции и ограничения основного сервиса: [backend/README.md](backend/README.md).
-Текущий контракт: [DrawingGraph 0.2](docs/drawing-graph-v0.2.md).
-
-В общем OCR-модуле `OCR_MODEL_PATH` без `MODEL_DIR` сохраняет существующий режим backend.
-Офлайн-прототип задаёт `MODEL_DIR`: все модели проверяются локально, а отсутствие или
-повреждение файла вызывает ошибку без перехода на сетевую загрузку. При указании обеих
-переменных применяется строгий офлайн-режим. Без обеих переменных прототип использует `./models`.
-Отчёт исходного офлайн-эксперимента: [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md).
-
-Ход исправлений и оставшаяся работа: [Code review](docs/code-review-2026-10-31.md),
-[статус всех задач первого спринта](docs/project-task-status.md).
-[Следующие задачи по четырём проверенным ролям](docs/next-sprint-after-review.md),
-[протокол проверок исправлений](docs/reviews/2026-10-31-fixes/verification.md).
+В репозитории сохранён отдельный исторический вариант: `compose.offline-prototype.yaml`, API `/jobs`, только PNG, свои зависимости в корневом `pyproject.toml`.
+Не подключайте его к базе основного сервиса: схемы и контракты различаются. При одновременном запуске задайте ему другой `API_PORT`.
+Отчёт эксперимента: [docs/FINAL_REPORT.md](docs/FINAL_REPORT.md).
