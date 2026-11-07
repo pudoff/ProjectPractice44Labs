@@ -36,14 +36,17 @@ CURVES = {"LINE", "ARC", "CIRCLE", "LWPOLYLINE", "POLYLINE", "SPLINE", "ELLIPSE"
 
 # Heuristic mapping of foreign layer names to semantic classes (lower-case keys).
 LAYER_MAP = {
-    "main": "MAIN", "tost": "MAIN", "wide": "MAIN", "основная": "MAIN", "осн": "MAIN",
+    "main": "MAIN", "tost": "MAIN", "wide": "MAIN", "основная": "MAIN", "осн": "MAIN", "основной": "MAIN", "основн": "MAIN",
+    "cont": "MAIN", "con": "MAIN", "видимый контур (гост)": "MAIN", "base_line": "MAIN", "am_0n": "MAIN",
     "thin": "THIN", "slim": "THIN", "тонкая": "THIN", "0": "THIN",
-    "axis": "AXIS", "ax": "AXIS", "осевая": "AXIS",
-    "hidden": "HIDDEN", "пунктир": "HIDDEN",
-    "dims": "DIMS", "dim": "DIMS", "размер": "DIMS", "размерная": "DIMS",
-    "text": "TEXT", "техт": "TEXT",
+    "axis": "AXIS", "ax": "AXIS", "осевая": "AXIS", "cen": "AXIS", "cen2": "AXIS", "cent": "AXIS", "3_all_axes": "AXIS",
+    "осевуха": "AXIS", "оси": "AXIS", "маркер центра (гост)": "AXIS",
+    "hidden": "HIDDEN", "пунктир": "HIDDEN", "hide": "HIDDEN", "невидимый контур (гост)": "HIDDEN",
+    "dims": "DIMS", "dim": "DIMS", "размер": "DIMS", "размерная": "DIMS", "размеры": "DIMS", "размер (гост)": "DIMS",
+    "text": "TEXT", "техт": "TEXT", "textb": "TEXT",
     "hatch": "HATCH", "штриховка": "HATCH",
 }
+MAIN_MIN_LINEWEIGHT = 30               # hundredths of a mm, set on the entity itself
 
 
 def entity_class(e, doc):
@@ -63,7 +66,11 @@ def entity_class(e, doc):
         return "AXIS"
     if any(k in lt for k in ("DASHED", "HIDDEN", "ISO02", "ПУНКТ")):
         return "HIDDEN"
-    return LAYER_MAP.get(layer.lower(), "THIN")
+    cls = LAYER_MAP.get(layer.lower(), "THIN")
+    weight = e.dxf.get("lineweight", -1)
+    if cls in ("MAIN", "THIN") and weight > 0:      # archive sheets keep everything on one layer and set weights per object
+        return "MAIN" if weight >= MAIN_MIN_LINEWEIGHT else "THIN"
+    return cls
 
 
 def sample_entity(e):

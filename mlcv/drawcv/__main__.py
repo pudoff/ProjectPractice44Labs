@@ -22,12 +22,15 @@ def main(argv=None):
     ap.add_argument("--rotate", type=int, default=None, choices=[0, 90, 180, 270])
     ap.add_argument("--text-provider", choices=["auto", "rapidocr", "components", "file", "none"])
     ap.add_argument("--ocr-json", help="OCR result with text polygons in source pixels")
+    ap.add_argument("--max-pixels", type=int, help="refuse larger pages before decoding (default 300000000)")
     ap.add_argument("--no-images", action="store_true")
     ap.add_argument("--version", action="version", version=f"drawcv {__version__}")
     a = ap.parse_args(argv)
 
     data = json.loads(Path(a.params).read_text(encoding="utf-8")) if a.params else {}
     params = Params.from_dict(data)
+    if a.max_pixels:
+        params.max_image_pixels = a.max_pixels
     if a.sheet:
         params.sheet = a.sheet
     if a.px_per_mm:

@@ -5,8 +5,9 @@
 For every input (PNG / JPEG / PDF of a real sheet, the synthetic control sheet and its simulated scan) the module
 runs as the backend would call it, then its exported primitives are compared with the reference DXF:
   found / missed reference primitives (by kind), extra / duplicate / short detected primitives, coordinate errors
-  (circle centre and radius, line ends, curve deviation), closed contours against contours assembled from the
-  reference geometry, gaps (on real sheets every gap is false: the drawings are complete), stage times.
+  (circle centre and radius, line ends, curve deviation), closed contours matched one to one with contours assembled
+  from the reference geometry, what the real backend accepts, gaps (on real sheets every gap is false: the drawings
+  are complete), stage times.
 Registration with the reference: a translation only (phase correlation + ICP); the residual scale is reported,
 never applied. The calibration method of the module and any manual calibration are listed per row.
 Writes OUT/<case>/ (module output + compare.png + metrics.json), OUT/results.json and OUT/table.md."""
@@ -27,8 +28,11 @@ from shapely.geometry import Polygon
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "mlcv"))
 sys.path.insert(0, str(ROOT / "tools"))
+sys.path.insert(0, str(ROOT / "mlcv" / "eval"))
 
+from backend_check import check as backend_check  # noqa: E402
 from compare_dxf import entity_class, iter_flat  # noqa: E402
+from contour_match import match_contours  # noqa: E402
 from drawcv import Params, run  # noqa: E402
 from drawcv.primitives import sample as prim_sample  # noqa: E402
 from drawcv.synth import make_all, write_scaled_pdf  # noqa: E402
@@ -322,6 +326,11 @@ def in_sheet_body(e, frame_box, title_box):
 
 
 def evaluate_case(case, out_root):
+    return analyse_case(case, out_root)["metrics"]
+
+
+def analyse_case(case, out_root):
+    """Run one input and compare it with the reference. Besides the metrics returns what error analysis needs."""
     out = out_root / case["case"]
     t0 = time.perf_counter()
     cv = run(case["input"], out, Params())
@@ -411,38 +420,49 @@ def evaluate_case(case, out_root):
             row["our_class"] = "HIDDEN" if d["role"] == "hidden" else d["layer"]
         det_rows.append(row)
 
-    contours = contour_metrics(cv, geo, body, t)
+    contours, contour_details = contour_metrics(cv, geo, body, t)
     defects = cv["summary"]["defects"]
     truth = check_truth(cv, case) if case.get("truth") else None
     contours["reference_main_from_layer0"] = promoted
     m = summarise(case, cv, rows, det_rows, by_kind, contours, defects, t, scale, overlap, wall, truth)
+    m["backend"] = backend_check(cv)
     compare_image(geo, annot, det, det_rows, out / "compare.png", t)
     (out / "metrics.json").write_text(json.dumps(m, ensure_ascii=False, indent=1), encoding="utf-8")
-    return m
+    return {"metrics": m, "cv": cv, "geo": geo, "annot": annot, "det": det, "rows": rows, "det_rows": det_rows, "body": body,
+            "translation": t, "contours": contour_details, "out": out}
 
 
-def contour_metrics(cv, geo, body, t):
-    """Closed contours assembled from the reference MAIN geometry of the drawing body vs closed contours of cv."""
+def reference_contours(geo, body):
+    """Closed contours assembled from the reference MAIN geometry of the drawing body."""
     part = []
     for k, (e, b) in enumerate(zip(geo, body)):
         if b and e["cls"] == "MAIN" and e["kind"] != "curve":
             part.append(dict(e, id=f"ref_{k}", role="part"))
-    gt = build_topology(part, [], 0.05, 0.0)["contours"] if part else []
-    gt_closed = [c for c in gt if c["closed"] and c["role"] in ("outer_boundary", "circle", "region")]
-    det_closed = []
+    gt = build_topology(part, [], 0.05, 0.0, strict_rings=False)["contours"] if part else []
+    # a ring crossing itself or with bridges is not a reference contour; microscopic crossings at tangent joints stay
+    return [c for c in gt if c["closed"] and c["_ring_valid"] and c["role"] in ("outer_boundary", "circle", "region")]
+
+
+def contour_metrics(cv, geo, body, t):
+    """Reference closed contours against closed contours of cv.json, one to one. Returns (metrics, details): details
+    keeps the shapes and ids for error analysis, metrics goes into the tables."""
+    gt_closed = reference_contours(geo, body)
+    det_ids, det_closed = [], []
     for c in cv["contours"]:
         if c["closed"]:
             pts = contour_points(c) + t
             if len(pts) >= 3:
                 poly = Polygon(pts)
-                det_closed.append(poly if poly.is_valid else poly.buffer(0))
-    found = 0
-    for g in gt_closed:
-        gp = g["_poly"]
-        if any(_iou(gp, d) >= 0.9 for d in det_closed):
-            found += 1
-    return {"reference_closed": len(gt_closed), "found": found, "detected_closed": len(det_closed),
-            "detected_open": sum(not c["closed"] for c in cv["contours"])}
+                poly = poly if poly.is_valid else poly.buffer(0)
+                if not poly.is_empty:
+                    det_ids.append(c["id"])
+                    det_closed.append(poly)
+    gt_polys = [g["_poly"] for g in gt_closed]
+    res = match_contours(gt_polys, det_closed)
+    details = {"reference": gt_polys, "detected": det_closed, "detected_ids": det_ids,
+               "pairs": res.pop("pairs"), "missed_ids": res.pop("missed_ids"), "extra_ids": res.pop("extra_ids")}
+    res["detected_open"] = sum(not c["closed"] for c in cv["contours"])
+    return res, details
 
 
 def contour_points(c):
@@ -457,15 +477,6 @@ def contour_points(c):
             arc = np.column_stack([np.cos(angs), np.sin(angs)]) * e["radius"] + e["center"]
             pts += (arc[::-1] if e["reversed"] else arc).tolist()
     return np.array(pts, float)
-
-
-def _iou(a, b):
-    try:
-        inter = a.intersection(b).area
-        union = a.union(b).area
-        return inter / union if union > 0 else 0.0
-    except Exception:
-        return 0.0
 
 
 def check_truth(cv, case):
@@ -599,11 +610,11 @@ def fmt_err(s):
 
 
 def table(results):
-    lines = ["| вход | калибровка | эталон (тело) | найдено тело | по видам | слои верно | лишние | дубли | <2 мм | центр окр. ср/макс | радиус окр. ср/макс | концы отрезков ср/макс | замкнутые: эталон → найдено (+лишние) | разрывы | время, с |",
-             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    lines = ["| вход | калибровка | эталон (тело) | найдено тело | по видам | слои верно | лишние | дубли | <2 мм | центр окр. ср/макс | радиус окр. ср/макс | концы отрезков ср/макс | контуры: эталон → пары 1:1 (лишние, из них копии) | точность / полнота контуров | бэкенд принял контуры | разрывы | время, с |",
+             "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for m in results:
         if "error" in m:
-            lines.append(f"| {m['case']} | ОШИБКА: {m['error']} |" + " |" * 13)
+            lines.append(f"| {m['case']} | ОШИБКА: {m['error']} |" + " |" * 15)
             continue
         c = m["calibration"]
         cal = f"{c['method']}{' (ручная)' if c['manual'] else ''}, {c['scale_status']}"
@@ -614,14 +625,17 @@ def table(results):
         k = m["contours"]
         gaps = m["defects"].get("gap", 0)
         si = m["defects"].get("self_intersection", 0)
+        back = m["backend"]
+        pr = "—" if k["precision"] is None and k["recall"] is None else (
+            f"{'—' if k['precision'] is None else format(k['precision'], '.0%')} / {'—' if k['recall'] is None else format(k['recall'], '.0%')}")
         lines.append(
             f"| {m['case']} | {cal} | {m['reference']['body_primitives']} | {f['body']} ({f['body'] / max(1, m['reference']['body_primitives']):.0%}) "
             f"| {', '.join(f'{kk} {vv}' for kk, vv in f['by_kind'].items())} "
             f"| {'—' if m['layers']['accuracy'] is None else format(m['layers']['accuracy'], '.0%')} "
             f"| {d['categories'].get('extra', 0)} | {d['duplicates']} "
             f"| {d['short_lt_2mm']} | {fmt_err(m['errors_mm']['circle_center'])} | {fmt_err(m['errors_mm']['circle_radius'])} "
-            f"| {fmt_err(m['errors_mm']['line_end'])} | {k['reference_closed']} → {k['found']} (+{max(0, k['detected_closed'] - k['found'])}){'¹' if k.get('reference_main_from_layer0') else ''} "
-            f"| {gaps} разр., {si} самопер. | {m['timings_s']['total']} |")
+            f"| {fmt_err(m['errors_mm']['line_end'])} | {k['reference_closed']} → {k['found']} ({k['extra']}, {k['copies']}){'¹' if k.get('reference_main_from_layer0') else ''} "
+            f"| {pr} | {back['accepted']}/{back['closed']} | {gaps} разр., {si} самопер. | {m['timings_s']['total']} |")
     lines += ["", "¹ в эталоне нет слоя основной линии: основными считаются кривые слоя «0»."]
     return "\n".join(lines)
 
@@ -648,7 +662,8 @@ def main():
         results.append(m)
         print(case["case"], "error" if "error" in m else
               f"body {m['found']['body']}/{m['reference']['body_primitives']} extra {m['detected']['categories'].get('extra', 0)} "
-              f"closed {m['contours']['found']}/{m['contours']['reference_closed']} {m['timings_s']['total']} s", flush=True)
+              f"closed {m['contours']['found']}/{m['contours']['reference_closed']} (+{m['contours']['extra']}) "
+              f"backend {m['backend']['accepted']}/{m['backend']['closed']} {m['timings_s']['total']} s", flush=True)
     (out / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
     (out / "table.md").write_text(table(results) + "\n", encoding="utf-8")
     print(out / "table.md")

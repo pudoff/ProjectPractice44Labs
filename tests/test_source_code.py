@@ -19,7 +19,7 @@ class TestSourceCode(unittest.TestCase):
             ver = pin if isinstance(pin, str) else pin["version"]
             self.assertTrue(ver.startswith("=="), (name, ver))
     def test_no_tempdir_path_for_model_assets(self):
-        source = (ROOT / "runs/klapan_png2dxf/pipeline_b/ocr.py").read_text()
+        source = (ROOT / "runs/klapan_png2dxf/pipeline_b/ocr.py").read_text(encoding="utf-8")
         self.assertIn("rapidocr_params()", source)
         self.assertNotIn("tempfile", source)
 

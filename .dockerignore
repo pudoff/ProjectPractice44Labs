@@ -29,3 +29,6 @@ models/*
 !models/SOURCES.json
 result*.dxf
 .local-backups/
+mlocr/.venv/
+mlocr/results/
+mlocr/OD-OCR-System-for-Engineering-Drawings-main/

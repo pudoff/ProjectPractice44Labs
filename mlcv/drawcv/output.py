@@ -9,7 +9,9 @@ import math
 
 import numpy as np
 
+from .anchors import build_measurable, build_point_info
 from .primitives import sweep
+from .topology import COINCIDENT_MM
 from .transform import apply_to_geometry
 
 SCHEMA_VERSION = "0.1"
@@ -22,16 +24,25 @@ def r4(v):
     return round(float(v), 4)
 
 
-def pt(p):
+def r6(v):
+    return round(float(v), 6)
+
+
+def pt4(p):
     return [r4(p[0]), r4(p[1])]
+
+
+def pt(p):
+    """Six decimals for geometry: edges that meet must still meet in the backend (1e-4 mm) after rounding."""
+    return [r6(p[0]), r6(p[1])]
 
 
 def geometry(e):
     if e["kind"] == "line":
         return {"start": pt(e["p"]), "end": pt(e["q"])}
-    g = {"center": pt(e["c"]), "radius": r4(e["r"])}
+    g = {"center": pt(e["c"]), "radius": r6(e["r"])}
     if e["kind"] == "arc":
-        g.update(start_angle=r4(e["a0"] % 360), end_angle=r4(e["a1"] % 360))
+        g.update(start_angle=r6(e["a0"] % 360), end_angle=r6(e["a1"] % 360))
     return g
 
 
@@ -63,9 +74,11 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
             obj["sweep_deg"] = r4(sweep(e))
         if e["role"] in LINETYPE_BY_ROLE:
             obj["linetype"] = LINETYPE_BY_ROLE[e["role"]]
-        for key in ("dash_count", "snapped_deg", "extended_mm"):
+        for key in ("dash_count", "snapped_deg", "extended_mm", "adjustments"):
             if key in e:
                 obj[key] = e[key]
+        if "observed" in e and e["observed"] != g:
+            obj["observed_geometry_mm"] = e["observed"]
         if "concentric_with" in e:
             obj["concentric_with"] = e["concentric_with"]["id"]
         if "duplicate_of" in e:
@@ -74,7 +87,7 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
         if exported(e):
             primitives.append({"id": e["id"], "kind": e["kind"], "layer": obj["layer"], **g})
 
-    points = _points(prims, params.snap_tol_mm)
+    points = _points(prims)
     contours = [_contour_json(c) for c in topo["contours"]]
     defects = []
     for k, d in enumerate(sorted(topo["defects"], key=lambda d: (d["code"], d["at_mm"]))):
@@ -99,8 +112,8 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
     work_to_source = prep.source_to_work.inverse()
     for r in regions:
         item = {"id": r["id"], "provider": r["provider"], "score": None if r.get("score") is None else r4(r["score"]),
-                "poly_source_px": [pt(p) for p in work_to_source.apply(r["poly_work_px"])],
-                "poly_mm": [pt(p) for p in work_to_mm.apply(r["poly_work_px"])],
+                "poly_source_px": [pt4(p) for p in work_to_source.apply(r["poly_work_px"])],
+                "poly_mm": [pt4(p) for p in work_to_mm.apply(r["poly_work_px"])],
                 "erased_components": r.get("erased_components", 0), "kept_components": r.get("kept_components", 0)}
         for key in ("ocr_id", "text"):
             if r.get(key) is not None:
@@ -118,7 +131,8 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
                "open_chains": sum(not c["closed"] for c in contours),
                "defects": {code: sum(d["code"] == code for d in defects) for code in sorted({d["code"] for d in defects})},
                "text_regions": len(text_regions), "hatches_resolved": len(hatch_items),
-               "hatch_groups_unresolved": sum(g["boundary"] == "unresolved" for g in groups)}
+               "hatch_groups_unresolved": sum(g["boundary"] == "unresolved" for g in groups),
+               "closure": stats["closure"]}
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -126,6 +140,7 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
         "status": "ok",
         "module": {"name": "drawcv", "version": version},
         "source": page.info(),
+        "raster_identity": page.raster_identity,
         "coordinate_space": "sheet_mm",
         "units": "mm",
         "scale_status": cal["scale_status"],
@@ -148,13 +163,16 @@ def build_cv_json(page, prep, cal, work_to_mm, params, prims, regions, topo, hat
         "defects": defects,
         "hatch_groups": hatch_groups,
         "text_regions": text_regions,
+        "closures": topo["closures"],
+        "point_info": build_point_info(points, prims, contours, topo["closures"], mm_to_source),
+        "measurable": build_measurable(points, prims),
     }
 
 
 def _round_geom(g):
     out = {}
     for k, v in g.items():
-        out[k] = pt(v) if isinstance(v, (list, tuple, np.ndarray)) else r4(v)
+        out[k] = pt4(v) if isinstance(v, (list, tuple, np.ndarray)) else r4(v)
     return out
 
 
@@ -176,9 +194,10 @@ def _thin_ring(pts, tol=0.02):
     return keep if len(keep) >= 3 else out
 
 
-def _points(prims, tol):
+def _points(prims):
     """Measurable points for linking (OCR dimensions refer to them): ends, centres and junctions of visible
-    primitives, clustered within the join tolerance. Each point lists the anchors that coincide there."""
+    primitives. Anchors share a point only when their coordinates coincide: two objects that really stay apart keep
+    two points. Each point lists the anchors that coincide there."""
     anchors = []
     for e in prims:
         if e["status"] != "ok":
@@ -207,7 +226,7 @@ def _points(prims, tol):
             i = parent[i]
         return i
 
-    for i, j in cKDTree(xy).query_pairs(tol):
+    for i, j in cKDTree(xy).query_pairs(COINCIDENT_MM):
         if anchors[i][2] != "mid" and anchors[j][2] != "mid":
             parent[find(i)] = find(j)
     groups = {}

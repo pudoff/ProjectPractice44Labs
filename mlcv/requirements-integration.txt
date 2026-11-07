@@ -1,0 +1,8 @@
+# Стыковка CV с настоящими backend/ и mlocr/ (tests/test_backend_real.py, eval/ocr_link_check.py). PaddleOCR не нужен:
+# чтение текста в этих проверках идеальное, из эталонных размеров. В образ drawcv не входит.
+-r requirements-dev.txt
+PyMuPDF==1.28.2
+pydantic-settings==2.16.2
+SQLAlchemy==2.1.8
+greenlet
+aiosqlite>=0.20,<1

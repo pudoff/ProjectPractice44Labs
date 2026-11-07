@@ -11,14 +11,16 @@ x-app: &app
     STORAGE_ROOT: /storage
     CV_ADAPTER: drawcv.adapter:run_cv
     RECOGNITION_PROFILE: current
-    OCR_ADAPTER: ${OCR_ADAPTER:-}
+    OCR_ADAPTER: ${OCR_ADAPTER:-mlocr.src.adapter:run_ocr}
+    DRAWING_OCR_MODEL_DIR: /models/paddle
+    PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK: "True"
     MODEL_DIR: /models
     REQUIRE_LOCAL_MODELS: "true"
     DRAWCV_OFFLINE: "1"
     DRAWCV_STRICT_MODELS: "1"
     POLL_SECONDS: ${WORKER_POLL_SECONDS:-2}
     MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-26214400}
-    MAX_IMAGE_PIXELS: ${MAX_IMAGE_PIXELS:-50000000}
+    MAX_IMAGE_PIXELS: ${MAX_IMAGE_PIXELS:-300000000}
   volumes:
     - storage:/storage
     - ./models:/models:ro

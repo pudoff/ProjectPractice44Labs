@@ -7,6 +7,7 @@ Providers:
   none       - no masking.
 Only connected components lying (almost) entirely inside a text polygon are erased, so a line crossing a label
 survives. Erased pixels are kept as a separate mask for review; the source image is never changed."""
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -42,6 +43,20 @@ def rapidocr_engine():
     return _engine
 
 
+def model_info(provider):
+    """The model that found the text regions of this run: name, file hash, runtime. No model -> empty list."""
+    if provider != "rapidocr" or _engine is None or getattr(_engine, "text_det", None) is None:
+        return []
+    session = getattr(_engine.text_det.session, "session", None)     # the onnxruntime session knows its file
+    path = getattr(session, "_model_path", None)
+    item = {"role": "text_detector", "engine": "rapidocr", "runtime": "onnxruntime"}
+    if path and Path(path).is_file():
+        item.update(name=Path(path).name, sha256=hashlib.sha256(Path(path).read_bytes()).hexdigest())
+    else:
+        item["name"] = "unknown"
+    return [item]
+
+
 def detect_rapidocr(gray):
     res = rapidocr_engine()(cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR), use_det=True, use_cls=False, use_rec=False)
     if res.boxes is None:
@@ -55,6 +70,8 @@ def load_ocr_file(path, source_to_work):
     """Accepts {"texts"|"candidates"|"regions": [...]} or a bare list; each item has "poly_source_px" / "poly_px"
     (list of [x, y]) or "box_px" ([x0, y0, x1, y1]) in source pixels."""
     data = json.loads(open(path, encoding="utf-8").read())
+    if isinstance(data, dict) and len(data.get('pages', [])) > 1:
+        raise ValueError('Text masking requires a single matching page')
     items = data if isinstance(data, list) else next((data[k] for k in ("regions", "texts", "candidates") if k in data), [])
     out = []
     for it in items:

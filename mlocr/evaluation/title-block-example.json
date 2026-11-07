@@ -1,0 +1,188 @@
+{
+  "scope": "Actual Windows OCR of rasterized Voronka, 34 regions; candidate fields, not CAD acceptance.",
+  "input_sha256": "00787f782d284c36d78b8be5756607e851f5cadf23993a7bb268273c420bc45a",
+  "title_block": {
+    "page-1": {
+      "status": "needs_review",
+      "fields": {
+        "name": {
+          "value": "Воронка",
+          "status": "candidate",
+          "source_text_ids": [
+            "page-1-ocr-0020"
+          ]
+        },
+        "document_number": {
+          "value": "17.XXXX.02",
+          "status": "candidate",
+          "source_text_ids": [
+            "page-1-ocr-0017"
+          ]
+        },
+        "material": {
+          "value": null,
+          "status": "unknown",
+          "reason": "No readable material field was found in the title-block area.",
+          "source_text_ids": []
+        },
+        "authors": {
+          "value": null,
+          "status": "unknown",
+          "reason": "No unambiguous person in a labelled author row.",
+          "source_text_ids": []
+        }
+      }
+    }
+  },
+  "referenced_texts": [
+    {
+      "id": "page-1-ocr-0017",
+      "page": "page-1",
+      "text": "17.XXXX.02",
+      "score": 0.9964281320571899,
+      "source": "paddleocr",
+      "alternatives": [
+        {
+          "text": "17.XXXX.02",
+          "score": 0.9957224130630493,
+          "pass_angle_deg": 0
+        },
+        {
+          "text": "17.XXXX.02",
+          "score": 0.9964281320571899,
+          "pass_angle_deg": 90
+        }
+      ],
+      "angle_deg": 1.005086005254185,
+      "selection_basis": "highest_recognition_confidence",
+      "needs_review": false,
+      "issues": [],
+      "polygon_px": [
+        [
+          2979.0,
+          2243.0
+        ],
+        [
+          2981.0,
+          2129.0
+        ],
+        [
+          3437.0,
+          2137.0
+        ],
+        [
+          3435.0,
+          2251.0
+        ]
+      ],
+      "poly_source_px": [
+        [
+          2979.0,
+          2243.0
+        ],
+        [
+          2981.0,
+          2129.0
+        ],
+        [
+          3437.0,
+          2137.0
+        ],
+        [
+          3435.0,
+          2251.0
+        ]
+      ],
+      "raw_text": "17.XXXX.02",
+      "corrections": [],
+      "notation": {
+        "raw_text": "17.XXXX.02",
+        "kind": "unknown",
+        "nominal": null,
+        "tolerance": null,
+        "thread_pitch": null,
+        "scale_denominator": null,
+        "warning": "Unrecognized notation; original OCR text is retained unchanged.",
+        "normalized_text": "17.XXXX.02",
+        "corrections": []
+      },
+      "purpose": "title_block_candidate"
+    },
+    {
+      "id": "page-1-ocr-0020",
+      "page": "page-1",
+      "text": "Воронка",
+      "score": 0.7034282684326172,
+      "source": "paddleocr",
+      "alternatives": [
+        {
+          "text": "Воронка",
+          "score": 0.5559844374656677,
+          "pass_angle_deg": 0
+        },
+        {
+          "text": "Воронка",
+          "score": 0.7034282684326172,
+          "pass_angle_deg": 90
+        }
+      ],
+      "angle_deg": 3.3403220796988506,
+      "selection_basis": "highest_recognition_confidence",
+      "needs_review": false,
+      "issues": [],
+      "polygon_px": [
+        [
+          2826.0,
+          2363.0
+        ],
+        [
+          2831.0,
+          2280.0
+        ],
+        [
+          3088.0,
+          2295.0
+        ],
+        [
+          3083.0,
+          2378.0
+        ]
+      ],
+      "poly_source_px": [
+        [
+          2826.0,
+          2363.0
+        ],
+        [
+          2831.0,
+          2280.0
+        ],
+        [
+          3088.0,
+          2295.0
+        ],
+        [
+          3083.0,
+          2378.0
+        ]
+      ],
+      "raw_text": "Воронка",
+      "corrections": [],
+      "notation": {
+        "raw_text": "Воронка",
+        "kind": "unknown",
+        "nominal": null,
+        "tolerance": null,
+        "thread_pitch": null,
+        "scale_denominator": null,
+        "warning": "Unrecognized notation; original OCR text is retained unchanged.",
+        "normalized_text": "Воронка",
+        "corrections": []
+      },
+      "purpose": "title_block_candidate"
+    }
+  ],
+  "timings_s": {
+    "total": 50.423
+  }
+}

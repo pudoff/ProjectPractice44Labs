@@ -96,7 +96,7 @@ async def process_run(run_id: str) -> None:
         state = await asyncio.to_thread(_export, graph, out, source_hash)
         async with SessionLocal.begin() as session:
             run = await RunRepository(session).get(run_id)
-            for name in ("cv.json", "ocr.json", "drawing.json", "result.dxf", "preview.png", "report.json"):
+            for name in ("cv.json", "ocr.json", "ocr-observations.json", "drawing.json", "result.dxf", "preview.png", "report.json"):
                 path = out / name
                 if await asyncio.to_thread(path.exists):
                     session.add(await asyncio.to_thread(artifact_from_path, run.id, path))

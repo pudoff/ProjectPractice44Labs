@@ -1,7 +1,8 @@
 from pathlib import Path
 
 import math
-from PIL import Image, ImageOps
+from drawcv.ingest import open_header
+from PIL import Image as PILImage, ImageOps
 import pymupdf
 
 from app.config import get_settings
@@ -25,14 +26,15 @@ class ImageService:
                 page.get_pixmap(dpi=300, colorspace=pymupdf.csRGB, alpha=False).save(target)
                 metadata.update(render_dpi=300, page_mm=[page.rect.width * 25.4 / 72, page.rect.height * 25.4 / 72])
         else:
-            with Image.open(source) as image:
+            # Only the header is read here, so the limit below is checked before decoding.
+            with open_header(source) as image:
                 if image.width * image.height > limit:
                     raise ValueError("Изображение превышает допустимое число пикселей")
                 metadata["exif_orientation"] = image.getexif().get(0x0112, 1)
                 image = ImageOps.exif_transpose(image)
                 dpi = image.info.get("dpi")
                 if image.mode in ("RGBA", "LA", "P"):
-                    image = Image.alpha_composite(Image.new("RGBA", image.size, "white"), image.convert("RGBA"))
+                    image = PILImage.alpha_composite(PILImage.new("RGBA", image.size, "white"), image.convert("RGBA"))
                 image.convert("RGB").save(target, **({"dpi": dpi} if dpi else {}))
                 metadata["source_dpi"] = dpi
         atomic_json(target.with_suffix(".json"), metadata)

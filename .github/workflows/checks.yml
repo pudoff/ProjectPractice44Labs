@@ -1,4 +1,4 @@
-name: Backend, CV and offline integration
+name: Backend, CV, OCR and offline integration
 on: [push, pull_request]
 permissions:
   contents: read
@@ -27,6 +27,16 @@ jobs:
         run: >-
           docker compose -f compose.test.yaml run --rm checks python -c
           "from app.infra.model_assets import configure_local_models; configure_local_models(); import pytest; raise SystemExit(pytest.main(['-q', '/srv/mlcv/tests']))"
+      - name: Real OCR on labelled crops without network
+        run: >-
+          docker compose -f compose.test.yaml run --rm
+          --volume "${PWD}/evidence/ocr:/evidence" checks
+          python -m tools.evaluate_ocr --out /evidence
+      - name: Real OCR to CV to native DXF dimension without network
+        run: >-
+          docker compose -f compose.test.yaml run --rm
+          --volume "${PWD}/evidence/linear:/evidence" checks
+          python -m tools.ocr_acceptance --out /evidence
       - name: PostgreSQL migration and real API-worker integration
         run: |
           OFFLINE_NETWORK_INTERNAL=true docker compose up -d --no-build --pull never

@@ -7,10 +7,11 @@ WORKDIR /srv/backend
 COPY --from=ghcr.io/astral-sh/uv:0.11.4 /uv /uvx /bin/
 COPY backend/pyproject.toml backend/uv.lock ./
 COPY mlcv/pyproject.toml /srv/mlcv/pyproject.toml
-COPY mlcv/drawcv /srv/mlcv/drawcv
+COPY mlcv/drawcv/__init__.py /srv/mlcv/drawcv/__init__.py
 
-RUN set -eux \
+RUN --mount=type=cache,target=/root/.cache/uv set -eux \
     && uv sync --locked --no-install-project --no-dev
+COPY mlcv/drawcv /srv/mlcv/drawcv
 
 FROM python:3.12-slim AS runtime
 
@@ -22,12 +23,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /srv/backend
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libgomp1 fonts-dejavu-core \
+    && apt-get install -y --no-install-recommends libgomp1 libgl1 libglib2.0-0 fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /srv/backend/.venv /srv/backend/.venv
 COPY --from=builder /srv/mlcv /srv/mlcv
 COPY backend/app ./app
+COPY mlocr/__init__.py /srv/mlocr/__init__.py
+COPY mlocr/src /srv/mlocr/src
+COPY mlocr/models/MANIFEST.json /srv/mlocr/models/MANIFEST.json
 COPY backend/migrations ./migrations
 COPY backend/alembic.ini ./
 COPY runs/klapan_png2dxf/pipeline_b /srv/runs/klapan_png2dxf/pipeline_b
@@ -46,6 +50,8 @@ COPY backend/pyproject.toml backend/uv.lock ./
 RUN uv sync --locked --no-install-project
 COPY backend/tests ./tests
 COPY mlcv/tests /srv/mlcv/tests
+COPY mlocr/tests /srv/mlocr/tests
+COPY mlocr/evaluation /srv/mlocr/evaluation
 COPY tests /srv/tests
 COPY service /srv/service
 COPY pyproject.toml .python-version /srv/

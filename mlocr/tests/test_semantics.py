@@ -43,21 +43,21 @@ class EngineeringNotationTests(unittest.TestCase):
         self.assertEqual(parsed["thread_class"], "7H")
 
 
-    def test_greek_phi_remains_ambiguous(self):
+    def test_greek_phi_normalized_with_audit(self):
         phi72 = chr(966) + "72"
         parsed = parse_engineering_notation(phi72)
-        self.assertEqual(parsed["kind"], "diameter_candidate")
+        self.assertEqual(parsed["kind"], "diameter")
         self.assertEqual(parsed["nominal"], 72.0)
         self.assertEqual(parsed["raw_text"], phi72)
-        self.assertIsNotNone(parsed["warning"])
+        self.assertEqual(parsed["corrections"][0]["rule"], "engineering_diameter_glyph")
 
-    def test_empty_set_and_cyrillic_ef_remain_ambiguous(self):
+    def test_diameter_like_glyphs_normalized_with_audit(self):
         for glyph in (chr(8709), chr(1060), chr(1092)):
             with self.subTest(glyph=glyph):
                 parsed = parse_engineering_notation(glyph + "14")
-                self.assertEqual(parsed["kind"], "diameter_candidate")
+                self.assertEqual(parsed["kind"], "diameter")
                 self.assertEqual(parsed["nominal"], 14.0)
-                self.assertIsNotNone(parsed["warning"])
+                self.assertTrue(parsed["corrections"])
 
     def test_dedicated_diameter_glyphs_are_definite(self):
         for glyph in ("Ø", chr(8960)):

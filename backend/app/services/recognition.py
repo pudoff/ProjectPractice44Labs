@@ -55,8 +55,8 @@ def assemble_graph(cv: dict, ocr: dict, source_sha256: str) -> DrawingGraph:
         primitives=primitives, hatches=hatches, texts=ocr.get("texts", []), dimensions=dimensions, issues=issues,
         points=cv.get("points", []), contours=cv.get("contours", []), objects=cv.get("objects", {}),
         calibration=cv.get("calibration", {}), transforms=cv.get("transforms", {}), title_block=ocr.get("title_block", {}),
-        provenance={"cv": {key: cv[key] for key in ("module", "source", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups") if key in cv},
-                    "ocr": {key: ocr[key] for key in ("module", "source", "params", "timings_s") if key in ocr}},
+        provenance={"cv": {key: cv[key] for key in ("module", "source", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups", "closures") if key in cv},
+                    "ocr": {key: ocr[key] for key in ("module", "source", "params", "timings_s", "observations", "dimension_links") if key in ocr}},
     )
 
 
@@ -73,7 +73,22 @@ def recognize(source: Path, run_path: Path, source_sha256: str) -> DrawingGraph:
                 return call_adapter(target, image)
             except Exception as exc:
                 return {"schema_version": "0.1", "status": "error", "error": f"{type(exc).__name__}: {exc}"}
-        cv, ocr = invoke(settings.cv_adapter), invoke(settings.ocr_adapter)
+        ocr = invoke(settings.ocr_adapter)
+        if ocr.get('schema_version') == 'ocr-observations-1' and ocr.get('status') == 'ok':
+            raw_path = run_path / 'ocr-observations.json'
+            atomic_json(raw_path, ocr)
+            if settings.cv_adapter == 'drawcv.adapter:run_cv':
+                from drawcv.adapter import run_cv
+                cv = run_cv(image, ocr_json=raw_path)
+            else:
+                cv = invoke(settings.cv_adapter)
+            try:
+                from mlocr.src.adapter import to_drawing
+                ocr = to_drawing(ocr, cv)
+            except Exception as exc:
+                ocr = {'status': 'error', 'error': f'OCR/CV assembly: {type(exc).__name__}: {exc}', 'texts': [], 'issues': []}
+        else:
+            cv = invoke(settings.cv_adapter)
     atomic_json(run_path / "cv.json", cv)
     atomic_json(run_path / "ocr.json", ocr)
     graph = assemble_graph(cv, ocr, source_sha256)
