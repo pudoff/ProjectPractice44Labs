@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Макеты состояний</title>
+<style>
+  :root {
+    --bg: #000205;
+    --text: #e2e2e2;
+    --heading: #0834f9;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(226,226,226,0.12);
+    --btn-bg: #0834f9;
+    --error: #ff5c5c;
+    --radius: 14px;
+  }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 24px; display: flex; flex-direction: column; gap: 32px;
+    align-items: center;
+  }
+  .state {
+    width: 100%; max-width: 720px;
+    border: 1px dashed #222; border-radius: var(--radius);
+    padding: 16px;
+  }
+  .state__label {
+    font-size: 0.8rem; color: #888; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .header { text-align: center; }
+  .title { margin: 0 0 8px; color: var(--heading); font-size: 1.75rem; }
+  .subtitle { margin: 0 0 16px; opacity: 0.75; }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .dropzone {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 8px; padding: 40px 20px;
+    border: 2px dashed var(--card-border); border-radius: var(--radius);
+    text-align: center;
+  }
+  .dropzone__icon { font-size: 2rem; }
+  .dropzone__hint { font-size: 0.85rem; opacity: 0.6; }
+  .file-info {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    background: rgba(226,226,226,0.06);
+  }
+  .file-info__name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-info__clear { background: none; border: none; color: var(--text); font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 20px; border: none; border-radius: 10px;
+    background: var(--btn-bg); color: #fff; font-size: 1rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; width: 100%;
+  }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .message--error { color: var(--error); margin: 0; font-size: 0.9rem; }
+  .card--result { border-color: var(--heading); }
+  .result__title { margin: 0; color: var(--heading); font-size: 1.35rem; }
+  .result__text { margin: 0; opacity: 0.85; }
+  .loader { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px 0; }
+  .loader__spinner {
+    width: 44px; height: 44px; border: 4px solid rgba(226,226,226,0.15);
+    border-top-color: var(--heading); border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="state">
+  <div class="state__label">1. До загрузки файла</div>
+  <header class="header">
+    <h1 class="title">Распознавание чертежей</h1>
+    <p class="subtitle">Загрузите скан чертежа — получите готовый DXF-файл</p>
+  </header>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="state">
+  <div class="state__label">2. Файл выбран</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <div class="file-info">
+      <span class="file-info__name">detail_assembly_v3.pdf</span>
+      <button class="file-info__clear">✕</button>
+    </div>
+    <button class="btn">Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="state">
+  <div class="state__label">3. Процесс обработки</div>
+  <div class="loader">
+    <div class="loader__spinner"></div>
+    <p>Обрабатываем чертёж…</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="state">
+  <div class="state__label">4. Успешный результат</div>
+  
+  <!-- Карточка результата -->
+  <div class="card card--result" style="border-color: #0834f9; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box;">
+    <h2 class="result__title" style="margin: 0; color: #0834f9; font-size: 1.35rem; font-weight: bold;">Готово!</h2>
+    <p class="result__text" style="margin: 0; opacity: 0.85;">Файл обработан. Скачайте результат:</p>
+    
+    <!-- Обертка, которая не даст кнопке вылезти за края -->
+    <div style="width: 100%; box-sizing: border-box;">
+      <a class="btn btn--download" href="#" style="display: flex; width: 100%; box-sizing: border-box; padding: 14px 20px; justify-content: center; align-items: center; background-color: #0834f9; color: #ffffff; text-decoration: none; border-radius: 10px; font-weight: 600;">⬇ Скачать DXF</a>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="state">
+  <div class="state__label">5. Ошибка: неподдерживаемый формат</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Неподдерживаемый формат файла (.docx). Разрешены: pdf, jpeg, jpg, png, tif, tiff, bmp.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="state">
+  <div class="state__label">6. Ошибка: файл слишком большой</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Файл слишком большой. Максимум — 25 МБ.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="state">
+  <div class="state__label">7. Ошибка: пустой файл</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Файл пустой.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="state">
+  <div class="state__label">8. Ошибка: файл не выбран</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Сначала выберите файл.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="state">
+  <div class="state__label">9. Ошибка: сервер не смог обработать</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <div class="file-info">
+      <span class="file-info__name">detail_assembly_v3.pdf</span>
+      <button class="file-info__clear">✕</button>
+    </div>
+    <p class="message--error">⚠ Не удалось распознать чертёж. Попробуйте другой файл.</p>
+    <button class="btn">Распознать чертёж</button>
+  </div>
+</section>
+
+</body>
+</html>
