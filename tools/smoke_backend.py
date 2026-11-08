@@ -1,11 +1,7 @@
-"""HTTP smoke against the real API/worker/PostgreSQL stack (no mocked recognizers).
-
-Three generated formats exercise recognition; manual graphs separately exercise
-semantic export. This does not measure recognition accuracy or CAD GUI support.
-"""
 import argparse
 import io
 import json
+import os
 from pathlib import Path
 import time
 import urllib.request
@@ -19,6 +15,8 @@ from drawcv.synth import render
 
 def request(base, path, data=None, content_type=None):
     headers = {"Content-Type": content_type} if content_type else {}
+    if os.getenv("SMOKE_API_TOKEN"):
+        headers["Authorization"] = "Bearer " + os.environ["SMOKE_API_TOKEN"]
     with urllib.request.urlopen(urllib.request.Request(base + path, data=data, headers=headers), timeout=30) as response:
         return response.read()
 
@@ -28,7 +26,6 @@ def post_json(base, path, value):
 
 
 def assert_preserved(source, accepted, path="graph"):
-    """All CV fields must survive; schema-added defaults are allowed."""
     if isinstance(source, dict):
         for key, value in source.items():
             assert key in accepted, f"{path}/{key} was dropped"

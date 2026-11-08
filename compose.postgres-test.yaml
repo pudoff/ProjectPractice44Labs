@@ -1,0 +1,26 @@
+# Isolated queue/ownership/migration tests. Never uses the application's pgdata.
+# docker compose -p practice44-backend-checks -f compose.test.yaml -f compose.postgres-test.yaml run --rm checks
+services:
+  test-db:
+    image: postgres:16.6-bookworm
+    environment:
+      POSTGRES_DB: backend_checks
+      POSTGRES_USER: checks
+      POSTGRES_PASSWORD: checks-only
+    ports:
+      - "127.0.0.1:${TEST_POSTGRES_PORT:-15444}:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "checks", "-d", "backend_checks"]
+      interval: 1s
+      retries: 30
+  checks:
+    network_mode: service:test-db
+    depends_on:
+      test-db:
+        condition: service_healthy
+    environment:
+      TEST_DATABASE_URL: postgresql+psycopg://checks:checks-only@localhost:5432/backend_checks
+      REQUIRE_LOCAL_MODELS: "false"
+    command: ["python", "-m", "pytest", "-q", "/srv/backend/tests/test_service.py", "/srv/backend/tests/test_access.py", "/srv/backend/tests/test_queue_postgres.py", "/srv/backend/tests/test_migrations_postgres.py"]

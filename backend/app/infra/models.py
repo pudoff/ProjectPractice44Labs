@@ -10,6 +10,7 @@ class Job(Base):
     __tablename__ = "jobs"
     id: Mapped[str] = mapped_column(String(36), primary_key=True, server_default=text("uuid_generate_v7()"))
     filename: Mapped[str] = mapped_column(String(255))
+    owner_id: Mapped[str | None] = mapped_column(String(255), index=True)
     source_sha256: Mapped[str] = mapped_column(String(64))
     source_ext: Mapped[str] = mapped_column(String(8))
     state: Mapped[str] = mapped_column(String(20), server_default="queued")
@@ -18,7 +19,7 @@ class Job(Base):
     event_id: Mapped[str | None] = mapped_column(String(255))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     runs: Mapped[list["Run"]] = relationship(back_populates="job", order_by="Run.number", lazy="selectin")
-    __table_args__ = (UniqueConstraint("channel", "event_id", name="uq_channel_event"),)
+    __table_args__ = (UniqueConstraint("owner_id", "channel", "event_id", name="uq_owner_channel_event"),)
 
 
 class Run(Base):

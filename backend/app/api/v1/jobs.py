@@ -43,6 +43,7 @@ async def submit_drawing(job_id: str, graph: DrawingGraph, use_case: RerunJobDep
 
 
 @router.get("/{job_id}/artifacts/{name}")
-async def get_artifact(job_id: str, name: str, use_case: GetArtifactDep, run_number: int | None = None):
-    path = await use_case.execute(job_id, name, run_number)
+async def get_artifact(job_id: str, name: str, use_case: GetArtifactDep,
+                       run_number: int | None = None, run_id: str | None = None):
+    path = await use_case.execute(job_id, name, run_number, run_id)
     return FileResponse(path, media_type="application/octet-stream", filename=name)

@@ -1,7 +1,5 @@
 import io
 import json
-import os
-import uuid
 from pathlib import Path
 
 import ezdxf
@@ -9,42 +7,22 @@ import httpx
 import numpy as np
 import pytest
 import pymupdf
-from sqlalchemy import event
 
 from app.api import app
 from app.domain.drawing import DrawingGraph
 from app.services.dxf import DxfExporter
-from app.infra.db import Base, engine
 from app.tasks.job import claim_run, process_run, recover_interrupted_runs
+from app.infra.run_lock import release_claim
 from app.services.image import ImageService
 from app.services.recognition import assemble_graph
 
-
-@event.listens_for(engine.sync_engine, "connect")
-def sqlite_uuid(dbapi_connection, _record):
-    if engine.dialect.name == "sqlite":
-        dbapi_connection.create_function("uuid_generate_v7", 0, lambda: str(uuid.uuid4()))
+pytestmark = pytest.mark.usefixtures("clean_db")
 
 
 async def request(method, path, **kwargs):
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app), base_url="http://test") as client:
+        kwargs.setdefault("headers", {"Authorization": "Bearer " + "a" * 40})
         return await client.request(method, path, **kwargs)
-
-
-@pytest.fixture(scope="session")
-def anyio_backend():
-    return "asyncio"
-
-
-@pytest.fixture(autouse=True)
-async def clean_db(anyio_backend):
-    async with engine.begin() as connection:
-        await connection.run_sync(Base.metadata.drop_all)
-        await connection.run_sync(Base.metadata.create_all)
-    yield
-    async with engine.begin() as connection:
-        await connection.run_sync(Base.metadata.drop_all)
-    await engine.dispose()
 
 
 @pytest.mark.anyio
@@ -141,7 +119,9 @@ def test_pdf_preparation_and_page_limit(tmp_path):
 async def test_interrupted_run_can_be_retried():
     response = await request("POST", "/api/v1/jobs", files={"file": ("x.png", b"\x89PNG\r\n\x1a\n", "image/png")})
     job_id = response.json()["id"]
-    assert await claim_run()
+    run_id = await claim_run()
+    assert run_id
+    await release_claim(run_id)  # Simulate the owning connection dying.
     await recover_interrupted_runs()
     status = (await request("GET", f"/api/v1/jobs/{job_id}")).json()
     assert status["state"] == "failed"
