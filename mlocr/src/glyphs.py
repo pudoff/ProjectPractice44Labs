@@ -4,6 +4,8 @@ import re
 import numpy as np
 from .semantics import parse_engineering_notation
 
+_INLINE_O_DIAMETER = re.compile(r"(?<![A-Za-zА-Яа-яЁё0-9])[oоОO](?=\d)")
+
 
 def text_crop(image, polygon):
     points = np.asarray(polygon, dtype=float)
@@ -57,13 +59,38 @@ def leading_slashed_ring(crop):
 
 def recover_diameter(item, image, local_polygon):
     holes = re.fullmatch(r'(\d+отв\.)\s*(\d+(?:[.,]\d+)?)', item['text'])
-    if item['notation']['kind'] not in {'linear', 'linear_tolerance'} and not holes:
+    inline_matches = list(_INLINE_O_DIAMETER.finditer(item['text']))
+    if item['notation']['kind'] not in {'linear', 'linear_tolerance'} and not holes and not inline_matches:
         return item
     crop = text_crop(image, local_polygon)
-    found = leading_slashed_ring(crop) if not holes else any(ring and box[0] > .5*crop.shape[1] for box, ring in _glyphs(crop))
+    glyphs = _glyphs(crop)
+    leading_ring = leading_slashed_ring(crop) if not holes and not inline_matches else False
+    found = leading_ring if not holes and not inline_matches else (
+        any(ring and box[0] > .5*crop.shape[1] for box, ring in glyphs) if holes else False)
+    inline_match = None
+    if inline_matches and crop is not None:
+        ring_centres = [((box[0] + box[2] / 2) / crop.shape[1], box)
+                        for box, ring in glyphs if ring]
+        if ring_centres:
+            inline_match = min(inline_matches,
+                key=lambda match: min(abs((match.start() + .5) / max(len(item['text']), 1) - x)
+                                      for x, _ in ring_centres))
+            distance = min(abs((inline_match.start() + .5) / max(len(item['text']), 1) - x)
+                           for x, _ in ring_centres)
+            found = distance <= .14
     if found:
-        corrected = 'Ø'+item['text'] if not holes else holes[1]+'Ø'+holes[2]
-        item['corrections'].append({'rule': 'diameter_visible_in_raster', 'before': item['text'], 'after': corrected})
+        before = item['text']
+        if holes:
+            corrected = holes[1]+'Ø'+holes[2]
+        elif inline_match:
+            corrected = before[:inline_match.start()] + 'Ø' + before[inline_match.end():]
+        elif leading_ring and before.startswith('0'):
+            # Sometimes the recogniser renders the slashed ring as a literal zero;
+            # replace that glyph instead of inserting an extra Ø before it.
+            corrected = 'Ø' + before[1:]
+        else:
+            corrected = 'Ø'+before
+        item['corrections'].append({'rule': 'diameter_visible_in_raster', 'before': before, 'after': corrected})
         item['text'] = corrected
         item['notation'] = parse_engineering_notation(corrected)
         item['notation']['raw_text'] = item['raw_text']

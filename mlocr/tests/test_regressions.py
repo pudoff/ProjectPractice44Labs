@@ -44,6 +44,20 @@ def test_filtered_polygons_follow_recognition():
     assert result[0]['polygon'].tolist() == second
 
 
+def test_180_degree_pass_rotates_image_and_maps_polygons_back():
+    polygon = [[0, 0], [10, 0], [10, 20], [0, 20]]
+    class Engine:
+        def predict(self, image):
+            assert image.shape[:2] == (120, 200)
+            assert np.array_equal(image, np.rot90(source, k=2))
+            yield {'res': {'dt_polys': [polygon], 'rec_polys': [polygon],
+                           'rec_texts': ['03.XXXX.03'], 'rec_scores': [.9]}}
+    source = np.zeros((120, 200, 3), dtype=np.uint8)
+    result = _read_pass(Engine(), source, 180)
+    assert result[0]['pass_angle_deg'] == 180
+    assert result[0]['polygon'].tolist() == [[199, 119], [189, 119], [189, 99], [199, 99]]
+
+
 def test_conflicting_numbers_require_review():
     polygon = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
     result = _merge_passes([{'text': '46', 'score': .89, 'polygon': polygon, 'pass_angle_deg': 0},
@@ -278,12 +292,19 @@ def test_scale_is_voted_by_dimension_lines_only_with_a_clear_majority():
 
 def test_drawing_words_are_corrected_with_a_record_and_numbers_are_not():
     for raw, expected in (('Разрад.', 'Разраб.'), ('Масштад', 'Масштаб'), ('Ymb.', 'Утв.'), ('Шайда', 'Шайба'), ('Луст', 'Лист'),
-                          ('Macca', 'Масса'), ('Cm3 Г0CT 380-2005', 'Ст3 ГОСТ 380-2005'), ('$26', 'Ø26'), ('5omb14', '5отв.14'),
+                          ('Macca', 'Масса'), ('Macwmad', 'Масштаб'), ('Cm3 Г0CT 380-2005', 'Ст3 ГОСТ 380-2005'), ('$26', 'Ø26'), ('$32H7', 'Ø32H7'), ('5omb14', '5отв.14'),
                           ('Лут.', 'Лит.'), ('Ин6.', 'Инв.'), ('45X F0CT1051-88', '45X ГОСТ1051-88')):
         text, changes = normalize_text(raw)
         assert text == expected and changes, raw
-    for raw in ('380', '1050-88', '12,5', 'H14', 'Ra', 'M12', 'Вариант', 'R1', '$', 'Лот'):
+    for raw in ('380', '1050-88', '12,5', 'H14', 'Ra', 'M12', '10m', 'item', 'MaccaMacwmad', '$32f', 'Вариант', 'R1', '$', 'Лот'):
         assert normalize_text(raw) == (raw, []), raw
+
+
+def test_dollar_like_arrow_before_dimension_is_ambiguous():
+    item = enrich({'text': '$32f'})
+    assert item['text'] == '$32f'
+    assert item['needs_review']
+    assert item['issues'][0]['code'] == 'ambiguous_diameter_glyph'
 
 
 def _sheet_cv():

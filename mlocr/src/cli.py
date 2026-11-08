@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import difflib
+import re
 from pathlib import Path
 
 import numpy as np
@@ -35,9 +37,11 @@ def _box_iou(poly_a: np.ndarray, poly_b: np.ndarray) -> float:
 
 
 def _read_pass(engine, image: np.ndarray, pass_angle: int) -> list[dict]:
-    height, _ = image.shape[:2]
+    height, width = image.shape[:2]
     if pass_angle == 90:
         passed_image = np.ascontiguousarray(np.rot90(image, k=3))
+    elif pass_angle == 180:
+        passed_image = np.ascontiguousarray(np.rot90(image, k=2))
     else:
         passed_image = image
     records = []
@@ -61,6 +65,8 @@ def _read_pass(engine, image: np.ndarray, pass_angle: int) -> list[dict]:
             if pass_angle == 90:
                 # Inverse of np.rot90(..., k=3), i.e. clockwise image rotation.
                 polygon = np.column_stack((polygon[:, 1], height - 1 - polygon[:, 0]))
+            elif pass_angle == 180:
+                polygon = np.column_stack((width - 1 - polygon[:, 0], height - 1 - polygon[:, 1]))
             score = float(scores[index]) if index < len(scores) else 0.0
             records.append({"text": text, "score": score, "polygon": polygon,
                             "pass_angle_deg": pass_angle})
@@ -123,6 +129,107 @@ def _partial_reading(small, large):
     return bool(area > 0 and area < .8*large_area and np.prod(overlap)/area >= .85)
 
 
+def _split_preserves_reading(original: str, segments: list[dict]) -> bool:
+    """Reject gridline cuts that replace a readable region with unrelated crop guesses."""
+    def compact(value):
+        return ''.join(char.casefold() for char in normalize_text(value)[0] if char.isalnum())
+
+    before = compact(original)
+    after = compact(''.join(segment['text'] for segment in segments))
+    similarity = difflib.SequenceMatcher(None, before, after).ratio()
+    if similarity >= .85:
+        return True
+
+    # Some correct cell splits improve a bad OCR reading, so allow those when
+    # every crop reads as a known label, a corrected vocabulary word, or a clear word.
+    label = re.compile(r"(?:разраб|пров|т\.?контр|н\.?контр|утв|изм|лист|докум|подп|дата|"
+                       r"лит|масса|масштаб|листов|формат|копировал|отдела?)\.?$", re.I)
+    pieces_are_plausible = True
+    for segment in segments:
+        raw = segment['text'].strip()
+        corrected, changes = normalize_text(raw)
+        token = ''.join(char for char in corrected if char.isalpha())
+        placeholder = bool(re.fullmatch(r"[XxХх]{3,}", raw))
+        known_label = bool(label.search(corrected.strip()))
+        corrected_word = any(change.get('rule') == 'drawing_vocabulary' for change in changes)
+        clear_word = len(token) >= 4 and segment.get('score', 0) >= .8
+        if not (placeholder or known_label or corrected_word or clear_word):
+            pieces_are_plausible = False
+            break
+    return pieces_are_plausible and similarity >= .55
+
+
+def _split_title_block_gridlines(engine, image: np.ndarray, observations: list[dict]) -> list[dict]:
+    """Re-read a bottom-of-sheet OCR box in separate cells when a strong vertical rule crosses it.
+
+    This uses lines found in the source pixels, not fixed title-block coordinates. The unsplit reading
+    remains attached to every resulting segment as provenance.
+    """
+    height, width = image.shape[:2]
+    gray = np.asarray(Image.fromarray(image).convert('L')) if image.ndim == 3 else image
+    output = []
+    for item in observations:
+        poly = np.asarray(item['polygon'], dtype=float)
+        x0, y0 = np.floor(poly.min(axis=0)).astype(int)
+        x1, y1 = np.ceil(poly.max(axis=0)).astype(int)
+        # Title-block grid is at the bottom of the sheet; avoid splitting drawing notes elsewhere.
+        if y0 < height * .65 or x1 - x0 < 80 or y1 - y0 < 24:
+            output.append(item)
+            continue
+        x0, x1 = max(0, x0), min(width, x1)
+        y0, y1 = max(0, y0), min(height, y1)
+        patch = gray[y0:y1, x0:x1]
+        if patch.size == 0:
+            output.append(item)
+            continue
+        dark_fraction = (patch < 110).mean(axis=0)
+        candidates = np.flatnonzero(dark_fraction >= .72)
+        candidates = candidates[(candidates >= patch.shape[1] * .12) &
+                                (candidates <= patch.shape[1] * .88)]
+        runs = []
+        for column in candidates.tolist():
+            if runs and column - runs[-1][-1] <= 3:
+                runs[-1].append(column)
+            else:
+                runs.append([column])
+        cuts = [int(round(float(np.mean(run)))) for run in runs]
+        cuts = [cut for cut in cuts if cut >= 18 and patch.shape[1] - cut >= 18]
+        if not cuts:
+            output.append(item)
+            continue
+        edges = [0, *cuts, patch.shape[1]]
+        segments = []
+        for left, right in zip(edges, edges[1:]):
+            if right - left < 22:
+                continue
+            crop = np.ascontiguousarray(image[y0:y1, x0 + left + 2:x0 + right - 2])
+            crop_records = []
+            for angle in (0, 180):
+                try:
+                    crop_records.extend(_read_pass(engine, crop, angle))
+                except Exception:
+                    # Keep the original unsplit reading if a crop pass fails.
+                    crop_records = []
+                    break
+            readings = _merge_passes(crop_records) if crop_records else []
+            if not readings:
+                segments = []
+                break
+            chosen = max(readings, key=lambda record: record['score'])
+            chosen['polygon'] = chosen['polygon'] + np.asarray([x0 + left + 2, y0], dtype=float)
+            chosen['split_from'] = {'text': item['text'], 'score': item['score'],
+                                    'polygon': poly.tolist(), 'rule': 'visible_vertical_gridline'}
+            if chosen.get('score', 0) < .7:
+                chosen['needs_review'] = True
+                chosen.setdefault('issues', []).append({'code': 'gridline_split_low_confidence',
+                    'message': 'A cell was re-read after a visible gridline split, but confidence is low.'})
+            segments.append(chosen)
+        # Require a complete, credible split; otherwise preserve the unsplit region.
+        output.extend(segments if len(segments) >= 2 and _split_preserves_reading(item['text'], segments)
+                      else [item])
+    return output
+
+
 @lru_cache(maxsize=2)
 def get_engine(det=None, rec=None):
     det, rec = local_model_dirs(det, rec)
@@ -149,7 +256,21 @@ def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=Non
         source_width, source_height = source_size or (width, height)
         if crop_origin and (min(crop_origin) < 0 or crop_origin[0]+width > source_width or crop_origin[1]+height > source_height):
             raise ValueError('Crop exceeds source image bounds')
-        observations = _merge_passes(_read_pass(engine, image, 0) + _read_pass(engine, image, 90))
+        pass_records, pass_failures = [], []
+        for angle in (0, 90, 180):
+            try:
+                pass_records.extend(_read_pass(engine, image, angle))
+            except Exception as exc:
+                pass_failures.append({'angle_deg': angle,
+                                      'error': f'{type(exc).__name__}: {exc}'})
+        observations = _merge_passes(pass_records)
+        if pass_failures:
+            for observation in observations:
+                observation['needs_review'] = True
+                observation.setdefault('issues', []).append({
+                    'code': 'ocr_pass_failed',
+                    'message': 'At least one orientation pass failed; available readings are incomplete.'})
+        observations = _split_title_block_gridlines(engine, image, observations)
         items = []
         for item in observations:
             polygon = item['polygon'].copy()
@@ -162,7 +283,10 @@ def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=Non
             record = enrich({'id': f'{page_id}-ocr-{len(items)+1:04d}', 'page': page_id,
                              'text': item['text'], 'score': item['score'], 'source': 'paddleocr',
                              'alternatives': item['alternatives'], 'angle_deg': angle,
-                             'selection_basis': 'highest_recognition_confidence',
+                             'selected_pass_angle_deg': item.get('pass_angle_deg', 0),
+                             'selection_basis': ('visible_vertical_gridline_split' if item.get('split_from')
+                                                 else 'highest_recognition_confidence'),
+                             'split_from': item.get('split_from'),
                              'needs_review': item.get('needs_review', False), 'issues': item.get('issues', []),
                              'polygon_px': poly, 'poly_source_px': poly})
             recover_diameter(record, image, item['polygon'])
@@ -174,14 +298,15 @@ def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=Non
         identity = page_identity(image, page_id)
         if crop_origin:
             identity.update(raster_sha256=None, crop_origin=crop_origin, width_px=source_width, height_px=source_height)
-        result_pages.append({'page': page_id, 'source': identity, 'width_px': source_width, 'height_px': source_height, 'texts': items})
+        result_pages.append({'page': page_id, 'source': identity, 'width_px': source_width, 'height_px': source_height,
+                             'texts': items, 'pass_failures': pass_failures})
     issues = [{'code': issue['code'], 'message': issue['message'], 'severity': 'warning', 'object_id': item['id']}
               for p in result_pages for item in p['texts'] for issue in item.get('issues', [])]
     return {'schema_version': 'ocr-observations-1', 'status': 'ok', 'module': {'name': 'mlocr', 'version': __version__},
             'input': str(path), 'source': result_pages[0]['source'] if len(result_pages) == 1 else None,
             'pages': result_pages, 'texts': [t for p in result_pages for t in p['texts']],
             'title_block': build_title_block(result_pages), 'issues': issues,
-            'params': {'pdf_render_dpi': dpi if path.suffix.lower() == '.pdf' else None, 'det_limit_side_len': 4096, 'passes': [0, 90]},
+            'params': {'pdf_render_dpi': dpi if path.suffix.lower() == '.pdf' else None, 'det_limit_side_len': 4096, 'passes': [0, 90, 180]},
             'timings_s': {'total': round(time.perf_counter()-started, 3)}}
 
 
