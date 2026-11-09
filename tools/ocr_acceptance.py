@@ -91,9 +91,10 @@ def main():
     baseline_dims = {d.id: d for d in graph.dimensions}
     from app.services.geometry import GeometryResolver
     resolver = GeometryResolver(edited)
+    baseline_resolver = GeometryResolver(graph)
     def changed(dim):
         resolved = resolver.dimension(dim)
-        original = baseline_dims[dim.id]
+        original = baseline_resolver.dimension(baseline_dims[dim.id])
         angle = math.radians(dim.angle)
         def measurement(d):
             return abs((d.p2[0]-d.p1[0])*math.cos(angle) + (d.p2[1]-d.p1[1])*math.sin(angle))

@@ -1,48 +1,111 @@
+
 name: Backend, CV, OCR and offline integration
+
 on: [push, pull_request]
+
 permissions:
   contents: read
+
 jobs:
   checks:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     env:
       COMPOSE_PROJECT_NAME: practice44-ci
+      API_PORT: "18044"
       BUILD_REVISION: ${{ github.sha }}
+      # Disposable CI credentials, used only by this runner's test services.
+      AUTH_TOKENS: '{"ci":"practice44-ci-integration-token-not-for-production"}'
+      SMOKE_API_TOKEN: practice44-ci-integration-token-not-for-production
+      POSTGRES_DB: draw
+      POSTGRES_USER: draw
+      POSTGRES_PASSWORD: draw
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Build the application and test images from the same lock
         run: |
           docker compose build api
           docker compose -f compose.test.yaml build checks
+          docker compose pull db
+
       - name: Prepare and verify local models (online preparation)
         run: |
           docker compose run --rm --no-deps model-assets
           MODEL_PREPARATION_NETWORK=none docker compose run --rm --no-deps model-assets python -m app.infra.model_assets
+
       - name: Unit and API regression tests without network
-        run: docker compose -f compose.test.yaml run --rm checks
+        run: |
+          docker compose -f compose.test.yaml run --rm checks
+
       - name: CV tests with local models and without network
         run: >-
-          docker compose -f compose.test.yaml run --rm checks python -c
+          docker compose -f compose.test.yaml run --rm
+          checks python -c
           "from app.infra.model_assets import configure_local_models; configure_local_models(); import pytest; raise SystemExit(pytest.main(['-q', '/srv/mlcv/tests']))"
+
       - name: Real OCR on labelled crops without network
         run: >-
           docker compose -f compose.test.yaml run --rm
-          --volume "${PWD}/evidence/ocr:/evidence" checks
-          python -m tools.evaluate_ocr --out /evidence
+          --volume "${PWD}/evidence/ocr:/evidence"
+          checks python -m tools.evaluate_ocr --out /evidence
+
       - name: Real OCR to CV to native DXF dimension without network
         run: >-
           docker compose -f compose.test.yaml run --rm
-          --volume "${PWD}/evidence/linear:/evidence" checks
-          python -m tools.ocr_acceptance --out /evidence
-      - name: Make container evidence accessible to the runner
+          --volume "${PWD}/evidence/linear:/evidence"
+          checks python -m tools.ocr_acceptance --out /evidence
+
+      - name: PostgreSQL queue, access and migration regression tests
+        run: |
+          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --wait db
+          # Backend tests clear their tables; never point them at the API database.
+          docker compose exec -T db psql -U draw -d draw -v ON_ERROR_STOP=1 -c 'CREATE DATABASE draw_checks'
+          docker run --rm \
+            --network "${COMPOSE_PROJECT_NAME}_default" \
+            --env TEST_DATABASE_URL=postgresql+psycopg://draw:draw@db:5432/draw_checks \
+            --volume "${PWD}/evidence/postgres:/evidence" \
+            practice44-checks:local \
+            python -m pytest -q /srv/backend/tests --junitxml=/evidence/postgres-tests.xml
+
+      - name: PostgreSQL migration and real API-worker integration
+        run: |
+          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --no-build --pull never
+          mkdir -p evidence
+          docker run --rm \
+            --network host \
+            --env SMOKE_API_TOKEN \
+            --volume "${PWD}/evidence:/evidence" \
+            practice44-checks:local \
+            python -m tools.smoke_backend \
+            --base http://127.0.0.1:18044 \
+            --out /evidence
+
+      - name: Fix evidence permissions
+        if: always()
+        run: |
+          sudo mkdir -p evidence
+          sudo chown -R "$(id -u):$(id -g)" evidence
+          chmod -R u+rwX evidence
+
+      - name: Save service logs
         if: always()
         run: |
           mkdir -p evidence
-          sudo chown -R "$(id -u):$(id -g)" evidence
-          chmod -R u+rwX evidence
-      - uses: actions/upload-artifact@v4
+          docker compose logs --no-color > evidence/services.log 2>&1 || true
+
+      - name: Upload integration evidence
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: integration-evidence
           path: evidence/
+          if-no-files-found: warn
+
+      - name: Stop test services
+        if: always()
+        run: |
+          docker compose down

@@ -76,7 +76,7 @@ async def test_owner_and_history_are_enforced_for_every_file_and_mutation():
     assert (await request("GET", url, "bob")).status_code == 404
     old = await request("GET", f"/api/v1/jobs/{alice['id']}/artifacts/result.dxf?run_number=2")
     assert old.content == first_dxf.content
-    assert ezdxf.read(io.StringIO(old.text)).modelspace().query("DIMENSION")[0].get_measurement() == 46
+    assert ezdxf.read(io.StringIO(old.text, newline=None)).modelspace().query("DIMENSION")[0].get_measurement() == 46
 
 
 async def test_historical_unowned_jobs_cannot_be_claimed_with_metadata():
@@ -125,4 +125,4 @@ async def test_geometry_edit_cannot_hide_stale_free_dimension_by_dropping_proven
     report = (await request('GET', base + '/artifacts/report.json')).json()
     assert any(issue['code'] == 'dimension_recalculation_required' for issue in report['issues'])
     result = await request('GET', base + '/artifacts/result.dxf')
-    assert not ezdxf.read(io.StringIO(result.text)).modelspace().query('DIMENSION')
+    assert not ezdxf.read(io.StringIO(result.text, newline=None)).modelspace().query('DIMENSION')
