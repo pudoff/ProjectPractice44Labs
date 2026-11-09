@@ -9,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.config import get_settings
 from app.domain.drawing import DrawingGraph
 from app.infra.models import Job, Run
-from app.infra.storage import artifact_from_path, atomic_bytes, job_dir, run_dir, storage_root
+from app.infra.storage import artifact_from_path, atomic_bytes, job_dir, run_dir, storage_root, existing_run_dir
 from app.repositories.jobs import JobRepository
 from app.uow.jobs import JobUnitOfWork
 from app.services.geometry import GeometryError, GeometryResolver, geometry_signature
@@ -105,7 +105,20 @@ class FindJobUseCase:
         self.repository = JobRepository(session)
 
     async def execute(self, job_id: str) -> dict:
-        return _status(await _find_job(self.repository, job_id, self.owner_id))
+        job = await _find_job(self.repository, job_id, self.owner_id)
+        result = _status(job)
+        if job.state == "queued" and job.runs and job.runs[-1].state == "queued":
+            run = job.runs[-1]
+            path = existing_run_dir(job.id, run.id, run.number) / "report.json"
+            try:
+                progress = json.loads(await asyncio.to_thread(path.read_text, encoding="utf-8"))
+            except FileNotFoundError:
+                pass
+            else:
+                # The worker's row transaction is not visible until commit.
+                result["state"] = result["runs"][-1]["state"] = "running"
+                result["runs"][-1]["stage"] = progress.get("stage", "export")
+        return result
 
 
 class RerunJobUseCase:

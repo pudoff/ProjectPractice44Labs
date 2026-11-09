@@ -7,11 +7,12 @@ import threading
 import ezdxf
 import pytest
 from sqlalchemy import select, text
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.infra.db import SessionLocal, engine
 from app.infra.models import Artifact, Job, Run
 from app.infra.storage import run_dir, storage_root
-from app.tasks.job import claim_run, process_run, recover_interrupted_runs
+from app.tasks.job import process_run
 from test_access import request, upload
 from tools.smoke_backend import drawing
 
@@ -32,23 +33,26 @@ async def main():
     marker, start, finish = map(Path, sys.argv[1:4])
     marker.with_suffix('.ready').touch()
     await wait(start)
-    await job.recover_interrupted_runs()
-    run_id = await job.claim_run()
-    marker.write_text(json.dumps({'run_id': run_id}))
-    if run_id:
+    original = job._process_run
+    async def paused(session, run, out, work):
+        marker.write_text(json.dumps({'run_id': run.id}))
         if len(sys.argv) > 4 and sys.argv[4] == 'pause-after-export':
             import time
             export = job._export
-            def paused(*args):
+            def paused_export(*args):
                 state = export(*args)
                 marker.with_suffix('.exported').touch()
                 while not finish.exists():
                     time.sleep(.02)
                 return state
-            job._export = paused
+            job._export = paused_export
         else:
             await wait(finish)
-        await job.process_run(run_id)
+        await original(session, run, out, work)
+    job._process_run = paused
+    run_id = await job.process_run()
+    if not marker.exists():
+        marker.write_text(json.dumps({'run_id': run_id}))
     await engine.dispose()
 
 asyncio.run(main())
@@ -84,7 +88,7 @@ async def succeeded(process):
 
 async def manual_job(width=46):
     job = (await upload()).json()
-    await process_run(await claim_run())  # A deliberately invalid input -> failed initial run.
+    await process_run()  # A deliberately invalid input -> failed initial run.
     response = await request("POST", f"/api/v1/jobs/{job['id']}/drawing", json=drawing(width))
     assert response.status_code == 202, response.text
     return response.json()
@@ -105,11 +109,14 @@ async def test_two_simultaneous_workers_claim_once_and_startup_preserves_live_ru
         claimed = [json.loads(marker.read_text())["run_id"] for marker in markers]
         assert claimed.count(run_id) == 1 and claimed.count(None) == 1
         # A third worker's startup/recovery must not fail the live worker's run.
-        await recover_interrupted_runs()
+        await process_run()
         async with SessionLocal() as session:
             run = await session.get(Run, run_id)
-            assert run.state == "running" and run.error_code is None
-            assert run.job.state == "running"
+            assert run.state == "queued" and run.error_code is None
+            assert run.job.state == "queued"
+        status = (await request("GET", f"/api/v1/jobs/{job['id']}")).json()
+        assert status["state"] == status["runs"][-1]["state"] == "running"
+        assert (await request("POST", f"/api/v1/jobs/{job['id']}/rerun")).status_code == 409
         assert not (run_dir(job["id"], run_id) / "result.dxf").exists()
         finish.touch()
         for process in processes:
@@ -128,7 +135,7 @@ async def test_two_simultaneous_workers_claim_once_and_startup_preserves_live_ru
 
 async def test_worker_killed_after_file_write_restart_and_retry_preserve_history(tmp_path):
     job = await manual_job()
-    await process_run(await claim_run())
+    await process_run()
     job_id = job["id"]
     baseline_id = job["runs"][-1]["id"]
     baseline = run_dir(job_id, baseline_id) / "result.dxf"
@@ -142,9 +149,9 @@ async def test_worker_killed_after_file_write_restart_and_retry_preserve_history
         await wait_file(marker.with_suffix(".exported"))
         failed_path = run_dir(job_id, failed_id) / "result.dxf"
         assert not failed_path.exists()  # CPU output is private until publication.
-        await recover_interrupted_runs()
+        await process_run()
         async with SessionLocal() as session:
-            assert (await session.get(Run, failed_id)).state == "running"
+            assert (await session.get(Run, failed_id)).state == "queued"
         process.kill()  # An abrupt worker exit, not an exception simulated in this process.
         await process.communicate()
         # A fresh service process executes the same recovery used by app.worker.
@@ -162,7 +169,7 @@ async def test_worker_killed_after_file_write_restart_and_retry_preserve_history
             report = next(a for a in run.artifacts if a.name == "report.json")
             assert json.loads((storage_root() / report.relative_path).read_text())["error"]["code"] == "worker_interrupted"
         # Recovery is idempotent and a retry creates a different output directory.
-        await recover_interrupted_runs()
+        await process_run()
         response = await request("POST", f"/api/v1/jobs/{job_id}/drawing", json=drawing(48))
         assert response.status_code == 202, response.text
         retry_id = response.json()["runs"][-1]["id"]
@@ -191,10 +198,10 @@ async def test_worker_killed_after_file_write_restart_and_retry_preserve_history
         await stop(process)
 
 
-async def test_graceful_cancellation_keeps_lock_until_cpu_thread_finishes(monkeypatch):
+async def test_graceful_cancellation_keeps_row_transaction_until_cpu_thread_finishes(monkeypatch):
     from app.tasks import job as tasks
     job = await manual_job()
-    run_id = await claim_run()
+    run_id = job["runs"][-1]["id"]
     started, finish = threading.Event(), threading.Event()
     original = tasks._export
 
@@ -215,26 +222,33 @@ async def test_graceful_cancellation_keeps_lock_until_cpu_thread_finishes(monkey
         task.cancel()
         await asyncio.sleep(.05)
         assert not task.done()
-        await recover_interrupted_runs()
+        await process_run()
         async with SessionLocal() as session:
-            assert (await session.get(Run, run_id)).state == "running"
+            assert (await session.get(Run, run_id)).state == "queued"
     finally:
         finish.set()
         with pytest.raises(asyncio.CancelledError):
             await task
-    await recover_interrupted_runs()
+    await process_run()
     async with SessionLocal() as session:
         run = await session.get(Run, run_id)
         assert run.state == "failed" and run.error_code == "worker_interrupted"
     assert not (run_dir(job["id"], run_id) / "result.dxf").exists()
 
 
-async def test_terminated_lock_connection_cannot_publish_after_retry(monkeypatch):
+async def test_terminated_transaction_cannot_publish_after_retry(monkeypatch):
     from app.tasks import job as tasks
-    from app.infra.run_lock import claims
     job = await manual_job()
-    run_id = await claim_run()
-    pid = claims[run_id].backend_pid
+    run_id = job["runs"][-1]["id"]
+    pid = None
+    original_process = tasks._process_run
+
+    async def capture_backend(session, *args):
+        nonlocal pid
+        pid = await session.scalar(text('SELECT pg_backend_pid()'))
+        return await original_process(session, *args)
+
+    monkeypatch.setattr(tasks, '_process_run', capture_backend)
     started, finish = threading.Event(), threading.Event()
     original = tasks._export
 
@@ -253,14 +267,15 @@ async def test_terminated_lock_connection_cannot_publish_after_retry(monkeypatch
                 await asyncio.sleep(.02)
         async with engine.begin() as connection:
             assert await connection.scalar(text('SELECT pg_terminate_backend(:pid)'), {'pid': pid})
-        await recover_interrupted_runs()
+        await process_run()
         response = await request('POST', f"/api/v1/jobs/{job['id']}/drawing", json=drawing(48))
         assert response.status_code == 202
         retry_id = response.json()['runs'][-1]['id']
         finish.set()
-        await task
+        with pytest.raises(SQLAlchemyError):
+            await task
         monkeypatch.setattr(tasks, '_export', original)
-        await process_run(await claim_run())
+        await process_run()
         async with SessionLocal() as session:
             old = await session.get(Run, run_id)
             assert old.state == 'failed' and old.error_code == 'worker_interrupted'
@@ -272,25 +287,26 @@ async def test_terminated_lock_connection_cannot_publish_after_retry(monkeypatch
         assert ezdxf.readfile(result).modelspace().query('DIMENSION')[0].get_measurement() == 48
     finally:
         finish.set()
-        await task
+        if not task.done():
+            with pytest.raises(SQLAlchemyError):
+                await task
 
 
 @pytest.mark.parametrize("publication", ["success", "failure_report"])
 async def test_cancel_during_publication_drains_writes_before_recovery(monkeypatch, publication):
     from app.tasks import job as tasks
-    from app.infra.run_lock import claims
 
     job = await manual_job()
-    await process_run(await claim_run())
+    await process_run()
     job_id = job['id']
     baseline_id = job['runs'][-1]['id']
     baseline = run_dir(job_id, baseline_id) / 'result.dxf'
     baseline_bytes = baseline.read_bytes()
     response = await request('POST', f'/api/v1/jobs/{job_id}/drawing', json=drawing(47))
     assert response.status_code == 202
-    run_id = await claim_run()
+    run_id = response.json()["runs"][-1]["id"]
     started, finish, written = threading.Event(), threading.Event(), threading.Event()
-    original_copy, original_json = tasks.shutil.copyfile, tasks.atomic_json
+    original_json = tasks.atomic_json
 
     def delay(write, *args):
         started.set()
@@ -300,23 +316,17 @@ async def test_cancel_during_publication_drains_writes_before_recovery(monkeypat
         written.set()
         return result
 
-    def copy(source, target, *args, **kwargs):
-        if Path(source).name == 'report.json':
-            return delay(original_copy, source, target)
-        return original_copy(source, target, *args, **kwargs)
-
-    def failure_json(path, value):
-        if Path(path) == run_dir(job_id, run_id) / 'report.json':
+    def publication_json(path, value):
+        status = 'succeeded' if publication == 'success' else 'failed'
+        if Path(path) == run_dir(job_id, run_id) / 'report.json' and value.get('status') == status:
             return delay(original_json, path, value)
         return original_json(path, value)
 
-    if publication == 'success':
-        monkeypatch.setattr(tasks.shutil, 'copyfile', copy)
-    else:
+    monkeypatch.setattr(tasks, 'atomic_json', publication_json)
+    if publication == 'failure_report':
         def fail_export(*args):
             raise ValueError('forced export failure')
         monkeypatch.setattr(tasks, '_export', fail_export)
-        monkeypatch.setattr(tasks, 'atomic_json', failure_json)
     task = asyncio.create_task(process_run(run_id))
     try:
         async with asyncio.timeout(20):
@@ -327,18 +337,18 @@ async def test_cancel_during_publication_drains_writes_before_recovery(monkeypat
         task.cancel()  # A second shutdown request must also preserve the lock.
         await asyncio.sleep(.05)
         assert not task.done()
-        assert run_id in claims
-        await recover_interrupted_runs()
+        assert await process_run(run_id) is None
+        await process_run()
         async with SessionLocal() as session:
-            assert (await session.get(Run, run_id)).state == 'running'
+            assert (await session.get(Run, run_id)).state == 'queued'
     finally:
         finish.set()
         with pytest.raises(asyncio.CancelledError):
             await task
-    assert written.is_set() and run_id not in claims
+    assert written.is_set()
     monkeypatch.setattr(tasks, 'atomic_json', original_json)
-    await recover_interrupted_runs()
-    await recover_interrupted_runs()
+    await process_run()
+    await process_run()
     async with SessionLocal() as session:
         run = await session.get(Run, run_id)
         assert run.state == run.job.state == 'failed'

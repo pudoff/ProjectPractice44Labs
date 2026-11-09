@@ -30,16 +30,10 @@ class RunRepository:
     async def get(self, run_id: str) -> Run | None:
         return await self.session.get(Run, run_id)
 
-    async def get_for_update(self, run_id: str) -> Run:
-        statement = select(Run).where(Run.id == run_id).with_for_update()
-        return (await self.session.execute(statement)).scalar_one()
-
-    async def running_for_recovery(self) -> list[Run]:
-        statement = select(Run).where(Run.state == "running").with_for_update(skip_locked=True)
-        return list((await self.session.execute(statement)).scalars().all())
-
-    async def next_queued(self) -> Run | None:
-        statement = (select(Run).where(Run.state == "queued")
-                     .order_by(Run.created_at, Run.number)
+    async def next_pending(self, run_id: str | None = None) -> Run | None:
+        statement = select(Run).where(Run.state.in_(("queued", "running")))
+        if run_id is not None:
+            statement = statement.where(Run.id == run_id)
+        statement = (statement.order_by(Run.created_at, Run.number)
                      .with_for_update(skip_locked=True).limit(1))
         return (await self.session.execute(statement)).scalar_one_or_none()

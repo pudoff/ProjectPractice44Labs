@@ -10,7 +10,7 @@ from app.app_factory import create_app
 from app.config import get_settings
 from app.infra.db import SessionLocal
 from app.infra.models import Job
-from app.tasks.job import claim_run, process_run
+from app.tasks.job import process_run
 from tools.smoke_backend import drawing
 
 pytestmark = [pytest.mark.anyio, pytest.mark.usefixtures("clean_db")]
@@ -50,14 +50,14 @@ async def test_owner_and_history_are_enforced_for_every_file_and_mutation():
         owners = dict((await session.execute(select(Job.id, Job.owner_id))).all())
         assert owners == {alice["id"]: "alice", bob["id"]: "bob"}
     # Complete both initial runs before submitting the manual one.
-    await process_run(await claim_run())
-    await process_run(await claim_run())
+    await process_run()
+    await process_run()
     assert (await request("POST", f"/api/v1/jobs/{alice['id']}/drawing", json=drawing(46))).status_code == 202
-    await process_run(await claim_run())
+    await process_run()
     first_dxf = await request("GET", f"/api/v1/jobs/{alice['id']}/artifacts/result.dxf")
     assert first_dxf.status_code == 200
     assert (await request("POST", f"/api/v1/jobs/{alice['id']}/drawing", json=drawing(47))).status_code == 202
-    await process_run(await claim_run())
+    await process_run()
     status = (await request("GET", f"/api/v1/jobs/{alice['id']}")).json()
     for run in status["runs"]:
         for name in run["artifacts"]:
@@ -108,11 +108,11 @@ async def test_frontend_preflight_only_allows_configured_origin(monkeypatch):
 async def test_geometry_edit_cannot_hide_stale_free_dimension_by_dropping_provenance(move_anchor):
     job = (await upload()).json()
     base = f"/api/v1/jobs/{job['id']}"
-    await process_run(await claim_run())
+    await process_run()
     graph = drawing(46)
     graph['points'][1]['refs'] = []
     assert (await request('POST', base + '/drawing', json=graph)).status_code == 202
-    await process_run(await claim_run())
+    await process_run()
     assert (await request('GET', base)).json()['state'] == 'succeeded'
     if move_anchor:
         graph['primitives'][0]['vertices'][0][1] = 1
@@ -120,7 +120,7 @@ async def test_geometry_edit_cannot_hide_stale_free_dimension_by_dropping_proven
     graph['primitives'][0]['vertices'][2][0] = 47
     graph.pop('provenance', None)
     assert (await request('POST', base + '/drawing', json=graph)).status_code == 202
-    await process_run(await claim_run())
+    await process_run()
     assert (await request('GET', base)).json()['state'] == 'needs_review'
     report = (await request('GET', base + '/artifacts/report.json')).json()
     assert any(issue['code'] == 'dimension_recalculation_required' for issue in report['issues'])

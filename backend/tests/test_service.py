@@ -11,8 +11,7 @@ import pymupdf
 from app.api import app
 from app.domain.drawing import DrawingGraph
 from app.services.dxf import DxfExporter
-from app.tasks.job import claim_run, process_run, recover_interrupted_runs
-from app.infra.run_lock import release_claim
+from app.tasks.job import process_run
 from app.services.image import ImageService
 from app.services.recognition import assemble_graph
 
@@ -36,12 +35,12 @@ async def test_upload_review_and_manual_graph_export(monkeypatch):
     response = await request("POST", "/api/v1/jobs", files={"file": ("plate.png", image, "image/png")})
     assert response.status_code == 201, response.text
     job_id = response.json()["id"]
-    await process_run(await claim_run())
+    await process_run()
     assert (await request("GET", f"/api/v1/jobs/{job_id}")).json()["state"] == "needs_review"
     graph = {"schema_version": "0.1", "coordinate_space": "part_mm", "primitives": [{"id": "p", "kind": "polyline", "vertices": [[0, 0], [46, 0], [46, 20], [0, 20]], "closed": True}], "texts": [{"id": "t", "value": "Сталь 20", "insert": [0, 25], "height": 3}], "dimensions": [{"id": "d", "p1": [0, 0], "p2": [46, 0], "base": [23, -7], "nominal_mm": 46}], "hatches": [{"id": "h", "outer": [[0, 0], [46, 0], [46, 20], [0, 20]], "holes": [[[10, 5], [20, 5], [20, 15], [10, 15]]]}]}
     response = await request("POST", f"/api/v1/jobs/{job_id}/drawing", json=graph)
     assert response.status_code == 202, response.text
-    await process_run(await claim_run())
+    await process_run()
     status = (await request("GET", f"/api/v1/jobs/{job_id}")).json()
     assert status["state"] == "succeeded", status
     assert "result.dxf" in status["runs"][-1]["artifacts"]
@@ -119,10 +118,10 @@ def test_pdf_preparation_and_page_limit(tmp_path):
 async def test_interrupted_run_can_be_retried():
     response = await request("POST", "/api/v1/jobs", files={"file": ("x.png", b"\x89PNG\r\n\x1a\n", "image/png")})
     job_id = response.json()["id"]
-    run_id = await claim_run()
-    assert run_id
-    await release_claim(run_id)  # Simulate the owning connection dying.
-    await recover_interrupted_runs()
+    from app.infra.storage import atomic_json, run_dir
+    run_id = response.json()["runs"][0]["id"]
+    atomic_json(run_dir(job_id, run_id) / "report.json", {"status": "running"})
+    await process_run()
     status = (await request("GET", f"/api/v1/jobs/{job_id}")).json()
     assert status["state"] == "failed"
     assert status["runs"][0]["error_code"] == "worker_interrupted"
@@ -190,7 +189,7 @@ async def test_api_calls_real_drawcv_and_preserves_semantics(tmp_path, monkeypat
     response = await request("POST", "/api/v1/jobs", files={"file": ("plate.png", buffer.getvalue(), "image/png")})
     assert response.status_code == 201
     job_id = response.json()["id"]
-    await process_run(await claim_run())
+    await process_run()
     status = (await request("GET", f"/api/v1/jobs/{job_id}")).json()
     assert status["state"] == "needs_review", status
     cv = (await request("GET", f"/api/v1/jobs/{job_id}/artifacts/cv.json")).json()

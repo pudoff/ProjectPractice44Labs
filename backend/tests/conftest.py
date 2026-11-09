@@ -15,7 +15,6 @@ import pytest
 from sqlalchemy import event
 from app.config import get_settings
 from app.infra.db import Base, engine
-from app.infra.run_lock import claims, release_claim
 
 
 @event.listens_for(engine.sync_engine, "connect")
@@ -53,10 +52,7 @@ async def clean_db(anyio_backend):
         await connection.run_sync(Base.metadata.drop_all)
         await connection.run_sync(Base.metadata.create_all)
     yield
-    for run_id in list(claims):
-        await release_claim(run_id)
     async with engine.begin() as connection:
-        # Keep an empty migrated schema for a subsequent API/worker smoke.
         for table in reversed(Base.metadata.sorted_tables):
             await connection.execute(table.delete())
     await engine.dispose()
