@@ -10,6 +10,9 @@ jobs:
       COMPOSE_PROJECT_NAME: practice44-ci
       API_PORT: "18044"
       BUILD_REVISION: ${{ github.sha }}
+      POSTGRES_DB: backend_ci
+      POSTGRES_USER: checks
+      POSTGRES_PASSWORD: checks-only
       AUTH_TOKENS: '{"ci-user":"ci-only-token-0000000000000000000000000001"}'
       SMOKE_API_TOKEN: ci-only-token-0000000000000000000000000001
     steps:
@@ -39,12 +42,15 @@ jobs:
           docker compose -f compose.test.yaml run --rm
           --volume "${PWD}/evidence/linear:/evidence" checks
           python -m tools.ocr_acceptance --out /evidence
-      - name: PostgreSQL queue recovery, concurrent workers and ownership
-        run: >-
-          docker compose -p practice44-backend-checks
-          -f compose.test.yaml -f compose.postgres-test.yaml run --rm checks
-      - name: PostgreSQL migration and real API-worker integration
+      - name: PostgreSQL recovery, concurrent workers and real API-worker integration
+        env:
+          TEST_DATABASE_URL: postgresql+psycopg://checks:checks-only@localhost:5432/backend_ci
         run: |
+          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --wait db
+          docker run --rm --network "container:$(docker compose ps -q db)" --env TEST_DATABASE_URL \
+            practice44-checks:local python -m pytest -q \
+            /srv/backend/tests/test_service.py /srv/backend/tests/test_access.py \
+            /srv/backend/tests/test_queue_postgres.py /srv/backend/tests/test_migrations_postgres.py
           OFFLINE_NETWORK_INTERNAL=true docker compose up -d --no-build --pull never
           mkdir -p evidence
           docker run --rm --network host --env SMOKE_API_TOKEN --volume "${PWD}/evidence:/evidence" practice44-checks:local python -m tools.smoke_backend --base http://127.0.0.1:18044 --out /evidence
@@ -64,6 +70,4 @@ jobs:
           path: evidence/
       - name: Stop test services
         if: always()
-        run: |
-          docker compose down
-          docker compose -p practice44-backend-checks -f compose.test.yaml -f compose.postgres-test.yaml down
+        run: docker compose down

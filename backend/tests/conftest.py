@@ -56,5 +56,7 @@ async def clean_db(anyio_backend):
     for run_id in list(claims):
         await release_claim(run_id)
     async with engine.begin() as connection:
-        await connection.run_sync(Base.metadata.drop_all)
+        # Leave an empty schema for the API/worker smoke that follows in CI.
+        for table in reversed(Base.metadata.sorted_tables):
+            await connection.execute(table.delete())
     await engine.dispose()
