@@ -12,16 +12,16 @@ docker compose build api
 docker compose run --rm --no-deps model-assets
 docker compose run --rm --no-deps model-assets python -m app.infra.model_assets
 docker compose up -d --no-build
-curl -F 'file=@dataset/dataset2/болт1.pdf' http://localhost:8000/api/v1/jobs
+curl -H "Authorization: Bearer $DRAWING_API_TOKEN" -F 'file=@dataset/dataset2/болт1.pdf' http://localhost:8000/api/v1/jobs
 ```
 
 Ответ содержит `id`. Затем запросить `/api/v1/jobs/{id}`. Когда `state` станет `succeeded` или `needs_review`, отчёт доступен по `/api/v1/jobs/{id}/artifacts/report.json`. DXF, если его удалось построить, доступен по `/api/v1/jobs/{id}/artifacts/result.dxf`. `needs_review` означает, что конвертер обнаружил объекты, которые нужно проверить вручную; при неизвестном масштабе DXF может отсутствовать. `failed` означает ошибку обработки; подробности есть в `error_code`, `error_message` и, если удалось записать, в `report.json`.
 
 Миграция выполняется отдельным сервисом `migrate`; API и worker ожидают её успеха. Worker вызывает `mlocr.src.adapter:run_ocr`, передаёт области текста в `drawcv.adapter:run_cv`, затем связывает результат с геометрией и экспортирует DrawingGraph 0.2. Оба модуля получают один растр; хеш и размеры проверяются. Веса Paddle и RapidOCR проверяются локально, при обработке ничего не скачивается. Исходное чтение доступно в артефакте `ocr-observations.json`; исправления, связи и проблемы — в `ocr.json` и отчёте. Исторический конвейер включается только явным `RECOGNITION_PROFILE=legacy` вне основного профиля Compose. Подробности: [интеграция OCR](../mlocr/README.md).
 
-Для полного автономного комплекта используйте `bash scripts/prepare_online.sh`, затем `bash scripts/start_offline.sh` (на Windows — Git Bash). Подготовительный контейнер `model-assets` включается только явной командой и не запускает второй API. При офлайн-запуске модели проверяются без сети, затем основной стек создаёт внутреннюю сеть Docker. Если этот же Compose-проект уже запущен в онлайн-режиме, сначала остановите его и удалите только его контейнеры/сеть командой `docker compose down` без `-v`, сохранив тома; либо используйте отдельное имя проекта. API по умолчанию опубликован только на `127.0.0.1`; проверка владельца задания остаётся открытой задачей перед внешним доступом.
+Для полного автономного комплекта используйте `bash scripts/prepare_online.sh`, затем `bash scripts/start_offline.sh` (на Windows — Git Bash). Подготовительный контейнер `model-assets` включается только явной командой и не запускает второй API. При офлайн-запуске модели проверяются без сети, затем основной стек создаёт внутреннюю сеть Docker. Если этот же Compose-проект уже запущен в онлайн-режиме, сначала остановите его и удалите только его контейнеры/сеть командой `docker compose down` без `-v`, сохранив тома; либо используйте отдельное имя проекта. API по умолчанию опубликован только на `127.0.0.1`. Маршруты заданий требуют индивидуальный Bearer-токен из серверной настройки `AUTH_TOKENS`; без настройки они закрыты. Подробности: [доступ, очередь и frontend](#доступ-и-подключение-frontend).
 
-Для новой установки создайте `.env` из `.env.example` и задайте пароль. Если основной PostgreSQL уже запускался, сохраните соответствующие его существующему тому значения `POSTGRES_*`: изменение `.env` не изменяет пароль в уже созданной БД. Не удаляйте том для устранения ошибки подключения. Проверочный стек запускается отдельно через `docker compose -p practice44-review-fixes ...`.
+Для новой установки создайте `.env` из `.env.example`, задайте пароль БД и `AUTH_TOKENS` с индивидуальными случайными токенами пользователей (минимум 32 символа каждый). Пример и генерация — в [инструкции](#доступ-и-подключение-frontend). В `DRAWING_API_TOKEN` передайте только токен текущего пользователя для curl-примера. Если основной PostgreSQL уже запускался, сохраните соответствующие его существующему тому значения `POSTGRES_*`: изменение `.env` не изменяет пароль в уже созданной БД. Не удаляйте том для устранения ошибки подключения. В CI запускаются обычные тесты на SQLite и проверки CV/OCR/DXF без PostgreSQL. Проверки очереди на PostgreSQL и полный HTTP-прогон выполняются вручную локально в Docker.
 
 Локальные тесты:
 
@@ -32,6 +32,50 @@ uv sync --project backend --locked
 # Из корня репозитория; Linux/macOS:
 PYTHONPATH=.:backend:mlcv backend/.venv/bin/python -m pytest -q backend/tests mlocr/tests
 ```
+
+## Доступ и подключение frontend
+
+В корневом `.env` задайте `AUTH_TOKENS` как JSON: ключ — стабильный идентификатор
+пользователя, значение — его уникальный случайный токен длиной не менее 32 символов.
+Для генерации каждого токена из корня проекта:
+
+```bash
+backend/.venv/bin/python -c 'import secrets; print(secrets.token_urlsafe(32))'
+```
+
+Подставьте два разных сгенерированных значения вместо заполнителей:
+
+```dotenv
+AUTH_TOKENS='{"alice":"<токен Alice>","bob":"<токен Bob>"}'
+CORS_ORIGINS='["http://localhost:5173"]'
+```
+
+После изменения `.env` пересоздайте API: `docker compose up -d api`.
+`AUTH_TOKENS` остаётся на сервере. Каждый клиент получает только свой токен
+и передаёт его во всех запросах к заданиям, включая скачивание файлов:
+`Authorization: Bearer <токен>`. Для curl-примеров задайте
+`export DRAWING_API_TOKEN='<свой токен>'`.
+
+Без настройки авторизации API возвращает 503, без корректного токена — 401,
+для чужого или отсутствующего задания — 404. `user_id` и `conversation_id`
+из запроса не определяют владельца. Регистрация и выдача токенов через API
+не реализованы; таблицу пользователей настраивают на сервере.
+
+Для frontend доступны следующие маршруты:
+
+| Метод и путь | Запрос и результат |
+| --- | --- |
+| `POST /api/v1/jobs` | `multipart/form-data`: файл `file`, необязательные `channel`, `conversation_id`, `event_id`; ответ 201 со статусом задания |
+| `GET /api/v1/jobs/{id}` | Статус задания и история `runs` с доступными `artifacts` |
+| `POST /api/v1/jobs/{id}/rerun` | Без тела; новый запуск, ответ 202 |
+| `POST /api/v1/jobs/{id}/drawing` | JSON DrawingGraph; новый запуск с исправлениями, ответ 202 |
+| `GET /api/v1/jobs/{id}/artifacts/{name}` | Файл текущего запуска; для истории укажите один параметр: `run_id` или `run_number` |
+
+Frontend опрашивает статус до `succeeded`, `needs_review` или `failed`.
+Для скачивания используйте запрос с Bearer-заголовком и сохранение ответа как Blob.
+Повтор и отправка исправлений при активном запуске возвращают 409.
+В `CORS_ORIGINS` перечислите разрешённые origins frontend, включая схему и порт.
+Это подготовка API к подключению; интеграция с frontend Вики ещё не подтверждена.
 
 ## Границы слоёв
 
@@ -45,7 +89,7 @@ PYTHONPATH=.:backend:mlcv backend/.venv/bin/python -m pytest -q backend/tests ml
 | `infra` | SQLAlchemy, файловое хранилище, подключение CV-прототипа |
 | `tasks`, `worker` | Очередь в PostgreSQL и обработка заданий вне HTTP-процесса |
 
-Это слоистый монолит с use case и UoW, а не строгое DDD: use case и сервисы ещё знают конкретные SQLAlchemy/файловые реализации. Абстрактные порты здесь пока не дают пользы, потому что адаптеров БД и хранилища по одному. CPU-операции OCR/OpenCV/PDF/DXF работают только в worker и вызываются через `asyncio.to_thread`; HTTP и запросы к БД асинхронные. Очередь на PostgreSQL использует блокировки строк. Для текущей нагрузки отдельный Redis/RQ/Dramatiq не требуется.
+Это слоистый монолит с use case и UoW, а не строгое DDD: use case и сервисы ещё знают конкретные SQLAlchemy/файловые реализации. Абстрактные порты здесь пока не дают пользы, потому что адаптеров БД и хранилища по одному. CPU-операции OCR/OpenCV/PDF/DXF работают только в worker и вызываются через `asyncio.to_thread`; HTTP и запросы к БД асинхронные. Worker выбирает запуск через `SELECT FOR UPDATE SKIP LOCKED` и держит транзакцию до завершения обработки. Другие worker пропускают занятую строку. Начало обработки записывается в `report.json`: если процесс погиб и транзакция откатилась, следующий worker помечает этот запуск как `failed` / `worker_interrupted`. Пока транзакция не завершена, API читает текущий этап из отчёта; повтор создаёт новый запуск и отдельный каталог файлов. Для текущей нагрузки отдельный Redis/RQ/Dramatiq не требуется.
 
 ## Почему эти библиотеки
 
@@ -64,7 +108,7 @@ PYTHONPATH=.:backend:mlcv backend/.venv/bin/python -m pytest -q backend/tests ml
 
 | Таблица | Оставленные поля и зачем они нужны |
 | --- | --- |
-| `jobs` | `id` — внешний идентификатор; `filename` — имя исходника; `source_sha256` — проверка ручной правки; `source_ext` — поиск исходного файла; `state` — быстрый статус; `channel`, `conversation_id`, `event_id` — источник и идемпотентность входящих событий; `created_at` — время создания |
+| `jobs` | `id` — внешний идентификатор; `filename` — имя исходника; `source_sha256` — проверка ручной правки; `source_ext` — поиск исходного файла; `state` — быстрый статус; `owner_id` — проверенный владелец; `channel`, `conversation_id`, `event_id` — источник и идемпотентность входящих событий в пределах владельца; `created_at` — время создания |
 | `runs` | `id`, `job_id`, `number` — история повторных запусков; `state`, `stage` — выбор задания worker и прогресс; `parameters` — признак ручного графа; `error_code`, `error_message` — диагностика; `created_at`, `started_at`, `finished_at` — порядок и длительность обработки |
 | `artifacts` | `id`, `run_id`, `name`, `relative_path` — привязка результатов к запуску и поиск файла |
 
@@ -78,9 +122,12 @@ PYTHONPATH=.:backend:mlcv backend/.venv/bin/python -m pytest -q backend/tests ml
 При неизвестном масштабе сохраняются граф и отчёт со статусом `needs_review`, DXF не создаётся;
 исправленный граф можно отправить через `POST /api/v1/jobs/{id}/drawing`.
 
-Принадлежность заданий боту задаётся `channel` и `conversation_id`. Повторная доставка одного
-`event_id` в этом канале возвращает существующее задание; другое значение диалога даёт 409.
-Проверка владельца задания ещё не реализована — см. открытый CR-08 и следующий спринт.
+Владелец задания определяется по серверной таблице `AUTH_TOKENS`; клиентские
+`channel`, `conversation_id` и `user_id` не дают прав. Повторная доставка одного
+`event_id` в канале того же владельца возвращает существующее задание; другое
+значение диалога даёт 409. Статус, все файлы и изменения доступны только владельцу,
+включая старые запуски. Старые задания без `owner_id` закрыты до подтверждённого
+назначения администратором. См. [контракт и настройку](#доступ-и-подключение-frontend).
 TIFF, многостраничные PDF, восстановление с конкретного этапа и универсальный решатель
 ограничений остаются за текущим минимумом.
 
@@ -94,6 +141,38 @@ TIFF, многостраничные PDF, восстановление с кон
 docker compose -f compose.test.yaml build checks
 docker compose -f compose.test.yaml run --rm checks
 ```
+
+CI запускает проверки очереди, доступа и миграций на PostgreSQL в отдельной
+базе `draw_checks`, затем проверяет полный маршрут API и worker на основной
+тестовой базе. Тестовый Bearer-токен передаётся API и HTTP-проверке одинаково.
+Сбор логов и исправление прав на результаты сохраняются даже при ошибке теста.
+Эти проверки также можно запустить вручную.
+Они очищают таблицы заданий; используйте отдельный локальный Compose-проект,
+как в примере ниже, без API и worker, работающих с этой же базой.
+Команды выполняются из корня репозитория в Bash; переменные действуют только внутри скобок:
+
+```bash
+(
+  export COMPOSE_PROJECT_NAME=practice44-local-checks
+  export POSTGRES_DB=backend_checks
+  export POSTGRES_USER=checks
+  export POSTGRES_PASSWORD=checks-only
+  export TEST_DATABASE_URL=postgresql+psycopg://checks:checks-only@localhost:5432/backend_checks
+  docker compose -f compose.test.yaml build checks &&
+  docker compose up -d --wait db &&
+  docker run --rm --network "container:$(docker compose ps -q db)" --env TEST_DATABASE_URL \
+    practice44-checks:local python -m pytest -q \
+    /srv/backend/tests/test_service.py /srv/backend/tests/test_access.py \
+    /srv/backend/tests/test_queue_postgres.py /srv/backend/tests/test_migrations_postgres.py
+  result=$?
+  docker compose down
+  exit "$result"
+)
+```
+
+Без `TEST_DATABASE_URL` обычный прогон использует SQLite и пропускает проверки,
+которым нужен PostgreSQL. Для проверки полного HTTP-маршрута локально запустите
+основной стек по инструкции выше и задайте `SMOKE_API_TOKEN` равным своему токену API.
 
 Проверка всего реального HTTP-маршрута: `python -m tools.smoke_backend --out <каталог>`
 из корня проекта в окружении backend. Она отдельно проверяет распознавание трёх форматов,

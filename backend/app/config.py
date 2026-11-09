@@ -7,12 +7,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_ignore_empty=True)
 
     database_url: str = "postgresql+psycopg://draw:draw@localhost:5432/draw"
     storage_root: Path = Path("var/storage")
     max_upload_bytes: int = Field(default=25 * 1024 * 1024, gt=0)
     poll_seconds: float = Field(default=2, gt=0)
+    auth_tokens: dict[str, str] = Field(default_factory=dict, repr=False)
+    cors_origins: list[str] = Field(default_factory=list)
     recognition_profile: Literal["current", "legacy"] = "current"
     cv_adapter: str | None = "drawcv.adapter:run_cv"
     ocr_adapter: str | None = "mlocr.src.adapter:run_ocr"

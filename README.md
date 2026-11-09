@@ -55,10 +55,15 @@ docker compose up -d --no-build
 
 Отправить чертёж и забрать результат:
 
+Сначала задайте в `.env` серверную таблицу `AUTH_TOKENS` с отдельными случайными
+токенами пользователей. В `DRAWING_API_TOKEN` для запросов ниже передайте только
+токен текущего пользователя. Без настройки доступ к заданиям закрыт.
+[Настройка доступа и контракт frontend](backend/README.md#доступ-и-подключение-frontend).
+
 ```bash
-curl -F "file=@dataset/dataset2/Шайба.pdf;filename=shaiba.pdf" http://localhost:8000/api/v1/jobs   # ответ содержит "id"
-curl http://localhost:8000/api/v1/jobs/<id>                                                        # ждать state: succeeded или needs_review
-curl -o result.dxf http://localhost:8000/api/v1/jobs/<id>/artifacts/result.dxf
+curl -H "Authorization: Bearer $DRAWING_API_TOKEN" -F "file=@dataset/dataset2/Шайба.pdf;filename=shaiba.pdf" http://localhost:8000/api/v1/jobs
+curl -H "Authorization: Bearer $DRAWING_API_TOKEN" http://localhost:8000/api/v1/jobs/<id>
+curl -H "Authorization: Bearer $DRAWING_API_TOKEN" -o result.dxf http://localhost:8000/api/v1/jobs/<id>/artifacts/result.dxf
 ```
 
 Ещё артефакты: `preview.png`, `report.json` (все вопросы к листу), `cv.json`, `ocr.json`, `drawing.json`.

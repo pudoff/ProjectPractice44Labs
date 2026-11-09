@@ -21,6 +21,8 @@ x-app: &app
     POLL_SECONDS: ${WORKER_POLL_SECONDS:-2}
     MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-26214400}
     MAX_IMAGE_PIXELS: ${MAX_IMAGE_PIXELS:-300000000}
+    AUTH_TOKENS: ${AUTH_TOKENS:-}
+    CORS_ORIGINS: ${CORS_ORIGINS:-}
   volumes:
     - storage:/storage
     - ./models:/models:ro
