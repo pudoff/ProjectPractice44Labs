@@ -53,6 +53,12 @@ jobs:
         run: |
           mkdir -p evidence
           docker compose logs --no-color > evidence/services.log
+      - name: Make container evidence readable by the runner
+        if: always()
+        run: |
+          mkdir -p evidence
+          sudo chown -R "$(id -u):$(id -g)" evidence
+          chmod -R u+rX evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
