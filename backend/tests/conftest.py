@@ -56,7 +56,7 @@ async def clean_db(anyio_backend):
     for run_id in list(claims):
         await release_claim(run_id)
     async with engine.begin() as connection:
-        # Leave an empty schema for the API/worker smoke that follows in CI.
+        # Keep an empty migrated schema for a subsequent API/worker smoke.
         for table in reversed(Base.metadata.sorted_tables):
             await connection.execute(table.delete())
     await engine.dispose()

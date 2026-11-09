@@ -40,13 +40,15 @@ def assert_preserved(source, accepted, path="graph"):
 
 def wait_api(base, timeout=60):
     deadline = time.monotonic() + timeout
+    last_error = None
     while time.monotonic() < deadline:
         try:
             request(base, "/health")
             return
-        except (urllib.error.URLError, TimeoutError):
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+            last_error = exc
             time.sleep(1)
-    raise TimeoutError("API did not become ready")
+    raise TimeoutError("API did not become ready") from last_error
 
 
 def wait_job(base, job_id, timeout=600):

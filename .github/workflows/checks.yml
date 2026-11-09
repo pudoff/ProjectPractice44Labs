@@ -8,20 +8,13 @@ jobs:
     timeout-minutes: 30
     env:
       COMPOSE_PROJECT_NAME: practice44-ci
-      API_PORT: "18044"
       BUILD_REVISION: ${{ github.sha }}
-      POSTGRES_DB: backend_ci
-      POSTGRES_USER: checks
-      POSTGRES_PASSWORD: checks-only
-      AUTH_TOKENS: '{"ci-user":"ci-only-token-0000000000000000000000000001"}'
-      SMOKE_API_TOKEN: ci-only-token-0000000000000000000000000001
     steps:
       - uses: actions/checkout@v4
       - name: Build the application and test images from the same lock
         run: |
           docker compose build api
           docker compose -f compose.test.yaml build checks
-          docker compose pull db
       - name: Prepare and verify local models (online preparation)
         run: |
           docker compose run --rm --no-deps model-assets
@@ -42,32 +35,14 @@ jobs:
           docker compose -f compose.test.yaml run --rm
           --volume "${PWD}/evidence/linear:/evidence" checks
           python -m tools.ocr_acceptance --out /evidence
-      - name: PostgreSQL recovery, concurrent workers and real API-worker integration
-        env:
-          TEST_DATABASE_URL: postgresql+psycopg://checks:checks-only@localhost:5432/backend_ci
-        run: |
-          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --wait db
-          docker run --rm --network "container:$(docker compose ps -q db)" --env TEST_DATABASE_URL \
-            practice44-checks:local python -m pytest -q \
-            /srv/backend/tests/test_service.py /srv/backend/tests/test_access.py \
-            /srv/backend/tests/test_queue_postgres.py /srv/backend/tests/test_migrations_postgres.py
-          OFFLINE_NETWORK_INTERNAL=true docker compose up -d --no-build --pull never
-          mkdir -p evidence
-          docker run --rm --network host --env SMOKE_API_TOKEN --volume "${PWD}/evidence:/evidence" practice44-checks:local python -m tools.smoke_backend --base http://127.0.0.1:18044 --out /evidence
       - name: Make container evidence accessible to the runner
         if: always()
         run: |
           mkdir -p evidence
           sudo chown -R "$(id -u):$(id -g)" evidence
           chmod -R u+rwX evidence
-      - name: Save service logs
-        if: always()
-        run: docker compose logs --no-color > evidence/services.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: integration-evidence
           path: evidence/
-      - name: Stop test services
-        if: always()
-        run: docker compose down

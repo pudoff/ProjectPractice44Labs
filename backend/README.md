@@ -21,7 +21,7 @@ curl -H "Authorization: Bearer $DRAWING_API_TOKEN" -F 'file=@dataset/dataset2/б
 
 Для полного автономного комплекта используйте `bash scripts/prepare_online.sh`, затем `bash scripts/start_offline.sh` (на Windows — Git Bash). Подготовительный контейнер `model-assets` включается только явной командой и не запускает второй API. При офлайн-запуске модели проверяются без сети, затем основной стек создаёт внутреннюю сеть Docker. Если этот же Compose-проект уже запущен в онлайн-режиме, сначала остановите его и удалите только его контейнеры/сеть командой `docker compose down` без `-v`, сохранив тома; либо используйте отдельное имя проекта. API по умолчанию опубликован только на `127.0.0.1`. Маршруты заданий требуют индивидуальный Bearer-токен из серверной настройки `AUTH_TOKENS`; без настройки они закрыты. Подробности: [доступ, очередь и frontend](#доступ-и-подключение-frontend).
 
-Для новой установки создайте `.env` из `.env.example`, задайте пароль БД и `AUTH_TOKENS` с индивидуальными случайными токенами пользователей (минимум 32 символа каждый). Пример и генерация — в [инструкции](#доступ-и-подключение-frontend). В `DRAWING_API_TOKEN` передайте только токен текущего пользователя для curl-примера. Если основной PostgreSQL уже запускался, сохраните соответствующие его существующему тому значения `POSTGRES_*`: изменение `.env` не изменяет пароль в уже созданной БД. Не удаляйте том для устранения ошибки подключения. В CI проверки очереди используют PostgreSQL из общего Compose-стека и выполняются до запуска API и worker. Они очищают таблицы заданий, поэтому их запускают только на одноразовой базе CI.
+Для новой установки создайте `.env` из `.env.example`, задайте пароль БД и `AUTH_TOKENS` с индивидуальными случайными токенами пользователей (минимум 32 символа каждый). Пример и генерация — в [инструкции](#доступ-и-подключение-frontend). В `DRAWING_API_TOKEN` передайте только токен текущего пользователя для curl-примера. Если основной PostgreSQL уже запускался, сохраните соответствующие его существующему тому значения `POSTGRES_*`: изменение `.env` не изменяет пароль в уже созданной БД. Не удаляйте том для устранения ошибки подключения. В CI запускаются обычные тесты на SQLite и проверки CV/OCR/DXF без PostgreSQL. Проверки очереди на PostgreSQL и полный HTTP-прогон выполняются вручную локально в Docker.
 
 Локальные тесты:
 
@@ -141,6 +141,34 @@ TIFF, многостраничные PDF, восстановление с кон
 docker compose -f compose.test.yaml build checks
 docker compose -f compose.test.yaml run --rm checks
 ```
+
+Проверки очереди, доступа и миграций на PostgreSQL запускаются вручную.
+Они очищают таблицы заданий; используйте отдельный локальный Compose-проект,
+как в примере ниже, без API и worker, работающих с этой же базой.
+Команды выполняются из корня репозитория в Bash; переменные действуют только внутри скобок:
+
+```bash
+(
+  export COMPOSE_PROJECT_NAME=practice44-local-checks
+  export POSTGRES_DB=backend_checks
+  export POSTGRES_USER=checks
+  export POSTGRES_PASSWORD=checks-only
+  export TEST_DATABASE_URL=postgresql+psycopg://checks:checks-only@localhost:5432/backend_checks
+  docker compose -f compose.test.yaml build checks &&
+  docker compose up -d --wait db &&
+  docker run --rm --network "container:$(docker compose ps -q db)" --env TEST_DATABASE_URL \
+    practice44-checks:local python -m pytest -q \
+    /srv/backend/tests/test_service.py /srv/backend/tests/test_access.py \
+    /srv/backend/tests/test_queue_postgres.py /srv/backend/tests/test_migrations_postgres.py
+  result=$?
+  docker compose down
+  exit "$result"
+)
+```
+
+Без `TEST_DATABASE_URL` обычный прогон использует SQLite и пропускает проверки,
+которым нужен PostgreSQL. Для проверки полного HTTP-маршрута локально запустите
+основной стек по инструкции выше и задайте `SMOKE_API_TOKEN` равным своему токену API.
 
 Проверка всего реального HTTP-маршрута: `python -m tools.smoke_backend --out <каталог>`
 из корня проекта в окружении backend. Она отдельно проверяет распознавание трёх форматов,
