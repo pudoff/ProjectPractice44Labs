@@ -64,16 +64,20 @@ def normalize_text(raw: str) -> tuple[str, list[dict]]:
         if count:
             changes.append({'rule': rule, 'before': text, 'after': updated})
             text = updated
-    insert_space(r"([a-zа-яё])([A-ZА-ЯЁ])", 'word_boundary_case')
-    # Split adjacent title-block abbreviations, but keep identifiers such as 03.XXXX.03 intact.
-    insert_space(r"(?<=[A-Za-zА-Яа-яЁё])([.!?])([A-ZА-ЯЁ])", 'word_boundary_punctuation')
+    # A case jump matters only across scripts (Cyrillic word glued to a Latin one); a merged
+    # same-script token ("MaccaMacwmad") stays untouched as OCR evidence.
+    insert_space(r"([a-z])([А-ЯЁ])|([а-яё])([A-Z])", 'word_boundary_case')
+    # Split adjacent title-block abbreviations, but keep identifiers such as 03.XXXX.03 intact,
+    # and do not break initials: a capital followed by a dot is an initial, not a new sentence.
+    insert_space(r"(?<=[A-Za-zА-Яа-яЁё])([.!?])([A-ZА-ЯЁ])(?![.!?])", 'word_boundary_punctuation')
     # Common title-block label captured as one OCR word (e.g. Nдокум.).
     insert_space(r"(№|N)(докум\.)", 'title_block_label_boundary')
     insert_space(r"(Взам\.)(инв\.)", 'title_block_label_boundary')
     # A specification name can be glued to the preceding steel designation.
     insert_space(r"([А-Яа-яЁё])([ГF][О0O][СC][ТT](?=\d))", 'standard_boundary')
-    # Numbered notes such as "4фаски" have a clear numeric/word boundary.
-    insert_space(r"(\d)([а-яё]{3,})", 'number_word_boundary')
+    # Numbered notes such as "4фаски" have a clear numeric/word boundary; the hole
+    # abbreviation "8отв." is a single token and must not be split.
+    insert_space(r"(\d)((?!отв)[а-яё]{3,})", 'number_word_boundary')
     def word(match):
         original = match.group()
         if 'm' in original and re.search(r'[А-Яа-яЁё]', original):
@@ -84,17 +88,17 @@ def normalize_text(raw: str) -> tuple[str, list[dict]]:
     text = _TOKEN.sub(word, text)
     def holes(match):
         before = match.group()
-        # Keep the conventional separator; OCR sometimes omitted it and the
-        # repair must not erase it when it was already present.
-        after = match[1]+' отв.'
+        # Keep the separator as it was read: some sheets print "8отв.", others "4 отв.",
+        # and a forced space breaks the diameter recovery for the unspaced form.
+        after = match[1] + match[2] + 'отв.'
         if before != after:
             changes.append({'rule': 'drawing_hole_abbreviation', 'before': before, 'after': after})
         return after
     # A whole engineering abbreviation is recognizable even when all three
     # Cyrillic letters were read as Latin lookalikes (e.g. 8omb.).
-    text = re.sub(r'(?<!\w)(\d+)\s*[oо][mтt][bв]\.', holes, text)
+    text = re.sub(r'(?<!\w)(\d+)(\s*)[oо][mтt][bв]\.', holes, text)
     # The same without the dot before a number: 5omb14
-    text = re.sub(r'(?<!\w)(\d+)\s*[oо][mтt][bв](?=\d)', holes, text)
+    text = re.sub(r'(?<!\w)(\d+)(\s*)[oо][mтt][bв](?=\d)', holes, text)
     text = re.sub(r'\b[CС][mт](\d)', lambda m: _steel_grade(m, changes), text)
     text = _STANDARD.sub(lambda m: _standard_name(m, changes), text)
     text = _WORD.sub(lambda m: _vocabulary_word(m, changes), text)
