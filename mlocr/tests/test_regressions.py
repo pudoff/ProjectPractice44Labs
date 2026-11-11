@@ -361,3 +361,15 @@ def test_crowded_sheet_does_not_hit_the_limit_with_points_that_cannot_anchor():
     cv['objects']['thin_many'] = {'role': 'thin'}
     cv['points'] += [{'id': f'x{k}', 'xy': [k * .1, 40], 'refs': [{'object_id': 'thin_many', 'anchor': 'mid'}]} for k in range(900)]
     assert not any(i['code'] == 'dimension_link_limit' for i in to_drawing(obs, cv)['issues'])
+
+
+def test_dimension_line_beside_the_text_still_links():
+    # A large dimension often places its number beside the line, not on it: the line is
+    # farther from the text than the plain row reach, and the search must take the line
+    # itself as the carrier.
+    obs, cv = dimension_case(1.0)
+    poly = obs['texts'][0]['poly_source_px']
+    obs['texts'][0]['poly_source_px'] = [[x, y + 12.0] for x, y in poly]
+    output = to_drawing(obs, cv)
+    assert len(output['dimensions']) == 1
+    assert output['dimension_links'][0]['status'] == 'resolved'

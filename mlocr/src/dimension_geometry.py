@@ -56,6 +56,8 @@ def thin_lines(cv):
             continue
         if role in {'thin', 'dimension', 'extension', 'axis'}:
             out.append(p)
+        elif role == 'hidden':
+            out.append({**p, 'hidden': True})
         elif role == 'part':
             out.append({**p, 'thick': True})
     return out
@@ -114,19 +116,33 @@ def _rows(lines, centre):
     return rows
 
 
-def _directions(lines, centre, reach):
-    """Directions of lines near the text, for the case without a dimension line."""
+def _carrier_candidates(lines, centre, reach, existing=()):
+    """Lines near the text that can carry a dimension, with their own carrier offset.
+
+    The text of a large dimension is often placed beside the line, not on it; the search then
+    needs the carrier at the line itself. Thick lines are not skipped: a dimension line may
+    coincide with a part edge (see the module docstring). A candidate that duplicates a row
+    already found near the text adds nothing and is skipped."""
     found = []
     for line in lines:
+        if line.get('excluded') or line.get('thick'):
+            continue
         a, b = np.asarray(line['start'], float), np.asarray(line['end'], float)
-        if line.get('thick') or line.get('excluded') or min(np.linalg.norm(a - centre), np.linalg.norm(b - centre)) > reach:
+        if min(np.linalg.norm(a - centre), np.linalg.norm(b - centre)) > reach:
             continue
         v = _unit(a, b)
-        u = np.array([v[1], -v[0]])
+        u = v
         if u[0] < 0 or (abs(u[0]) < 1e-9 and u[1] < 0):
             u = -u
-        if not any(abs(u[0] * o[1] - u[1] * o[0]) < math.sin(math.radians(PARALLEL_DEG)) for o in found):
-            found.append(u)
+        n = np.array([-u[1], u[0]])
+        offset = float(np.asarray(line['start'], float) @ n)
+        if any(abs(u[0] * ou[1] - u[1] * ou[0]) < math.sin(math.radians(PARALLEL_DEG)) and
+               abs(offset - oo) <= ROW_OFFSET_MM for ou, _, oo, _ in found):
+            continue
+        if any(abs(u[0] * eu[1] - u[1] * eu[0]) < math.sin(math.radians(PARALLEL_DEG)) and
+               abs(offset - eo) <= ROW_OFFSET_MM for eu, eo in existing):
+            continue
+        found.append((u, n, offset, line))
     return found
 
 
@@ -241,17 +257,20 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
         angle = math.degrees(math.atan2(u[1], u[0]))
         return not directional or abs((angle - text_angle + 90) % 180 - 90) <= TEXT_ANGLE_DEG
 
-    rows = [row for row in _rows(lines, centre) if along_text(row[0])]
-    rows += [(u, np.array([-u[1], u[0]]), float(centre @ np.array([-u[1], u[0]])), [])
-             for u in _directions(lines, centre, length + 10.0) if along_text(u)]
-    for u, n, offset, pieces in rows:
+    visible = [line for line in lines if not line.get('hidden')]
+    base_rows = [row for row in _rows(visible, centre) if along_text(row[0])]
+    rows = [(u, n, offset, pieces, visible) for u, n, offset, pieces in base_rows]
+    rows += [(u, n, offset, [line], lines)
+             for u, n, offset, line in _carrier_candidates(lines, centre, length + 10.0,
+                                                           [(u, o) for u, _, o, _ in base_rows]) if along_text(u)]
+    for u, n, offset, pieces, pool in rows:
         ids = {p['id'] for p in pieces}
         kept = sorted(p['id'] for p in pieces if not p.get('excluded'))
         no_row = not pieces
         along = float(centre @ u)
         ends = [float(np.asarray(p[k], float) @ u) for p in pieces for k in ('start', 'end')]
         low, high = (min(ends), max(ends)) if ends else (along - length, along + length)
-        cross = _crossings(lines, u, n, offset, ids, TEXT_DIST_MM if no_row else CROSS_REACH_MM)
+        cross = _crossings(pool, u, n, offset, ids, TEXT_DIST_MM if no_row else CROSS_REACH_MM)
         side = abs(float(centre @ n) - offset)
         thick_row = bool(pieces) and all(p.get('thick') or p.get('excluded') for p in pieces)
         for i in range(len(cross)):
@@ -277,14 +296,26 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
                     continue
                 hypotheses.append({'score': side + 0.5 * outside + THICK_PENALTY_MM * thick + NO_ROW_PENALTY_MM * no_row - (1.0 if arrowed else 0.0), 'u': u, 'n': n, 'offset': offset, 'pieces': kept,
                                    'extensions': [cross[i][1]['id'], cross[j][1]['id']], 'feet': feet, 'along': along,
+                                   'arrowed': arrowed,
                                    'pair': (round(float(u[0]), 2), round(float(u[1]), 2), round(s1, 1), round(s2, 1))})
     if not hypotheses:
         return None, 'no_dimension_line_with_matching_extension_lines'
-    hypotheses.sort(key=lambda h: (h['score'], h['pair']))
+    # Duplicate detections of one physical line land within a fraction of a millimetre; they are
+    # one hypothesis, not a rival one. Keep the best-scored representative per position.
+    by_position = {}
+    for h in hypotheses:
+        key = (round(float(h['u'][0]), 2), round(float(h['u'][1]), 2),
+               round(h['pair'][2] * 2) / 2, round(h['pair'][3] * 2) / 2)
+        if key not in by_position or h['score'] < by_position[key]['score']:
+            by_position[key] = h
+    hypotheses = sorted(by_position.values(), key=lambda h: (h['score'], h['pair']))
     best = hypotheses[0]
     for other in hypotheses[1:]:
-        if other['pair'] != best['pair'] and other['score'] < AMBIGUITY_RATIO * max(best['score'], 0.0) + 0.5:
-            return None, 'two_dimension_lines_fit_this_number'
+        if other['pair'] == best['pair'] or other['score'] >= AMBIGUITY_RATIO * max(best['score'], 0.0) + 0.5:
+            continue
+        if best.get('arrowed') and not other.get('arrowed'):
+            continue    # arrows at the crossing are the decisive evidence; a bare lookalike pair is not a rival
+        return None, 'two_dimension_lines_fit_this_number'
     base = best['u'] * best['along'] + best['n'] * best['offset']
     angle = math.degrees(math.atan2(best['u'][1], best['u'][0]))
     feet = []
