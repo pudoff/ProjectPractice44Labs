@@ -27,6 +27,8 @@ os.environ.setdefault("DATABASE_URL", f"sqlite+aiosqlite:///{(_tmp / 'check.sqli
 os.environ.setdefault("STORAGE_ROOT", str(_tmp / "storage"))
 os.environ.setdefault("REQUIRE_LOCAL_MODELS", "false")
 
+from mlocr.evaluation.matching import match_dimensions, real_observations as checked_observations
+
 
 def reference_dimensions(path):
     doc = ezdxf.readfile(str(path))
@@ -72,21 +74,7 @@ def observations(cv, dims, translation):
 
 
 def real_observations(path, cv):
-    """Saved readings, normalised by the current rules, on the raster of this cv.json."""
-    from mlocr.src.normalization import enrich
-
-    raw = json.loads(path.read_text(encoding="utf-8"))
-    texts = []
-    for source in raw["texts"]:
-        item = copy.deepcopy(source)
-        item["text"] = item.get("raw_text", item["text"])
-        had_recovery = any(c.get("rule") == "diameter_visible_in_raster" for c in source.get("corrections", []))
-        enrich(item)
-        if had_recovery and not item["text"].startswith("Ø"):       # pixels are not read again here
-            item["text"] = source["text"]
-            item["notation"] = source["notation"]
-        texts.append(item)
-    return {"status": "ok", "source": cv["raster_identity"], "texts": texts, "issues": [], "title_block": raw.get("title_block", {})}
+    return checked_observations(json.loads(path.read_text(encoding='utf-8')), cv)
 
 
 def check_case(case_dir):
@@ -105,7 +93,7 @@ def check_case(case_dir):
         return res
     pts = np.array([p["xy"] for p in cv["points"]]) + translation
     ends = np.array([p for d in dims for p in (d["p1"], d["p2"])])
-    dist = np.min(np.linalg.norm(ends[:, None] - pts[None], axis=2), axis=1)
+    dist = np.min(np.linalg.norm(ends[:, None] - pts[None], axis=2), axis=1) if len(pts) else np.full(len(ends), np.inf)
     res.update(ends_within_025=round(float(np.mean(dist <= 0.25)), 3), ends_within_05=round(float(np.mean(dist <= 0.5)), 3))
     factors = {round(d["factor"], 6) for d in dims}
     cv = copy.deepcopy(cv)
@@ -113,10 +101,13 @@ def check_case(case_dir):
     if raw_dir:
         raw_path = Path(raw_dir) / f"{metrics['sheet']}.json"
         if not raw_path.exists():
-            return None
+            raise FileNotFoundError(f'Missing OCR observations: {raw_path}')
         observed = real_observations(raw_path, cv)
     else:
-        cv.setdefault("calibration", {})["view_scale"] = 1 / max(factors)   # one scale, as to_drawing assumes in the MVP
+        if len(factors) != 1:
+            raise ValueError('Ideal single-view evaluation requires exactly one reference scale')
+        cv.setdefault('calibration', {}).update(view_scale=1 / next(iter(factors)),
+                                               view_scale_basis='reference_dxf_oracle')
         observed = observations(cv, dims, translation)
     ocr = to_drawing(observed, cv)
     res["view_scale"] = cv.get("calibration", {}).get("view_scale")
@@ -127,21 +118,11 @@ def check_case(case_dir):
     res["status"] = dict(collections.Counter(link["status"] for link in links))
     res["search"] = dict(collections.Counter(link.get("dimension_line_search") or link.get("decision_note") or "linked" for link in links if not link.get("confirmed")))
     res["dimensions"] = len(ocr["dimensions"])
-    correct = 0
     by_id = {p["id"]: p for p in cv["points"]}
-    for d in ocr["dimensions"]:
-        a, b = by_id[d["p1_ref"]]["xy"], by_id[d["p2_ref"]]["xy"]
-        a, b = np.array(a) + translation, np.array(b) + translation
-        for ref in dims:
-            # a dimension measures along its direction: the feet may lie anywhere on the extension lines
-            u = ref["u"]
-            direct = max(abs((a - ref["p1"]) @ u), abs((b - ref["p2"]) @ u))
-            swapped = max(abs((a - ref["p2"]) @ u), abs((b - ref["p1"]) @ u))
-            parallel = abs(u @ np.array([math.cos(math.radians(d["angle"])), math.sin(math.radians(d["angle"]))])) > 0.99
-            if parallel and min(direct, swapped) <= 0.5:
-                correct += 1
-                break
+    correct = len(match_dimensions(ocr['dimensions'], by_id, dims, translation))
     res["dimensions_on_reference_points"] = correct
+    res.update(wrong_or_extra_dimensions=len(ocr['dimensions']) - correct,
+               missed_reference_dimensions=len(dims) - correct, reference_assisted=not bool(raw_dir))
     graph = assemble_graph(cv, ocr, "check")
     with tempfile.TemporaryDirectory() as tmp:
         path = Path(tmp) / "out.dxf"
@@ -169,6 +150,8 @@ def main():
                          dxf_written=r["dxf_written"], dxf_dimensions=r.get("dxf_dimensions", 0))
             print(f"{r['case'][:34]:34} dims {r['reference_dims']:3} linked {r['dimensions']:3} on-ref {r['dimensions_on_reference_points']:3} "
                   f"pts {r['points']:4} ends<=.25 {r['ends_within_025']:.0%} <=.5 {r['ends_within_05']:.0%} limit {r['limit_hit']} {r['status']} dxf {r['dxf_written']} {r['errors']}", flush=True)
+    if not rows:
+        raise SystemExit('No evaluable cases found: provide existing case directories with cv.json and metrics.json')
     print(dict(total))
     # sheets whose reference fits the page: elsewhere a right dimension has nothing to be compared with
     fit = [r for r in rows if r["ends_within_05"] >= 0.2]

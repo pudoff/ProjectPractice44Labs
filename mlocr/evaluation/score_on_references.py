@@ -22,6 +22,8 @@ sys.path[:0] = [str(ROOT), str(ROOT / "tools")]
 
 from compare_dxf import iter_flat  # noqa: E402
 from mlocr.src.normalization import enrich  # noqa: E402
+from mlocr.src.inputs import assert_same_page  # noqa: E402
+from mlocr.evaluation.matching import assign_pairs, edit_distance  # noqa: E402
 from mlocr.src.title_block import CELLS, LABEL, LEADING_LABEL, SURNAME_COLUMN, SLACK, block_xy, in_cell, title_block_from_cells  # noqa: E402
 
 DXF = ROOT / "dataset/clear_sum_dataset/vse_dxf"
@@ -69,9 +71,10 @@ def text_extent(item, matrix):
 
 
 def score_sheet(raw, cv, metrics, refs, normalise=True):
+    assert_same_page(raw, cv)
     matrix = cv["transforms"]["source_px_to_sheet_mm"]
     t = np.array(metrics["registration"]["translation_mm"])
-    rows = []
+    readings, candidates = [], []
     for source in raw["texts"]:
         item = copy.deepcopy(source)
         if normalise:
@@ -79,15 +82,28 @@ def score_sheet(raw, cv, metrics, refs, normalise=True):
             enrich(item)
         poly = text_extent(item, matrix) + t
         low, high = poly.min(axis=0) - PLACE_MM, poly.max(axis=0) + PLACE_MM
-        near = [r for r in refs if np.all(r["xy"] >= low) and np.all(r["xy"] <= high)]
-        ours = canon(item["text"])
-        if not near or len(ours) < 2:
-            continue
-        best = max(near, key=lambda r: similarity(ours, canon(r["text"])))
-        sim = similarity(ours, canon(best["text"]))
-        if sim >= 0.5:      # below that the reading has no counterpart: other line of an MTEXT, sign, symbol
-            rows.append({"ocr": item["text"], "raw": item.get("raw_text"), "ref": best["text"], "sim": round(sim, 3),
-                         "exact": ours == canon(best["text"]), "kind": item["notation"]["kind"]})
+        index = len(readings)
+        readings.append(item)
+        for ref_index, ref in enumerate(refs):
+            if np.all(ref['xy'] >= low) and np.all(ref['xy'] <= high):
+                candidates.append((index, ref_index, float(np.linalg.norm(poly.mean(axis=0) - ref['xy']))))
+    matches = assign_pairs(len(readings), len(refs), candidates)
+    by_reference = {ref_index: index for index, ref_index in matches}
+    rows = []
+    for ref_index, ref in enumerate(refs):
+        item = readings[by_reference[ref_index]] if ref_index in by_reference else None
+        ours, truth = canon(item['text']) if item else '', canon(ref['text'])
+        rows.append({'ocr': item['text'] if item else '', 'raw': item.get('raw_text') if item else None,
+                     'ref': ref['text'], 'sim': round(similarity(ours, truth), 3),
+                     'exact': bool(item) and ours == truth, 'kind': item.get('notation', {}).get('kind', 'unknown') if item else 'missed',
+                     'match_status': 'matched' if item else 'missed', 'char_errors': edit_distance(ours, truth),
+                     'reference_chars': len(truth)})
+    used = {index for index, _ in matches}
+    for index, item in enumerate(readings):
+        if index not in used:
+            rows.append({'ocr': item['text'], 'raw': item.get('raw_text'), 'ref': '', 'sim': 0., 'exact': False,
+                         'kind': item.get('notation', {}).get('kind', 'unknown'), 'match_status': 'extra',
+                         'char_errors': len(canon(item['text'])), 'reference_chars': 0})
     return rows
 
 
@@ -150,6 +166,7 @@ def main():
     ap.add_argument("--cv-dirs", nargs="*", default=[str(ROOT / f"mlcv/eval/{d}") for d in ("out", "out_random", "out_random7", "out_random101", "out_three_sheets")])
     ap.add_argument("--json")
     ap.add_argument("--show", type=int, default=0, help="print N worst differing readings")
+    ap.add_argument('--dxf-dir', type=Path, default=DXF, help='Current QA reference DXF directory')
     a = ap.parse_args()
     cases = {}
     for d in a.cv_dirs:
@@ -169,11 +186,16 @@ def main():
         raw = json.loads(raw_path.read_text(encoding="utf-8"))
         cv = json.loads((cases[name] / "cv.json").read_text(encoding="utf-8"))
         metrics = json.loads((cases[name] / "metrics.json").read_text(encoding="utf-8"))
-        refs = reference_texts(DXF / f"{name}.dxf")
+        refs = reference_texts(a.dxf_dir / f"{name}.dxf")
         rows = score_sheet(raw, cv, metrics, refs)
+        totals['ocr_failed_sheets'] += raw.get('status') != 'ok'
         for r in rows:
-            totals["matched"] += 1
+            totals['reference'] += r['match_status'] != 'extra'
+            totals['predicted'] += r['match_status'] != 'missed'
+            totals[r['match_status']] += 1
             totals["exact"] += r["exact"]
+            totals['char_errors'] += r['char_errors']
+            totals['reference_chars'] += r['reference_chars']
             kinds[r["kind"]]["n"] += 1
             kinds[r["kind"]]["exact"] += r["exact"]
             if not r["exact"]:
@@ -181,7 +203,8 @@ def main():
         totals["sum_sim"] += sum(r["sim"] for r in rows)
         fields = title_block_from_cells(_normalised(raw), cv["transforms"]["source_px_to_sheet_mm"], cv["calibration"]["sheet_mm"])
         truth = reference_fields(refs, cv, np.array(metrics["registration"]["translation_mm"]))
-        sheet = {"sheet": name, "matched": len(rows), "exact": sum(r["exact"] for r in rows), "fields": {}}
+        sheet = {"sheet": name, "matched": sum(r['match_status'] == 'matched' for r in rows),
+                 "exact": sum(r["exact"] for r in rows), "fields": {}}
         for field in CELLS:
             s = field_score(fields[field].get("value"), truth.get(field))
             if s is not None:
@@ -199,8 +222,16 @@ def main():
             filled["cells", field] += bool(fields[field].get("value"))
             filled["layout", field] += bool(layout.get(field, {}).get("value"))
         per_sheet.append(sheet)
-    n = totals["matched"]
-    summary = {"sheets": len(per_sheet), "readings_matched": n, "exact": totals["exact"],
+    if not per_sheet or not totals['reference']:
+        ap.error('No matching OCR/CV cases found; check --raw, --cv-dirs, and --dxf-dir')
+    n = totals["reference"]
+    summary = {"sheets": len(per_sheet), "readings_matched": totals['matched'], "exact": totals["exact"],
+               'reference_texts': n, 'predicted_texts': totals['predicted'],
+               'missed_texts': totals['missed'], 'extra_texts': totals['extra'],
+               'wrong_readings': totals['matched'] - totals['exact'],
+               'failed_ocr_sheets': totals['ocr_failed_sheets'],
+               'character_errors': totals['char_errors'], 'reference_characters': totals['reference_chars'],
+               'cer': totals['char_errors'] / totals['reference_chars'] if totals['reference_chars'] else None,
                "exact_share": round(totals["exact"] / max(n, 1), 4), "mean_similarity": round(totals["sum_sim"] / max(n, 1), 4),
                "by_kind": {k: {"n": v["n"], "exact": round(v["exact"] / v["n"], 3)} for k, v in sorted(kinds.items())},
                "fields": {f: {"sheets_with_truth": len(v), "correct_0.9": sum(x >= 0.9 for x in v), "filled_0.5": sum(x >= 0.5 for x in v),

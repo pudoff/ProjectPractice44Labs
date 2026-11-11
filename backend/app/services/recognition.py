@@ -81,10 +81,10 @@ def recognize(source: Path, run_path: Path, source_sha256: str) -> DrawingGraph:
         _, pixels = next(iter_pages(image, 1, 300))
         expected = page_identity(pixels)
         del pixels
-        if ocr.get('schema_version') == 'ocr-observations-1' and ocr.get('status') == 'ok':
+        if ocr.get('schema_version') == 'ocr-observations-1':
             raw_path = run_path / 'ocr-observations.json'
             atomic_json(raw_path, ocr)
-            if settings.cv_adapter == 'drawcv.adapter:run_cv':
+            if settings.cv_adapter == 'drawcv.adapter:run_cv' and ocr.get('status') == 'ok':
                 from drawcv.adapter import run_cv
                 cv = run_cv(image, ocr_json=raw_path)
             else:

@@ -4,7 +4,7 @@ import numpy as np
 from .cli import recognize_file
 from .inputs import assert_same_page
 from .dimension_geometry import closed_contour_objects
-from .dimension_links import propose_dimension_links, vote_view_scale
+from .dimension_links import propose_dimension_links, vote_view_scale, validate_link_budget, printed_view_scales
 from .title_block import merge_title_block
 
 DETECTOR_BOX_TO_TEXT_HEIGHT = 0.62
@@ -12,6 +12,8 @@ DETECTOR_BOX_TO_TEXT_HEIGHT = 0.62
 
 def _display(link):
     prefix = '%%c' if link.get('notation_kind') == 'diameter' else ''
+    if link.get('hole_count'):
+        prefix = f"{link['hole_count']}отв." + prefix
     return f"{prefix}<>{(link.get('suffix') or '').replace('±', '%%p')}"
 
 
@@ -36,7 +38,7 @@ def run_ocr(image):
 
 def to_drawing(observations, cv):
     assert_same_page(observations, cv)
-    result = {key: deepcopy(observations[key]) for key in ('status', 'module', 'source', 'title_block', 'params', 'timings_s', 'issues') if key in observations}
+    result = {key: deepcopy(observations[key]) for key in ('status', 'error', 'completeness', 'module', 'source', 'title_block', 'params', 'timings_s', 'issues') if key in observations}
     result.update(schema_version='0.2', texts=[], dimensions=[], observations=deepcopy(observations['texts']))
     result.setdefault('issues', [])
     for item in observations['texts']:
@@ -48,19 +50,27 @@ def to_drawing(observations, cv):
     if not matrix or cv.get('scale_status') != 'known':
         result['issues'].append({'code': 'ocr_unknown_sheet_scale', 'severity': 'error', 'message': 'Text cannot be positioned in millimetres until sheet calibration is known.'})
         return result
-    scales = {t['notation']['nominal']/t['notation']['scale_denominator'] for t in observations['texts']
-              if t.get('notation', {}).get('kind') == 'scale' and not t.get('needs_review') and not t['notation'].get('warning')}
-    if cv.get('calibration', {}).get('view_scale') is None and len(scales) == 1:
-        cv.setdefault('calibration', {})['view_scale'] = next(iter(scales))
-        cv['calibration']['view_scale_basis'] = 'single_ocr_scale_candidate'
-    elif cv.get('calibration', {}).get('view_scale') is None:
-        voted = vote_view_scale(observations, cv)     # no scale read, or several views with their own scales
-        if voted:
-            cv.setdefault('calibration', {})['view_scale'] = voted
-            cv['calibration']['view_scale_basis'] = 'dimension_lines_vote'
     matrix = np.asarray(matrix, dtype=float)
     if matrix.shape != (3, 3) or not np.isfinite(matrix).all():
         raise ValueError('Invalid CV coordinate transform')
+    scales = printed_view_scales(observations)
+    linking_blocked = observations.get('status') != 'ok' or len(scales) > 1
+    if len(scales) > 1:
+        result['issues'].append({'code': 'multiple_view_scales', 'severity': 'warning',
+                                 'message': 'Several printed scales found; dimensions remain text until scales are assigned to views.'})
+    try:
+        validate_link_budget(cv)
+    except ValueError as exc:
+        linking_blocked = True
+        result['issues'].append({'code': 'dimension_link_limit', 'severity': 'warning', 'message': str(exc)})
+    if not linking_blocked and cv.get('calibration', {}).get('view_scale') is None and len(scales) == 1:
+        cv.setdefault('calibration', {})['view_scale'] = next(iter(scales))
+        cv['calibration']['view_scale_basis'] = 'single_ocr_scale_candidate'
+    elif not linking_blocked and cv.get('calibration', {}).get('view_scale') is None:
+        voted = vote_view_scale(observations, cv)
+        if voted:
+            cv.setdefault('calibration', {})['view_scale'] = voted
+            cv['calibration']['view_scale_basis'] = 'dimension_lines_vote'
     for item in observations['texts']:
         poly = np.asarray(item['poly_source_px'], dtype=float)
         if poly.shape != (4, 2) or not np.isfinite(poly).all():
@@ -81,7 +91,7 @@ def to_drawing(observations, cv):
                                 'height': height, 'rotation': angle})
     result['title_block'] = merge_title_block(observations.get('title_block', {}), observations, matrix, cv)
     try:
-        links = propose_dimension_links(observations, cv)
+        links = [] if linking_blocked else propose_dimension_links(observations, cv)
     except ValueError as exc:
         result['issues'].append({'code': 'dimension_link_limit', 'severity': 'warning', 'message': str(exc)})
         links = []

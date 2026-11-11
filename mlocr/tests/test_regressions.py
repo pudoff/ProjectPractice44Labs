@@ -44,6 +44,20 @@ def test_filtered_polygons_follow_recognition():
     assert result[0]['polygon'].tolist() == second
 
 
+def test_180_degree_pass_rotates_image_and_maps_polygons_back():
+    polygon = [[0, 0], [10, 0], [10, 20], [0, 20]]
+    class Engine:
+        def predict(self, image):
+            assert image.shape[:2] == (120, 200)
+            assert np.array_equal(image, np.rot90(source, k=2))
+            yield {'res': {'dt_polys': [polygon], 'rec_polys': [polygon],
+                           'rec_texts': ['03.XXXX.03'], 'rec_scores': [.9]}}
+    source = np.zeros((120, 200, 3), dtype=np.uint8)
+    result = _read_pass(Engine(), source, 180)
+    assert result[0]['pass_angle_deg'] == 180
+    assert result[0]['polygon'].tolist() == [[199, 119], [189, 119], [189, 99], [199, 99]]
+
+
 def test_conflicting_numbers_require_review():
     polygon = np.array([[0, 0], [10, 0], [10, 10], [0, 10]])
     result = _merge_passes([{'text': '46', 'score': .89, 'polygon': polygon, 'pass_angle_deg': 0},
@@ -231,7 +245,8 @@ def test_foot_inside_a_contour_line_is_its_own_point_and_the_line_stays():
     output = to_drawing(obs, cv)
     dimension = output['dimensions'][0]
     feet = {p['id']: p for p in cv['points']}
-    assert feet[dimension['p1_ref']]['refs'] == [] and feet[dimension['p1_ref']]['xy'] == [0, 0]
+    assert feet[dimension['p1_ref']]['refs'] == [{'object_id': 'part', 'anchor': 'segment', 'parameter': 20 / 90}]
+    assert feet[dimension['p1_ref']]['xy'] == [0, 0]
     assert feet[dimension['p2_ref']]['xy'] == [50, 0]
     assert 'represented_by_dimension' not in cv['objects']['part'] and cv['objects']['e1']['represented_by_dimension'] == dimension['id']
 
@@ -242,6 +257,7 @@ def test_wrong_distance_or_two_equal_dimension_lines_give_no_link():
     assert to_drawing(obs, cv)['dimensions'] == []
     obs, cv = dimension_case()
     # another pair of extension lines at the printed distance, just as close to the number
+    cv['primitives'][0]['end'] = [70, 0]  # Both competing dimensions must actually reach the part.
     cv['primitives'] += [{'id': 'dim2', 'kind': 'line', 'start': [10, 14], 'end': [60, 14]},
                          {'id': 'e3', 'kind': 'line', 'start': [10, 0], 'end': [10, 16]},
                          {'id': 'e4', 'kind': 'line', 'start': [60, 0], 'end': [60, 16]}]
@@ -278,12 +294,19 @@ def test_scale_is_voted_by_dimension_lines_only_with_a_clear_majority():
 
 def test_drawing_words_are_corrected_with_a_record_and_numbers_are_not():
     for raw, expected in (('Разрад.', 'Разраб.'), ('Масштад', 'Масштаб'), ('Ymb.', 'Утв.'), ('Шайда', 'Шайба'), ('Луст', 'Лист'),
-                          ('Macca', 'Масса'), ('Cm3 Г0CT 380-2005', 'Ст3 ГОСТ 380-2005'), ('$26', 'Ø26'), ('5omb14', '5отв.14'),
+                          ('Macca', 'Масса'), ('Macwmad', 'Масштаб'), ('Cm3 Г0CT 380-2005', 'Ст3 ГОСТ 380-2005'), ('$26', 'Ø26'), ('$32H7', 'Ø32H7'), ('5omb14', '5отв.14'),
                           ('Лут.', 'Лит.'), ('Ин6.', 'Инв.'), ('45X F0CT1051-88', '45X ГОСТ1051-88')):
         text, changes = normalize_text(raw)
         assert text == expected and changes, raw
-    for raw in ('380', '1050-88', '12,5', 'H14', 'Ra', 'M12', 'Вариант', 'R1', '$', 'Лот'):
+    for raw in ('380', '1050-88', '12,5', 'H14', 'Ra', 'M12', '10m', 'item', 'MaccaMacwmad', '$32f', 'Вариант', 'R1', '$', 'Лот'):
         assert normalize_text(raw) == (raw, []), raw
+
+
+def test_dollar_like_arrow_before_dimension_is_ambiguous():
+    item = enrich({'text': '$32f'})
+    assert item['text'] == '$32f'
+    assert item['needs_review']
+    assert item['issues'][0]['code'] == 'ambiguous_diameter_glyph'
 
 
 def _sheet_cv():
@@ -340,3 +363,15 @@ def test_crowded_sheet_does_not_hit_the_limit_with_points_that_cannot_anchor():
     cv['objects']['thin_many'] = {'role': 'thin'}
     cv['points'] += [{'id': f'x{k}', 'xy': [k * .1, 40], 'refs': [{'object_id': 'thin_many', 'anchor': 'mid'}]} for k in range(900)]
     assert not any(i['code'] == 'dimension_link_limit' for i in to_drawing(obs, cv)['issues'])
+
+
+def test_dimension_line_beside_the_text_still_links():
+    # A large dimension often places its number beside the line, not on it: the line is
+    # farther from the text than the plain row reach, and the search must take the line
+    # itself as the carrier.
+    obs, cv = dimension_case(1.0)
+    poly = obs['texts'][0]['poly_source_px']
+    obs['texts'][0]['poly_source_px'] = [[x, y + 12.0] for x, y in poly]
+    output = to_drawing(obs, cv)
+    assert len(output['dimensions']) == 1
+    assert output['dimension_links'][0]['status'] == 'resolved'

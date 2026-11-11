@@ -51,7 +51,7 @@ def iter_pages(path: Path, page_number: int | None, dpi: int, max_pixels=MAX_PIX
 
 
 def assert_same_page(ocr, cv):
-    a, b = ocr.get('source', {}), cv.get('raster_identity', {})
+    a, b = ocr.get('source') or {}, cv.get('raster_identity') or {}
     keys = ('raster_sha256', 'page', 'width_px', 'height_px')
     if any(not a.get(key) or a.get(key) != b.get(key) for key in keys):
         raise ValueError('OCR/CV source raster or page differs (identity is required)')

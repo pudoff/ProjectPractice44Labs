@@ -53,8 +53,10 @@ def polygon(vertices):
     return result
 
 
-def anchor_position(item, anchor):
+def anchor_position(item, anchor, parameter=None):
     if item.kind == "line":
+        if anchor == "segment" and parameter is not None:
+            return tuple(a + parameter * (b - a) for a, b in zip(item.start, item.end))
         values = {"start": item.start, "end": item.end,
                   "mid": tuple((a + b) / 2 for a, b in zip(item.start, item.end))}
         if anchor in values:
@@ -89,7 +91,7 @@ class GeometryResolver:
             problem = primitive_problem(self.primitives[ref.object_id])
             if problem:
                 raise GeometryError("invalid_point_anchor", f"Точка {point_id}: {problem}")
-        values = [anchor_position(self.primitives[r.object_id], r.anchor) for r in point.refs]
+        values = [anchor_position(self.primitives[r.object_id], r.anchor, r.parameter) for r in point.refs]
         if any(math.dist(a, b) > EPS_MM for a in values for b in values):
             raise GeometryError("ambiguous_point", f"Опорные объекты точки {point_id} не совпадают")
         return values[0]

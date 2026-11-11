@@ -6,8 +6,43 @@ a cell gives the meaning of a text, it does not make the reading right."""
 from __future__ import annotations
 
 import re
+from difflib import get_close_matches
 
 import numpy as np
+
+from .normalization import _LOOK_ALIKE
+
+# Latin letters the recogniser substitutes inside author labels (H.контр., Haч. omdena).
+# Cyrillic д must stay д here: label words like "отдела" contain it, unlike vocabulary folding.
+_LABEL_FOLD = {**_LOOK_ALIKE, 'д': 'д', 'd': 'д', 'D': 'Д', 'i': 'и', 'I': 'И', 'l': 'л', 'L': 'Л', 'q': 'д'}
+_LABEL_TABLE = str.maketrans(_LABEL_FOLD)
+
+# Canonical roles keyed by their folded label; a role comes from what is printed in the label
+# column, not from a fixed row position — organisations use their own row sets (ГИП, Нач. отдела…).
+ROLE_LABELS = {
+    'разраб': 'Разраб.', 'пров': 'Пров.', 'провер': 'Пров.',
+    'гип': 'ГИП', 'тконтр': 'Т.контр.', 'нконтр': 'Н.контр.', 'нормоконтр': 'Нормоконтр.',
+    'начотдела': 'Нач. отдела', 'начбюро': 'Нач. бюро', 'рукгр': 'Рук. гр.', 'утв': 'Утв.',
+}
+# Whole-label misreadings observed on real sheets, mapped to the folded key of the intended label.
+ROLE_ALIASES = {'гнп': 'гип'}
+
+
+def fold_label(text: str) -> str:
+    """Letters only, caseless, with recogniser lookalikes folded to Cyrillic."""
+    folded = text.translate(_LABEL_TABLE).lower()
+    return ''.join(ch for ch in folded if 'а' <= ch <= 'я' or ch == 'ё')
+
+
+def match_role(text: str) -> str | None:
+    """The author role printed in a label cell, or None when it cannot be identified reliably."""
+    folded = ROLE_ALIASES.get(fold_label(text), None)
+    if folded is None:
+        folded = fold_label(text)
+    if folded in ROLE_LABELS:
+        return ROLE_LABELS[folded]
+    close = get_close_matches(folded, ROLE_LABELS.keys(), n=1, cutoff=0.72)
+    return ROLE_LABELS[close[0]] if close else None
 
 TITLE_W, TITLE_H = 185.0, 55.0
 FRAME_RIGHT, FRAME_BOTTOM = 5.0, 5.0
@@ -20,11 +55,13 @@ CELLS = {
     "material": (65.0, 0.0, 135.0, 15.0),
     "authors": (0.0, 0.0, 65.0, 30.0),
 }
+# Row-position fallback only: the printed label decides the role when it was read.
 ROLES = (("Разраб.", 25.0, 30.0), ("Пров.", 20.0, 25.0), ("Т.контр.", 15.0, 20.0), ("Н.контр.", 5.0, 10.0), ("Утв.", 0.0, 5.0))
 SURNAME_COLUMN = (17.0, 40.0)
 LABEL = re.compile(r"(?:разраб|пров|провер|т\.?\s*контр|н\.?\s*контр|нормо?к?|утв|утверд|изм|лист|докум|подп|дата|"
                    r"лит|масса|масштаб|листов|формат|копировал|рук|гр|нач|отдела?|гип|зав)\.?", re.I)
-LEADING_LABEL = re.compile(r"^(?:разраб|пров|провер|т\.?\s*контр|н\.?\s*контр|нормо?к?|утв|утверд|нач\.?\s*отдела?)\.?\s*", re.I)
+LEADING_LABEL = re.compile(r"^(?:разраб|пров|провер|гип|т\.?\s*контр|н\.?\s*контр|нормо?к?|утв|утверд|нач\.?\s*отдела?|"
+                           r"нач\.?\s*бюро|рук\.?\s*гр\.?)\.?\s*", re.I)
 STANDARD = re.compile(r"ГОСТ|ОСТ\s|ТУ\s", re.I)     # a material standard, not a designation of the document
 DESIGNATION = re.compile(r"\d[-.]\d")      # numbers with separators: the designation of a tall text reaching into the name cell
 PERSON = re.compile(r"[А-ЯЁ][а-яё]{2,}(?:\s*[А-ЯЁ]\.\s*[А-ЯЁ]?\.?)?")
@@ -54,6 +91,17 @@ def _centres(items, matrix):
 def _lines(rows):
     """Texts of one cell in reading order: top to bottom, then left to right."""
     return sorted(rows, key=lambda r: (-round(r[1][1] / 2.5), r[1][0]))
+
+
+def _row_groups(rows, band_mm=1.2):
+    """(item, xy) pairs grouped into rows by vertical centre proximity."""
+    groups = []
+    for entry in sorted(rows, key=lambda r: r[1][1]):
+        if groups and abs(entry[1][1] - np.mean([e[1][1] for e in groups[-1]])) <= band_mm:
+            groups[-1].append(entry)
+        else:
+            groups.append([entry])
+    return groups
 
 
 def _candidate(rows):
@@ -89,15 +137,43 @@ def title_block_from_cells(texts, matrix, sheet_mm):
     material = [r for r in cells["material"] if not LABEL.fullmatch(r[0]["text"].strip())]
     fields["material"] = _candidate(material) or _unknown("The material cell of the title block is empty or unreadable.")
     authors, ids = [], []
-    for item, xy in cells["authors"]:
-        x, y = block_xy(xy, W, H)
-        # OCR often reads the label and the surname of a row as one box: "Разраб.Иванов"
-        text = LEADING_LABEL.sub("", item["text"].strip())
-        if not text or x > SURNAME_COLUMN[1] + SLACK or LABEL.fullmatch(text) or not PERSON.fullmatch(text):
+    grouped = sorted(_row_groups(cells["authors"]), key=lambda r: -float(np.mean([xy[1] for _, xy in r])))
+    for raw_row in grouped:
+        row = sorted(((item, block_xy(xy, W, H)) for item, xy in raw_row), key=lambda r: r[1][0])
+        persons = [(item, xy) for item, xy in row
+                   if SURNAME_COLUMN[0] - SLACK <= xy[0] <= SURNAME_COLUMN[1] + SLACK
+                   and PERSON.fullmatch(item["text"].strip())]
+        merged = []
+        for item, xy in row:
+            if xy[0] >= SURNAME_COLUMN[1] + SLACK:
+                continue
+            rest = LEADING_LABEL.sub('', item["text"].strip())
+            if rest and rest != item["text"].strip() and PERSON.fullmatch(rest):
+                merged.append((item, xy, rest))
+        if len(persons) != 1 and len(merged) != 1:
             continue
-        role = next((r for r, y0, y1 in ROLES if y0 - SLACK <= y <= y1 + SLACK), None)
-        authors.append({"role": role, "name": text})
-        ids.append(item["id"])
+        if len(persons) == 1:
+            person_item, person_xy = persons[0]
+            name = person_item["text"].strip()
+        else:
+            person_item, person_xy, name = merged[0]
+        # The role is what is printed in the label column; a merged "Разраб.Иванов" box
+        # contributes only its label prefix. Position is the last resort, not the source.
+        label_ids = []
+        label_parts = []
+        for item, xy in row:
+            if xy[0] >= SURNAME_COLUMN[0]:
+                continue
+            text = item["text"].strip()
+            stripped = LEADING_LABEL.sub('', text)
+            label_parts.append(text[:len(text) - len(stripped)] if stripped != text else text)
+            label_ids.append(item["id"])
+        role = match_role(' '.join(label_parts))
+        if role is None:
+            role = next((r for r, y0, y1 in ROLES if y0 - SLACK <= person_xy[1] <= y1 + SLACK), None)
+        authors.append({"role": role, "name": name})
+        ids.append(person_item["id"])
+        ids.extend(label_ids)
     fields["authors"] = ({"value": authors, "status": "candidate", "source_text_ids": ids, "basis": "gost_2_104_form_1_cell"}
                          if authors else _unknown("No surname was read in the surname column of the title block."))
     return fields

@@ -43,10 +43,25 @@ def _can_anchor(point, objects):
 STANDARD_SCALES = (1.0, 0.5, 0.4, 0.25, 0.2, 0.1, 0.05, 2.0, 2.5, 4.0, 5.0, 10.0)      # GOST 2.302, as sheet mm per part mm
 
 
+def validate_link_budget(cv):
+    if len(cv.get('primitives', [])) > 8000:
+        raise ValueError('Dimension linking complexity limit exceeded (8000 primitives)')
+
+
+def printed_view_scales(observations):
+    return {item['notation']['nominal'] / item['notation']['scale_denominator']
+            for item in observations.get('texts', [])
+            if item.get('notation', {}).get('kind') == 'scale'
+            and not item.get('needs_review') and not item['notation'].get('warning')}
+
+
 def vote_view_scale(ocr_page: dict[str, Any], cv: dict[str, Any]) -> float | None:
     """The scale at which most printed sizes find their dimension lines, when OCR did not give one scale. Decided only by a
     clear majority: several sizes, twice as many as any other scale. Only dimension lines with an arrow vote: the cells of
     a table look just like a number between two extension lines at any scale."""
+    validate_link_budget(cv)
+    if len(printed_view_scales(ocr_page)) > 1:
+        return None
     matrix = cv.get("transforms", {}).get("source_px_to_sheet_mm")
     if not matrix:
         return None
@@ -77,13 +92,14 @@ def propose_dimension_links(ocr_page: dict[str, Any], cv: dict[str, Any],
     text proximity and length agreement alone.
     """
     assert_same_page(ocr_page, cv)
+    validate_link_budget(cv)
+    if len(printed_view_scales(ocr_page)) > 1:
+        return []
     matrix = cv.get("transforms", {}).get("source_px_to_sheet_mm")
     if not matrix or cv.get("scale_status") != "known":
         return []
     objects = cv.get("objects", {})
     points = [p for p in cv.get("points", []) if p.get('kind') != 'ocr_dimension_anchor' and _can_anchor(p, objects)]
-    if len(cv.get('primitives', [])) > 8000:
-        raise ValueError('Dimension linking complexity limit exceeded (8000 primitives)')
     if len(points) > 400:       # the point-pair proposals below are quadratic; the dimension-line search does not use them
         points = []
     scale = 1.0 if cv.get('coordinate_space') == 'part_mm' else cv.get('calibration', {}).get('view_scale')
@@ -122,6 +138,7 @@ def propose_dimension_links(ocr_page: dict[str, Any], cv: dict[str, Any],
         if evidence:
             output.append({"text_id": text.get("id"), "recognized_text": text.get("text"), "nominal_mm": nominal,
                            "notation_kind": notation.get("kind"), "suffix": notation.get("suffix"),
+                           "hole_count": notation.get("hole_count"),
                            "status": "resolved", "basis": ["dimension_line_near_number", "extension_lines_at_nominal_distance", "feet_on_part"],
                            "decision_note": "Dimension line and two extension lines at the printed distance found.",
                            "candidates": [], "candidate_count": 1,

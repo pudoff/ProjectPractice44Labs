@@ -1,6 +1,7 @@
 """PDF text-layer observations and conservative title-block candidates."""
 from __future__ import annotations
 
+import itertools
 import math
 import re
 import unicodedata
@@ -11,6 +12,7 @@ import pymupdf
 
 from .semantics import classify_purpose, parse_engineering_notation
 from .normalization import enrich, normalize_text
+from .title_block import LABEL, LEADING_LABEL, PERSON, match_role
 
 
 def _transform_bbox(page, bbox, dpi: int, image_width: int, image_height: int):
@@ -157,28 +159,43 @@ def _unknown(reason: str, source_ids: list[str] | None = None):
 
 
 def _authors(items):
-    labels = re.compile(r'^(Разраб\.?|Пров\.?|Н\.?\s*контр\.?|Утв\.?)\s*(.*)$', re.I)
-    person = re.compile(r'^[А-ЯЁ][а-яё]{2,}(?:\s+[А-ЯЁ]\.(?:\s*[А-ЯЁ]\.)?|\s+[А-ЯЁ][а-яё]+(?:\s+[А-ЯЁ][а-яё]+)?)?$')
+    """Author rows found by their printed role label, wherever the stamp sits on the sheet.
+
+    A label anchors its row: the surname must be the only person-like reading in the next cell
+    to the right of that label. The role comes from the printed text, never from position and
+    never from a placeholder."""
     values, ids = [], []
+    anchors = []
     for item in items:
-        match = labels.fullmatch(item['text'].strip())
-        if not match:
+        role = match_role(item['text'].strip())
+        if role:
+            anchors.append(([item], _bounds(item), role))
+    for first, second in itertools.combinations(items, 2):
+        if abs(_center(first)[1] - _center(second)[1]) > 30:
             continue
-        candidates = []
-        if person.fullmatch(match[2]):
-            candidates = [(item, match[2])]
-        else:
-            box = _bounds(item)
-            for other in items:
-                if other is item or not person.fullmatch(other['text'].strip()):
-                    continue
-                target = _bounds(other)
-                if target[0] >= box[2] and target[0]-box[2] <= 8*(box[3]-box[1]) and abs(_center(other)[1]-_center(item)[1]) <= (box[3]-box[1])*0.6:
-                    candidates.append((other, other['text']))
-        if len(candidates) == 1:
-            other, name = candidates[0]
-            values.append({'role': match[1], 'name': name})
-            ids.extend([item['id'], other['id']])
+        a, b = _bounds(first), _bounds(second)
+        if min(a[2], b[2]) - max(a[0], b[0]) < -2 or len(first['text']) + len(second['text']) > 24:
+            continue
+        role = match_role(first['text'] + ' ' + second['text'])
+        if role:
+            anchors.append(([first, second], (min(a[0], b[0]), min(a[1], b[1]), max(a[2], b[2]), max(a[3], b[3])), role))
+    used = set()
+    for label_items, box, role in anchors:
+        height = max(box[3] - box[1], 1.0)
+        # The surname cell is the next cell of the row (~5-20 mm from the label); a text many
+        # box heights away sits in another cell of the stamp (e.g. the part name on wide forms).
+        persons = [item for item in items
+                   if item not in label_items and item['id'] not in used
+                   and PERSON.fullmatch(item['text'].strip()) and not LABEL.fullmatch(item['text'].strip())
+                   and _bounds(item)[0] >= box[0] - 2 and _bounds(item)[0] - box[2] <= 5 * height
+                   and abs(_center(item)[1] - (box[1] + box[3]) / 2) <= 0.75 * max(height, _bounds(item)[3] - _bounds(item)[1])]
+        if len(persons) != 1:
+            continue
+        person = persons[0]
+        used.add(person['id'])
+        values.append({'role': role, 'name': person['text'].strip()})
+        ids.extend([item['id'] for item in label_items] + [person['id']])
+    values.sort(key=lambda entry: next(_center(item)[1] for item in items if item['text'].strip() == entry['name']))
     return ({'value': values, 'status': 'candidate', 'source_text_ids': sorted(set(ids))} if values else
             _unknown('No unambiguous person in a labelled author row.'))
 
@@ -202,7 +219,9 @@ def build_title_block(pages: list[dict]) -> dict:
             and not re.fullmatch(r"0+", item["text"].replace(" ", ""))
         ]
         doc = max(doc_candidates, key=lambda item: _center(item)[1], default=None)
-        authors = _authors(candidates)
+        # Author labels live in the leftmost stamp column, far from the right edge on wide
+        # sheets; search by the bottom band of the page, not by a fixed horizontal fraction.
+        authors = _authors([item for item in items if _center(item)[1] >= height * 0.60])
 
         excluded = re.compile(
             r"(?:\u0437\u0430\u0434\u0430\u043d\u0438\u0435|\u043a\u0430\u0444\u0435\u0434\u0440\u0430|"

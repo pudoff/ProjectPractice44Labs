@@ -114,6 +114,13 @@ class Hatch(Strict):
 class AnchorRef(Strict):
     object_id: str
     anchor: str
+    parameter: float | None = Field(default=None, ge=0, le=1)
+
+    @model_validator(mode="after")
+    def check_parameter(self):
+        if (self.anchor == "segment") != (self.parameter is not None):
+            raise ValueError("segment anchor requires parameter; other anchors do not accept it")
+        return self
 
 
 class DrawingPoint(Strict):

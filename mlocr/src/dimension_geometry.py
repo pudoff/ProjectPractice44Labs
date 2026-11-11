@@ -17,10 +17,8 @@ SAME_POSITION_MM = 0.3
 LENGTH_TOL_MIN_MM = 0.3
 LENGTH_TOL_SHARE = 0.003
 LENGTH_TOL_SHORT = 0.25
-AMBIGUITY_RATIO = 1.5
 THICK_PENALTY_MM = 2.0
 ARROW_REACH_MM = 6.0
-NO_ROW_PENALTY_MM = 3.0
 
 
 def _unit(a, b):
@@ -41,6 +39,8 @@ def thin_lines(cv):
             continue
         if role in {'thin', 'dimension', 'extension', 'axis'}:
             out.append(p)
+        elif role == 'hidden':
+            out.append({**p, 'hidden': True})
         elif role == 'part':
             out.append({**p, 'thick': True})
     return out
@@ -96,18 +96,32 @@ def _rows(lines, centre):
     return rows
 
 
-def _directions(lines, centre, reach):
+def _carrier_candidates(lines, centre, reach, existing=()):
+    """Lines near the text that can carry a dimension, with their own carrier offset.
+
+    The text of a large dimension is often placed beside the line, not on it; the search then
+    needs the carrier at the line itself. This additional search uses thin visible lines;
+    thick lines can still participate in the nearby rows returned by _rows()."""
     found = []
     for line in lines:
+        if line.get('excluded') or line.get('thick') or line.get('hidden'):
+            continue
         a, b = np.asarray(line['start'], float), np.asarray(line['end'], float)
-        if line.get('thick') or line.get('excluded') or min(np.linalg.norm(a - centre), np.linalg.norm(b - centre)) > reach:
+        if min(np.linalg.norm(a - centre), np.linalg.norm(b - centre)) > reach:
             continue
         v = _unit(a, b)
-        u = np.array([v[1], -v[0]])
+        u = v
         if u[0] < 0 or (abs(u[0]) < 1e-9 and u[1] < 0):
             u = -u
-        if not any(abs(u[0] * o[1] - u[1] * o[0]) < math.sin(math.radians(PARALLEL_DEG)) for o in found):
-            found.append(u)
+        n = np.array([-u[1], u[0]])
+        offset = float(np.asarray(line['start'], float) @ n)
+        if any(abs(u[0] * ou[1] - u[1] * ou[0]) < math.sin(math.radians(PARALLEL_DEG)) and
+               abs(offset - oo) <= ROW_OFFSET_MM for ou, _, oo, _ in found):
+            continue
+        if any(abs(u[0] * eu[1] - u[1] * eu[0]) < math.sin(math.radians(PARALLEL_DEG)) and
+               abs(offset - eo) <= ROW_OFFSET_MM for eu, eo in existing):
+            continue
+        found.append((u, n, offset, line))
     return found
 
 
@@ -187,7 +201,7 @@ def foot_of(line, s, u, n, offset, part):
                 if best is None or abs(r - length) < abs(best[0] - length):
                     best = (r, prim)
     if best is None:
-        return {'xy': far, 'on': None}
+        return None
     xy = base + direction * best[0]
     alternatives = [(r, p) for r, p in hits
                     if p['id'] != best[1]['id'] or abs(r - best[0]) > 1e-4]
@@ -247,17 +261,19 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
         angle = math.degrees(math.atan2(u[1], u[0]))
         return not directional or abs((angle - text_angle + 90) % 180 - 90) <= TEXT_ANGLE_DEG
 
-    rows = [row for row in _rows(lines, centre) if along_text(row[0])]
-    rows += [(u, np.array([-u[1], u[0]]), float(centre @ np.array([-u[1], u[0]])), [])
-             for u in _directions(lines, centre, length + 10.0) if along_text(u)]
-    for u, n, offset, pieces in rows:
+    visible = [line for line in lines if not line.get('hidden')]
+    base_rows = [row for row in _rows(visible, centre) if along_text(row[0])]
+    rows = [(u, n, offset, pieces, visible) for u, n, offset, pieces in base_rows]
+    rows += [(u, n, offset, [line], lines)
+             for u, n, offset, line in _carrier_candidates(lines, centre, length + 10.0,
+                                                           [(u, o) for u, _, o, _ in base_rows]) if along_text(u)]
+    for u, n, offset, pieces, pool in rows:
         ids = {p['id'] for p in pieces}
         kept = sorted(p['id'] for p in pieces if not p.get('excluded'))
-        no_row = not pieces
         along = float(centre @ u)
         ends = [float(np.asarray(p[k], float) @ u) for p in pieces for k in ('start', 'end')]
-        low, high = (min(ends), max(ends)) if ends else (along - length, along + length)
-        cross = _crossings(lines, u, n, offset, ids, TEXT_DIST_MM if no_row else CROSS_REACH_MM)
+        low, high = min(ends), max(ends)
+        cross = _crossings(pool, u, n, offset, ids)
         side = abs(float(centre @ n) - offset)
         thick_row = bool(pieces) and all(p.get('thick') or p.get('excluded') for p in pieces)
         for i in range(len(cross)):
@@ -268,36 +284,38 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
                 if s1 > high + CROSS_REACH_MM or s2 < low - CROSS_REACH_MM:     # the row does not reach this pair
                     continue
                 outside = max(s1 - along, along - s2, 0.0)
-                if outside > (0.0 if no_row else 2 * box_size[0] + 5):
+                if outside > 2 * box_size[0] + 5:
                     continue
                 thick = thick_row + bool(cross[i][1].get('thick')) + bool(cross[j][1].get('thick'))
-                if no_row and thick:
-                    continue
                 arrowed = arrows is not None and any(_arrows_at(arrows, u * q + n * offset) for q in (s1, s2))
-                if need_arrows and (no_row or not arrowed):
+                if need_arrows and not arrowed:
                     continue
                 if cross[i][1].get('excluded') or cross[j][1].get('excluded'):
                     continue
                 feet = [foot_of(cross[k][1], cross[k][0], u, n, offset, part) for k in (i, j)]
                 if not all(feet):
                     continue
-                if not need_arrows and any(f.get('ambiguous') for f in feet):
+                if any(f.get('ambiguous') for f in feet):
                     return None, 'ambiguous_contour_foot'
-                hypotheses.append({'score': side + 0.5 * outside + THICK_PENALTY_MM * thick + NO_ROW_PENALTY_MM * no_row - (1.0 if arrowed else 0.0), 'u': u, 'n': n, 'offset': offset, 'pieces': kept,
+                hypotheses.append({'score': side + 0.5 * outside + THICK_PENALTY_MM * thick - (1.0 if arrowed else 0.0), 'u': u, 'n': n, 'offset': offset, 'pieces': kept,
                                    'extensions': [cross[i][1]['id'], cross[j][1]['id']], 'feet': feet, 'along': along,
+                                   'arrowed': arrowed,
                                    'pair': (round(float(u[0]), 2), round(float(u[1]), 2), round(s1, 1), round(s2, 1))})
     if not hypotheses:
         return None, 'no_dimension_line_with_matching_extension_lines'
-    hypotheses.sort(key=lambda h: (h['score'], h['pair']))
+    # Only hypotheses measuring the same points on the same part objects are duplicates.
+    by_position = {}
+    for h in hypotheses:
+        key = tuple(sorted((f['on'], *(round(float(v), 4) for v in f['xy'])) for f in h['feet']))
+        if key not in by_position or h['score'] < by_position[key]['score']:
+            by_position[key] = h
+    hypotheses = sorted(by_position.values(), key=lambda h: (h['score'], h['pair']))
     best = hypotheses[0]
     def measured_feet(hypothesis):
         return sorted(tuple(round(float(v), 4) for v in foot['xy']) for foot in hypothesis['feet'])
     for other in hypotheses[1:]:
-        ambiguous = measured_feet(other) != measured_feet(best)
-        if need_arrows:
-            ambiguous = (other['pair'] != best['pair'] and
-                         other['score'] < AMBIGUITY_RATIO * max(best['score'], 0.0) + 0.5)
-        if ambiguous:
+        # Arrows and text proximity rank alternatives; neither proves which part is measured.
+        if measured_feet(other) != measured_feet(best) or {f['on'] for f in other['feet']} != {f['on'] for f in best['feet']}:
             return None, 'two_dimension_lines_fit_this_number'
     base = best['u'] * best['along'] + best['n'] * best['offset']
     angle = math.degrees(math.atan2(best['u'][1], best['u'][0]))
@@ -307,7 +325,16 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
             corner = corner_anchor(foot['xy'], part)
         except ValueError:
             return None, 'ambiguous_corner_anchor'
+        anchor = corner[1] if corner else None
+        if anchor is None:
+            primitive = next(p for p in part if p['id'] == foot['on'])
+            if primitive['kind'] != 'line':
+                return None, 'unsupported_contour_anchor'
+            start, end = np.asarray(primitive['start'], float), np.asarray(primitive['end'], float)
+            delta = end - start
+            fraction = float((foot['xy'] - start) @ delta / (delta @ delta))
+            anchor = {'object_id': primitive['id'], 'anchor': 'segment', 'parameter': min(1., max(0., fraction))}
         feet.append({'xy': [round(float(v), 6) for v in (corner[2] if corner else foot['xy'])], 'on': foot['on'],
-                     'anchor': corner[1] if corner else None})
+                     'anchor': anchor})
     return {'dimension_line': best['pieces'][0] if best['pieces'] else None, 'dimension_row': best['pieces'], 'extension_lines': best['extensions'],
             'base': [round(float(v), 6) for v in base], 'angle': round(angle, 6), 'feet': feet}, None
