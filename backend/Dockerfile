@@ -50,6 +50,7 @@ COPY backend/pyproject.toml backend/uv.lock ./
 RUN uv sync --locked --no-install-project
 COPY backend/tests ./tests
 COPY mlcv/tests /srv/mlcv/tests
+COPY mlcv/eval/*.py /srv/mlcv/eval/
 COPY mlocr/tests /srv/mlocr/tests
 COPY mlocr/evaluation /srv/mlocr/evaluation
 COPY tests /srv/tests
