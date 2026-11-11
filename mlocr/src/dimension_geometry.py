@@ -1,40 +1,24 @@
-"""Find the geometry of a linear dimension from what a drawing shows: number -> dimension line -> extension lines.
-
-A dimension measures between two extension lines, and those often come to the middle of a contour line, where no object
-has an end. So the search starts from the thin lines around the printed number, not from points of the part:
-  1. a row of thin collinear pieces near the number and parallel to it (the dimension line may be split by the number or
-     have its arrows outside);
-  2. two thin lines crossing that row at a distance equal to the number at the view scale;
-  3. the foot of each of them: exactly the corner when one is there, otherwise a point on the contour line, otherwise the
-     end of the extension line (the measured value depends only on the position along the dimension).
-Line weights are not trusted: a dimension line is often as thick as the contour in archive drawings, and CV then calls it
-"part", and such lines can even form false closed contours. So they may serve too, with a penalty, and a line of a closed
-contour is never removed from the drawing. When no dimension line was found at all, two extension lines around the number
-at the printed distance are enough. Everything must agree: a pair at the wrong distance or two equally good answers give
-no link."""
 from __future__ import annotations
 
 import math
 
 import numpy as np
 
-ROW_OFFSET_MM = 0.3          # thin pieces on one carrier
+ROW_OFFSET_MM = 0.3
 PARALLEL_DEG = 1.0
 PERPENDICULAR_DEG = 3.0
-CROSS_REACH_MM = 1.5         # an extension line may stop this short of the dimension line
-TEXT_DIST_MM = 9.0           # number to its dimension line
-TEXT_SHORT_ASPECT = 1.6      # shorter boxes (a single digit) do not show the direction of the text
+CROSS_REACH_MM = 1.5
+TEXT_DIST_MM = 9.0
+TEXT_SHORT_ASPECT = 1.6
 TEXT_ANGLE_DEG = 12.0
-FOOT_REACH_MM = 3.0          # an extension line may stop this short of the contour
+FOOT_REACH_MM = 3.0
 CORNER_SNAP_MM = 0.3
 SAME_POSITION_MM = 0.3
-LENGTH_TOL_MIN_MM = 0.3       # CV finds lines to about 0.1 mm; a size off by more than this belongs to something else
+LENGTH_TOL_MIN_MM = 0.3
 LENGTH_TOL_SHARE = 0.003
-LENGTH_TOL_SHORT = 0.25       # and a short size may not be off by a quarter of its length
-AMBIGUITY_RATIO = 1.5
+LENGTH_TOL_SHORT = 0.25
 THICK_PENALTY_MM = 2.0
-ARROW_REACH_MM = 6.0         # an arrow lies at the crossing of the dimension and extension lines, on either side
-NO_ROW_PENALTY_MM = 3.0
+ARROW_REACH_MM = 6.0
 
 
 def _unit(a, b):
@@ -47,7 +31,6 @@ def closed_contour_objects(cv):
 
 
 def thin_lines(cv):
-    """Lines that can belong to a dimension. Thick ones are marked: a thin line wins over them."""
     objects = cv.get('objects', {})
     out = []
     for p in cv.get('primitives', []):
@@ -64,7 +47,6 @@ def thin_lines(cv):
 
 
 def arrowheads(cv):
-    """Middle points of the arrows CV set aside: the sure sign of a dimension line."""
     out = []
     for o in cv.get('objects', {}).values():
         if o.get('role') == 'arrowhead' and o.get('kind') == 'line':
@@ -74,7 +56,6 @@ def arrowheads(cv):
 
 
 def excluded_dimension_pieces(cv):
-    """Dimension lines that run through a number are dropped by CV as text residue, but they still show the row."""
     out = []
     for oid, o in cv.get('objects', {}).items():
         if o.get('kind') == 'line' and o.get('status') == 'excluded' and o.get('role') in {'text_residue', 'duplicate'}:
@@ -90,7 +71,6 @@ def part_objects(cv):
 
 
 def _rows(lines, centre):
-    """Candidate dimension lines near the text: (unit direction, normal, offset of the carrier, pieces)."""
     rows = []
     used = set()
     for line in lines:
@@ -120,12 +100,11 @@ def _carrier_candidates(lines, centre, reach, existing=()):
     """Lines near the text that can carry a dimension, with their own carrier offset.
 
     The text of a large dimension is often placed beside the line, not on it; the search then
-    needs the carrier at the line itself. Thick lines are not skipped: a dimension line may
-    coincide with a part edge (see the module docstring). A candidate that duplicates a row
-    already found near the text adds nothing and is skipped."""
+    needs the carrier at the line itself. This additional search uses thin visible lines;
+    thick lines can still participate in the nearby rows returned by _rows()."""
     found = []
     for line in lines:
-        if line.get('excluded') or line.get('thick'):
+        if line.get('excluded') or line.get('thick') or line.get('hidden'):
             continue
         a, b = np.asarray(line['start'], float), np.asarray(line['end'], float)
         if min(np.linalg.norm(a - centre), np.linalg.norm(b - centre)) > reach:
@@ -147,7 +126,6 @@ def _carrier_candidates(lines, centre, reach, existing=()):
 
 
 def _crossings(lines, u, n, offset, row_ids, reach=CROSS_REACH_MM):
-    """Thin lines perpendicular to the row and reaching it: position along the row -> line (one per position)."""
     found = []
     for line in lines:
         if line['id'] in row_ids:
@@ -173,7 +151,6 @@ def _crossings(lines, u, n, offset, row_ids, reach=CROSS_REACH_MM):
 
 
 def _ray_hits(origin, direction, prim):
-    """Distances along the ray to a part object (only forward, within the object's own span)."""
     out = []
     if prim['kind'] == 'line':
         a, b = np.asarray(prim['start'], float), np.asarray(prim['end'], float)
@@ -208,8 +185,6 @@ def _ray_hits(origin, direction, prim):
 
 
 def foot_of(line, s, u, n, offset, part):
-    """Where the extension line meets the part. The part is on the far side from the dimension line: extension lines
-    overshoot the dimension line only a little. Returns {xy, on} or None."""
     base = u * s + n * offset
     a, b = np.asarray(line['start'], float), np.asarray(line['end'], float)
     far = a if abs(float(a @ n) - offset) >= abs(float(b @ n) - offset) else b
@@ -217,26 +192,56 @@ def foot_of(line, s, u, n, offset, part):
     if length < 1e-6:
         return None
     direction = n * np.sign(float(far @ n) - offset)
+    hits = []
     best = None
     for prim in part:
         for r in _ray_hits(base, direction, prim):
-            if length - FOOT_REACH_MM <= r <= length + FOOT_REACH_MM and (best is None or abs(r - length) < abs(best[0] - length)):
-                best = (r, prim)
+            if length - FOOT_REACH_MM <= r <= length + FOOT_REACH_MM:
+                hits.append((r, prim))
+                if best is None or abs(r - length) < abs(best[0] - length):
+                    best = (r, prim)
     if best is None:
-        return {'xy': far, 'on': None}
-    return {'xy': base + direction * best[0], 'on': best[1]['id']}
+        return None
+    xy = base + direction * best[0]
+    alternatives = [(r, p) for r, p in hits
+                    if p['id'] != best[1]['id'] or abs(r - best[0]) > 1e-4]
+    def shared_vertex(p):
+        q = best[1]
+        if p['kind'] != 'line' or q['kind'] != 'line':
+            return False
+        if abs(float(_unit(p['start'], p['end']) @ _unit(q['start'], q['end']))) > 1 - 1e-8:
+            return False
+        return (any(math.dist(xy, p[k]) < 1e-4 for k in ('start', 'end')) and
+                any(math.dist(xy, q[k]) < 1e-4 for k in ('start', 'end')))
+    return {'xy': xy, 'on': best[1]['id'],
+            'ambiguous': any(not shared_vertex(p) for _, p in alternatives)}
 
 
 def corner_anchor(xy, part):
-    """The end of a part line at the foot, if there is one: the dimension then follows that corner when geometry is edited."""
+    candidates = []
     best = None
     for prim in part:
         if prim['kind'] != 'line':
             continue
         for name in ('start', 'end'):
             dist = math.dist(prim[name], xy)
-            if dist <= CORNER_SNAP_MM and (best is None or dist < best[0]):
-                best = (dist, {'object_id': prim['id'], 'anchor': name}, prim[name])
+            if dist <= CORNER_SNAP_MM:
+                candidate = (dist, {'object_id': prim['id'], 'anchor': name}, prim[name])
+                candidates.append(candidate)
+                if best is None or dist < best[0]:
+                    best = candidate
+    if best:
+        by_id = {p['id']: p for p in part}
+        chosen = by_id[best[1]['object_id']]
+        for candidate in candidates:
+            if candidate is best:
+                continue
+            other = by_id[candidate[1]['object_id']]
+            same_segment = (other['start'] == chosen['start'] and other['end'] == chosen['end'] or
+                            other['start'] == chosen['end'] and other['end'] == chosen['start'])
+            if same_segment or (math.dist(candidate[2], best[2]) > 1e-4 and
+                                (best[0] > 1e-4 or abs(candidate[0] - best[0]) < 1e-4)):
+                raise ValueError('ambiguous_corner_anchor')
     return best
 
 
@@ -245,7 +250,6 @@ def _arrows_at(arrows, point):
 
 
 def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, excluded=(), arrows=None, need_arrows=False):
-    """The unique geometry of a printed linear size, or None (with the reason) -> (evidence | None, reason)."""
     length = abs(float(nominal)) * scale
     lines = [*lines, *excluded]
     tolerance = min(max(LENGTH_TOL_MIN_MM, length * LENGTH_TOL_SHARE), LENGTH_TOL_SHORT * length)
@@ -266,11 +270,10 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
     for u, n, offset, pieces, pool in rows:
         ids = {p['id'] for p in pieces}
         kept = sorted(p['id'] for p in pieces if not p.get('excluded'))
-        no_row = not pieces
         along = float(centre @ u)
         ends = [float(np.asarray(p[k], float) @ u) for p in pieces for k in ('start', 'end')]
-        low, high = (min(ends), max(ends)) if ends else (along - length, along + length)
-        cross = _crossings(pool, u, n, offset, ids, TEXT_DIST_MM if no_row else CROSS_REACH_MM)
+        low, high = min(ends), max(ends)
+        cross = _crossings(pool, u, n, offset, ids)
         side = abs(float(centre @ n) - offset)
         thick_row = bool(pieces) and all(p.get('thick') or p.get('excluded') for p in pieces)
         for i in range(len(cross)):
@@ -281,47 +284,57 @@ def find_dimension(centre, box_size, text_angle, nominal, scale, lines, part, ex
                 if s1 > high + CROSS_REACH_MM or s2 < low - CROSS_REACH_MM:     # the row does not reach this pair
                     continue
                 outside = max(s1 - along, along - s2, 0.0)
-                if outside > (0.0 if no_row else 2 * box_size[0] + 5):
+                if outside > 2 * box_size[0] + 5:
                     continue
                 thick = thick_row + bool(cross[i][1].get('thick')) + bool(cross[j][1].get('thick'))
-                if no_row and thick:
-                    continue
                 arrowed = arrows is not None and any(_arrows_at(arrows, u * q + n * offset) for q in (s1, s2))
-                if need_arrows and (no_row or not arrowed):
+                if need_arrows and not arrowed:
                     continue
                 if cross[i][1].get('excluded') or cross[j][1].get('excluded'):
                     continue
                 feet = [foot_of(cross[k][1], cross[k][0], u, n, offset, part) for k in (i, j)]
                 if not all(feet):
                     continue
-                hypotheses.append({'score': side + 0.5 * outside + THICK_PENALTY_MM * thick + NO_ROW_PENALTY_MM * no_row - (1.0 if arrowed else 0.0), 'u': u, 'n': n, 'offset': offset, 'pieces': kept,
+                if any(f.get('ambiguous') for f in feet):
+                    return None, 'ambiguous_contour_foot'
+                hypotheses.append({'score': side + 0.5 * outside + THICK_PENALTY_MM * thick - (1.0 if arrowed else 0.0), 'u': u, 'n': n, 'offset': offset, 'pieces': kept,
                                    'extensions': [cross[i][1]['id'], cross[j][1]['id']], 'feet': feet, 'along': along,
                                    'arrowed': arrowed,
                                    'pair': (round(float(u[0]), 2), round(float(u[1]), 2), round(s1, 1), round(s2, 1))})
     if not hypotheses:
         return None, 'no_dimension_line_with_matching_extension_lines'
-    # Duplicate detections of one physical line land within a fraction of a millimetre; they are
-    # one hypothesis, not a rival one. Keep the best-scored representative per position.
+    # Only hypotheses measuring the same points on the same part objects are duplicates.
     by_position = {}
     for h in hypotheses:
-        key = (round(float(h['u'][0]), 2), round(float(h['u'][1]), 2),
-               round(h['pair'][2] * 2) / 2, round(h['pair'][3] * 2) / 2)
+        key = tuple(sorted((f['on'], *(round(float(v), 4) for v in f['xy'])) for f in h['feet']))
         if key not in by_position or h['score'] < by_position[key]['score']:
             by_position[key] = h
     hypotheses = sorted(by_position.values(), key=lambda h: (h['score'], h['pair']))
     best = hypotheses[0]
+    def measured_feet(hypothesis):
+        return sorted(tuple(round(float(v), 4) for v in foot['xy']) for foot in hypothesis['feet'])
     for other in hypotheses[1:]:
-        if other['pair'] == best['pair'] or other['score'] >= AMBIGUITY_RATIO * max(best['score'], 0.0) + 0.5:
-            continue
-        if best.get('arrowed') and not other.get('arrowed'):
-            continue    # arrows at the crossing are the decisive evidence; a bare lookalike pair is not a rival
-        return None, 'two_dimension_lines_fit_this_number'
+        # Arrows and text proximity rank alternatives; neither proves which part is measured.
+        if measured_feet(other) != measured_feet(best) or {f['on'] for f in other['feet']} != {f['on'] for f in best['feet']}:
+            return None, 'two_dimension_lines_fit_this_number'
     base = best['u'] * best['along'] + best['n'] * best['offset']
     angle = math.degrees(math.atan2(best['u'][1], best['u'][0]))
     feet = []
     for foot in best['feet']:
-        corner = corner_anchor(foot['xy'], part)
+        try:
+            corner = corner_anchor(foot['xy'], part)
+        except ValueError:
+            return None, 'ambiguous_corner_anchor'
+        anchor = corner[1] if corner else None
+        if anchor is None:
+            primitive = next(p for p in part if p['id'] == foot['on'])
+            if primitive['kind'] != 'line':
+                return None, 'unsupported_contour_anchor'
+            start, end = np.asarray(primitive['start'], float), np.asarray(primitive['end'], float)
+            delta = end - start
+            fraction = float((foot['xy'] - start) @ delta / (delta @ delta))
+            anchor = {'object_id': primitive['id'], 'anchor': 'segment', 'parameter': min(1., max(0., fraction))}
         feet.append({'xy': [round(float(v), 6) for v in (corner[2] if corner else foot['xy'])], 'on': foot['on'],
-                     'anchor': corner[1] if corner else None})
+                     'anchor': anchor})
     return {'dimension_line': best['pieces'][0] if best['pieces'] else None, 'dimension_row': best['pieces'], 'extension_lines': best['extensions'],
             'base': [round(float(v), 6) for v in base], 'angle': round(angle, 6), 'feet': feet}, None

@@ -6,7 +6,7 @@ import tempfile
 import ezdxf
 from app.config import get_settings
 from app.domain.drawing import DrawingGraph, Issue
-from app.services.geometry import GeometryError, GeometryResolver, primitive_problem
+from app.services.geometry import GeometryError, GeometryResolver, primitive_problem, geometry_signature
 
 
 def new_document(profile="eskd_tz"):
@@ -47,7 +47,6 @@ def add_primitive(msp, item):
         msp.add_lwpolyline(item.vertices, close=item.closed, dxfattribs=attrs)
 
 
-# Literal glyphs are missing from many CAD fonts and show up as question marks; DXF control codes always work.
 DXF_SPECIAL_CHARACTERS = str.maketrans({"Ø": "%%c", "ø": "%%c", "⌀": "%%c", "∅": "%%c", "°": "%%d", "±": "%%p"})
 
 
@@ -55,8 +54,13 @@ def add_text(msp, item):
     msp.add_text(item.value.translate(DXF_SPECIAL_CHARACTERS), dxfattribs={"layer": "TEXT", "style": "DRAWING", "height": item.height, "insert": item.insert, "rotation": item.rotation})
 
 
-def printed_decimals(text):
-    """Digits after the separator of the first number of a printed size, None when there is no text."""
+def printed_decimals(text, nominal=None):
+    # The first number in 8отв.Ø100.5 is the hole count, not the measured nominal.
+    text = re.sub(r"^\s*\d+\s*отв\.\s*", "", text or "", flags=re.IGNORECASE)
+    if nominal is not None:
+        for token in re.finditer(r"[+-]?\d+(?:[.,](\d+))?", text):
+            if math.isclose(float(token.group().replace(',', '.')), nominal, rel_tol=1e-12, abs_tol=1e-12):
+                return len(token.group(1) or '')
     match = re.search(r"\d+(?:[.,](\d+))?", text or "")
     return None if match is None else len(match.group(1) or "")
 
@@ -70,16 +74,18 @@ def add_dimension(msp, item, issues, tolerance=None):
     a = math.radians(item.angle)
     measured = abs((item.p2[0] - item.p1[0]) * math.cos(a) + (item.p2[1] - item.p1[1]) * math.sin(a))
     physical = measured / item.view_scale
+    if item.nominal_mm is None and item.recognized_text is not None:
+        issues.append(Issue(code="unknown_dimension_value", severity="warning",
+                            message="Числовое значение исходного размера не распознано; проверьте измерение",
+                            object_id=item.id))
     if physical <= tolerance:
         issues.append(Issue(code="invalid_dimension", severity="error", message="Измеряемое расстояние равно нулю", object_id=item.id))
         return
     if item.nominal_mm is not None and item.nominal_mm <= 0:
         issues.append(Issue(code="invalid_dimension", severity="error", message="Номинал линейного размера должен быть положительным", object_id=item.id))
         return
-    decimals = printed_decimals(item.recognized_text)
-    # A printed size is rounded: geometry read from a raster agrees with it up to its last digit, not exactly.
-    allowed = tolerance if decimals is None else max(tolerance, 0.5 * 10 ** -decimals + 1e-9)
-    if item.nominal_mm is not None and abs(physical - item.nominal_mm) > allowed:
+    decimals = printed_decimals(item.recognized_text, item.nominal_mm)
+    if item.nominal_mm is not None and abs(physical - item.nominal_mm) > tolerance:
         issues.append(Issue(code="dimension_mismatch", severity="warning", message=f"Измерено {physical:.3f} мм; распознано {item.nominal_mm:.3f} мм", object_id=item.id))
     override = {"dimlfac": 1.0 / item.view_scale}
     if decimals is not None:
@@ -133,7 +139,13 @@ class DxfExporter:
         for item in graph.texts:
             add_text(msp, item)
         rendered_dimensions = set()
+        baseline = graph.provenance.get("dimension_geometry_sha256")
+        geometry_changed = baseline is not None and baseline != geometry_signature(graph)
         for item in graph.dimensions:
+            if geometry_changed and not resolver.dimension_has_anchors(item):
+                problem("dimension_recalculation_required",
+                        "Геометрия изменена, а размер ссылается на свободные точки: требуется повторная привязка и пересчёт", item.id)
+                continue
             if graph.coordinate_space == "part_mm" and item.view_scale != 1:
                 problem("coordinate_scale_conflict", "Геометрия уже в миллиметрах детали: view_scale должен быть 1", item.id)
                 continue
@@ -160,7 +172,6 @@ class DxfExporter:
             problem("empty_drawing", "После проверки не осталось корректной геометрии", None)
             return issues
         if not doc.audit().has_errors:
-            # Publish only the complete file. Each job run owns a separate directory.
             handle, temporary = tempfile.mkstemp(prefix=".result-", suffix=".dxf", dir=path.parent)
             os.close(handle)
             try:

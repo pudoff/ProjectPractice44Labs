@@ -63,7 +63,7 @@ def test_exported_dimension_measures_geometry_and_reexport_follows_changes(tmp_p
     assert float(dim.get_measurement()) == pytest.approx(100.0, abs=0.01)
 
     part = next(p for p in graph.primitives if p.id == 'part')
-    part.end = [207.0, 0.0]                          # the user drags the part edge in CAD
+    part.end = (207.0, 0.0)                          # edit DrawingGraph, then export again
     path2 = tmp_path / 'second.dxf'
     issues = DxfExporter().export(graph, path2)
     dim2 = list(ezdxf.readfile(str(path2)).modelspace().query("DIMENSION"))[0]

@@ -1,5 +1,7 @@
 # OCR QA sample set
 
+> Update 2026-11-11: the figures below describe historical selected runs, not an independent acceptance score for the current code. The runner now uses 0°, 90°, 180° and a bounded cell re-reading budget. Scoring preserves the source worksheet and raw JSON; see [evaluation instructions](../evaluation/README.md). Use `refresh_qa_normalization --output NEW.csv` for a derived worksheet. A new independent QA run and the missing negative image controls remain required.
+
 Six candidate sheets copied from `dataset/clear_sum_dataset/vse_png` for task 1. Their DXFs can help locate candidate annotations, but image pixels remain the source of truth for QA labels.
 
 ## Contents

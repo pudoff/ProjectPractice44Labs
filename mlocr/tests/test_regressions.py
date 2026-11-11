@@ -245,7 +245,8 @@ def test_foot_inside_a_contour_line_is_its_own_point_and_the_line_stays():
     output = to_drawing(obs, cv)
     dimension = output['dimensions'][0]
     feet = {p['id']: p for p in cv['points']}
-    assert feet[dimension['p1_ref']]['refs'] == [] and feet[dimension['p1_ref']]['xy'] == [0, 0]
+    assert feet[dimension['p1_ref']]['refs'] == [{'object_id': 'part', 'anchor': 'segment', 'parameter': 20 / 90}]
+    assert feet[dimension['p1_ref']]['xy'] == [0, 0]
     assert feet[dimension['p2_ref']]['xy'] == [50, 0]
     assert 'represented_by_dimension' not in cv['objects']['part'] and cv['objects']['e1']['represented_by_dimension'] == dimension['id']
 
@@ -256,6 +257,7 @@ def test_wrong_distance_or_two_equal_dimension_lines_give_no_link():
     assert to_drawing(obs, cv)['dimensions'] == []
     obs, cv = dimension_case()
     # another pair of extension lines at the printed distance, just as close to the number
+    cv['primitives'][0]['end'] = [70, 0]  # Both competing dimensions must actually reach the part.
     cv['primitives'] += [{'id': 'dim2', 'kind': 'line', 'start': [10, 14], 'end': [60, 14]},
                          {'id': 'e3', 'kind': 'line', 'start': [10, 0], 'end': [10, 16]},
                          {'id': 'e4', 'kind': 'line', 'start': [60, 0], 'end': [60, 16]}]

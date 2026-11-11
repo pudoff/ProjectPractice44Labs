@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Сервис распознавания чертежей: загрузите скан и получите DXF-файл." />
+  <title>Распознавание чертежей → DXF</title>
+    <script>
+    // Предотвращает "мигание" белым при загрузке страницы
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+        <!-- Тумблер темы -->
+    <div class="theme-switch-wrapper">
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
+        <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+        <span class="theme-toggle__text">Тёмная</span>
+      </button>
+    </div>
+
+    <header class="header">
+      <h1 class="title">Распознавание чертежей</h1>
+      <p class="subtitle">Загрузите скан чертежа — получите готовый DXF-файл</p>
+    </header>
+
+    <form id="uploadForm" class="card" novalidate>
+      <!-- Зона загрузки -->
+      <label for="fileInput" class="dropzone" id="dropzone">
+        <span class="dropzone__icon" aria-hidden="true">📄</span>
+        <span class="dropzone__text">
+          Перетащите файл сюда или <u>выберите на устройстве</u>
+        </span>
+        <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+        <input
+          type="file"
+          id="fileInput"
+          name="file"
+          accept=".pdf,.jpeg,.jpg,.png,.tif,.tiff,.bmp"
+          hidden
+        />
+      </label>
+
+      <!-- Информация о выбранном файле -->
+      <div id="fileInfo" class="file-info" style="display: none;">
+        <span id="fileName" class="file-info__name"></span>
+        <button type="button" id="clearFile" class="file-info__clear" aria-label="Удалить файл">✕</button>
+      </div>
+
+      <!-- Кнопка отправки -->
+      <button type="submit" id="submitBtn" class="btn" disabled>
+        Распознать чертёж
+      </button>
+
+      <!-- Сообщения об ошибках -->
+      <p id="errorMsg" class="message message--error" role="alert" hidden></p>
+    </form>
+
+      <!-- Индикатор загрузки -->
+    <div id="loader" class="loader" hidden>
+      <div class="loader__spinner"></div>
+      <p class="loader__text">Обрабатываем чертёж…</p>
+    </div>
+
+    <!-- Блок результата -->
+    <section id="resultBlock" class="card card--result" hidden>
+      <h2 class="result__title">Готово!</h2>
+      <p class="result__text">Файл обработан. Скачайте результат:</p>
+      <a id="downloadLink" class="btn btn--download" download>
+        Скачать DXF
+      </a>
+      
+      <!-- ПРОДОЛЖИТЬ ЗАГРУЗКУ -->
+      <button type="button" id="resetBtn" class="btn btn--secondary">
+        Загрузить другой файл
+      </button>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

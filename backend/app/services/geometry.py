@@ -1,9 +1,6 @@
-"""Resolve semantic references and validate geometry before writing CAD entities.
-
-Tolerances here are numerical (millimetres in the graph), not manufacturing or
-recognition tolerances. We never close a real gap or fit geometry to an OCR number.
-"""
 import math
+import hashlib
+import json
 
 from shapely.geometry import Polygon
 from shapely.validation import explain_validity
@@ -11,7 +8,13 @@ from shapely.validation import explain_validity
 from app.domain.drawing import ContourEdge, DrawingGraph
 
 
-EPS_MM = 1e-4  # CV serializes coordinates with four decimal places.
+EPS_MM = 1e-4
+
+
+def geometry_signature(graph: DrawingGraph) -> str:
+    geometry = [p.model_dump(mode="json", exclude={"layer", "linetype"})
+                for p in sorted(graph.primitives, key=lambda p: p.id)]
+    return hashlib.sha256(json.dumps(geometry, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
 class GeometryError(ValueError):
@@ -50,8 +53,10 @@ def polygon(vertices):
     return result
 
 
-def anchor_position(item, anchor):
+def anchor_position(item, anchor, parameter=None):
     if item.kind == "line":
+        if anchor == "segment" and parameter is not None:
+            return tuple(a + parameter * (b - a) for a, b in zip(item.start, item.end))
         values = {"start": item.start, "end": item.end,
                   "mid": tuple((a + b) / 2 for a, b in zip(item.start, item.end))}
         if anchor in values:
@@ -86,7 +91,7 @@ class GeometryResolver:
             problem = primitive_problem(self.primitives[ref.object_id])
             if problem:
                 raise GeometryError("invalid_point_anchor", f"Точка {point_id}: {problem}")
-        values = [anchor_position(self.primitives[r.object_id], r.anchor) for r in point.refs]
+        values = [anchor_position(self.primitives[r.object_id], r.anchor, r.parameter) for r in point.refs]
         if any(math.dist(a, b) > EPS_MM for a in values for b in values):
             raise GeometryError("ambiguous_point", f"Опорные объекты точки {point_id} не совпадают")
         return values[0]
@@ -96,12 +101,10 @@ class GeometryResolver:
         p2 = self.point(item.p2_ref) if item.p2_ref else item.p2
         return item.model_copy(update={"p1": p1, "p2": p2})
 
-    def _edge(self, edge):
-        """Keep CV subsegments while following edits of the referenced primitive.
+    def dimension_has_anchors(self, item):
+        return all(ref is not None and self.points[ref].refs for ref in (item.p1_ref, item.p2_ref))
 
-        objects.geometry_mm is the observation before edits. It defines segment
-        parameters; the accepted primitive defines current coordinates.
-        """
+    def _edge(self, edge):
         item = self.primitives[edge.object_id]
         if item.kind != edge.kind and not (item.kind == "circle" and edge.kind == "arc"):
             raise GeometryError("contour_kind_mismatch", f"Изменился тип объекта {item.id}")
@@ -128,8 +131,6 @@ class GeometryResolver:
                 return tuple(x + t * (y - x) for x, y in zip(item.start, item.end))
             return edge.model_copy(update={"start": current(edge.start), "end": current(edge.end)})
         if item.kind == "circle":
-            # drawcv represents circular boundaries as arc edges, including
-            # a full circle with equal angles. Partial edges remain partial.
             if edge.kind == "arc":
                 if edge.start_angle is None or edge.end_angle is None:
                     raise GeometryError("invalid_contour_edge", "Не заданы углы дуги окружности")
@@ -192,8 +193,6 @@ class GeometryResolver:
                 vertices.append(edge.start)
             else:
                 span = (edge.end_angle - edge.start_angle) % 360 or 360
-                # Sampling is for validation only; DXF receives native arcs below.
-                # Bound chord error instead of using a fixed angular step.
                 step = 2 * math.acos(max(-1.0, 1 - min(EPS_MM / 2 / edge.radius, 1)))
                 count = max(12, math.ceil(math.radians(span) / max(step, 1e-12)))
                 if count > 100_000:

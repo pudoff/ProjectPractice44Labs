@@ -131,6 +131,16 @@ def _partial_reading(small, large):
 
 def _split_preserves_reading(original: str, segments: list[dict]) -> bool:
     """Reject gridline cuts that replace a readable region with unrelated crop guesses."""
+    joined = ''.join(segment['text'] for segment in segments)
+    before_notation, after_notation = parse_engineering_notation(original), parse_engineering_notation(joined)
+    if before_notation['kind'] not in {'unknown', 'invalid'}:
+        fields = ('kind', 'nominal', 'tolerance', 'hole_count', 'suffix', 'thread_pitch', 'thread_class', 'scale_denominator')
+        if any(before_notation.get(key) != after_notation.get(key) for key in fields):
+            return False
+    def numeric_tokens(value):
+        return re.findall(r"\d+(?:[.,]\d+)?|[Ø±+−×:/]", normalize_text(value)[0].replace(',', '.'))
+    if numeric_tokens(original) != numeric_tokens(joined):
+        return False
     def compact(value):
         return ''.join(char.casefold() for char in normalize_text(value)[0] if char.isalnum())
 
@@ -159,15 +169,18 @@ def _split_preserves_reading(original: str, segments: list[dict]) -> bool:
     return pieces_are_plausible and similarity >= .55
 
 
-def _split_title_block_gridlines(engine, image: np.ndarray, observations: list[dict]) -> list[dict]:
+def _split_title_block_gridlines(engine, image: np.ndarray, observations: list[dict], max_crop_passes=24) -> list[dict]:
     """Re-read a bottom-of-sheet OCR box in separate cells when a strong vertical rule crosses it.
 
     This uses lines found in the source pixels, not fixed title-block coordinates. The unsplit reading
     remains attached to every resulting segment as provenance.
     """
+    if max_crop_passes == 0:
+        return observations
     height, width = image.shape[:2]
     gray = np.asarray(Image.fromarray(image).convert('L')) if image.ndim == 3 else image
     output = []
+    used_passes = 0
     for item in observations:
         poly = np.asarray(item['polygon'], dtype=float)
         x0, y0 = np.floor(poly.min(axis=0)).astype(int)
@@ -205,10 +218,20 @@ def _split_title_block_gridlines(engine, image: np.ndarray, observations: list[d
             crop = np.ascontiguousarray(image[y0:y1, x0 + left + 2:x0 + right - 2])
             crop_records = []
             for angle in (0, 180):
+                if used_passes >= max_crop_passes:
+                    item['needs_review'] = True
+                    item.setdefault('issues', []).append({'code': 'ocr_retry_budget_exhausted',
+                        'message': 'Cell re-reading budget exhausted; original observation retained.'})
+                    crop_records = []
+                    break
+                used_passes += 1
                 try:
                     crop_records.extend(_read_pass(engine, crop, angle))
                 except Exception:
                     # Keep the original unsplit reading if a crop pass fails.
+                    item['needs_review'] = True
+                    item.setdefault('issues', []).append({'code': 'ocr_retry_failed',
+                        'message': 'Cell re-reading failed; original observation retained.'})
                     crop_records = []
                     break
             readings = _merge_passes(crop_records) if crop_records else []
@@ -218,7 +241,10 @@ def _split_title_block_gridlines(engine, image: np.ndarray, observations: list[d
             chosen = max(readings, key=lambda record: record['score'])
             chosen['polygon'] = chosen['polygon'] + np.asarray([x0 + left + 2, y0], dtype=float)
             chosen['split_from'] = {'text': item['text'], 'score': item['score'],
-                                    'polygon': poly.tolist(), 'rule': 'visible_vertical_gridline'}
+                                    'polygon': poly.tolist(), 'rule': 'visible_vertical_gridline',
+                                    'alternatives': item.get('alternatives', [])}
+            chosen['needs_review'] = bool(chosen.get('needs_review') or item.get('needs_review'))
+            chosen['issues'] = [*chosen.get('issues', []), *(dict(issue) for issue in item.get('issues', []))]
             if chosen.get('score', 0) < .7:
                 chosen['needs_review'] = True
                 chosen.setdefault('issues', []).append({'code': 'gridline_split_low_confidence',
@@ -242,10 +268,12 @@ def get_engine(det=None, rec=None):
                      text_det_limit_side_len=4096, text_det_limit_type='max')
 
 
-def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=None, source_size=None):
+def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=None, source_size=None, max_crop_passes=24):
     from mlocr import __version__
     started = time.perf_counter()
     path = Path(path)
+    if not isinstance(max_crop_passes, int) or max_crop_passes < 0:
+        raise ValueError('max_crop_passes must be a non-negative integer')
     if bool(crop_origin) != bool(source_size):
         raise ValueError('crop-origin and source-size must be provided together')
     result_pages = []
@@ -270,7 +298,7 @@ def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=Non
                 observation.setdefault('issues', []).append({
                     'code': 'ocr_pass_failed',
                     'message': 'At least one orientation pass failed; available readings are incomplete.'})
-        observations = _split_title_block_gridlines(engine, image, observations)
+        observations = _split_title_block_gridlines(engine, image, observations, max_crop_passes)
         items = []
         for item in observations:
             polygon = item['polygon'].copy()
@@ -299,14 +327,25 @@ def recognize_file(path, *, page=1, dpi=300, det=None, rec=None, crop_origin=Non
         if crop_origin:
             identity.update(raster_sha256=None, crop_origin=crop_origin, width_px=source_width, height_px=source_height)
         result_pages.append({'page': page_id, 'source': identity, 'width_px': source_width, 'height_px': source_height,
-                             'texts': items, 'pass_failures': pass_failures})
+                             'texts': items, 'pass_failures': pass_failures,
+                             'status': 'error' if len(pass_failures) == 3 else 'partial' if pass_failures else 'ok'})
     issues = [{'code': issue['code'], 'message': issue['message'], 'severity': 'warning', 'object_id': item['id']}
               for p in result_pages for item in p['texts'] for issue in item.get('issues', [])]
-    return {'schema_version': 'ocr-observations-1', 'status': 'ok', 'module': {'name': 'mlocr', 'version': __version__},
+    for p in result_pages:
+        if p['pass_failures']:
+            issues.append({'code': 'ocr_page_failed' if p['status'] == 'error' else 'ocr_page_incomplete',
+                           'severity': 'error' if p['status'] == 'error' else 'warning', 'object_id': p['page'],
+                           'message': f"{p['page']}: {len(p['pass_failures'])} of 3 OCR passes failed."})
+    failed = any(p['status'] == 'error' for p in result_pages)
+    return {'schema_version': 'ocr-observations-1', 'status': 'error' if failed else 'ok',
+            'completeness': 'incomplete' if any(p['pass_failures'] for p in result_pages) else 'complete',
+            'error': 'All OCR orientation passes failed on at least one page.' if failed else None,
+            'module': {'name': 'mlocr', 'version': __version__},
             'input': str(path), 'source': result_pages[0]['source'] if len(result_pages) == 1 else None,
             'pages': result_pages, 'texts': [t for p in result_pages for t in p['texts']],
             'title_block': build_title_block(result_pages), 'issues': issues,
-            'params': {'pdf_render_dpi': dpi if path.suffix.lower() == '.pdf' else None, 'det_limit_side_len': 4096, 'passes': [0, 90, 180]},
+            'params': {'pdf_render_dpi': dpi if path.suffix.lower() == '.pdf' else None, 'det_limit_side_len': 4096,
+                       'passes': [0, 90, 180], 'max_crop_passes': max_crop_passes},
             'timings_s': {'total': round(time.perf_counter()-started, 3)}}
 
 
@@ -324,13 +363,14 @@ def main() -> int:
                         help="Optional CV JSON from mlcv; adds review-only dimension-link proposals")
     parser.add_argument("--det-model-dir", type=Path, help="Local PP-OCRv5 detection model directory")
     parser.add_argument("--rec-model-dir", type=Path, help="Local PP-OCRv5 East Slavic recognition model directory")
+    parser.add_argument("--max-crop-passes", type=int, default=24, help="Per-page cell re-reading budget (0 disables it)")
     args = parser.parse_args()
     if bool(args.crop_origin) != bool(args.source_size):
         parser.error("--crop-origin and --source-size must be provided together")
 
     payload = recognize_file(args.input, page=args.page, dpi=args.dpi,
                              det=args.det_model_dir, rec=args.rec_model_dir,
-                             crop_origin=args.crop_origin, source_size=args.source_size)
+                             crop_origin=args.crop_origin, source_size=args.source_size, max_crop_passes=args.max_crop_passes)
     if args.cv_json:
         if len(payload['pages']) != 1:
             parser.error('CV linking requires exactly one matching page')
@@ -340,7 +380,7 @@ def main() -> int:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {args.output}")
-    return 0
+    return 1 if payload['status'] == 'error' else 0
 
 
 if __name__ == "__main__":

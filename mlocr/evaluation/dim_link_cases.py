@@ -30,43 +30,21 @@ os.environ.setdefault("REQUIRE_LOCAL_MODELS", "false")
 import ezdxf  # noqa: E402
 
 import ocr_link_check as base  # noqa: E402  mlcv/eval, on sys.path
+from mlocr.evaluation.matching import match_dimensions, real_observations as checked_observations  # noqa: E402
 
 DXF = ROOT / "dataset/clear_sum_dataset/vse_dxf"
 
 
 def real_observations(ocr_path, cv, payload):
-    """Readings of this mlocr run on the raster of cv.json (fresh enrichment)."""
-    from mlocr.src.normalization import enrich
-
-    texts = []
-    for source in payload["texts"]:
-        item = copy.deepcopy(source)
-        item["text"] = item.get("raw_text", item["text"])
-        had_recovery = any(c.get("rule") == "diameter_visible_in_raster" for c in source.get("corrections", []))
-        enrich(item)
-        if had_recovery and not item["text"].startswith("Ø"):
-            item["text"] = source["text"]
-            item["notation"] = source["notation"]
-        texts.append(item)
-    return {"status": "ok", "source": cv["raster_identity"], "texts": texts,
-            "issues": [], "title_block": payload.get("title_block", {})}
+    return checked_observations(payload, cv)
 
 
 def on_reference(dimension, points_by_id, dims, translation):
-    a = np.array(points_by_id[dimension["p1_ref"]]["xy"]) + translation
-    b = np.array(points_by_id[dimension["p2_ref"]]["xy"]) + translation
-    for ref in dims:
-        u = ref["u"]
-        direct = max(abs((a - ref["p1"]) @ u), abs((b - ref["p2"]) @ u))
-        swapped = max(abs((a - ref["p2"]) @ u), abs((b - ref["p1"]) @ u))
-        parallel = abs(u @ np.array([math.cos(math.radians(dimension["angle"])),
-                                     math.sin(math.radians(dimension["angle"]))])) > 0.99
-        if parallel and min(direct, swapped) <= 0.5:
-            return True
-    return False
+    """Single-candidate helper; aggregate scoring must use match_dimensions()."""
+    return bool(match_dimensions([dimension], points_by_id, dims, translation))
 
 
-def link_record(link, adapter_dimensions):
+def link_record(link, adapter_dimensions, calibration=None):
     record = {"text_id": link["text_id"], "recognized_text": link["recognized_text"],
               "nominal_mm": link["nominal_mm"], "status": link["status"], "basis": link.get("basis"),
               "reason": link.get("dimension_line_search") or link.get("decision_note"),
@@ -74,7 +52,7 @@ def link_record(link, adapter_dimensions):
     chosen = link.get("confirmed")
     if chosen:
         evidence = chosen["evidence"]
-        record.update({"view_scale": chosen["view_scale"], "scale_basis": None,
+        record.update({"view_scale": chosen["view_scale"], "scale_basis": (calibration or {}).get('view_scale_basis', 'provided_calibration'),
                        "dimension_line": evidence.get("dimension_line"),
                        "dimension_row": evidence.get("dimension_row"),
                        "extension_lines": evidence.get("extension_lines"),
@@ -100,7 +78,8 @@ def check_case(case_dir, ocr_path):
     payload = json.loads(Path(ocr_path).read_text(encoding="utf-8")) if ocr_path else None
 
     out = {"case": metrics["case"], "sheet_dxf": metrics["sheet"], "reference_dims": len(dims),
-           "view_scale_assumed": (1 / max(factors)) if factors else None, "modes": {}}
+           "ideal_reference_scale": (1 / next(iter(factors))) if len(factors) == 1 else None,
+           "modes": {}}
     if not dims:
         return out
     points = np.array([p["xy"] for p in cv.get("points", [])])
@@ -112,20 +91,24 @@ def check_case(case_dir, ocr_path):
         if mode == "real" and payload is None:
             continue
         cv_work = copy.deepcopy(cv)
-        if factors:
-            cv_work.setdefault("calibration", {})["view_scale"] = 1 / max(factors)
-        observed = (base.observations(cv_work, dims, translation) if mode == "ideal"
-                    else real_observations(ocr_path, cv_work, payload))
         try:
+            if mode == 'ideal':
+                if len(factors) != 1:
+                    raise ValueError('Ideal single-view evaluation requires exactly one reference scale')
+                cv_work.setdefault('calibration', {}).update(view_scale=1 / next(iter(factors)),
+                                                             view_scale_basis='reference_dxf_oracle')
+            observed = (base.observations(cv_work, dims, translation) if mode == "ideal"
+                        else real_observations(ocr_path, cv_work, payload))
             ocr = to_drawing(observed, cv_work)
         except Exception as exc:
             out["modes"][mode] = {"error": f"{type(exc).__name__}: {exc}"}
             continue
         points_by_id = {p["id"]: p for p in cv_work["points"]}
         links = ocr.get("dimension_links", [])
-        records = [link_record(link, ocr.get("dimensions", [])) for link in links]
-        correct = sum(1 for d in ocr.get("dimensions", [])
-                      if on_reference(d, points_by_id, dims, translation))
+        dimensions = ocr.get('dimensions', [])
+        records = [link_record(link, dimensions, cv_work.get('calibration')) for link in links]
+        matches = match_dimensions(dimensions, points_by_id, dims, translation)
+        correct = len(matches)
         graph = assemble_graph(cv_work, ocr, "check")
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "out.dxf"
@@ -138,6 +121,15 @@ def check_case(case_dir, ocr_path):
                                                for link in links if not link.get("confirmed"))),
             "dimensions": len(ocr.get("dimensions", [])),
             "dimensions_on_reference": correct,
+            "wrong_or_extra_dimensions": len(dimensions) - correct,
+            "missed_reference_dimensions": len(dims) - correct,
+            "precision": correct / len(dimensions) if dimensions else None,
+            "recall": correct / len(dims),
+            "matched_nominals_correct": sum(math.isclose(dimensions[i]['nominal_mm'], dims[j]['nominal'], abs_tol=.01)
+                                             for i, j in matches),
+            "calibration": copy.deepcopy(cv_work.get('calibration', {})),
+            "reference_assisted": mode == 'ideal',
+            "ocr_status": observed.get('status'), "ocr_issues": observed.get('issues', []),
             "dxf_dimensions": dxf_dimensions,
             "export_errors": dict(collections.Counter(i.code for i in issues if i.severity == "error")),
             "records": records,
@@ -151,6 +143,8 @@ def main():
     parser.add_argument("--ocr", nargs="*", default=[], help="OCR observations JSON per case dir (same order)")
     parser.add_argument("--out", type=Path, default=None)
     args = parser.parse_args()
+    if args.ocr and len(args.ocr) != len(args.cases):
+        parser.error('--ocr must provide exactly one OCR file for every case')
     results = []
     for index, case_dir in enumerate(args.cases):
         ocr_path = args.ocr[index] if index < len(args.ocr) else None
@@ -166,7 +160,10 @@ def main():
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"wrote {args.out}")
+    if not any(result['modes'] for result in results):
+        parser.error('No reference dimensions found; no quality evaluation was performed')
+    return 1 if any('error' in mode for result in results for mode in result['modes'].values()) else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

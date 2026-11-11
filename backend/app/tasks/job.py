@@ -2,16 +2,21 @@ import asyncio
 import json
 import logging
 import os
+import shutil
+import tempfile
 import time
 from datetime import datetime, timezone
+from pathlib import Path
+
+from sqlalchemy import text
 
 from app.domain.drawing import DrawingGraph, Issue
 from app.services.dxf import DxfExporter
 from app.infra.db import SessionLocal
 from app.infra.storage import artifact_from_path, atomic_json, job_dir, existing_run_dir
-from app.infra.models import Run
 from app.repositories.jobs import RunRepository
 from app.services.recognition import recognize
+from app.services.geometry import geometry_signature
 
 log = logging.getLogger(__name__)
 
@@ -20,36 +25,27 @@ def now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-async def recover_interrupted_runs() -> None:
-    async with SessionLocal.begin() as session:
-        runs = await RunRepository(session).running_for_recovery()
-        for run in runs:
-            path = existing_run_dir(run.job_id, run.id, run.number) / "report.json"
-            await asyncio.to_thread(atomic_json, path, {"status": "failed", "error": {"code": "worker_interrupted", "message": "Worker stopped before completion"}})
-            if not any(a.name == "report.json" for a in run.artifacts):
-                session.add(await asyncio.to_thread(artifact_from_path, run.id, path))
-            run.state = run.job.state = "failed"
-            run.stage = "done"
-            run.error_code = "worker_interrupted"
-            run.error_message = "Worker stopped before completion"
-            run.finished_at = now()
-
-
-async def claim_run() -> str | None:
-    async with SessionLocal.begin() as session:
-        run = await RunRepository(session).next_queued()
-        if run is None:
-            return None
-        run.state = run.job.state = "running"
-        run.stage = "prepare"
-        run.started_at = now()
-        return run.id
-
-
-async def set_stage(run_id: str, stage: str) -> None:
-    async with SessionLocal.begin() as session:
-        run = await RunRepository(session).get(run_id)
-        run.stage = stage
+async def run_cpu(function, *args, **kwargs):
+    task = asyncio.create_task(asyncio.to_thread(function, *args, **kwargs))
+    cancelled = False
+    while True:
+        try:
+            result = await asyncio.shield(task)
+            break
+        except asyncio.CancelledError:
+            cancelled = True
+            if task.done():
+                break
+        except Exception:
+            if not cancelled:
+                raise
+            log.exception("Thread operation failed during worker shutdown")
+            break
+    if cancelled:
+        if task.done() and not task.cancelled():
+            task.exception()
+        raise asyncio.CancelledError
+    return result
 
 
 def _recognize(source, out, source_hash, parameters):
@@ -59,6 +55,7 @@ def _recognize(source, out, source_hash, parameters):
             raise ValueError("DrawingGraph source_sha256 differs from original")
     else:
         graph = recognize(source, out, source_hash)
+    graph.provenance.setdefault("dimension_geometry_sha256", geometry_signature(graph))
     atomic_json(out / "drawing.json", graph.model_dump())
     return graph
 
@@ -80,43 +77,69 @@ def _export(graph, out, source_hash):
     return state
 
 
-async def process_run(run_id: str) -> None:
-    async with SessionLocal() as session:
-        run = await RunRepository(session).get(run_id)
-        job = run.job
-        source = job_dir(job.id) / "input" / f"original{job.source_ext}"
-        out = existing_run_dir(job.id, run.id, run.number)
-        source_hash = job.source_sha256
-        parameters = json.loads(run.parameters)
+async def _fail_run(session, run, out, code, message):
+    report_path = out / "report.json"
     try:
-        await asyncio.to_thread(out.mkdir, parents=True, exist_ok=True)
-        await set_stage(run_id, "recognize")
-        graph = await asyncio.to_thread(_recognize, source, out, source_hash, parameters)
-        await set_stage(run_id, "export")
-        state = await asyncio.to_thread(_export, graph, out, source_hash)
-        async with SessionLocal.begin() as session:
-            run = await RunRepository(session).get(run_id)
-            for name in ("cv.json", "ocr.json", "ocr-observations.json", "drawing.json", "result.dxf", "preview.png", "report.json"):
-                path = out / name
-                if await asyncio.to_thread(path.exists):
-                    session.add(await asyncio.to_thread(artifact_from_path, run.id, path))
-            run.state = run.job.state = state
-            run.stage = "done"
-            run.finished_at = now()
-    except Exception as exc:
-        log.exception("run %s failed", run_id)
-        report_path = out / "report.json"
+        await run_cpu(atomic_json, report_path,
+                      {"status": "failed", "error": {"code": code, "message": message}})
+    except OSError:
+        log.exception("could not write failure report for run %s", run.id)
+    if await run_cpu(report_path.is_file) and not any(a.name == "report.json" for a in run.artifacts):
+        session.add(await run_cpu(artifact_from_path, run.id, report_path))
+    run.state = run.job.state = "failed"
+    run.stage = "done"
+    run.error_code = code
+    run.error_message = message[:2000]
+    run.finished_at = now()
+
+
+async def process_run(run_id: str | None = None) -> str | None:
+    async with SessionLocal.begin() as session:
+        run = await RunRepository(session).next_pending(run_id)
+        if run is None:
+            return None
+        out = existing_run_dir(run.job_id, run.id, run.number)
+        if run.state == "running" or await run_cpu((out / "report.json").exists):
+            await _fail_run(session, run, out, "worker_interrupted",
+                            "Worker stopped before completion; retry creates a new run")
+            return run.id
+        run.state = "running"
+        run.stage = "recognize"
+        run.started_at = now()
         try:
-            await asyncio.to_thread(atomic_json, report_path,
-                                    {"status": "failed", "error": {"code": type(exc).__name__, "message": str(exc)}})
-        except OSError:
-            log.exception("could not write failure report for run %s", run_id)
-        async with SessionLocal.begin() as session:
-            run = await RunRepository(session).get(run_id)
-            if await asyncio.to_thread(report_path.is_file):
-                session.add(await asyncio.to_thread(artifact_from_path, run.id, report_path))
-            run.state = run.job.state = "failed"
-            run.stage = "done"
-            run.error_code = type(exc).__name__
-            run.error_message = str(exc)[:2000]
-            run.finished_at = now()
+            await run_cpu(atomic_json, out / "report.json", {"status": "running", "stage": "recognize"})
+            with tempfile.TemporaryDirectory(prefix="practice44-run-") as temporary:
+                await _process_run(session, run, out, Path(temporary))
+        except Exception as exc:
+            await session.execute(text("SELECT 1"))
+            log.exception("run %s failed", run.id)
+            await _fail_run(session, run, out, type(exc).__name__, str(exc))
+        return run.id
+
+
+async def _process_run(session, run, out, work):
+    job = run.job
+    source = job_dir(job.id) / "input" / f"original{job.source_ext}"
+    parameters = json.loads(run.parameters)
+    if parameters.get("drawing_path"):
+        await run_cpu(shutil.copyfile, out / "submitted.json", work / "submitted.json")
+    graph = await run_cpu(_recognize, source, work, job.source_sha256, parameters)
+    await session.execute(text("SELECT 1"))
+    run.stage = "export"
+    await run_cpu(atomic_json, out / "report.json", {"status": "running", "stage": "export"})
+    state = await run_cpu(_export, graph, work, job.source_sha256)
+    await session.execute(text("SELECT 1"))
+    for path in work.iterdir():
+        if path.is_file() and path.name != "submitted.json":
+            if path.name == "report.json":
+                report = json.loads(await run_cpu(path.read_text, encoding="utf-8"))
+                await run_cpu(atomic_json, out / path.name, report)
+            else:
+                await run_cpu(shutil.copyfile, path, out / path.name)
+    for name in ("cv.json", "ocr.json", "ocr-observations.json", "drawing.json", "result.dxf", "preview.png", "report.json"):
+        path = out / name
+        if await run_cpu(path.exists):
+            session.add(await run_cpu(artifact_from_path, run.id, path))
+    run.state = run.job.state = state
+    run.stage = "done"
+    run.finished_at = now()

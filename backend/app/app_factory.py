@@ -1,12 +1,17 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1 import health, jobs
+from app.config import get_settings
 from app.use_cases.jobs import JobError
 
 
 def create_app() -> FastAPI:
     app = FastAPI(title="Drawing to DXF API")
+    if get_settings().cors_origins:
+        app.add_middleware(CORSMiddleware, allow_origins=get_settings().cors_origins,
+                           allow_methods=["GET", "POST"], allow_headers=["Authorization", "Content-Type"])
     app.include_router(health.router)
     app.include_router(jobs.router)
 

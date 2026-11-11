@@ -66,7 +66,8 @@ def normalize_text(raw: str) -> tuple[str, list[dict]]:
             text = updated
     # A case jump matters only across scripts (Cyrillic word glued to a Latin one); a merged
     # same-script token ("MaccaMacwmad") stays untouched as OCR evidence.
-    insert_space(r"([a-z])([А-ЯЁ])|([а-яё])([A-Z])", 'word_boundary_case')
+    insert_space(r"([a-z])([А-ЯЁ])", 'word_boundary_case')
+    insert_space(r"([а-яё])([A-Z])", 'word_boundary_case')
     # Split adjacent title-block abbreviations, but keep identifiers such as 03.XXXX.03 intact,
     # and do not break initials: a capital followed by a dot is an initial, not a new sentence.
     insert_space(r"(?<=[A-Za-zА-Яа-яЁё])([.!?])([A-ZА-ЯЁ])(?![.!?])", 'word_boundary_punctuation')

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Макеты состояний — Светлая тема</title>
+<style>
+  /* ===== СВЕТЛАЯ ТЕМА ===== */
+  :root {
+    --bg: #f4f6fb;
+    --text: #1a1a1a;
+    --heading: #0834f9;
+    --card-bg: #ffffff;
+    --card-border: rgba(0, 0, 0, 0.1);
+    --btn-bg: #0834f9;
+    --btn-bg-hover: #0525b8;
+    --btn-text: #ffffff;
+    --error: #d93025;
+    --secondary-border: rgba(0, 0, 0, 0.2);
+    --secondary-hover: rgba(0, 0, 0, 0.05);
+    --radius: 14px;
+    --transition: 0.2s ease;
+  }
+
+  /* Базовые стили */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; 
+    background: var(--bg); 
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 24px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 32px;
+    align-items: center;
+    transition: background-color var(--transition), color var(--transition);
+  }
+
+  .state {
+    width: 100%; 
+    max-width: 720px;
+    border: 1px dashed #ccc; 
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .state__label {
+    font-size: 0.8rem; 
+    color: #888; 
+    margin-bottom: 12px;
+    text-transform: uppercase; 
+    letter-spacing: 0.05em;
+  }
+
+  /* Шапка */
+  .header { text-align: center; }
+  .title { margin: 0 0 8px; color: var(--heading); font-size: 1.75rem; }
+  .subtitle { margin: 0 0 16px; opacity: 0.75; }
+
+  /* Карточки */
+  .card {
+    background: var(--card-bg); 
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius); 
+    padding: 24px;
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* Легкая тень для светлой темы */
+  }
+  .card--result { 
+    border-color: var(--heading); 
+  }
+
+  /* Dropzone */
+  .dropzone {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; 
+    gap: 8px; 
+    padding: 40px 20px;
+    border: 2px dashed var(--card-border); 
+    border-radius: var(--radius);
+    text-align: center; 
+    background: #fafbfc;
+  }
+  .dropzone__icon { font-size: 2rem; }
+  .dropzone__hint { font-size: 0.85rem; opacity: 0.6; }
+
+  /* Инфо о файле */
+  .file-info {
+    display: flex; 
+    align-items: center; 
+    gap: 12px;
+    padding: 12px 14px; 
+    border-radius: 10px;
+    background: #f0f2f5;
+  }
+  .file-info__name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-info__clear { background: none; border: none; color: var(--text); font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
+
+  /* Кнопки */
+  .btn {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 14px 20px; 
+    border: none; 
+    border-radius: 10px;
+    background: var(--btn-bg); 
+    color: var(--btn-text); 
+    font-size: 1rem; 
+    font-weight: 600;
+    text-decoration: none; 
+    cursor: pointer; 
+    width: 100%;
+    max-width: 100%;
+    transition: background-color var(--transition);
+  }
+  .btn:hover:not(:disabled) { background: var(--btn-bg-hover); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .btn--secondary {
+    background: transparent;
+    border: 2px solid var(--secondary-border);
+    color: var(--text);
+  }
+  .btn--secondary:hover:not(:disabled) {
+    background: var(--secondary-hover);
+    border-color: var(--text);
+  }
+
+  /* Сообщения об ошибках */
+  .message--error { color: var(--error); margin: 0; font-size: 0.9rem; font-weight: 500; }
+
+  /* Заголовки результата */
+  .result__title { margin: 0; color: var(--heading); font-size: 1.35rem; font-weight: bold; }
+  .result__text { margin: 0; opacity: 0.85; }
+
+  /* Лоадер */
+  .loader { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 40px 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .loader__spinner {
+    width: 44px; 
+    height: 44px; 
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top-color: var(--heading); 
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="state">
+  <div class="state__label">1. До загрузки файла</div>
+  <header class="header">
+    <h1 class="title">Распознавание чертежей</h1>
+    <p class="subtitle">Загрузите скан чертежа — получите готовый DXF-файл</p>
+  </header>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="state">
+  <div class="state__label">2. Файл выбран</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <div class="file-info">
+      <span class="file-info__name">detail_assembly_v3.pdf</span>
+      <button class="file-info__clear">✕</button>
+    </div>
+    <button class="btn">Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="state">
+  <div class="state__label">3. Процесс обработки</div>
+  <div class="loader">
+    <div class="loader__spinner"></div>
+    <p>Обрабатываем чертёж…</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="state">
+  <div class="state__label">4. Успешный результат</div>
+  <div class="card card--result">
+    <h2 class="result__title">Готово!</h2>
+    <p class="result__text">Файл обработан. Скачайте результат:</p>
+    <div style="width: 100%; box-sizing: border-box;">
+      <a class="btn" href="#" style="margin-bottom: 12px;">⬇ Скачать DXF</a>
+    </div>
+    <button type="button" class="btn btn--secondary">Загрузить другой файл</button>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="state">
+  <div class="state__label">5. Ошибка: неподдерживаемый формат</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Неподдерживаемый формат файла (.docx). Разрешены: pdf, jpeg, jpg, png, tif, tiff, bmp.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="state">
+  <div class="state__label">6. Ошибка: файл слишком большой</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Файл слишком большой. Максимум — 25 МБ.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="state">
+  <div class="state__label">7. Ошибка: пустой файл</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Файл пустой.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="state">
+  <div class="state__label">8. Ошибка: файл не выбран</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <p class="message--error">⚠ Сначала выберите файл.</p>
+    <button class="btn" disabled>Распознать чертёж</button>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="state">
+  <div class="state__label">9. Ошибка: сервер не смог обработать</div>
+  <div class="card">
+    <div class="dropzone">
+      <span class="dropzone__icon">📄</span>
+      <span>Перетащите файл сюда или <u>выберите на устройстве</u></span>
+      <span class="dropzone__hint">PDF, JPEG, PNG, TIFF, BMP — до 25 МБ</span>
+    </div>
+    <div class="file-info">
+      <span class="file-info__name">detail_assembly_v3.pdf</span>
+      <button class="file-info__clear">✕</button>
+    </div>
+    <p class="message--error">⚠ Не удалось распознать чертёж. Попробуйте другой файл.</p>
+    <button class="btn">Распознать чертёж</button>
+  </div>
+</section>
+
+</body>
+</html>

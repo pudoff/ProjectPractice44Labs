@@ -8,6 +8,7 @@ from app.domain.drawing import DrawingGraph, Issue
 from app.infra.storage import atomic_json
 from app.infra.cv import run_builtin_recognition
 from app.services.image import ImageService
+from app.services.geometry import geometry_signature
 
 
 def call_adapter(target: str, image: Path) -> dict:
@@ -50,14 +51,16 @@ def assemble_graph(cv: dict, ocr: dict, source_sha256: str) -> DrawingGraph:
         group = hatch_links.get(candidate.get("id"))
         hatches.append({**candidate, **({"outer_ref": group["contour_id"],
                                        "hole_refs": group.get("hole_contour_ids", [])} if group else {})})
-    return DrawingGraph(
+    graph = DrawingGraph(
         coordinate_space=cv.get("coordinate_space", "part_mm"), source_sha256=source_sha256, scale_status=scale_status,
         primitives=primitives, hatches=hatches, texts=ocr.get("texts", []), dimensions=dimensions, issues=issues,
         points=cv.get("points", []), contours=cv.get("contours", []), objects=cv.get("objects", {}),
         calibration=cv.get("calibration", {}), transforms=cv.get("transforms", {}), title_block=ocr.get("title_block", {}),
-        provenance={"cv": {key: cv[key] for key in ("module", "source", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups", "closures") if key in cv},
+        provenance={"cv": {key: cv[key] for key in ("module", "source", "raster_identity", "params", "preprocess", "stats", "summary", "timings_s", "text_regions", "defects", "hatch_groups", "closures") if key in cv},
                     "ocr": {key: ocr[key] for key in ("module", "source", "params", "timings_s", "observations", "dimension_links") if key in ocr}},
     )
+    graph.provenance['dimension_geometry_sha256'] = geometry_signature(graph)
+    return graph
 
 
 def recognize(source: Path, run_path: Path, source_sha256: str) -> DrawingGraph:
@@ -74,24 +77,44 @@ def recognize(source: Path, run_path: Path, source_sha256: str) -> DrawingGraph:
             except Exception as exc:
                 return {"schema_version": "0.1", "status": "error", "error": f"{type(exc).__name__}: {exc}"}
         ocr = invoke(settings.ocr_adapter)
-        if ocr.get('schema_version') == 'ocr-observations-1' and ocr.get('status') == 'ok':
+        from mlocr.src.inputs import assert_same_page, iter_pages, page_identity
+        _, pixels = next(iter_pages(image, 1, 300))
+        expected = page_identity(pixels)
+        del pixels
+        if ocr.get('schema_version') == 'ocr-observations-1':
             raw_path = run_path / 'ocr-observations.json'
             atomic_json(raw_path, ocr)
-            if settings.cv_adapter == 'drawcv.adapter:run_cv':
+            if settings.cv_adapter == 'drawcv.adapter:run_cv' and ocr.get('status') == 'ok':
                 from drawcv.adapter import run_cv
                 cv = run_cv(image, ocr_json=raw_path)
             else:
                 cv = invoke(settings.cv_adapter)
             try:
                 from mlocr.src.adapter import to_drawing
+                assert_same_page(ocr, {'raster_identity': expected})
+                assert_same_page({'source': expected}, cv)
                 ocr = to_drawing(ocr, cv)
             except Exception as exc:
-                ocr = {'status': 'error', 'error': f'OCR/CV assembly: {type(exc).__name__}: {exc}', 'texts': [], 'issues': []}
+                ocr = {**{key: ocr[key] for key in ('module', 'source', 'params') if key in ocr},
+                       'status': 'error', 'error': f'OCR/CV assembly: {type(exc).__name__}: {exc}', 'texts': [], 'issues': []}
         else:
             cv = invoke(settings.cv_adapter)
+        for name, result in (("cv", cv), ("ocr", ocr)):
+            try:
+                identity = result.get('raster_identity') if name == 'cv' else result.get('source')
+                assert_same_page({'source': expected}, {'raster_identity': identity or {}})
+            except ValueError as exc:
+                rejected = {key: result[key] for key in ('module', 'source', 'params') if key in result}
+                rejected.update(status='error', error=str(exc), scale_status='unknown')
+                if name == 'cv':
+                    cv = rejected
+                else:
+                    ocr = rejected
     atomic_json(run_path / "cv.json", cv)
     atomic_json(run_path / "ocr.json", ocr)
     graph = assemble_graph(cv, ocr, source_sha256)
+    graph.provenance['adapters'] = {'profile': settings.recognition_profile,
+                                    'ocr': settings.ocr_adapter, 'cv': settings.cv_adapter}
     graph.provenance["input"] = json.loads(image.with_suffix(".json").read_text(encoding="utf-8"))
     if os.getenv("DRAWCV_MODEL_MANIFEST"):
         graph.provenance["models"] = json.loads(Path(os.environ["DRAWCV_MODEL_MANIFEST"]).read_text(encoding="utf-8"))
